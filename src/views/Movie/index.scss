@@ -1,0 +1,106 @@
+.movie-wrapper {
+  background: #0a1016;
+}
+
+.hero {
+  position: relative;
+  clip-path: inset(0 0 0 0);
+  .movie-background {
+    background: #0a1016;
+    overflow: hidden;
+    img {
+      position: fixed;
+      width: 100%;
+      height: auto;
+      filter: blur(10px);
+    }
+  }
+  .hero-head {
+    .back-button {
+      padding: 1rem;
+    }
+  }
+  .hero-body {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    .stars-container {
+      position: relative;
+      top: -0.5rem;
+      background: black;
+      .stars {
+        padding: 0.5rem;
+        font-size: 1erm;
+        display: block;
+        position: relative;
+      }
+      .stars::before {
+        font-family: "Font Awesome 5 Free";
+        color: #feca57;
+        content: "\f005 \f005 \f005 \f005 \f005";
+      }
+    }
+    .title {
+      margin-bottom: 1rem;
+    }
+    .genre-list {
+      list-style: none;
+      li {
+        display: inline;
+        font-size: 0.9rem;
+        padding: 0.25rem 0.5rem;
+        margin-right: 0.5rem;
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 3px;
+        cursor: pointer;
+        font: 700;
+      }
+    }
+    .description {
+      margin: 1rem 0;
+    }
+    .info {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.8rem;
+      div {
+        display: inline-block;
+        padding-right: 1rem;
+      }
+      .cert {
+        background: #f7b731;
+        font-weight: bold;
+        padding: 0.25rem 0.5rem;
+        margin-right: 1rem;
+        border-radius: 3px;
+      }
+    }
+  }
+}
+
+.overlay-gradient {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: auto;
+  background: none;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#0a1016+0,0a1016+100&0.33+0,1+100 */
+  background: -moz-linear-gradient(top, rgba(10, 16, 22, 0.33) 0%, rgba(10, 16, 22, 1) 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, rgba(10, 16, 22, 0.33) 0%, rgba(10, 16, 22, 1) 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, rgba(10, 16, 22, 0.33) 0%, rgba(10, 16, 22, 1) 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#540a1016', endColorstr='#0a1016', GradientType=0);
+  /* IE6-9 */
+}
+
+.main-container {
+  padding: 1rem;
+  
+  .chart-container {
+    background: #ffffff;
+    padding: 1rem;
+  }
+}
