@@ -1,11 +1,10 @@
 <template>
   <div class="celebs-overview-block">
     <p><strong>{{ title }}</strong></p>
-    <br>
     <ul>
       <li v-for="(celeb, index) in celebs" :key='index'>
-        <router-link :to="'/celeb/' + celeb.id" tag="div">
-          <div class="columns celeb-container">
+        <router-link :to="'/celeb/' + celeb.id" tag="div" class="celeb-container">
+          <div class="columns is-gapless">
             <figure class="column is-narrow">
               <img :src="celeb.photo">
             </figure>

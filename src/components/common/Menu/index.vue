@@ -16,8 +16,12 @@
           <router-link class="navbar-item" to="/">EXPLORE</router-link>
           <router-link class="navbar-item" to="/">SEARCH</router-link>
         </div>
-        <div class="navbar-end">
-          <router-link class="navbar-item" to="/">LOGIN</router-link>
+        <div v-if="user" class="navbar-end">
+          <router-link class="navbar-item" to="/dashboard">{{user.displayName}}</router-link>
+          <a class="navbar-item" @click="logOut">LOGOUT</a>
+        </div>
+        <div v-else class="navbar-end">
+          <router-link class="navbar-item" to="/login">LOGIN</router-link>         
         </div>
       </div>
     </div>

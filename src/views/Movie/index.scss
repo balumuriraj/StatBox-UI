@@ -1,5 +1,5 @@
 .movie-wrapper {
-  background: #0a1016;
+  background: #EFF3F4;
 }
 
 .hero {
@@ -15,65 +15,9 @@
       filter: blur(10px);
     }
   }
-  .hero-head {
-    .back-button {
-      padding: 1rem;
-    }
-  }
   .hero-body {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-    .stars-container {
-      position: relative;
-      top: -0.5rem;
-      background: black;
-      .stars {
-        padding: 0.5rem;
-        font-size: 1erm;
-        display: block;
-        position: relative;
-      }
-      .stars::before {
-        font-family: "Font Awesome 5 Free";
-        color: #feca57;
-        content: "\f005 \f005 \f005 \f005 \f005";
-      }
-    }
-    .title {
-      margin-bottom: 1rem;
-    }
-    .genre-list {
-      list-style: none;
-      li {
-        display: inline;
-        font-size: 0.9rem;
-        padding: 0.25rem 0.5rem;
-        margin-right: 0.5rem;
-        background: rgba(255, 255, 255, 0.25);
-        border-radius: 3px;
-        cursor: pointer;
-        font: 700;
-      }
-    }
-    .description {
-      margin: 1rem 0;
-    }
-    .info {
-      margin-top: 1rem;
-      margin-bottom: 1rem;
-      font-size: 0.8rem;
-      div {
-        display: inline-block;
-        padding-right: 1rem;
-      }
-      .cert {
-        background: #f7b731;
-        font-weight: bold;
-        padding: 0.25rem 0.5rem;
-        margin-right: 1rem;
-        border-radius: 3px;
-      }
-    }
+    padding-top: 5rem;
+    padding-bottom: 5rem;
   }
 }
 
@@ -94,13 +38,4 @@
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#540a1016', endColorstr='#0a1016', GradientType=0);
   /* IE6-9 */
-}
-
-.main-container {
-  padding: 1rem;
-  
-  .chart-container {
-    background: #ffffff;
-    padding: 1rem;
-  }
 }

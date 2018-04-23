@@ -8,13 +8,7 @@
       
       <!-- Hero head: will stick at the top -->
       <div class="hero-head">
-        <nav class="navbar container" role="navigation" aria-label="main navigation">
-          <div class="navbar-brand">
-            <router-link class="back-button" to="/">
-              <i class="fas fa-caret-left"></i> Back
-            </router-link>
-          </div>
-        </nav>
+        <Menu></Menu>
       </div>
 
       <!-- Hero content: will be in the middle -->
@@ -22,24 +16,10 @@
         <div class="container">
           <div class="columns is-centered">
             <div class="column is-narrow has-text-centered">
-              <img :src="movie.poster" />
-              <div class="stars-container">
-                  <div class="stars"></div>
-              </div>
+              <Poster :imageUrl=movie.poster></Poster>
             </div>
             <div class="column is-half">
-              <h1 class="title">{{ movie.title }}</h1>
-              <ul class="genre-list">
-                <li v-for="(genre, index) in movie.genre" :key='index'>
-                  <router-link to="/">{{ genre }}</router-link>
-                </li>
-              </ul>
-              <p class="description">{{ description }}</p>
-              <div class="info">
-                <div class="cert">{{ cert }}</div>
-                <div><i class="fas fa-calendar-alt"></i> {{ movie.date }}</div>
-                <div><i class="fas fa-clock"></i> {{ movie.runtime }} mins</div>
-              </div>
+              <Content :movie=movie></Content>      
             </div>
           </div>
           
@@ -49,24 +29,42 @@
 
     <!-- content -->
     <section class="section">
-        <div class="container">
-          <div class="columns is-centered">
-            <div class="column">
-              <div class="columns main-container">
-                <div class="column chart-container">
-                  <div class ="ct-chart ct-golden-section"></div>
-                </div>
-                <div class="column">
-                  
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column">
+            <div class="main-container">
+              <div class="tile is-ancestor">
+                <div class="tile is-vertical">
+                  <div class="tile is-hidden-touch">
+                    <Stats></Stats>
+                    <Attributes></Attributes>
+                  </div>
+                  <div class="tile is-vertical is-hidden-desktop">
+                    <Stats></Stats>
+                    <Attributes></Attributes>
+                  </div>
+                  <div class="tile is-parent">
+                    <article class="tile is-child notification is-white">
+                      <Title name="Movies" subtitle=" released this month"></Title>
+                      <Table :headers="['Title','Release Date','Certification','Runtime']" :rows=movies></Table>
+                    </article>
+                  </div>
+                  <div class="tile is-parent">
+                    <article class="tile is-child">
+                      <p class="title">Similars</p>    
+                      <List></List> 
+                    </article>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="column is-narrow">
-              <CelebsList :title="'Crew'" :celebs=crew></CelebsList>
-              <CelebsList :title="'Cast'" :celebs=cast></CelebsList>
-            </div>
+          </div>
+          <div class="column side-container is-narrow">
+            <CelebsList :title="'Crew'" :celebs=crew></CelebsList>
+            <CelebsList :title="'Cast'" :celebs=cast></CelebsList>
           </div>
         </div>
+      </div>
     </section>
     
     <!-- footer -->

@@ -1,0 +1,34 @@
+.celebs-overview-block {
+  padding: 1.5em;
+  background: #ffffff;
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    li {
+      padding: 0;
+      margin: 0.5rem 0;
+      width: 15rem;
+      .celeb-container {
+        cursor: pointer;
+        overflow: hidden;
+        figure {
+          img {
+            width: 2.5rem;
+            border-radius: 3px;
+          }
+        }
+        .celeb-content {
+          margin-left: 1rem;
+          p {
+            font-size: 0.85rem;
+          }
+          span {
+            font-size: 0.75rem;
+            opacity: 0.75;
+          }
+        }
+      }
+    }
+  }
+}

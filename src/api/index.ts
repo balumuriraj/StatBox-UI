@@ -1,97 +1,32 @@
-import falcor from 'falcor';
-import HttpDataSource from 'falcor-http-datasource';
-
-const baseUrl = 'http://mbalumuri-mac.esri.com:4000';
-
-const model = new falcor.Model({
-  source: new HttpDataSource(baseUrl + '/model.json', {
-    // Options here
-    // headers: {
-    //     // Any headers here
-    //     'Authorization': `bearer ' + token` // JWT
-    // },
-    withCredentials: false // , Cookies
-    // crossDomain: true // CORSl
-  })
-});
-
+import { getMoviesByYears, getMovieById, getMoviesByYearMonth, getMoviesCountByYearMonth } from '@/api/falcor/movie';
+import { getReviewsCountById, getReviewsById } from '@/api/falcor/review';
+import { getRoleCountByMovieId, getRoleByMovieId } from '@/api/falcor/role';
+import { getUserById } from '@/api/falcor/critic';
 
 export async function getMovies() {
   const years = [2017, 2016, 2015];
-  const movies = await model.get(['moviesByYear', years, 'movies', {
-    from: 0,
-    to: 9
-  },
-    ['id', 'title', 'date', 'poster', 'runtime', 'rating']
-  ])
-    .then((response: any) => {
-      const yearsObj = response.json.moviesByYear;
-      const result: any[] = [];
-
-      for (const year of years) {
-        const moviesObj = yearsObj[year].movies;
-
-        for (const movieId in moviesObj) {
-          if (moviesObj[movieId] && moviesObj[movieId].title) {
-            result.push(moviesObj[movieId]);
-          }
-        }
-      }
-
-      return result;
-    });
-
-  return movies;
+  return await getMoviesByYears(years);
 }
 
 export async function getMovie(id: number) {
-  const movie = await model.get([
-    'moviesById',
-    [id],
-    ['title', 'description', 'date', 'poster', 'runtime', 'genre', 'cert']
-  ])
-    .then((response: any) => {
-      const result: any = response.json.moviesById[id];
-      const { title, description, date, poster, runtime, genre, cert } = result;
+  const movie = await getMovieById(id);
 
-      return { title, description, date, poster, runtime, genre, cert };
-    });
+  // cast
+  const castCount = await getRoleCountByMovieId(id, 'cast');
+  const cast = await getRoleByMovieId(id, 'cast', castCount);
+  movie.cast = cast;
 
-  const reviewsCount = await model.get([
-    'reviewsByMovieId',
-    [id],
-    'reviews', 'length'
-  ])
-    .then((response: any) => {
-      return response.json.reviewsByMovieId[id].reviews.length;
-    });
+  // crew
+  const crewCount = await getRoleCountByMovieId(id, 'crew');
+  const crew = await getRoleByMovieId(id, 'crew', crewCount);
+  movie.crew = crew;
 
-  const reviews = await model.get([
-    'reviewsByMovieId',
-    [id],
-    'reviews', { length: reviewsCount },
-    ['url', 'rating', 'critic']
-  ])
-    .then((response: any) => {
-      const data = response.json.reviewsByMovieId[id].reviews;
-      const result: any[] = [];
+  // reviews
+  const reviewsCount = await getReviewsCountById(id, 'movie');
+  const reviews = await getReviewsById(id, 'movie', reviewsCount);
+  movie.reviews = reviews;
 
-      for (const index in data) {
-        if (data[index]) {
-          const review = data[index];
-
-          if (review.rating) {
-            result.push({
-              url: review.url,
-              rating: review.rating,
-              critic: review.critic
-            });
-          }
-        }
-      }
-      return result;
-    });
-
+  // ratings
   const ratings: number[] = [];
 
   for (const index in reviews) {
@@ -103,85 +38,15 @@ export async function getMovie(id: number) {
       }
     }
   }
-
-  movie.reviews = reviews;
   movie.ratings = getBins(ratings.sort());
 
-  const castCount = await model.get([
-    'castByMovieId',
-    [id],
-    'roles', 'length'
-  ])
-    .then((response: any) => {
-      return response.json.castByMovieId[id].roles.length;
-    });
-  const cast = await model.get([
-    'castByMovieId',
-    [id],
-    'roles', { length: castCount },
-    ['id', 'type', 'category', 'celeb'],
-    [ 'id', 'name', 'photo' ]
-  ])
-    .then((response: any) => {
-      const data = response.json.castByMovieId[id].roles;
-      const result: any[] = [];
-
-      for (const index in data) {
-        if (data[index]) {
-          const role = data[index];
-
-          if (role.celeb && role.celeb.name) {
-            result.push({
-              id: role.celeb.id,
-              name: role.celeb.name,
-              photo: role.celeb.photo,
-              role: role.type
-            });
-          }
-        }
-      }
-      return result;
-    });
-
-  movie.cast = cast;
-
-  const crewCount = await model.get([
-    'crewByMovieId',
-    [id],
-    'roles', 'length'
-  ])
-    .then((response: any) => {
-      return response.json.crewByMovieId[id].roles.length;
-    });
-  const crew = await model.get([
-    'crewByMovieId',
-    [id],
-    'roles', { length: castCount },
-    ['id', 'type', 'category', 'celeb'],
-    [ 'id', 'name', 'photo' ]
-  ])
-    .then((response: any) => {
-      const data = response.json.crewByMovieId[id].roles;
-      const result: any[] = [];
-
-      for (const index in data) {
-        if (data[index]) {
-          const role = data[index];
-
-          if (role.celeb && role.celeb.name) {
-            result.push({
-              id: role.celeb.id,
-              name: role.celeb.name,
-              photo: role.celeb.photo,
-              role: role.type
-            });
-          }
-        }
-      }
-      return result;
-    });
-
-  movie.crew = crew;
+  // movies by month
+  const date = new Date(movie.date);
+  const year = date.getFullYear();
+  const month = date.getUTCMonth() + 1;
+  const moviesByMonthCount = await getMoviesCountByYearMonth(year, month);
+  const moviesByMonth = await getMoviesByYearMonth(year, month, moviesByMonthCount);
+  movie.moviesByMonth = moviesByMonth;
 
   console.log(movie);
 
@@ -190,40 +55,28 @@ export async function getMovie(id: number) {
 
 export async function getUser(id: number) {
   const userId = id || 1;
-  const user = await model.get(['criticsById', [userId], ['name', 'image']])
-    .then((response: any) => {
-      const user: any = response.json.criticsById[userId];
-      const { name, image } = user;
-      return { name, image };
-    });
-  const reviewsCount = await model.get(['reviewsByCriticId', [userId], 'reviews', 'length'])
-    .then((response: any) => {
-      return response.json.reviewsByCriticId[userId].reviews.length;
-    });
-  const ratings = await model.get([
-    'reviewsByCriticId', [userId], 'reviews', { length: reviewsCount }, ['url', 'rating', 'critic']
-  ])
-    .then((response: any) => {
-      const data = response.json.reviewsByCriticId[userId].reviews;
-      const ratings: number[] = [];
+  const user = await getUserById(id);
+  const reviewsCount = await getReviewsCountById(id, 'user');
+  const reviews = await getReviewsById(id, 'user', reviewsCount);
 
-      for (const index in data) {
-        if (data[index]) {
-          const review = data[index];
+  // ratings
+  const ratings: number[] = [];
 
-          if (review.rating) {
-            ratings.push(review.rating);
-          }
-        }
+  for (const index in reviews) {
+    if (reviews[index]) {
+      const review = reviews[index];
+
+      if (review.rating) {
+        ratings.push(review.rating);
       }
-
-      return ratings;
-    });
-
+    }
+  }
   user.ratings = getBins(ratings.sort());
 
   return user;
 }
+
+// utils
 
 function getBins(data: number[]) {
   const size = 0.5;

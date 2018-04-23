@@ -3,6 +3,8 @@ import Router from 'vue-router';
 import Home from './views/Home/';
 import User from './views/User/';
 import Movie from './views/Movie/';
+import Login from './views/Login/';
+import Dashboard from './views/Dashboard/';
 
 Vue.use(Router);
 
@@ -11,6 +13,18 @@ const routes = [
     path: '/',
     name: 'home',
     component: Home
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login,
+    meta: { guestOnly: true }
+  },
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: Dashboard,
+    meta: { requireAuth: true }
   },
   {
     path: '/movie/:id',
@@ -26,5 +40,8 @@ const routes = [
 
 export default new Router({
   mode: 'history',
-  routes
+  routes,
+  scrollBehavior(to, from, savedPosition) {
+    return { x: 0, y: 0 };
+  }
 });

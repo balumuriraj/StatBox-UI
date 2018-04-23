@@ -1,0 +1,21 @@
+.stars {
+  padding: 1rem 0;
+  font-size: 0.65rem;
+  display: block;
+  position: relative;
+  cursor: pointer;
+  color: #ffffff;
+
+  div {
+    padding: 1rem 0;
+    display: inline;
+  }
+}
+
+.hover {
+  color: #45aaf2;
+}
+
+.active {
+  color: #f9ca24;
+}

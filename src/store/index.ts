@@ -4,6 +4,7 @@ import { movieGetters } from './getters';
 import { State } from './types';
 import { movieMutations } from './mutations';
 import { movieActions } from './actions';
+import user from './modules/user';
 
 Vue.use(Vuex);
 
@@ -18,5 +19,6 @@ export default new Vuex.Store({
   state,
   getters: movieGetters,
   mutations: movieMutations,
-  actions: movieActions
+  actions: movieActions,
+  modules: { user }
 });
