@@ -8,6 +8,10 @@ export const movieGetters = {
     return state.movie;
   },
 
+  celebById: (state: any, getters: any) => {
+    return state.celeb;
+  },
+
   userById: (state: any, getters: any) => {
     return state.user;
   }

@@ -11,6 +11,7 @@ Vue.use(Vuex);
 const state: State = {
   movies: [],
   movie: {},
+  celeb: {},
   showLoader: false,
   user: null
 };

@@ -1,0 +1,50 @@
+.hero {
+  position: relative;
+  clip-path: inset(0 0 0 0);
+  .celeb-background {
+    background: #0a1016;
+    overflow: hidden;
+    img {
+      position: fixed;
+      width: 100%;
+      height: auto;
+      filter: blur(10px);
+    }
+  }
+  .hero-body {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+
+    .title {
+      padding-top: 1rem;
+    }
+  }
+}
+
+.overlay-gradient {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: auto;
+  background: none;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#0a1016+0,0a1016+100&0.33+0,1+100 */
+  background: -moz-linear-gradient(top, rgba(10, 16, 22, 0.33) 0%, rgba(10, 16, 22, 1) 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, rgba(10, 16, 22, 0.33) 0%, rgba(10, 16, 22, 1) 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, rgba(10, 16, 22, 0.33) 0%, rgba(10, 16, 22, 1) 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#540a1016', endColorstr='#0a1016', GradientType=0);
+  /* IE6-9 */
+}
+
+.main-contaner {
+  background: white;
+}
+
+.side-container {
+  background: white;
+  width: 15rem;
+}

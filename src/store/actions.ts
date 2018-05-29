@@ -1,5 +1,5 @@
-import { ALL_MOVIES, ALL_MOVIES_SUCCESS, USER_BY_ID } from '@/store/mutation-types';
-import { getMovies, getUser, getMovie } from '@/api/index';
+import { ALL_MOVIES, ALL_MOVIES_SUCCESS, USER_BY_ID, CELEB_BY_ID } from '@/store/mutation-types';
+import { getMovies, getUser, getMovie, getCeleb } from '@/api/index';
 import { MOVIE_BY_ID } from './mutation-types';
 
 export const movieActions = {
@@ -13,6 +13,12 @@ export const movieActions = {
   userById(context: any, id: number) {
     getUser(id).then((user) => {
       context.commit(USER_BY_ID, user);
+    });
+  },
+
+  celebById(context: any, id: number) {
+    getCeleb(id).then((celeb) => {
+      context.commit(CELEB_BY_ID, celeb);
     });
   },
 

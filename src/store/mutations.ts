@@ -1,4 +1,4 @@
-import { ALL_MOVIES, ALL_MOVIES_SUCCESS, USER_BY_ID, RENDER_CHART, MOVIE_BY_ID } from './mutation-types';
+import { ALL_MOVIES, ALL_MOVIES_SUCCESS, USER_BY_ID, RENDER_CHART, MOVIE_BY_ID, CELEB_BY_ID } from './mutation-types';
 import { State } from './types';
 
 export const movieMutations = {
@@ -15,6 +15,10 @@ export const movieMutations = {
   [MOVIE_BY_ID](state: State, payload: any) {
     // Called when fetching products
     state.movie = payload;
+  },
+  [CELEB_BY_ID](state: State, payload: any) {
+    // Called when fetching products
+    state.celeb = payload;
   },
   [USER_BY_ID](state: State, payload: any) {
     // Called when fetching products

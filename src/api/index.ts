@@ -2,6 +2,7 @@ import { getMoviesByYears, getMovieById, getMoviesByYearMonth, getMoviesCountByY
 import { getReviewsCountById, getReviewsById } from '@/api/falcor/review';
 import { getRoleCountByMovieId, getRoleByMovieId } from '@/api/falcor/role';
 import { getUserById } from '@/api/falcor/critic';
+import { getCelebById } from '@/api/falcor/celeb';
 
 export async function getMovies() {
   const years = [2017, 2016, 2015];
@@ -51,6 +52,11 @@ export async function getMovie(id: number) {
   console.log(movie);
 
   return movie;
+}
+
+export async function getCeleb(id: number) {
+  const celeb = await getCelebById(id);
+  return celeb;
 }
 
 export async function getUser(id: number) {

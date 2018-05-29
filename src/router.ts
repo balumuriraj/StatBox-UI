@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home/';
 import User from './views/User/';
+import Celeb from './views/Celeb/';
 import Movie from './views/Movie/';
 import Login from './views/Login/';
 import Dashboard from './views/Dashboard/';
@@ -30,6 +31,11 @@ const routes = [
     path: '/movie/:id',
     name: 'movie',
     component: Movie
+  },
+  {
+    path: '/celeb/:id',
+    name: 'celeb',
+    component: Celeb
   },
   {
     path: '/user/:id',
