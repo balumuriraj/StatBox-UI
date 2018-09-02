@@ -1,5 +1,43 @@
-.horizontal-list {
-  white-space: nowrap;
-  overflow-x: scroll;
+.movie-list {
+  overflow-x: auto;
   overflow-y: hidden;
+  width: 100%;
+  margin-top: -25px;
+}
+
+.movie-list::-webkit-scrollbar {
+  display: none;
+}
+
+.title {
+  font-size: 1.25rem;
+  color: #020d18;
+}
+
+.control {
+  padding: 0.1rem 0.2rem;
+  border-radius: 3px;
+  margin: 0.25rem;
+  cursor: pointer;
+  color: #abb7c4;
+  opacity: 0.75;
+  svg {
+    width: 1rem;
+    height: 1rem;
+    vertical-align: -.15rem;
+  }
+}
+
+.control:hover {
+  color: #f06060;
+}
+
+.link {
+  color: #abb7c4;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.link:hover {
+  color: #f06060;
 }

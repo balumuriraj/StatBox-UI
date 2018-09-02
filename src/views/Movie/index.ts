@@ -1,7 +1,7 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import Footer from '@/components/common/Footer';
 import CelebsList from '@/components/movie/body/CelebsList';
-import List from '@/components/home/List.vue';
+import List from '@/components/common/MovieList';
 import Menu from '@/components/common/Menu/index';
 import Table from '@/components/common/Table';
 import Poster from '@/components/movie/hero/Poster';

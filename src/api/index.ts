@@ -5,7 +5,7 @@ import { getUserById } from '@/api/falcor/critic';
 import { getCelebById } from '@/api/falcor/celeb';
 
 export async function getMovies() {
-  const years = [2017, 2016, 2015];
+  const years = [2017, 2016]; // 2017, 2016, 2015
   return await getMoviesByYears(years);
 }
 

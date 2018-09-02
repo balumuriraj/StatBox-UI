@@ -1,0 +1,42 @@
+// .hero-poster {
+//   height: 500px;
+//   overflow: hidden;
+// }
+.hero {
+  background-image: url("../../assets/hero-bg3.jpg");
+  background-size: 1100px;
+}
+.section {
+  background: white;
+  color: #020d18;
+}
+
+.title {
+  font-family: "Dosis";
+}
+.search {
+  width: 500px;
+  font-size: 1.15rem;
+  line-height: 2rem;
+  padding: 15px;
+  border: none;
+  // border-bottom: 2px solid #dcf836;
+  background: rgba(2, 13, 24, .5);
+  color: #f06060;
+  text-align: center;
+  outline: none;
+  font-family: "Dosis";
+}
+
+::placeholder {
+  color: #dcf836;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+ color: white;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+ color: white;
+}

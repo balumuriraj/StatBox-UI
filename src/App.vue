@@ -9,6 +9,7 @@
 @import "~bulma-tooltip";
 
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700);
+@import url(https://fonts.googleapis.com/css?family=Dosis:400,500,700);
 @import "../node_modules/chartist/dist/scss/chartist.scss";
 
 html,

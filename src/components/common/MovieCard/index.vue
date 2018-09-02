@@ -1,10 +1,14 @@
 <template>
-  <div class="movie-card column is-narrow">
+  <div class="column is-narrow movie-card">
     <router-link :to="'/movie/'+movie.id" class="movie-link">
       <figure class="image">
         <img :src="movie.poster" :alt="movie.title">
       </figure>
     </router-link>
+    <div class="rating">
+      <font-awesome-icon :icon="['fas', 'star']"></font-awesome-icon>
+      <span> 3.5</span>
+    </div>
   </div>
 </template>
 

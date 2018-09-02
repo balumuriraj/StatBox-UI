@@ -2,7 +2,7 @@
   <div>
     <div class="stars">
       <template v-for="(rating,index) in ratings">
-        <div class="tooltip is-tooltip-bottom is-tooltip-warning" :data-tooltip=rating.tooltip v-bind:key=index>
+        <div class="tooltip is-tooltip-top is-tooltip-warning" :data-tooltip=rating.tooltip v-bind:key=index>
           <font-awesome-icon 
           :icon="['fas', 'star-half']" 
           :class="{ 

@@ -6,7 +6,12 @@
         <router-link :to="'/celeb/' + celeb.id" tag="div" class="celeb-container">
           <div class="columns is-gapless">
             <figure class="column is-narrow">
-              <img :src="celeb.photo">
+              <template v-if="celeb.photo">
+                <img :src="celeb.photo">
+              </template>
+              <template v-else>
+                <img src="../../../../assets/avatar.png">
+              </template>
             </figure>
             <div class="column is-narrow celeb-content">
               <p>{{ celeb.name }}</p>

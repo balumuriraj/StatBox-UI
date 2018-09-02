@@ -1,9 +1,19 @@
 .navbar-menu {
-  font-size: 0.75em;
+  font-size: 0.9em;
   font-weight: 500;
 }
 
 .logo {
   font-size: 1.5em;
   font-weight: 700;
+}
+
+.navbar-item {
+  border-top: 2px;
+  border-bottom: 2px;
+}
+
+.active {
+  border-top: 2px solid #f06060;
+  color: #f06060;
 }

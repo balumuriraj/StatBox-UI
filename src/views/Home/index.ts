@@ -1,5 +1,5 @@
 import { Component, Vue } from 'vue-property-decorator';
-import List from '@/components/home/List.vue';
+import List from '@/components/common/MovieList';
 import Menu from '@/components/common/Menu';
 import Footer from '../../components/common/Footer';
 

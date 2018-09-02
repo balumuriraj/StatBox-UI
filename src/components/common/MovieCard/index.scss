@@ -1,7 +1,35 @@
-.movie-card {
-  width: 220px;
-  
+.image {
   img {
-    border-radius: 5px;
+    width: 180px;
+    height: 260px;
+    border-radius: 2.5px;
+  }
+}
+
+.image::after {
+  box-shadow: inset -5px -50px 100px -15px #000000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  content: "";
+}
+
+.movie-card {
+  position: relative;
+}
+
+.rating {
+  position: absolute;
+  left: 0;
+  bottom:0;
+  color: gold;
+  padding: 2rem;
+  opacity: 0.75;
+
+  span {
+    color: white;
   }
 }

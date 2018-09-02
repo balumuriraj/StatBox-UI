@@ -51,8 +51,7 @@
                   </div>
                   <div class="tile is-parent">
                     <article class="tile is-child">
-                      <p class="title">Similars</p>    
-                      <List></List> 
+                      <List title="Similars"></List> 
                     </article>
                   </div>
                 </div>

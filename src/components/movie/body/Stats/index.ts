@@ -22,7 +22,7 @@ export default class Stats extends Vue {
         showPoint: false,
         fullWidth: true,
         axisY: {
-          // showLabel: false,
+          showLabel: false,
           showGrid: false
         },
         axisX: {

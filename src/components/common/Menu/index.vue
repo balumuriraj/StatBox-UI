@@ -2,7 +2,7 @@
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="container">
       <div class="navbar-brand">
-        <router-link class="navbar-item logo" to="/">StatBox</router-link>
+        <router-link class="navbar-item logo active" to="/">StatBox</router-link>
         <div class="navbar-burger">
           <span></span>
           <span></span>
