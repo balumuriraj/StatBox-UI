@@ -1,4 +1,4 @@
-import { ALL_MOVIES, ALL_MOVIES_SUCCESS, USER_BY_ID, RENDER_CHART, MOVIE_BY_ID, CELEB_BY_ID } from './mutation-types';
+import { ALL_MOVIES, ALL_MOVIES_SUCCESS, USER_BY_ID, MOVIE_BY_ID, CELEB_BY_ID } from './mutation-types';
 import { State } from './types';
 
 export const movieMutations = {

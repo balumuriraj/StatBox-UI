@@ -3,9 +3,21 @@
 //   overflow: hidden;
 // }
 .hero {
-  background-image: url("../../assets/hero-bg3.jpg");
-  background-size: 1100px;
+  background-image: url("../../assets/hero-bg4.png");
+  position: relative;
 }
+
+.hero::before {
+  box-shadow: inset -5px -100px 100px -15px #031424;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  content: "";
+}
+
 .section {
   background: white;
   color: #020d18;

@@ -51,7 +51,7 @@
                   </div>
                   <div class="tile is-parent">
                     <article class="tile is-child">
-                      <List title="Similars"></List> 
+                      <List title="Similars" :movies="movie.moviesThisMonth"></List> 
                     </article>
                   </div>
                 </div>

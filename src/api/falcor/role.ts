@@ -1,6 +1,6 @@
 import model from '@/api/falcor/model';
 
-export async function getRoleCountByMovieId(movieId: number, type: string): Promise<number> {
+export async function getRoleCountByMovieId(movieId: string, type: string): Promise<number> {
   const path = type === 'cast' ? 'castByMovieId' : 'crewByMovieId';
 
   return await model.get([
@@ -12,7 +12,7 @@ export async function getRoleCountByMovieId(movieId: number, type: string): Prom
     });
 }
 
-export async function getRoleByMovieId(movieId: number, type: string, count: number): Promise<any>  {
+export async function getRoleByMovieId(movieId: string, type: string, count: number): Promise<any>  {
   const path = type === 'cast' ? 'castByMovieId' : 'crewByMovieId';
 
   return await model.get([
@@ -39,6 +39,28 @@ export async function getRoleByMovieId(movieId: number, type: string, count: num
           }
         }
       }
+      return result;
+    });
+}
+
+export async function getMoviesByCelebId(celebId: string, count: number): Promise<any[]> {
+  const path = 'moviesByCelebId';
+
+  return await model.get([
+    path, [celebId],
+    'movies', { length: count },
+    ['id', 'title', 'poster', 'rating']
+  ])
+    .then((response: any) => {
+      const moviesObj = response.json[path][celebId].movies;
+      const result: any[] = [];
+
+      for (const movieId in moviesObj) {
+        if (moviesObj[movieId] && moviesObj[movieId].title) {
+          result.push(moviesObj[movieId]);
+        }
+      }
+
       return result;
     });
 }

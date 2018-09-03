@@ -1,15 +1,36 @@
-import { getMoviesByYears, getMovieById, getMoviesByYearMonth, getMoviesCountByYearMonth } from '@/api/falcor/movie';
+import {
+  getMoviesByYears,
+  getMovieById,
+  getMoviesByYearMonth,
+  getMoviesBetweenDates,
+  getMoviesCountByYearMonth
+} from '@/api/falcor/movie';
 import { getReviewsCountById, getReviewsById } from '@/api/falcor/review';
-import { getRoleCountByMovieId, getRoleByMovieId } from '@/api/falcor/role';
+import { getRoleCountByMovieId, getRoleByMovieId, getMoviesByCelebId } from '@/api/falcor/role';
 import { getUserById } from '@/api/falcor/critic';
 import { getCelebById } from '@/api/falcor/celeb';
 
 export async function getMovies() {
-  const years = [2017, 2016]; // 2017, 2016, 2015
+  const years = [2018, 2017]; // 2017, 2016, 2015
   return await getMoviesByYears(years);
 }
 
-export async function getMovie(id: number) {
+export async function getMoviesBetweenDatesRange(date1: number, date2: number) {
+  const movies = await getMoviesBetweenDates(date1, date2, 10);
+
+  return movies.map((movie: any) => {
+    return {
+      id: movie.id,
+      title: movie.title,
+      poster: movie.poster,
+      cert: movie.cert,
+      runtime: movie.runtime,
+      date: movie.date
+    };
+  });
+}
+
+export async function getMovie(id: string) {
   const movie = await getMovieById(id);
 
   // cast
@@ -46,20 +67,48 @@ export async function getMovie(id: number) {
   const year = date.getFullYear();
   const month = date.getUTCMonth() + 1;
   const moviesByMonthCount = await getMoviesCountByYearMonth(year, month);
-  const moviesByMonth = await getMoviesByYearMonth(year, month, moviesByMonthCount);
-  movie.moviesByMonth = moviesByMonth;
-
-  console.log(movie);
+  const moviesThisMonth = await getMoviesByYearMonth(year, month, moviesByMonthCount);
+  movie.moviesThisMonth = moviesThisMonth.map((movie: any) => {
+    return {
+      id: movie.id,
+      title: movie.title,
+      poster: movie.poster,
+      cert: movie.cert,
+      runtime: movie.runtime,
+      date: movie.date
+    };
+  });
 
   return movie;
 }
 
-export async function getCeleb(id: number) {
+export async function getMoviesByCeleb(id: string) {
+  const movies = await getMoviesByCelebId(id, 10);
+
+  // remove duplicates
+  const movieIds: string[] = [];
+
+  return movies.map((movie: any) => {
+    return {
+      id: movie.id,
+      title: movie.title,
+      poster: movie.poster,
+      rating: movie.rating
+    };
+  }).filter((movie: any) => {
+    if (movieIds.indexOf(movie.id) === -1) {
+      movieIds.push(movie.id);
+      return true;
+    }
+  });
+}
+
+export async function getCeleb(id: string) {
   const celeb = await getCelebById(id);
   return celeb;
 }
 
-export async function getUser(id: number) {
+export async function getUser(id: string) {
   const userId = id || 1;
   const user = await getUserById(id);
   const reviewsCount = await getReviewsCountById(id, 'user');

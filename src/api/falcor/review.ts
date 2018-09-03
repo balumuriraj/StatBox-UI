@@ -1,6 +1,6 @@
 import model from '@/api/falcor/model';
 
-export async function getReviewsCountById(id: number, type: string): Promise<number> {
+export async function getReviewsCountById(id: string, type: string): Promise<number> {
   const path = type === 'movie' ? 'reviewsByMovieId' : type === 'user' ? 'reviewsByCriticId' : 'reviewsById';
 
   return await model.get([
@@ -12,7 +12,7 @@ export async function getReviewsCountById(id: number, type: string): Promise<num
     });
 }
 
-export async function getReviewsById(id: number, type: string, count: number): Promise<any> {
+export async function getReviewsById(id: string, type: string, count: number): Promise<any> {
   const path = type === 'movie' ? 'reviewsByMovieId' : type === 'user' ? 'reviewsByCriticId' : 'reviewsById';
 
   return await model.get([

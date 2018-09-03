@@ -9,6 +9,7 @@ import Content from '@/components/movie/hero/Content';
 import Stats from '@/components/movie/body/Stats';
 import Attributes from '@/components/movie/body/Attributes';
 import Title from '@/components/movie/body/Title';
+import * as movie from '@/store/modules/movie';
 
 @Component({
   components: {
@@ -38,17 +39,15 @@ export default class Movie extends Vue {
   }
 
   private fetchData() {
-    this.$store.dispatch('movieById', this.$route.params.id);
+    movie.dispatchGetMovieDataAction(this.$store, { id: this.$route.params.id });
   }
 
   get movie() {
-    return this.$store.getters.movieById;
+    return movie.getMovie(this.$store);
   }
 
-
-
   get cast() {
-    const movie = this.$store.getters.movieById;
+    const movie = this.movie;
     const cast = movie && movie.cast;
 
     if (cast) {
@@ -57,7 +56,7 @@ export default class Movie extends Vue {
   }
 
   get crew() {
-    const movie = this.$store.getters.movieById;
+    const movie = this.movie;
     const crew = movie && movie.crew;
 
     if (crew) {
@@ -65,18 +64,18 @@ export default class Movie extends Vue {
     }
   }
 
-  get reviews() {
-    const movie = this.$store.getters.movieById;
-    const reviews = movie && movie.reviews;
+  // get reviews() {
+  //   const movie = this.movie;
+  //   const reviews = movie && movie.reviews;
 
-    if (reviews) {
-      return reviews.map((review: any) => [review.critic, review.rating]);
-    }
-  }
+  //   if (reviews) {
+  //     return reviews.map((review: any) => [review.critic, review.rating]);
+  //   }
+  // }
 
   get movies() {
-    const movie = this.$store.getters.movieById;
-    const movies = movie && movie.moviesByMonth;
+    const movie = this.movie;
+    const movies = movie && movie.moviesThisMonth;
 
     if (movies) {
       return movies.map((mov: any) => [mov.title, mov.date, mov.cert, mov.runtime]);

@@ -1,4 +1,5 @@
 .hero {
+  background-image: url("../../assets/hero-bg4.png");
   position: relative;
   clip-path: inset(0 0 0 0);
   .celeb-background {
@@ -17,6 +18,11 @@
 
     .title {
       padding-top: 1rem;
+    }
+
+    img {
+      border: 3px solid white;
+      border-radius: 1.5px;
     }
   }
 }

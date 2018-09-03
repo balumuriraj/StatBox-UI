@@ -1,13 +1,27 @@
 import { Component, Vue } from 'vue-property-decorator';
-import List from '@/components/common/MovieList';
+import MovieList from '@/components/common/MovieList';
 import Menu from '@/components/common/Menu';
-import Footer from '../../components/common/Footer';
+import Footer from '@/components/common/Footer';
+import * as home from '@/store/modules/home';
 
 @Component({
   components: {
-    List,
+    MovieList,
     Menu,
     Footer
   }
 })
-export default class Home extends Vue { }
+export default class Home extends Vue {
+  private created() {
+    home.dispatchGetLatestMoviesAction(this.$store);
+    home.dispatchGetUpcomingMoviesAction(this.$store);
+  }
+
+  get latestMovies() {
+    return home.getLatestMovies(this.$store);
+  }
+
+  get upcomingMovies() {
+    return home.getUpcomingMovies(this.$store);
+  }
+}

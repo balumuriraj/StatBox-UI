@@ -10,12 +10,5 @@ import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
 })
 export default class List extends Vue {
   @Prop() public title!: string;
-
-  private created() {
-    this.$store.dispatch('allMovies');
-  }
-
-  get movies() {
-    return this.$store.getters.allMovies;
-  }
+  @Prop() public movies!: object[];
 }

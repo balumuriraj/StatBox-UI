@@ -16,18 +16,14 @@
       </div>
     </section>
 
-    <!-- <div class="hero-poster">
-      <img src="../../assets/hero-bg.jpg"/>
-    </div> -->
-
     <!-- content -->
     <section class="section">
         <div class="container">
-          <List title="Latest"></List>
+          <MovieList title="Latest" :movies="latestMovies"></MovieList>
           <br>
-          <List title="Coming Soon"></List>
+          <MovieList title="Coming Soon" :movies="upcomingMovies"></MovieList>
           <br>
-          <List title="Trending"></List>
+          <MovieList title="Trending" :movies="upcomingMovies"></MovieList>
         </div>
     </section>
     

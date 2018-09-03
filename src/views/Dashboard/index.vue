@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <section class="hero is-dark is-medium">
+    <section class="hero is-danger">
       <!-- Hero head: will stick at the top -->
       <div class="hero-head">
         <Menu></Menu>
@@ -9,8 +9,9 @@
       <!-- Hero content: will be in the middle -->
       <div class="hero-body">
         <div class="container has-text-centered">
-          <img :src="user.photoURL" width="100">
-          <h1 class="title">{{user.displayName}}</h1>
+          <!-- <img :src="user.photoURL" width="150"> -->
+          <img src="../../assets/avatar.png" width="150">
+          <p class="title">{{user.displayName}}</p>
         </div>
       </div>
     </section>

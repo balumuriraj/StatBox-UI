@@ -38,7 +38,7 @@ export async function getMoviesByYearMonth(year: number, month: number, count: n
   return await model.get([
     'moviesByYearMonth', [year], [month],
     'movies', { length: count },
-    ['title', 'date', 'poster', 'runtime', 'cert']
+    ['id', 'title', 'date', 'poster', 'runtime', 'cert']
   ])
     .then((response: any) => {
       const moviesObj = response.json.moviesByYearMonth[year][month].movies;
@@ -54,15 +54,35 @@ export async function getMoviesByYearMonth(year: number, month: number, count: n
     });
 }
 
-export async function getMovieById(movieId: number): Promise<any> {
+export async function getMoviesBetweenDates(date1: number, date2: number, count: number): Promise<any> {
+  return await model.get([
+    'moviesBetweenDates', [date1], [date2],
+    'movies', { length: count },
+    ['id', 'title', 'date', 'poster', 'runtime', 'cert']
+  ])
+    .then((response: any) => {
+      const moviesObj = response.json.moviesBetweenDates[date1][date2].movies;
+      const result: any[] = [];
+
+      for (const movieId in moviesObj) {
+        if (moviesObj[movieId] && moviesObj[movieId].title) {
+          result.push(moviesObj[movieId]);
+        }
+      }
+
+      return result;
+    });
+}
+
+export async function getMovieById(movieId: string): Promise<any> {
   return await model.get([
     'moviesById', [movieId],
-    ['title', 'description', 'date', 'poster', 'runtime', 'genre', 'cert']
+    ['id', 'title', 'description', 'date', 'poster', 'runtime', 'genre', 'cert']
   ])
     .then((response: any) => {
       const result: any = response.json.moviesById[movieId];
-      const { title, description, date, poster, runtime, genre, cert } = result;
+      const { id, title, description, date, poster, runtime, genre, cert } = result;
 
-      return { title, description, date, poster, runtime, genre, cert };
+      return { id, title, description, date, poster, runtime, genre, cert };
     });
 }

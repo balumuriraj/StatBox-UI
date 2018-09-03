@@ -8,23 +8,23 @@ export const movieActions = {
     getMovies().then((movies) => {
       context.commit(ALL_MOVIES_SUCCESS, movies);
     });
-  },
-
-  userById(context: any, id: number) {
-    getUser(id).then((user) => {
-      context.commit(USER_BY_ID, user);
-    });
-  },
-
-  celebById(context: any, id: number) {
-    getCeleb(id).then((celeb) => {
-      context.commit(CELEB_BY_ID, celeb);
-    });
-  },
-
-  movieById(context: any, id: number) {
-    getMovie(id).then((movie) => {
-      context.commit(MOVIE_BY_ID, movie);
-    });
   }
+
+  // userById(context: any, id: number) {
+  //   getUser(id).then((user) => {
+  //     context.commit(USER_BY_ID, user);
+  //   });
+  // },
+
+  // celebById(context: any, id: number) {
+  //   getCeleb(id).then((celeb) => {
+  //     context.commit(CELEB_BY_ID, celeb);
+  //   });
+  // },
+
+  // movieById(context: any, id: number) {
+  //   getMovie(id).then((movie) => {
+  //     context.commit(MOVIE_BY_ID, movie);
+  //   });
+  // }
 };

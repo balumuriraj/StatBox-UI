@@ -1,6 +1,6 @@
 import model from '@/api/falcor/model';
 
-export async function getCelebById(celebId: number): Promise<any> {
+export async function getCelebById(celebId: string): Promise<any> {
   return await model.get([
     'celebsById', [celebId],
     ['name', 'photo', 'dob']]

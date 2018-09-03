@@ -5,6 +5,5 @@ export const MOVIE_BY_ID = 'MOVIE_BY_ID';
 export const CELEB_BY_ID = 'CELEB_BY_ID';
 
 export const USER_BY_ID = 'USER_BY_ID';
-export const RENDER_CHART = 'RENDER_CHART';
 
 
