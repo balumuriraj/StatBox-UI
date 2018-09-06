@@ -1,72 +1,18 @@
 import model from '@/api/falcor/model';
 
-export async function getMoviesByYears(years: number[]): Promise<any> {
-  return await model.get([
-    'moviesByYear', years,
-    'movies', { from: 0, to: 9 },
-    ['id', 'title', 'date', 'poster', 'runtime', 'rating']
-  ])
-    .then((response: any) => {
-      const yearsObj = response.json.moviesByYear;
-      const result: any[] = [];
-
-      for (const year of years) {
-        const moviesObj = yearsObj[year].movies;
-
-        for (const movieId in moviesObj) {
-          if (moviesObj[movieId] && moviesObj[movieId].title) {
-            result.push(moviesObj[movieId]);
-          }
-        }
-      }
-
-      return result;
-    });
-}
-
-export async function getMoviesCountByYearMonth(year: number, month: number): Promise<number> {
-  return await model.get([
-    'moviesByYearMonth', [year], [month],
-    'movies', 'length'
-  ])
-    .then((response: any) => {
-      return response.json.moviesByYearMonth[year][month].movies.length;
-    });
-}
-
-export async function getMoviesByYearMonth(year: number, month: number, count: number): Promise<any> {
-  return await model.get([
-    'moviesByYearMonth', [year], [month],
-    'movies', { length: count },
-    ['id', 'title', 'date', 'poster', 'runtime', 'cert']
-  ])
-    .then((response: any) => {
-      const moviesObj = response.json.moviesByYearMonth[year][month].movies;
-      const result: any[] = [];
-
-      for (const movieId in moviesObj) {
-        if (moviesObj[movieId] && moviesObj[movieId].title) {
-          result.push(moviesObj[movieId]);
-        }
-      }
-
-      return result;
-    });
-}
-
 export async function getMoviesBetweenDates(date1: number, date2: number, count: number): Promise<any> {
+  const queryString = `date1=${date1}&date2=${date2}`;
   return await model.get([
-    'moviesBetweenDates', [date1], [date2],
-    'movies', { length: count },
-    ['id', 'title', 'date', 'poster', 'runtime', 'cert']
+    'moviesSearches', [queryString], { length: count },
+    ['id', 'title', 'releaseDate', 'poster', 'runtime', 'cert']
   ])
     .then((response: any) => {
-      const moviesObj = response.json.moviesBetweenDates[date1][date2].movies;
+      const moviesObj = response.json.moviesSearches[queryString];
       const result: any[] = [];
 
-      for (const movieId in moviesObj) {
-        if (moviesObj[movieId] && moviesObj[movieId].title) {
-          result.push(moviesObj[movieId]);
+      for (const index in moviesObj) {
+        if (moviesObj[index] && moviesObj[index].id && typeof moviesObj[index].id === 'number') {
+          result.push(moviesObj[index]);
         }
       }
 
@@ -77,12 +23,40 @@ export async function getMoviesBetweenDates(date1: number, date2: number, count:
 export async function getMovieById(movieId: string): Promise<any> {
   return await model.get([
     'moviesById', [movieId],
-    ['id', 'title', 'description', 'date', 'poster', 'runtime', 'genre', 'cert']
+    ['id', 'title', 'description', 'releaseDate', 'poster', 'runtime', 'genre', 'cert', 'cast', 'crew'],
+    {length: 5}, ['id', 'type', 'category', 'celeb'],
+    ['id', 'name', 'photo']
   ])
     .then((response: any) => {
       const result: any = response.json.moviesById[movieId];
-      const { id, title, description, date, poster, runtime, genre, cert } = result;
+      const { id, title, description, releaseDate, poster, runtime, genre, cert } = result;
+      const cast = [];
+      const crew = [];
 
-      return { id, title, description, date, poster, runtime, genre, cert };
+      for (const index in result.cast) {
+        if (result.cast[index] && result.cast[index].id && typeof result.cast[index].id === 'number') {
+          const obj = result.cast[index];
+          cast.push({
+            id: obj.celeb.id,
+            name: obj.celeb.name,
+            photo: obj.celeb.photo,
+            role: obj.type
+          });
+        }
+      }
+
+      for (const index in result.crew) {
+        if (result.crew[index] && result.crew[index].id && typeof result.crew[index].id === 'number') {
+          const obj = result.crew[index];
+          crew.push({
+            id: obj.celeb.id,
+            name: obj.celeb.name,
+            photo: obj.celeb.photo,
+            role: obj.type
+          });
+        }
+      }
+
+      return { id, title, description, releaseDate, poster, runtime, genre, cert, cast, crew };
     });
 }

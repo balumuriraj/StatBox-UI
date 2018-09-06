@@ -1,6 +1,6 @@
 import { ActionContext } from 'vuex';
 import { getStoreAccessors } from 'vuex-typescript';
-import { getMoviesBetweenDatesRange } from '@/api/index';
+import { getMoviesBetweenDatesRange } from '@/api';
 import { HomeState, RootState } from '@/store/interfaces';
 
 // https://github.com/vuejs/vuex/blob/dev/examples/shopping-cart
@@ -20,7 +20,7 @@ const getters = {
 };
 
 const actions = {
-  getLatestMovies: async (context: HomeContext) => {
+  fetchLatestMovies: async (context: HomeContext) => {
     const days = 30;
     const date = new Date();
     const startDate = date.setDate(date.getDate() - days);
@@ -29,7 +29,7 @@ const actions = {
     context.commit('setLatestMovies', movies);
   },
 
-  getUpcomingMovies: async (context: HomeContext) => {
+  fetchUpcomingMovies: async (context: HomeContext) => {
     const days = 30;
     const date = new Date();
     const endDate = date.setDate(date.getDate() + days);
@@ -63,5 +63,5 @@ const { read, dispatch } = getStoreAccessors<HomeState, RootState>('home');
 export const getLatestMovies = read(home.getters.latestMovies);
 export const getUpcomingMovies = read(home.getters.upcomingMovies);
 
-export const dispatchGetLatestMoviesAction = dispatch(home.actions.getLatestMovies);
-export const dispatchGetUpcomingMoviesAction = dispatch(home.actions.getUpcomingMovies);
+export const fetchLatestMovies = dispatch(home.actions.fetchLatestMovies);
+export const fetchUpcomingMovies = dispatch(home.actions.fetchUpcomingMovies);

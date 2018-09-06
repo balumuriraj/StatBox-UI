@@ -9,7 +9,7 @@
         <span>{{ cert }}</span>
       </div>
       <div>
-        <font-awesome-icon :icon="['fas', 'calendar-alt']" fixed-width></font-awesome-icon> {{ movie.date }}
+        <font-awesome-icon :icon="['fas', 'calendar-alt']" fixed-width></font-awesome-icon> {{ movie.releaseDate }}
       </div>
       <div>
         <font-awesome-icon :icon="['fas', 'clock']" fixed-width></font-awesome-icon> {{ movie.runtime }} mins

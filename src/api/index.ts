@@ -1,23 +1,12 @@
-import {
-  getMoviesByYears,
-  getMovieById,
-  getMoviesByYearMonth,
-  getMoviesBetweenDates,
-  getMoviesCountByYearMonth
-} from '@/api/falcor/movie';
+import { getMovieById, getMoviesBetweenDates } from '@/api/falcor/movie';
 import { getReviewsCountById, getReviewsById } from '@/api/falcor/review';
-import { getRoleCountByMovieId, getRoleByMovieId, getMoviesByCelebId } from '@/api/falcor/role';
+import { getMoviesByCelebId } from '@/api/falcor/role';
 import { getUserById } from '@/api/falcor/critic';
 import { getCelebById } from '@/api/falcor/celeb';
 
-export async function getMovies() {
-  const years = [2018, 2017]; // 2017, 2016, 2015
-  return await getMoviesByYears(years);
-}
-
 export async function getMoviesBetweenDatesRange(date1: number, date2: number) {
   const movies = await getMoviesBetweenDates(date1, date2, 10);
-
+  console.log(movies);
   return movies.map((movie: any) => {
     return {
       id: movie.id,
@@ -25,7 +14,7 @@ export async function getMoviesBetweenDatesRange(date1: number, date2: number) {
       poster: movie.poster,
       cert: movie.cert,
       runtime: movie.runtime,
-      date: movie.date
+      releaseDate: movie.releaseDate
     };
   });
 }
@@ -33,51 +22,34 @@ export async function getMoviesBetweenDatesRange(date1: number, date2: number) {
 export async function getMovie(id: string) {
   const movie = await getMovieById(id);
 
-  // cast
-  const castCount = await getRoleCountByMovieId(id, 'cast');
-  const cast = await getRoleByMovieId(id, 'cast', castCount);
-  movie.cast = cast;
+  const days = 10;
+  const date1 = new Date(movie.releaseDate);
+  const date2 = new Date(movie.releaseDate);
+  const startDate = date1.setDate(date1.getDate() - days);
+  const endDate = date2.setDate(date2.getDate() + days);
+  console.log(date1, new Date(startDate), new Date(endDate));
+  movie.moviesThisMonth = await getMoviesBetweenDatesRange(startDate, endDate);
 
-  // crew
-  const crewCount = await getRoleCountByMovieId(id, 'crew');
-  const crew = await getRoleByMovieId(id, 'crew', crewCount);
-  movie.crew = crew;
+  console.log(movie);
 
-  // reviews
-  const reviewsCount = await getReviewsCountById(id, 'movie');
-  const reviews = await getReviewsById(id, 'movie', reviewsCount);
-  movie.reviews = reviews;
+  // // reviews
+  // const reviewsCount = await getReviewsCountById(id, 'movie');
+  // const reviews = await getReviewsById(id, 'movie', reviewsCount);
+  // movie.reviews = reviews;
 
-  // ratings
-  const ratings: number[] = [];
+  // // ratings
+  // const ratings: number[] = [];
 
-  for (const index in reviews) {
-    if (reviews[index]) {
-      const review = reviews[index];
+  // for (const index in reviews) {
+  //   if (reviews[index]) {
+  //     const review = reviews[index];
 
-      if (review.rating) {
-        ratings.push(review.rating);
-      }
-    }
-  }
-  movie.ratings = getBins(ratings.sort());
-
-  // movies by month
-  const date = new Date(movie.date);
-  const year = date.getFullYear();
-  const month = date.getUTCMonth() + 1;
-  const moviesByMonthCount = await getMoviesCountByYearMonth(year, month);
-  const moviesThisMonth = await getMoviesByYearMonth(year, month, moviesByMonthCount);
-  movie.moviesThisMonth = moviesThisMonth.map((movie: any) => {
-    return {
-      id: movie.id,
-      title: movie.title,
-      poster: movie.poster,
-      cert: movie.cert,
-      runtime: movie.runtime,
-      date: movie.date
-    };
-  });
+  //     if (review.rating) {
+  //       ratings.push(review.rating);
+  //     }
+  //   }
+  // }
+  // movie.ratings = getBins(ratings.sort());
 
   return movie;
 }

@@ -1,29 +1,6 @@
 .poster-container {
   position: relative;
   width: 220px;
-  .icons-container {
-    position: absolute;
-    width: 100%;
-    opacity: 0.5;
-    .icons-block {
-      position: relative;
-      .icon-block {
-        padding: 0.5rem;
-        border-radius: 3px;
-        margin: 0.5rem;
-        cursor: pointer;
-        background: rgba(0, 0, 0, 0.75);
-        svg {
-          width: 1rem;
-          height: 1rem;
-          vertical-align: -.25rem;
-        }
-      }
-      .active {
-        color: #feca57;
-      }
-    }
-  }
   .stars-container {
     position: relative;
     top: -0.5rem;

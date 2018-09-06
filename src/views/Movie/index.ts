@@ -39,11 +39,11 @@ export default class Movie extends Vue {
   }
 
   private fetchData() {
-    movie.dispatchGetMovieDataAction(this.$store, { id: this.$route.params.id });
+    movie.fetchMovieData(this.$store, { id: this.$route.params.id });
   }
 
   get movie() {
-    return movie.getMovie(this.$store);
+    return movie.getMovieData(this.$store);
   }
 
   get cast() {
@@ -78,7 +78,7 @@ export default class Movie extends Vue {
     const movies = movie && movie.moviesThisMonth;
 
     if (movies) {
-      return movies.map((mov: any) => [mov.title, mov.date, mov.cert, mov.runtime]);
+      return movies.map((mov: any) => [mov.title, mov.releaseDate, mov.cert, mov.runtime]);
     }
   }
 }

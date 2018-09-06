@@ -44,10 +44,26 @@ const routes = [
   }
 ];
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   routes,
   scrollBehavior(to, from, savedPosition) {
     return { x: 0, y: 0 };
   }
 });
+
+// router.beforeEach((to, from, next) => {
+//   const currentUser = store.state.user.currentUser;
+//   const requireAuth = to.matched.some((record) => record.meta.requireAuth);
+//   const guestOnly = to.matched.some((record) => record.meta.guestOnly);
+
+//   if (requireAuth && !currentUser) {
+//     next('login');
+//   } else if (guestOnly && currentUser) {
+//     next('dashboard');
+//   } else {
+//     next();
+//   }
+// });
+
+export default router;

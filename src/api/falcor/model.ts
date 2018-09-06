@@ -7,4 +7,6 @@ const model = new falcor.Model({
   source: new HttpDataSource(baseUrl + '/model.json', { withCredentials: false })
 });
 
-export default model;
+const batchModel = model.batch();
+
+export default batchModel;

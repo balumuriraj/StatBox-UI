@@ -1,4 +1,8 @@
-import firebase from 'firebase';
+// This import loads the firebase namespace along with all its type information.
+import firebase from 'firebase/app';
+
+// These imports load individual services into the firebase namespace.
+import 'firebase/auth';
 import firebaseui from 'firebaseui';
 
 // Initialize Firebase
@@ -11,47 +15,30 @@ const config = {
   messagingSenderId: '472325102202'
 };
 
-const auth: any = {
-  context: null,
-  uiConfig: null,
-  ui: null,
-
-  init(context: any) {
-    this.context = context;
-
-    firebase.initializeApp(config);
-    this.uiConfig = {
-      signInSuccessUrl: 'dashboard',
-      signInOptions: [
-        firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-        firebase.auth.EmailAuthProvider.PROVIDER_ID
-      ]
-    };
-    this.ui = new firebaseui.auth.AuthUI(firebase.auth());
-
-    firebase.auth().onAuthStateChanged((user) => {
-      this.context.$store.dispatch('user/setCurrentUser');
-
-      const requireAuth = this.context.$route.matched.some((record: any) => record.meta.requireAuth);
-      const guestOnly = this.context.$route.matched.some((record: any) => record.meta.guestOnly);
-
-      if (requireAuth && !user) {
-        this.context.$router.push('login');
-      } else if (guestOnly && user) {
-        this.context.$router.push('dashboard');
-      }
-    });
-  },
-  authForm(container: any) {
-    this.ui.start(container, this.uiConfig);
-  },
-  user() {
-    return this.context ? firebase.auth().currentUser : null;
-  },
-  logout() {
-    firebase.auth().signOut();
-  }
+const uiConfig: any = {
+  signInSuccessUrl: '/dashboard',
+  signInOptions: [
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID
+    // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+    // firebase.auth.EmailAuthProvider.PROVIDER_ID
+  ]
 };
 
-export default auth;
+const init = () => firebase.initializeApp(config);
+const initObserver = (context: any) => {
+  firebase.auth().onAuthStateChanged((user) => {
+    context.$store.dispatch('auth/setAuthUser', { user });
+    const requireAuth = context.$route.matched.some((record: any) => record.meta.requireAuth);
+    const guestOnly = context.$route.matched.some((record: any) => record.meta.guestOnly);
+
+    if (requireAuth && !user) {
+      context.$router.push('login');
+    } else if (guestOnly && user) {
+      context.$router.push('dashboard');
+    }
+  });
+};
+const initUI = (container: any) => new firebaseui.auth.AuthUI(firebase.auth()).start(container, uiConfig);
+const logout = () => firebase.auth().signOut();
+
+export default { init, initObserver, initUI, logout };

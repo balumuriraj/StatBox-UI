@@ -11,7 +11,7 @@
         <div class="container has-text-centered">
           <!-- <img :src="user.photoURL" width="150"> -->
           <img src="../../assets/avatar.png" width="150">
-          <p class="title">{{user.displayName}}</p>
+          <p class="title">{{user.name}}</p>
         </div>
       </div>
     </section>

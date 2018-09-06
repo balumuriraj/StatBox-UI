@@ -18,7 +18,7 @@ export interface MovieState {
   id: string;
   title: string;
   cert: string;
-  date: string;
+  releaseDate: string;
   description: string;
   genre: any[];
   poster: string;
@@ -29,6 +29,16 @@ export interface MovieState {
   moviesThisMonth: any[];
   ratings: any[];
   reviews: [];
+}
+
+export interface AuthState {
+  user: {
+    name: string;
+    photo: string;
+    lastLogin: number;
+    userSince: number;
+  },
+  isLoggedIn: boolean;
 }
 
 export interface RootState {

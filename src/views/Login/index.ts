@@ -8,9 +8,7 @@ import Menu from '@/components/common/Menu';
   }
 })
 export default class Login extends Vue {
-
   public mounted() {
-    auth.authForm('#firebaseui-auth-container');
+    auth.initUI('#firebaseui-auth-container');
   }
-
 }

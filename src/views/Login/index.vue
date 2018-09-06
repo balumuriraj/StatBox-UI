@@ -12,7 +12,4 @@
 </template>
 
 <script lang="ts" src="./index.ts"></script>
-<style>
-  @import "../../../node_modules/firebaseui/dist/firebaseui.css";
-</style>
 <style scoped lang="scss" src="./index.scss"></style>

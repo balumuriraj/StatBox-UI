@@ -24,10 +24,10 @@ export default class Celeb extends Vue {
   }
 
   private fetchData() {
-    celeb.dispatchGetCelebDataAction(this.$store, { id: this.$route.params.id });
+    celeb.fetchCelebData(this.$store, { id: this.$route.params.id });
   }
 
   get celeb() {
-    return celeb.getCelebInfo(this.$store);
+    return celeb.getCelebData(this.$store);
   }
 }

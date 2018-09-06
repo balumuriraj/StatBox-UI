@@ -1,6 +1,6 @@
 import { ActionContext } from 'vuex';
 import { getStoreAccessors } from 'vuex-typescript';
-import { getCeleb, getMoviesByCeleb } from '@/api/index';
+import { getCeleb, getMoviesByCeleb } from '@/api';
 import { CelebState, RootState } from '@/store/interfaces';
 
 type CelebContext = ActionContext<CelebState, RootState>;
@@ -19,7 +19,7 @@ const getters = {
 };
 
 const actions = {
-  getCelebData: async (context: CelebContext, payload: { id: string }) => {
+  fetchCelebData: async (context: CelebContext, payload: { id: string }) => {
     const data = await getCeleb(payload.id);
     context.commit('setInfo', data);
 
@@ -52,5 +52,5 @@ export const celeb = {
 // We pass namespace here, if we make the module namespaced: true.
 const { read, dispatch } = getStoreAccessors<CelebState, RootState>('celeb');
 
-export const getCelebInfo = read(celeb.getters.celeb);
-export const dispatchGetCelebDataAction = dispatch(celeb.actions.getCelebData);
+export const getCelebData = read(celeb.getters.celeb);
+export const fetchCelebData = dispatch(celeb.actions.fetchCelebData);

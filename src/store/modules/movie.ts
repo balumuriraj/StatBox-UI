@@ -1,6 +1,6 @@
 import { ActionContext } from 'vuex';
 import { getStoreAccessors } from 'vuex-typescript';
-import { getMovie as getMovieAPI } from '@/api/index';
+import { getMovie } from '@/api';
 import { MovieState, RootState } from '@/store/interfaces';
 
 type MovieContext = ActionContext<MovieState, RootState>;
@@ -8,7 +8,7 @@ type MovieContext = ActionContext<MovieState, RootState>;
 const state = {
   id: null,
   title: null,
-  date: null,
+  releaseDate: null,
   description: null,
   cert: null,
   poster: null,
@@ -27,8 +27,8 @@ const getters = {
 };
 
 const actions = {
-  getMovieData: async (context: MovieContext, payload: { id: string }) => {
-    const data = await getMovieAPI(payload.id);
+  fetchMovieData: async (context: MovieContext, payload: { id: string }) => {
+    const data = await getMovie(payload.id);
     context.commit('setMovieData', data);
   }
 };
@@ -39,7 +39,7 @@ const mutations = {
     state.title = info.title;
     state.poster = info.poster;
     state.description = info.description;
-    state.date = info.date;
+    state.releaseDate = info.releaseDate;
     state.cert = info.cert;
     state.cast = info.cast;
     state.crew = info.crew;
@@ -62,5 +62,5 @@ export const movie = {
 // We pass namespace here, if we make the module namespaced: true.
 const { read, dispatch } = getStoreAccessors<MovieState, RootState>('movie');
 
-export const getMovie = read(movie.getters.movie);
-export const dispatchGetMovieDataAction = dispatch(movie.actions.getMovieData);
+export const getMovieData = read(movie.getters.movie);
+export const fetchMovieData = dispatch(movie.actions.fetchMovieData);

@@ -13,8 +13,8 @@ import * as home from '@/store/modules/home';
 })
 export default class Home extends Vue {
   private created() {
-    home.dispatchGetLatestMoviesAction(this.$store);
-    home.dispatchGetUpcomingMoviesAction(this.$store);
+    home.fetchLatestMovies(this.$store);
+    home.fetchUpcomingMovies(this.$store);
   }
 
   get latestMovies() {
