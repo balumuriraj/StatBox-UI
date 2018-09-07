@@ -24,10 +24,23 @@ const uiConfig: any = {
   ]
 };
 
-const init = () => firebase.initializeApp(config);
+const init = (context: any) => {
+  firebase.initializeApp(config);
+  context.$store.dispatch('initialiseStore');
+};
 const initObserver = (context: any) => {
   firebase.auth().onAuthStateChanged((user) => {
-    context.$store.dispatch('auth/setAuthUser', { user });
+    if (user) {
+      user.getIdToken(/* forceRefresh */ true).then((idToken) => {
+        // Send token to your backend via HTTPS
+        context.$store.dispatch('auth/setAuthUser', { idToken, user });
+      }).catch((error) => {
+        // Handle error
+      });
+    } else {
+      context.$store.dispatch('auth/resetAuthUser');
+    }
+
     const requireAuth = context.$route.matched.some((record: any) => record.meta.requireAuth);
     const guestOnly = context.$route.matched.some((record: any) => record.meta.guestOnly);
 
@@ -38,7 +51,18 @@ const initObserver = (context: any) => {
     }
   });
 };
-const initUI = (container: any) => new firebaseui.auth.AuthUI(firebase.auth()).start(container, uiConfig);
+const initUI = (container: any) => {
+  let ui: any = null;
+  const AuthUI = firebaseui.auth.AuthUI;
+
+  if ((AuthUI as any).getInstance()) {
+    ui = (AuthUI as any).getInstance();
+  } else {
+    ui = new AuthUI(firebase.auth());
+  }
+
+  ui.start(container, uiConfig);
+};
 const logout = () => firebase.auth().signOut();
 
 export default { init, initObserver, initUI, logout };

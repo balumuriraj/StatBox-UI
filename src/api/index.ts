@@ -1,8 +1,13 @@
 import { getMovieById, getMoviesBetweenDates } from '@/api/falcor/movie';
-import { getReviewsCountById, getReviewsById } from '@/api/falcor/review';
 import { getMoviesByCelebId } from '@/api/falcor/role';
-import { getUserById } from '@/api/falcor/critic';
 import { getCelebById } from '@/api/falcor/celeb';
+import { getUserId } from '@/api/rest/user';
+import { getUser } from '@/api/falcor/user';
+
+export async function getUserInfo(idToken: string) {
+  const userId =  await getUserId(idToken);
+  return await getUser(userId);
+}
 
 export async function getMoviesBetweenDatesRange(date1: number, date2: number) {
   const movies = await getMoviesBetweenDates(date1, date2, 10);
@@ -80,50 +85,50 @@ export async function getCeleb(id: string) {
   return celeb;
 }
 
-export async function getUser(id: string) {
-  const userId = id || 1;
-  const user = await getUserById(id);
-  const reviewsCount = await getReviewsCountById(id, 'user');
-  const reviews = await getReviewsById(id, 'user', reviewsCount);
+// export async function getUser(id: string) {
+//   const userId = id || 1;
+//   const user = await getUserById(id);
+//   const reviewsCount = await getReviewsCountById(id, 'user');
+//   const reviews = await getReviewsById(id, 'user', reviewsCount);
 
-  // ratings
-  const ratings: number[] = [];
+//   // ratings
+//   const ratings: number[] = [];
 
-  for (const index in reviews) {
-    if (reviews[index]) {
-      const review = reviews[index];
+//   for (const index in reviews) {
+//     if (reviews[index]) {
+//       const review = reviews[index];
 
-      if (review.rating) {
-        ratings.push(review.rating);
-      }
-    }
-  }
-  user.ratings = getBins(ratings.sort());
+//       if (review.rating) {
+//         ratings.push(review.rating);
+//       }
+//     }
+//   }
+//   user.ratings = getBins(ratings.sort());
 
-  return user;
-}
+//   return user;
+// }
 
-// utils
+// // utils
 
-function getBins(data: number[]) {
-  const size = 0.5;
-  const count = 6 / size;
-  let bins = new Array(count).fill(0);
+// function getBins(data: number[]) {
+//   const size = 0.5;
+//   const count = 6 / size;
+//   let bins = new Array(count).fill(0);
 
-  for (const rating of data) {
-    bins[Math.floor(rating / size)]++;
-  }
+//   for (const rating of data) {
+//     bins[Math.floor(rating / size)]++;
+//   }
 
-  const maxCount = Math.max(...bins);
-  const noise = maxCount * 0.15;
+//   const maxCount = Math.max(...bins);
+//   const noise = maxCount * 0.15;
 
-  bins = bins.map((c, i) => {
-    if (i === 0 || i === count - 1) {
-      return c;
-    }
+//   bins = bins.map((c, i) => {
+//     if (i === 0 || i === count - 1) {
+//       return c;
+//     }
 
-    return c + noise;
-  });
+//     return c + noise;
+//   });
 
-  return bins;
-}
+//   return bins;
+// }

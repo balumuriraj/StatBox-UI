@@ -1,6 +1,7 @@
 import { ActionContext } from 'vuex';
 import { getStoreAccessors } from 'vuex-typescript';
 import { AuthState, RootState } from '@/store/interfaces';
+import { getUserInfo } from '@/api';
 
 type UserContext = ActionContext<AuthState, RootState>;
 
@@ -10,7 +11,9 @@ const state = {
     name: null,
     photo: null,
     lastLogin: null,
-    userSince: null
+    userSince: null,
+    bookmarks: [],
+    seen: []
   },
   isLoggedIn: null
 };
@@ -21,28 +24,42 @@ const getters = {
 };
 
 const actions = {
-  setAuthUser: (context: UserContext, payload: { user: any }) => {
-    context.commit('setAuthData', payload.user);
+  setAuthUser: async (context: UserContext, payload: { idToken: any, user: any }) => {
+    const { idToken, user } = payload;
+    const userInfo = await getUserInfo(idToken);
+    userInfo.name = user.displayName;
+    userInfo.photo = user.photoURL;
+    userInfo.lastSignInTime = user.metadata.lastSignInTime;
+    userInfo.creationTime = user.metadata.creationTime;
+    console.log(userInfo);
+    context.commit('setAuthUser', userInfo);
+  },
+
+  resetAuthUser: async (context: UserContext) => {
+    context.commit('resetAuthUser');
   }
 };
 
 const mutations = {
-  setAuthData: (state: any, user: any) => {
-    if (user) {
-      state.user.id = user.uid;
-      state.user.name = user.displayName;
-      state.user.photo = user.photoURL;
-      state.user.lastLogin = new Date(user.metadata.lastSignInTime).toLocaleString();
-      state.user.userSince = new Date(user.metadata.creationTime).toLocaleString();
-      state.isLoggedIn = true;
-    } else {
-      state.user.id = null;
-      state.user.name = null;
-      state.user.photo = null;
-      state.user.lastLogin = null;
-      state.user.userSince = null;
-      state.isLoggedIn = false;
-    }
+  setAuthUser: (state: any, user: any) => {
+    state.user.id = user.id;
+    state.user.name = user.name;
+    state.user.photo = user.photo;
+    state.user.lastLogin = new Date(user.lastSignInTime).toLocaleString();
+    state.user.userSince = new Date(user.creationTime).toLocaleString();
+    state.isLoggedIn = true;
+    state.user.bookmarks = user.bookmarks;
+    state.user.seen = user.seen;
+  },
+  resetAuthUser: (state: any) => {
+    state.user.id = null;
+    state.user.name = null;
+    state.user.photo = null;
+    state.user.lastLogin = null;
+    state.user.userSince = null;
+    state.isLoggedIn = false;
+    state.user.bookmarks = [];
+    state.user.seen = [];
   }
 };
 
