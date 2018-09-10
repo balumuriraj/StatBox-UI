@@ -1,5 +1,6 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
+import { userRating, updateReview } from '@/store/modules/movie';
 
 @Component({
   components: {
@@ -7,11 +8,13 @@ import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
   }
 })
 export default class Rating extends Vue {
+  @Prop() public movieId!: number;
+
   private hoverVal: number = 0;
   private val: number = 0;
 
   get value() {
-    return this.val;
+    return userRating(this.$store);
   }
 
   get hoverValue() {
@@ -20,15 +23,15 @@ export default class Rating extends Vue {
 
   get ratings() {
     return [
-      { value: 0.5, tooltip: 'It\'s the worst!', flip: '', shift: 'grow-10 right-10' },
+      { value: 0.5, tooltip: 'It\'s the worst!', flip: null, shift: 'grow-10 right-10' },
       { value: 1, tooltip: 'I do not like it', flip: 'vertical', shift: 'grow-10 rotate-180 left-10' },
-      { value: 1.5, tooltip: 'It\'s not interesting', flip: '', shift: 'grow-10 right-10' },
+      { value: 1.5, tooltip: 'It\'s not interesting', flip: null, shift: 'grow-10 right-10' },
       { value: 2, tooltip: 'It\'s not much.', flip: 'vertical', shift: 'grow-10 rotate-180 left-10' },
-      { value: 2.5, tooltip: 'I\'m short', flip: '', shift: 'grow-10 right-10' },
+      { value: 2.5, tooltip: 'I\'m short', flip: null, shift: 'grow-10 right-10' },
       { value: 3, tooltip: 'It\'s normal', flip: 'vertical', shift: 'grow-10 rotate-180 left-10' },
-      { value: 3.5, tooltip: 'I can see it', flip: '', shift: 'grow-10 right-10' },
+      { value: 3.5, tooltip: 'I can see it', flip: null, shift: 'grow-10 right-10' },
       { value: 4, tooltip: 'it\'s fun', flip: 'vertical', shift: 'grow-10 rotate-180 left-10' },
-      { value: 4.5, tooltip: 'It\'s great', flip: '', shift: 'grow-10 right-10' },
+      { value: 4.5, tooltip: 'It\'s great', flip: null, shift: 'grow-10 right-10' },
       { value: 5, tooltip: 'It is the best!', flip: 'vertical', shift: 'grow-10 rotate-180 left-10' }
     ];
   }
@@ -41,7 +44,12 @@ export default class Rating extends Vue {
     this.hoverVal = 0;
   }
 
-  public setRating(rating: number) {
-    this.val = rating;
+  public async setRating(rating: number) {
+    await updateReview(this.$store, {
+      review: {
+        movieId: this.movieId,
+        rating
+      }
+     });
   }
 }

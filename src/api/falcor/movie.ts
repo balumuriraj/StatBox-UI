@@ -20,16 +20,22 @@ export async function getMoviesBetweenDates(date1: number, date2: number, count:
     });
 }
 
-export async function getMovieById(movieId: string): Promise<any> {
+export async function getMovieById(movieId: number): Promise<any> {
   return await model.get([
     'moviesById', [movieId],
-    ['id', 'title', 'description', 'releaseDate', 'poster', 'runtime', 'genre', 'cert', 'cast', 'crew'],
+    [
+      'id', 'title', 'description', 'releaseDate', 'poster', 'rating',
+      'runtime', 'genre', 'cert', 'cast', 'crew'
+    ],
     {length: 5}, ['id', 'type', 'category', 'celeb'],
     ['id', 'name', 'photo']
   ])
     .then((response: any) => {
       const result: any = response.json.moviesById[movieId];
-      const { id, title, description, releaseDate, poster, runtime, genre, cert } = result;
+      const {
+        id, title, description, releaseDate,
+        poster, runtime, rating, genre, cert
+      } = result;
       const cast = [];
       const crew = [];
 
@@ -57,6 +63,23 @@ export async function getMovieById(movieId: string): Promise<any> {
         }
       }
 
-      return { id, title, description, releaseDate, poster, runtime, genre, cert, cast, crew };
+      return {
+        id, title, description, releaseDate, rating,
+        poster, runtime, genre, cert, cast, crew
+      };
+    });
+}
+
+
+export async function getMovieMetadataById(movieId: number): Promise<any> {
+  return await model.get([
+    'moviesById', [movieId], 'metadata'
+  ])
+    .then((response: any) => {
+      const result: any = response.json.moviesById[movieId];
+      const { metadata } = result;
+
+      console.log(metadata);
+      return metadata;
     });
 }

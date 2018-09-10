@@ -31,9 +31,9 @@ const init = (context: any) => {
 const initObserver = (context: any) => {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      user.getIdToken(/* forceRefresh */ true).then((idToken) => {
+      user.getIdToken(/* forceRefresh */ true).then((token) => {
         // Send token to your backend via HTTPS
-        context.$store.dispatch('auth/setAuthUser', { idToken, user });
+        context.$store.dispatch('auth/setAuthUser', { token, user });
       }).catch((error) => {
         // Handle error
       });
@@ -50,6 +50,18 @@ const initObserver = (context: any) => {
       context.$router.push('dashboard');
     }
   });
+
+  // firebase.auth().onIdTokenChanged((user) => {
+  //   if (user) {
+  //     // User is signed in or token was refreshed.
+  //     user.getIdToken(/* forceRefresh */ true).then((token) => {
+  //       // Send token to your backend via HTTPS
+  //       context.$store.dispatch('auth/setToken', { token });
+  //     }).catch((error) => {
+  //       // Handle error
+  //     });
+  //   }
+  // });
 };
 const initUI = (container: any) => {
   let ui: any = null;

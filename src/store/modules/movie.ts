@@ -1,6 +1,6 @@
 import { ActionContext } from 'vuex';
 import { getStoreAccessors } from 'vuex-typescript';
-import { getMovie } from '@/api';
+import { getMovie, updateUserBookmark, updateUserSeen, updateUserReview } from '@/api';
 import { MovieState, RootState } from '@/store/interfaces';
 
 type MovieContext = ActionContext<MovieState, RootState>;
@@ -14,22 +14,38 @@ const state = {
   poster: null,
   runtime: null,
   rating: null,
-  ratings: [],
-  reviews: [],
   genre: [],
   cast: [],
   crew: [],
-  moviesThisMonth: []
+  moviesThisMonth: [],
+  isSeen: false,
+  isBookmarked: false,
+  userRating: null
 };
 
 const getters = {
-  movie: (state: MovieState) => state
+  movie: (state: MovieState) => state,
+  isBookmarked: (state: MovieState) => state.isBookmarked,
+  isSeen: (state: MovieState) => state.isSeen,
+  userRating: (state: MovieState) => state.userRating
 };
 
 const actions = {
-  fetchMovieData: async (context: MovieContext, payload: { id: string }) => {
+  fetchMovieData: async (context: MovieContext, payload: { id: number }) => {
     const data = await getMovie(payload.id);
     context.commit('setMovieData', data);
+  },
+  updateBookmark: async (context: MovieContext, payload: { id: number, isPush: boolean }) => {
+    const result = await updateUserBookmark(context.rootGetters.userId, payload.id, payload.isPush);
+    context.commit('updateBookmark', result);
+  },
+  updateSeen: async (context: MovieContext, payload: { id: number, isPush: boolean }) => {
+    const result = await updateUserSeen(context.rootGetters.userId, payload.id, payload.isPush);
+    context.commit('updateSeen', result);
+  },
+  updateReview: async (context: MovieContext, payload: { review: any }) => {
+    const result = await updateUserReview({ userId: context.rootGetters.userId, ...payload.review});
+    context.commit('updateReview', result);
   }
 };
 
@@ -45,9 +61,20 @@ const mutations = {
     state.crew = info.crew;
     state.genre = info.genre;
     state.moviesThisMonth = info.moviesThisMonth;
-    state.ratings = info.ratings;
-    state.reviews = info.reviews;
+    state.rating = info.rating;
     state.runtime = info.runtime;
+    state.isSeen = info.metadata && info.metadata.isSeen;
+    state.isBookmarked = info.metadata && info.metadata.isBookmarked;
+    state.userRating = info.metadata && info.metadata.userRating;
+  },
+  updateBookmark: (state: MovieState, value: boolean) => {
+    state.isBookmarked = value;
+  },
+  updateSeen: (state: MovieState, value: boolean) => {
+    state.isSeen = value;
+  },
+  updateReview: (state: MovieState, review: any) => {
+    state.userRating = review.rating;
   }
 };
 
@@ -63,4 +90,10 @@ export const movie = {
 const { read, dispatch } = getStoreAccessors<MovieState, RootState>('movie');
 
 export const getMovieData = read(movie.getters.movie);
+export const isBookmarked = read(movie.getters.isBookmarked);
+export const isSeen = read(movie.getters.isSeen);
+export const userRating = read(movie.getters.userRating);
 export const fetchMovieData = dispatch(movie.actions.fetchMovieData);
+export const updateBookmark = dispatch(movie.actions.updateBookmark);
+export const updateSeen = dispatch(movie.actions.updateSeen);
+export const updateReview = dispatch(movie.actions.updateReview);

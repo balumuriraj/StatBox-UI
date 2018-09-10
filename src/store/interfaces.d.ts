@@ -23,25 +23,33 @@ export interface MovieState {
   genre: any[];
   poster: string;
   runtime: string;
-  rating: string;
+  rating: number;
   cast: any[];
   crew: any[];
   moviesThisMonth: any[];
-  ratings: any[];
-  reviews: [];
+  isSeen: boolean;
+  isBookmarked: boolean;
+  userRating: number;
 }
 
 export interface AuthState {
   user: {
+    id: number;
     name: string;
     photo: string;
     lastLogin: number;
     userSince: number;
+    bookmarks: any[];
+    seen: any[];
+    reviewed: any[];
   },
   isLoggedIn: boolean;
+  token: string;
 }
 
 export interface RootState {
   home: HomeState;
-  user: any
+  auth: AuthState;
+  movie: MovieState;
+  celeb: CelebState;
 }

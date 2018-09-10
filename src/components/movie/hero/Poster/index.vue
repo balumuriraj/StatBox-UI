@@ -2,19 +2,19 @@
   <div class="poster-container">
     <img :src=imageUrl />
     <div class="stars-container">
-      <Rating></Rating>
+      <Rating :movieId=movieId></Rating>
     </div>
     <div class="buttons-container">
       <div class="columns is-gapless">
         <div class="column">
-          <div class="tooltip is-tooltip-bottom is-tooltip-danger" :data-tooltip="isNotInterested ? 'Remove Dislike' : 'Not Interested'">
-            <div class="icon-block" v-on:click="setInterest()">
+          <div class="tooltip is-tooltip-bottom is-tooltip-danger" :data-tooltip="isSeen ? 'Remove Seen' : 'Already Seen'">
+            <div class="icon-block" v-on:click="setSeen()">
             <font-awesome-icon 
-              :icon="['fas', 'thumbs-down']" 
-              :class="{ 'active': isNotInterested }"                   
+              :icon="['fas', 'check']" 
+              :class="{ 'active': isSeen }"                   
               fixed-width>
             </font-awesome-icon>
-            <span> Nope</span>
+            <span> Seen</span>
             </div>
           </div>
         </div>

@@ -16,7 +16,7 @@
         <div class="container">
           <div class="columns is-centered">
             <div class="column is-narrow has-text-centered">
-              <Poster :imageUrl=movie.poster></Poster>
+              <Poster :imageUrl=movie.poster :movieId=movie.id></Poster>
             </div>
             <div class="column is-half">
               <Content :movie=movie></Content>      

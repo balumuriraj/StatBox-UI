@@ -9,6 +9,11 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   modules: { auth, home, celeb, movie },
+  getters: {
+    userId(state) {
+      return state.auth.user.id;
+    }
+  },
   actions: {
     initialiseStore(context) {
       context.commit('initialiseStore');
@@ -19,7 +24,8 @@ const store = new Vuex.Store({
       const localStore = localStorage.getItem('store');
 
       if (localStore) {
-        this.replaceState(state, JSON.parse(localStore));
+        const payload = JSON.parse(localStore);
+        this.replaceState(Object.assign(state, payload), payload);
       }
     }
   },
@@ -28,7 +34,7 @@ const store = new Vuex.Store({
 
 // Subscribe to store updates
 store.subscribe((mutation, state) => {
-  // Store the state object as a JSON string
+  // Store the state object as a JSON
   localStorage.setItem('store', JSON.stringify(state));
 });
 

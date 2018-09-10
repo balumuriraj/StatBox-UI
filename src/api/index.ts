@@ -1,17 +1,41 @@
-import { getMovieById, getMoviesBetweenDates } from '@/api/falcor/movie';
+import { getMovieById, getMoviesBetweenDates, getMovieMetadataById } from '@/api/falcor/movie';
 import { getMoviesByCelebId } from '@/api/falcor/role';
 import { getCelebById } from '@/api/falcor/celeb';
 import { getUserId } from '@/api/rest/user';
-import { getUser } from '@/api/falcor/user';
+import { getUser, addBookmark, removeBookmark, addSeen, removeSeen, updateReview } from '@/api/falcor/user';
 
-export async function getUserInfo(idToken: string) {
-  const userId =  await getUserId(idToken);
-  return await getUser(userId);
+export async function getUserInfo(idToken: string, userId?: number) {
+  let id: any = userId;
+
+  if (!id) {
+    id =  await getUserId(idToken);
+  }
+
+  return await getUser(id);
+}
+
+export async function updateUserBookmark(userId: number, movieId: number, isPush: boolean) {
+  if (isPush) {
+    return await addBookmark(userId, movieId);
+  } else {
+    return await removeBookmark(userId, movieId);
+  }
+}
+
+export async function updateUserSeen(userId: number, movieId: number, isPush: boolean) {
+  if (isPush) {
+    return await addSeen(userId, movieId);
+  } else {
+    return await removeSeen(userId, movieId);
+  }
+}
+
+export async function updateUserReview(review: any) {
+  return await updateReview(review);
 }
 
 export async function getMoviesBetweenDatesRange(date1: number, date2: number) {
   const movies = await getMoviesBetweenDates(date1, date2, 10);
-  console.log(movies);
   return movies.map((movie: any) => {
     return {
       id: movie.id,
@@ -24,18 +48,18 @@ export async function getMoviesBetweenDatesRange(date1: number, date2: number) {
   });
 }
 
-export async function getMovie(id: string) {
+export async function getMovie(id: number) {
   const movie = await getMovieById(id);
+  const metadata = await getMovieMetadataById(id);
+
+  movie.metadata = metadata;
 
   const days = 10;
   const date1 = new Date(movie.releaseDate);
   const date2 = new Date(movie.releaseDate);
   const startDate = date1.setDate(date1.getDate() - days);
   const endDate = date2.setDate(date2.getDate() + days);
-  console.log(date1, new Date(startDate), new Date(endDate));
   movie.moviesThisMonth = await getMoviesBetweenDatesRange(startDate, endDate);
-
-  console.log(movie);
 
   // // reviews
   // const reviewsCount = await getReviewsCountById(id, 'movie');

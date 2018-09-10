@@ -13,9 +13,11 @@ const state = {
     lastLogin: null,
     userSince: null,
     bookmarks: [],
-    seen: []
+    seen: [],
+    reviewed: []
   },
-  isLoggedIn: null
+  isLoggedIn: false,
+  token: null
 };
 
 const getters = {
@@ -24,32 +26,52 @@ const getters = {
 };
 
 const actions = {
-  setAuthUser: async (context: UserContext, payload: { idToken: any, user: any }) => {
-    const { idToken, user } = payload;
-    const userInfo = await getUserInfo(idToken);
-    userInfo.name = user.displayName;
-    userInfo.photo = user.photoURL;
-    userInfo.lastSignInTime = user.metadata.lastSignInTime;
-    userInfo.creationTime = user.metadata.creationTime;
-    console.log(userInfo);
-    context.commit('setAuthUser', userInfo);
-  },
+  setAuthUser: async (context: UserContext, payload: { token: string, user: any }) => {
+    const { token, user } = payload;
+    context.commit('setAuthUser', {
+      name: user.displayName,
+      photo: user.photoURL,
+      lastSignInTime: user.metadata.lastSignInTime,
+      creationTime: user.metadata.creationTime,
+      token
+    });
 
+    const data = await getUserInfo(context.state.token);
+    context.commit('setUserData', data);
+  },
+  fetchUserData: async (context: UserContext) => {
+    const { token, user } = context.state;
+
+    if (token) {
+      const data = await getUserInfo(context.state.token, user.id);
+      context.commit('setUserData', data);
+    }
+  },
+  setToken: async (context: UserContext, payload: { token: string }) => {
+    context.commit('setToken', payload.token);
+  },
   resetAuthUser: async (context: UserContext) => {
     context.commit('resetAuthUser');
   }
 };
 
 const mutations = {
-  setAuthUser: (state: any, user: any) => {
-    state.user.id = user.id;
-    state.user.name = user.name;
-    state.user.photo = user.photo;
-    state.user.lastLogin = new Date(user.lastSignInTime).toLocaleString();
-    state.user.userSince = new Date(user.creationTime).toLocaleString();
+  setAuthUser: (state: any, info: any) => {
+    state.user.name = info.name;
+    state.user.photo = info.photo;
+    state.user.lastLogin = new Date(info.lastSignInTime).toLocaleString();
+    state.user.userSince = new Date(info.creationTime).toLocaleString();
     state.isLoggedIn = true;
+    state.token = info.token;
+  },
+  setUserData: (state: any, user: any) => {
+    state.user.id = user.id;
     state.user.bookmarks = user.bookmarks;
     state.user.seen = user.seen;
+    state.user.reviewed = user.reviewed;
+  },
+  setToken: (state: any, token: string) => {
+    state.token = token;
   },
   resetAuthUser: (state: any) => {
     state.user.id = null;
@@ -57,9 +79,11 @@ const mutations = {
     state.user.photo = null;
     state.user.lastLogin = null;
     state.user.userSince = null;
-    state.isLoggedIn = false;
     state.user.bookmarks = [];
     state.user.seen = [];
+    state.user.reviewed = [];
+    state.isLoggedIn = false;
+    state.token = null;
   }
 };
 
@@ -77,3 +101,4 @@ const { read, dispatch } = getStoreAccessors<AuthState, RootState>('auth');
 export const getUser = read(auth.getters.user);
 export const isUserLoggedIn = read(auth.getters.isUserLoggedIn);
 export const setAuthUser = dispatch(auth.actions.setAuthUser);
+export const fetchUserData = dispatch(auth.actions.fetchUserData);

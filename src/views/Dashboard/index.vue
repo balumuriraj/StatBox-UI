@@ -12,6 +12,8 @@
           <!-- <img :src="user.photoURL" width="150"> -->
           <img src="../../assets/avatar.png" width="150">
           <p class="title">{{user.name}}</p>
+          <p>Last Login: {{user.lastLogin}}</p>
+          <p>User since: {{new Date(user.userSince).toLocaleDateString()}}</p>
         </div>
       </div>
     </section>
@@ -19,7 +21,13 @@
     <!-- content -->
     <section class="section">
         <div class="container">
-          <pre>{{user}}</pre>
+          <!-- <pre>{{user}}</pre> -->
+          <MovieList title="Bookmarks" :movies="user.bookmarks"></MovieList>
+          <br>
+          <MovieList title="Seen" :movies="user.seen"></MovieList>
+          <br>
+          <MovieList title="Reviewed" :movies="user.reviewed"></MovieList>
+          <br>
         </div>
     </section>
     

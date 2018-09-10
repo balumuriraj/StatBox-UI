@@ -9,7 +9,7 @@ import Content from '@/components/movie/hero/Content';
 import Stats from '@/components/movie/body/Stats';
 import Attributes from '@/components/movie/body/Attributes';
 import Title from '@/components/movie/body/Title';
-import * as movie from '@/store/modules/movie';
+import * as movieStore from '@/store/modules/movie';
 
 @Component({
   components: {
@@ -35,15 +35,16 @@ export default class Movie extends Vue {
   }
 
   private created() {
+    console.log('fetching data....');
     this.fetchData();
   }
 
   private fetchData() {
-    movie.fetchMovieData(this.$store, { id: this.$route.params.id });
+    movieStore.fetchMovieData(this.$store, { id: Number(this.$route.params.id) });
   }
 
   get movie() {
-    return movie.getMovieData(this.$store);
+    return movieStore.getMovieData(this.$store);
   }
 
   get cast() {

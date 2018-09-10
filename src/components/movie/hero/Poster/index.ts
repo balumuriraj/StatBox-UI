@@ -1,6 +1,12 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
 import Rating from '../Rating';
+import {
+  isBookmarked as isMovieBookmarked,
+  isSeen as isMovieSeen,
+  updateSeen,
+  updateBookmark
+} from '@/store/modules/movie';
 
 @Component({
   components: {
@@ -10,24 +16,29 @@ import Rating from '../Rating';
 })
 export default class Poster extends Vue {
   @Prop() public imageUrl!: string;
-
-  private bookmark: boolean = false;
-  private notInterested: boolean = false;
-
+  @Prop() public movieId!: number;
 
   get isBookmarked() {
-    return this.bookmark;
+    return isMovieBookmarked(this.$store);
   }
 
-  get isNotInterested() {
-    return this.notInterested;
+  get isSeen() {
+    return isMovieSeen(this.$store);
   }
 
-  public setInterest() {
-    this.notInterested = !this.notInterested;
+  public setSeen() {
+    if (this.isSeen) {
+      updateSeen(this.$store, { id: this.movieId, isPush: false });
+    } else {
+      updateSeen(this.$store, { id: this.movieId, isPush: true });
+    }
   }
 
   public setBookmark() {
-    this.bookmark = !this.bookmark;
+    if (this.isBookmarked) {
+      updateBookmark(this.$store, { id: this.movieId, isPush: false });
+    } else {
+      updateBookmark(this.$store, { id: this.movieId, isPush: true });
+    }
   }
 }

@@ -18,13 +18,13 @@
 
     <!-- content -->
     <section class="section">
-        <div class="container">
-          <MovieList title="Latest" :movies="latestMovies"></MovieList>
-          <br>
-          <MovieList title="Coming Soon" :movies="upcomingMovies"></MovieList>
-          <br>
-          <MovieList title="Trending" :movies="upcomingMovies"></MovieList>
-        </div>
+      <div class="container">
+        <MovieList title="Latest" :movies="latestMovies"></MovieList>
+        <br>
+        <MovieList title="Coming Soon" :movies="upcomingMovies"></MovieList>
+        <br>
+        <MovieList title="Trending" :movies="upcomingMovies"></MovieList>
+      </div>
     </section>
     
     <!-- footer -->
