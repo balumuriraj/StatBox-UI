@@ -50,9 +50,6 @@ export async function getMoviesBetweenDatesRange(date1: number, date2: number) {
 
 export async function getMovie(id: number) {
   const movie = await getMovieById(id);
-  const metadata = await getMovieMetadataById(id);
-
-  movie.metadata = metadata;
 
   const days = 10;
   const date1 = new Date(movie.releaseDate);
@@ -81,6 +78,10 @@ export async function getMovie(id: number) {
   // movie.ratings = getBins(ratings.sort());
 
   return movie;
+}
+
+export async function getMovieMetadata(id: number) {
+  return await getMovieMetadataById(id);
 }
 
 export async function getMoviesByCeleb(id: string) {

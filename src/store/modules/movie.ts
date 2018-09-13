@@ -1,6 +1,6 @@
 import { ActionContext } from 'vuex';
 import { getStoreAccessors } from 'vuex-typescript';
-import { getMovie, updateUserBookmark, updateUserSeen, updateUserReview } from '@/api';
+import { getMovie, updateUserBookmark, updateUserSeen, updateUserReview, getMovieMetadata } from '@/api';
 import { MovieState, RootState } from '@/store/interfaces';
 
 type MovieContext = ActionContext<MovieState, RootState>;
@@ -34,6 +34,9 @@ const actions = {
   fetchMovieData: async (context: MovieContext, payload: { id: number }) => {
     const data = await getMovie(payload.id);
     context.commit('setMovieData', data);
+
+    const metadata = await getMovieMetadata(payload.id);
+    context.commit('setMovieMetadata', metadata);
   },
   updateBookmark: async (context: MovieContext, payload: { id: number, isPush: boolean }) => {
     const result = await updateUserBookmark(context.rootGetters.userId, payload.id, payload.isPush);
@@ -63,9 +66,11 @@ const mutations = {
     state.moviesThisMonth = info.moviesThisMonth;
     state.rating = info.rating;
     state.runtime = info.runtime;
-    state.isSeen = info.metadata && info.metadata.isSeen;
-    state.isBookmarked = info.metadata && info.metadata.isBookmarked;
-    state.userRating = info.metadata && info.metadata.userRating;
+  },
+  setMovieMetadata: (state: MovieState, metadata: any) => {
+    state.isSeen = metadata.isSeen;
+    state.isBookmarked = metadata.isBookmarked;
+    state.userRating = metadata.userRating;
   },
   updateBookmark: (state: MovieState, value: boolean) => {
     state.isBookmarked = value;

@@ -35,9 +35,6 @@ const actions = {
       creationTime: user.metadata.creationTime,
       token
     });
-
-    const data = await getUserInfo(context.state.token);
-    context.commit('setUserData', data);
   },
   fetchUserData: async (context: UserContext) => {
     const { token, user } = context.state;

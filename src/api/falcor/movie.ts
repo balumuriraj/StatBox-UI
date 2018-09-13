@@ -77,9 +77,16 @@ export async function getMovieMetadataById(movieId: number): Promise<any> {
   ])
     .then((response: any) => {
       const result: any = response.json.moviesById[movieId];
-      const { metadata } = result;
 
-      console.log(metadata);
-      return metadata;
+      if (!result.metadata) {
+        return {
+          isSeen: false,
+          isBookmarked: false,
+          userRating: null
+        };
+      }
+
+      const { isSeen, isBookmarked, userRating } = result.metadata;
+      return { isSeen, isBookmarked, userRating };
     });
 }

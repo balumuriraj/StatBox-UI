@@ -35,11 +35,11 @@ export default class Movie extends Vue {
   }
 
   private created() {
-    console.log('fetching data....');
     this.fetchData();
   }
 
   private fetchData() {
+    console.log('fetching Movie data....');
     movieStore.fetchMovieData(this.$store, { id: Number(this.$route.params.id) });
   }
 

@@ -1,9 +1,12 @@
 import model from '@/api/falcor/model';
 
 export async function getUser(id: number): Promise<any> {
+  const reviews = await getUserReviews(id);
+  console.log('reviews: ', reviews);
+
   return await model.get([
     'usersById', [id],
-    ['id', 'authId', 'bookmarks', 'seen', 'reviewed'],
+    ['id', 'authId', 'bookmarks', 'seen'],
     {length: 10}, ['id', 'title', 'poster', 'rating']
   ])
     .then((response: any) => {
@@ -34,15 +37,13 @@ export async function getUser(id: number): Promise<any> {
         }
       }
 
-      for (const index in userInfo.reviewed) {
-        if (userInfo.reviewed[index] && typeof userInfo.reviewed[index].id === 'number') {
-          reviewed.push({
-            id: userInfo.reviewed[index].id,
-            title: userInfo.reviewed[index].title,
-            poster: userInfo.reviewed[index].poster
-          });
-        }
-      }
+      reviews.forEach((review: any) => {
+        reviewed.push({
+          id: review.movie.id,
+          title: review.movie.title,
+          poster: review.movie.poster
+        });
+      });
 
       return {
         id: userInfo.id,
@@ -54,12 +55,45 @@ export async function getUser(id: number): Promise<any> {
     });
 }
 
+export async function getUserReviews(id: number): Promise<any> {
+  return await model.get([
+    'usersById', [id],
+    'reviews',
+    {length: 10}, ['id', 'movie', 'rating'],
+    ['id', 'title', 'poster', 'rating']
+  ])
+    .then((response: any) => {
+      const userInfo = response.json.usersById[id];
+      const reviews: any[] = [];
+
+      for (const index in userInfo.reviews) {
+        if (userInfo.reviews[index] && typeof userInfo.reviews[index].id === 'number') {
+          const review = userInfo.reviews[index];
+          const movie = review.movie;
+
+          reviews.push({
+            id: review.id,
+            movie: {
+              id: movie.id,
+              title: movie.title,
+              poster: movie.poster,
+              rating: movie.rating
+            },
+            rating: review.rating
+          });
+        }
+      }
+
+      return reviews;
+    });
+}
+
 export async function addBookmark(userId: number, movieId: number) {
   return await model.call(
-    ['usersById', userId, 'addBookmark'],
-    [movieId],
-    [['isBookmarked']],
-    [['bookmarks', 'length']]
+    ['usersById', userId, 'addBookmark'], // call path
+    [movieId], // args
+    [['isBookmarked']], // refPaths (moviesById)
+    [['bookmarks', 'length']] // thisPaths (usersById)
   )
     .then((response: any) => {
       console.log('addBookmark: ', response);
