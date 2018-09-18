@@ -1,24 +1,18 @@
 <template>
-  <div class="">
-    <div class="level">
-      <div class="level-left">
-        <div class="level-item">
-          <p class="title">{{ title }}</p>
-        </div>
-      </div>
-      <div class="level-right">
-        <div class="level-item">
-          <div class="control"><font-awesome-icon :icon="['fas', 'caret-left']"></font-awesome-icon></div>
-          <a class="link" href="#">VIEW ALL</a>
-          <div class="control"><font-awesome-icon :icon="['fas', 'caret-right']"></font-awesome-icon></div>
-        </div>
-      </div>
-    </div>
-    <div class="columns movie-list" id="content">
+  <div class="columns is-multiline">
+    <template v-if="movies.length">
       <template v-for="movie in movies">
+        <div class="column is-narrow" :key="movie.id">
+          <MovieCard :movie="movie"></MovieCard>
+        </div>
+      </template>
+    </template>
+
+    <template v-else>
+      <template v-for="movie in placeholders">
         <MovieCard :movie="movie" :key="movie.id"></MovieCard>
       </template>
-    </div>
+    </template>
   </div>
 </template>
 

@@ -19,11 +19,11 @@
     <!-- content -->
     <section class="section">
       <div class="container">
-        <MovieList title="Latest" :movies="latestMovies"></MovieList>
+        <Carousel title="Latest" :movies="latestMovies"></Carousel>
         <br>
-        <MovieList title="Coming Soon" :movies="upcomingMovies"></MovieList>
+        <Carousel title="Coming Soon" :movies="upcomingMovies"></Carousel>
         <br>
-        <MovieList title="Trending" :movies="upcomingMovies"></MovieList>
+        <Carousel title="Trending" :movies="upcomingMovies"></Carousel>
       </div>
     </section>
     

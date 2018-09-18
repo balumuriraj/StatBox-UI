@@ -28,7 +28,7 @@
     <!-- content -->
     <section class="section">
       <div class="container"> 
-        <MovieList title="Movies" :movies=celeb.movies.all></MovieList>
+        <Carousel title="Movies" :movies=celeb.movies.all></Carousel>
       </div>
     </section>
     

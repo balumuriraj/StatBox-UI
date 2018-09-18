@@ -49,11 +49,6 @@
                       <Table :headers="['Title','Release Date','Certification','Runtime']" :rows=movies></Table>
                     </article>
                   </div>
-                  <div class="tile is-parent">
-                    <article class="tile is-child">
-                      <List title="Similars" :movies="movie.moviesThisMonth"></List> 
-                    </article>
-                  </div>
                 </div>
               </div>
             </div>
@@ -63,6 +58,8 @@
             <CelebsList :title="'Cast'" :celebs=cast></CelebsList>
           </div>
         </div>
+        
+        <Carousel title="Similars" :movies="movie.moviesThisMonth"></Carousel> 
       </div>
     </section>
     

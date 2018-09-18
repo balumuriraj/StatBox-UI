@@ -1,0 +1,89 @@
+.title {
+  font-size: 1.25rem;
+  color: #020d18;
+}
+
+.link {
+  color: #abb7c4;
+  font-size: 0.75rem;
+  font-weight: bold;
+  margin-left: 1rem;
+}
+
+.link:hover {
+  color: #f06060;
+}
+
+.swiper-slide{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.swiper-container {
+  width: 100%;
+  margin-top: -0.5em;
+  margin-bottom: 1em;
+}
+
+// custom swiper buttons
+
+.swiper-custom-button {
+  background: rgba(0,0,0,0.5);
+  width: 50px;
+  height: 260px;
+  z-index: 1;
+  opacity: 0.5;
+  cursor: pointer;
+
+  .icon-holder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  
+    svg {
+      width: 2rem;
+      height: 2rem;
+      color: white;
+    }
+  }
+}
+
+.swiper-custom-button:hover {
+  opacity: 0.75;
+}
+
+.swiper-custom-prev {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.swiper-custom-next {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.swiper-button-disabled {
+  pointer-events: none;
+  opacity: 0;
+}
+
+// movie-card
+
+.movie-card-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  text-align: left;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+  background-repeat: no-repeat;
+  background-blend-mode: overlay;
+  background-size: contain;
+  background-position: center;
+}

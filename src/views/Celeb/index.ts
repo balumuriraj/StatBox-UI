@@ -1,12 +1,12 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
-import MovieList from '@/components/common/MovieList/';
+import Carousel from '@/components/common/Carousel/';
 import Menu from '@/components/common/Menu';
 import Footer from '@/components/common/Footer';
 import * as celeb from '@/store/modules/celeb';
 
 @Component({
   components: {
-    MovieList,
+    Carousel,
     Menu,
     Footer
   }

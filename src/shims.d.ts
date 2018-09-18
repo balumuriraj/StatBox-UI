@@ -5,6 +5,8 @@ declare module '*.vue' {
 
 declare module '@fortawesome/*';
 
+declare module 'vue-awesome-swiper';
+
 declare module "firebaseui" {
 
   import firebase from 'firebase';

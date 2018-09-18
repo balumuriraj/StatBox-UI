@@ -1,6 +1,6 @@
 .image {
   img {
-    width: 180px;
+    // width: 180px;
     height: 260px;
     border-radius: 2.5px;
   }
@@ -17,19 +17,37 @@
   content: "";
 }
 
-.movie-card {
-  position: relative;
-}
-
 .rating {
   position: absolute;
   left: 0;
   bottom:0;
   color: gold;
-  padding: 2rem;
+  padding: 1rem;
   opacity: 0.75;
 
   span {
     color: white;
+  }
+}
+
+.placeholder-image {
+  // width: 180px;
+  height: 260px;
+  border-radius: 2.5px;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: placeHolderShimmer;
+  animation-timing-function: linear;
+  background: #f6f7f8;
+  background: linear-gradient(to right, #eeeeee 8%, #dddddd 55%, #eeeeee 100%);
+}
+
+@keyframes placeHolderShimmer{
+  0%{
+      background-position: -180px 0
+  }
+  100%{
+      background-position: 180px 0
   }
 }

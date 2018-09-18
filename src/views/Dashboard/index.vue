@@ -22,11 +22,11 @@
     <section class="section">
         <div class="container">
           <!-- <pre>{{user}}</pre> -->
-          <MovieList title="Bookmarks" :movies="user.bookmarks"></MovieList>
+          <Carousel title="Bookmarks" :movies="user.bookmarks"></Carousel>
           <br>
-          <MovieList title="Seen" :movies="user.seen"></MovieList>
+          <Carousel title="Seen" :movies="user.seen"></Carousel>
           <br>
-          <MovieList title="Reviewed" :movies="user.reviewed"></MovieList>
+          <Carousel title="Reviewed" :movies="user.reviewed"></Carousel>
           <br>
         </div>
     </section>
