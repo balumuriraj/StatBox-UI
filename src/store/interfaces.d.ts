@@ -1,7 +1,13 @@
 export interface HomeState {
   movies: {
-    latest: any[];
-    upcoming: any[];
+    latest: {
+      movies: any[];
+      count: number;
+    };
+    upcoming: {
+      movies: any[];
+      count: number;
+    };
   }
 }
 
@@ -26,7 +32,10 @@ export interface MovieState {
   rating: number;
   cast: any[];
   crew: any[];
-  moviesThisMonth: any[];
+  moviesThisMonth: {
+    movies: any[];
+    count: number;
+  };
   isSeen: boolean;
   isBookmarked: boolean;
   userRating: number;

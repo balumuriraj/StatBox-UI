@@ -9,11 +9,11 @@ import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
   }
 })
 export default class List extends Vue {
-  @Prop() public title!: string;
   @Prop() public movies!: object[];
+  @Prop() public count!: number;
 
   get placeholders() {
-    const length = 10;
+    const length = this.count || 6;
     const results: object[] = [];
 
     for (let i = 1; i <= length; i++) {

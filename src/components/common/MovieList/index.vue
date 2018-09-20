@@ -1,6 +1,6 @@
 <template>
   <div class="columns is-multiline">
-    <template v-if="movies.length">
+    <template v-if="movies && movies.length">
       <template v-for="movie in movies">
         <div class="column is-narrow" :key="movie.id">
           <MovieCard :movie="movie"></MovieCard>

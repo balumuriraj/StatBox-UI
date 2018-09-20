@@ -35,18 +35,4 @@ body {
 //   color: #fffeee;
 //   font-size: 0.9rem;
 // }
-
-// swiper customization
-.swiper-custom-pagination-bullet {
-  background: #abb7c4;
-  width: 10px;
-  height: 10px;
-  margin: 0 2px;
-  display: inline-block;
-  cursor: pointer;
-}
-
-.swiper-custom-pagination-bullet-active {
-  background: #f06060;
-}
 </style>

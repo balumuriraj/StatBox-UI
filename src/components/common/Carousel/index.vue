@@ -8,35 +8,43 @@
       </div>
       <div class="level-right">
         <div class="level-item">
-          <!-- Add Pagination -->
-          <div class="swiper-custom-pagination"></div>
-          <a class="link" href="#">VIEW ALL</a>
+          <p v-show=loading>loading...</p>
+          <router-link class="link" :to="{ name: 'viewall', params: { movies, count } }">VIEW ALL</router-link>  
         </div>
       </div>
     </div>
-    <swiper :options="swiperOptions">
+    <swiper :options=options ref="carousel">
       <!-- slides -->
       <template v-if="movies.length">
         <template v-for="movie in movies">
           <swiper-slide :key="movie.id">
             <div class="movie-card-container">
-              <MovieCard :movie="movie"></MovieCard>
+              <div class="movie-card-wrapper">
+                <MovieCard :movie="movie"></MovieCard>
+              </div>
             </div>
           </swiper-slide>
         </template>
+        <swiper-slide>
+          <div class="movie-card-container">
+            <div class="movie-card-wrapper">
+              <MovieCard></MovieCard>
+            </div>
+          </div>
+        </swiper-slide>
       </template>
 
       <template v-else>
-        <template v-for="movie in placeholders">
-          <swiper-slide :key="movie.id">
+        <template v-for="i in 6">
+          <swiper-slide :key="i">
             <div class="movie-card-container">
-              <MovieCard :movie="movie"></MovieCard>
+              <div class="movie-card-wrapper"></div>
             </div>
           </swiper-slide>
         </template>
       </template>
 
-      <!-- Optional controls -->
+      <!-- arrows -->
       <div class="swiper-custom-prev swiper-custom-button" slot="button-prev">
         <div class="icon-holder">
           <font-awesome-icon :icon="['fas', 'caret-left']"></font-awesome-icon>

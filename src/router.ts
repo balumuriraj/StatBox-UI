@@ -6,6 +6,7 @@ import Celeb from './views/Celeb/';
 import Movie from './views/Movie/';
 import Login from './views/Login/';
 import Dashboard from './views/Dashboard/';
+import ViewAll from '@/views/ViewAll';
 
 Vue.use(Router);
 
@@ -14,6 +15,12 @@ const routes = [
     path: '/',
     name: 'home',
     component: Home
+  },
+  {
+    path: '/viewall',
+    name: 'viewall',
+    component: ViewAll,
+    props: true
   },
   {
     path: '/login',

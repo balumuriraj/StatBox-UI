@@ -1,53 +1,39 @@
-.image {
-  img {
-    // width: 180px;
-    height: 260px;
-    border-radius: 2.5px;
-  }
-}
-
-.image::after {
-  box-shadow: inset -5px -50px 100px -15px #000000;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
+.movie-card {
   width: 100%;
   height: 100%;
-  content: "";
-}
 
-.rating {
-  position: absolute;
-  left: 0;
-  bottom:0;
-  color: gold;
-  padding: 1rem;
-  opacity: 0.75;
+  .image-wrapper {
+    width: 100%;
+    height: 100%;
 
-  span {
-    color: white;
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 2.5px;
+    }
   }
-}
-
-.placeholder-image {
-  // width: 180px;
-  height: 260px;
-  border-radius: 2.5px;
-  animation-duration: 2s;
-  animation-fill-mode: forwards;
-  animation-iteration-count: infinite;
-  animation-name: placeHolderShimmer;
-  animation-timing-function: linear;
-  background: #f6f7f8;
-  background: linear-gradient(to right, #eeeeee 8%, #dddddd 55%, #eeeeee 100%);
-}
-
-@keyframes placeHolderShimmer{
-  0%{
-      background-position: -180px 0
+  
+  .image-wrapper::after {
+    box-shadow: inset -5px -50px 100px -15px #000000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    content: "";
   }
-  100%{
-      background-position: 180px 0
+  
+  .rating {
+    position: absolute;
+    left: 0;
+    bottom:0;
+    color: gold;
+    padding: 1rem;
+    opacity: 0.75;
+  
+    span {
+      color: white;
+    }
   }
 }

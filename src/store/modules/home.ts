@@ -9,43 +9,65 @@ type HomeContext = ActionContext<HomeState, RootState>;
 
 const state = {
   movies: {
-    latest: [],
-    upcoming: []
+    latest: {
+      movies: [],
+      count: 0
+    },
+    upcoming: {
+      movies: [],
+      count: 0
+    }
   }
 };
 
 const getters = {
-  latestMovies: (state: HomeState) => state.movies.latest,
-  upcomingMovies: (state: HomeState) => state.movies.upcoming
+  latest: (state: HomeState) => state.movies.latest,
+  upcoming: (state: HomeState) => state.movies.upcoming
 };
 
 const actions = {
-  fetchLatestMovies: async (context: HomeContext) => {
-    const days = 30;
-    const date = new Date();
-    const startDate = date.setDate(date.getDate() - days);
-    const endDate = Date.now();
-    const movies = await getMoviesBetweenDatesRange(startDate, endDate);
-    context.commit('setLatestMovies', movies);
+  fetchLatest: async (context: HomeContext) => {
+    const count = context.state.movies.latest.count;
+    const length = context.state.movies.latest.movies.length;
+
+    if (count === 0 || (count > length)) {
+      const days = 30;
+      const date = new Date();
+      const startDate = date.setDate(date.getDate() - days);
+      const endDate = Date.now();
+      const from = length;
+      const to = !count || (count - from > 10) ? length + 9 : count;
+      const result = await getMoviesBetweenDatesRange(startDate, endDate, { from, to });
+      context.commit('setLatestMovies', result);
+    }
   },
 
-  fetchUpcomingMovies: async (context: HomeContext) => {
-    const days = 30;
-    const date = new Date();
-    const endDate = date.setDate(date.getDate() + days);
-    const startDate = Date.now();
-    const movies = await getMoviesBetweenDatesRange(startDate, endDate);
-    context.commit('setUpcomingMovies', movies);
+  fetchUpcoming: async (context: HomeContext) => {
+    const count = context.state.movies.upcoming.count;
+    const length = context.state.movies.upcoming.movies.length;
+
+    if (count === 0 || (count > length)) {
+      const days = 30;
+      const date = new Date();
+      const endDate = date.setDate(date.getDate() + days);
+      const startDate = Date.now();
+      const from = length;
+      const to = !count || (count - from > 10) ? length + 9 : count;
+      const result = await getMoviesBetweenDatesRange(startDate, endDate, { from, to });
+      context.commit('setUpcomingMovies', result);
+    }
   }
 };
 
 const mutations = {
-  setLatestMovies: (state: HomeState, movies: any[]) => {
-    state.movies.latest = movies;
+  setLatestMovies: (state: HomeState, data: { movies: any[], count: number }) => {
+    state.movies.latest.movies = state.movies.latest.movies.concat(data.movies);
+    state.movies.latest.count = data.count;
   },
 
-  setUpcomingMovies: (state: HomeState, movies: any[]) => {
-    state.movies.upcoming = movies;
+  setUpcomingMovies: (state: HomeState, data: { movies: any[], count: number }) => {
+    state.movies.upcoming.movies = state.movies.upcoming.movies.concat(data.movies);
+    state.movies.upcoming.count = data.count;
   }
 };
 
@@ -60,8 +82,8 @@ export const home = {
 // We pass namespace here, if we make the module namespaced: true.
 const { read, dispatch } = getStoreAccessors<HomeState, RootState>('home');
 
-export const getLatestMovies = read(home.getters.latestMovies);
-export const getUpcomingMovies = read(home.getters.upcomingMovies);
+export const getLatest = read(home.getters.latest);
+export const getUpcoming = read(home.getters.upcoming);
 
-export const fetchLatestMovies = dispatch(home.actions.fetchLatestMovies);
-export const fetchUpcomingMovies = dispatch(home.actions.fetchUpcomingMovies);
+export const fetchLatest = dispatch(home.actions.fetchLatest);
+export const fetchUpcoming = dispatch(home.actions.fetchUpcoming);

@@ -59,7 +59,7 @@
           </div>
         </div>
         
-        <Carousel title="Similars" :movies="movie.moviesThisMonth"></Carousel> 
+        <Carousel title="Similars" :movies=movie.moviesThisMonth.movies :count=movie.moviesThisMonth.count></Carousel> 
       </div>
     </section>
     

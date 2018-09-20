@@ -76,7 +76,7 @@ export default class Movie extends Vue {
 
   get movies() {
     const movie = this.movie;
-    const movies = movie && movie.moviesThisMonth;
+    const { movies } = movie && movie.moviesThisMonth;
 
     if (movies) {
       return movies.map((mov: any) => [mov.title, mov.releaseDate, mov.cert, mov.runtime]);

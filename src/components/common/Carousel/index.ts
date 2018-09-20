@@ -1,4 +1,4 @@
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import MovieCard from '@/components/common/MovieCard/';
 import { swiper, swiperSlide } from 'vue-awesome-swiper';
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
@@ -14,21 +14,38 @@ import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
 export default class Carousel extends Vue {
   @Prop() public title!: string;
   @Prop() public movies!: object[];
+  @Prop() public count!: number;
 
-  get placeholders() {
-    const length = 6;
-    const results: object[] = [];
+  public loading: boolean = false;
 
-    for (let i = 1; i <= length; i++) {
-      results.push({
-        id: `placeholder-${i}`
-      });
-    }
-
-    return results;
+  public mounted() {
+    this.swiper.on('reachEnd', () => {
+      if (!this.loading) {
+        if (this.movies.length < this.count) {
+          this.loading = true;
+          this.$emit('fetch');
+        } else if (this.movies.length === this.count) {
+          this.swiper.removeSlide(this.movies.length);
+          this.swiper.update();
+        }
+      }
+    });
   }
 
-  get swiperOptions() {
+  @Watch('currentCount')
+  public onCurrentCountChange(val: number, oldVal: number) {
+    this.loading = false;
+  }
+
+  get currentCount(): number {
+    return this.movies.length;
+  }
+
+  get swiper() {
+    return (this.$refs.carousel as any).swiper;
+  }
+
+  get options() {
     return {
       slidesPerView: 6,
       slidesPerGroup: 3,
@@ -38,12 +55,6 @@ export default class Carousel extends Vue {
       navigation: {
         nextEl: '.swiper-custom-next',
         prevEl: '.swiper-custom-prev'
-      },
-      pagination: {
-        el: '.swiper-custom-pagination',
-        clickable: true,
-        bulletClass: 'swiper-custom-pagination-bullet',
-        bulletActiveClass: 'swiper-custom-pagination-bullet-active'
       }
     };
   }

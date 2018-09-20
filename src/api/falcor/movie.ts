@@ -1,23 +1,30 @@
 import model from '@/api/falcor/model';
 
-export async function getMoviesBetweenDates(date1: number, date2: number, count: number): Promise<any> {
+export async function getMoviesBetweenDates(
+  date1: number,
+  date2: number,
+  range: { from: number; to: number; }
+): Promise<any> {
   const queryString = `date1=${date1}&date2=${date2}`;
-  return await model.get([
-    'moviesSearches', [queryString], { length: count },
+
+  const countResponse = await model.get(['moviesSearches', [queryString], 'length']);
+  const count = countResponse.json.moviesSearches[queryString].length;
+
+  const moviesResponse = await model.get([
+    'moviesSearches', [queryString], range,
     ['id', 'title', 'releaseDate', 'poster', 'runtime', 'cert']
-  ])
-    .then((response: any) => {
-      const moviesObj = response.json.moviesSearches[queryString];
-      const result: any[] = [];
+  ]);
 
-      for (const index in moviesObj) {
-        if (moviesObj[index] && moviesObj[index].id && typeof moviesObj[index].id === 'number') {
-          result.push(moviesObj[index]);
-        }
-      }
+  const moviesObj = moviesResponse.json.moviesSearches[queryString];
+  const movies: any[] = [];
 
-      return result;
-    });
+  for (const index in moviesObj) {
+    if (moviesObj[index] && moviesObj[index].id && typeof moviesObj[index].id === 'number') {
+      movies.push(moviesObj[index]);
+    }
+  }
+
+  return { movies, count };
 }
 
 export async function getMovieById(movieId: number): Promise<any> {

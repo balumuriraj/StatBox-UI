@@ -34,9 +34,9 @@ export async function updateUserReview(review: any) {
   return await updateReview(review);
 }
 
-export async function getMoviesBetweenDatesRange(date1: number, date2: number) {
-  const movies = await getMoviesBetweenDates(date1, date2, 10);
-  return movies.map((movie: any) => {
+export async function getMoviesBetweenDatesRange(date1: number, date2: number, range: { from: number; to: number; }) {
+  const result = await getMoviesBetweenDates(date1, date2, range);
+  const movies = result.movies.map((movie: any) => {
     return {
       id: movie.id,
       title: movie.title,
@@ -46,17 +46,22 @@ export async function getMoviesBetweenDatesRange(date1: number, date2: number) {
       releaseDate: movie.releaseDate
     };
   });
+
+  return { movies, count: result.count };
+}
+
+async function getMoviesAroundDate(date: any, days: number = 10) {
+  const date1 = new Date(date);
+  const date2 = new Date(date);
+  const startDate = date1.setDate(date1.getDate() - days);
+  const endDate = date2.setDate(date2.getDate() + days);
+
+  return await getMoviesBetweenDatesRange(startDate, endDate, { from: 0, to: 9 });
 }
 
 export async function getMovie(id: number) {
   const movie = await getMovieById(id);
-
-  const days = 10;
-  const date1 = new Date(movie.releaseDate);
-  const date2 = new Date(movie.releaseDate);
-  const startDate = date1.setDate(date1.getDate() - days);
-  const endDate = date2.setDate(date2.getDate() + days);
-  movie.moviesThisMonth = await getMoviesBetweenDatesRange(startDate, endDate);
+  movie.moviesThisMonth = await getMoviesAroundDate(movie.releaseDate);
 
   // // reviews
   // const reviewsCount = await getReviewsCountById(id, 'movie');

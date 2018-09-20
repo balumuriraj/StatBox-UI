@@ -17,7 +17,10 @@ const state = {
   genre: [],
   cast: [],
   crew: [],
-  moviesThisMonth: [],
+  moviesThisMonth: {
+    movies: [],
+    count: 0
+  },
   isSeen: false,
   isBookmarked: false,
   userRating: null

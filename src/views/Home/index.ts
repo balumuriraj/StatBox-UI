@@ -12,16 +12,24 @@ import Carousel from '../../components/common/Carousel';
   }
 })
 export default class Home extends Vue {
-  private created() {
-    home.fetchLatestMovies(this.$store);
-    home.fetchUpcomingMovies(this.$store);
-  }
-
   get latestMovies() {
-    return home.getLatestMovies(this.$store);
+    return home.getLatest(this.$store);
   }
 
   get upcomingMovies() {
-    return home.getUpcomingMovies(this.$store);
+    return home.getUpcoming(this.$store);
+  }
+
+  public fetchLatestMovies() {
+    home.fetchLatest(this.$store);
+  }
+
+  public fetchUpcomingMovies() {
+    home.fetchUpcoming(this.$store);
+  }
+
+  private created() {
+    this.fetchLatestMovies();
+    this.fetchUpcomingMovies();
   }
 }
