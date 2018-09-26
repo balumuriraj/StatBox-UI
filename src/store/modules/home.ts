@@ -1,6 +1,6 @@
 import { ActionContext } from 'vuex';
 import { getStoreAccessors } from 'vuex-typescript';
-import { getMoviesBetweenDatesRange } from '@/api';
+import * as API from '@/api';
 import { HomeState, RootState } from '@/store/interfaces';
 
 // https://github.com/vuejs/vuex/blob/dev/examples/shopping-cart
@@ -10,11 +10,11 @@ type HomeContext = ActionContext<HomeState, RootState>;
 const state = {
   movies: {
     latest: {
-      movies: [],
+      items: [],
       count: 0
     },
     upcoming: {
-      movies: [],
+      items: [],
       count: 0
     }
   }
@@ -28,7 +28,7 @@ const getters = {
 const actions = {
   fetchLatest: async (context: HomeContext) => {
     const count = context.state.movies.latest.count;
-    const length = context.state.movies.latest.movies.length;
+    const length = context.state.movies.latest.items.length;
 
     if (count === 0 || (count > length)) {
       const days = 30;
@@ -37,14 +37,14 @@ const actions = {
       const endDate = Date.now();
       const from = length;
       const to = !count || (count - from > 10) ? length + 9 : count;
-      const result = await getMoviesBetweenDatesRange(startDate, endDate, { from, to });
+      const result = await API.getMoviesBetweenDates(startDate, endDate, { from, to });
       context.commit('setLatestMovies', result);
     }
   },
 
   fetchUpcoming: async (context: HomeContext) => {
     const count = context.state.movies.upcoming.count;
-    const length = context.state.movies.upcoming.movies.length;
+    const length = context.state.movies.upcoming.items.length;
 
     if (count === 0 || (count > length)) {
       const days = 30;
@@ -53,20 +53,20 @@ const actions = {
       const startDate = Date.now();
       const from = length;
       const to = !count || (count - from > 10) ? length + 9 : count;
-      const result = await getMoviesBetweenDatesRange(startDate, endDate, { from, to });
+      const result = await API.getMoviesBetweenDates(startDate, endDate, { from, to });
       context.commit('setUpcomingMovies', result);
     }
   }
 };
 
 const mutations = {
-  setLatestMovies: (state: HomeState, data: { movies: any[], count: number }) => {
-    state.movies.latest.movies = state.movies.latest.movies.concat(data.movies);
+  setLatestMovies: (state: HomeState, data: { items: any[], count: number }) => {
+    state.movies.latest.items = state.movies.latest.items.concat(data.items);
     state.movies.latest.count = data.count;
   },
 
-  setUpcomingMovies: (state: HomeState, data: { movies: any[], count: number }) => {
-    state.movies.upcoming.movies = state.movies.upcoming.movies.concat(data.movies);
+  setUpcomingMovies: (state: HomeState, data: { items: any[], count: number }) => {
+    state.movies.upcoming.items = state.movies.upcoming.items.concat(data.items);
     state.movies.upcoming.count = data.count;
   }
 };

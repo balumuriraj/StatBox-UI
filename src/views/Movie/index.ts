@@ -26,23 +26,6 @@ import * as movieStore from '@/store/modules/movie';
   }
 })
 export default class Movie extends Vue {
-
-  @Watch('$route.params.id')
-  public onRouteIdChanged(val: string, oldVal: string) {
-    if (val !== oldVal) {
-      this.fetchData();
-    }
-  }
-
-  private created() {
-    this.fetchData();
-  }
-
-  private fetchData() {
-    console.log('fetching Movie data....');
-    movieStore.fetchMovieData(this.$store, { id: Number(this.$route.params.id) });
-  }
-
   get movie() {
     return movieStore.getMovieData(this.$store);
   }
@@ -74,12 +57,32 @@ export default class Movie extends Vue {
   //   }
   // }
 
-  get movies() {
+  get moviesAroundReleaseDate() {
     const movie = this.movie;
-    const { movies } = movie && movie.moviesThisMonth;
+    const { items } = movie && movie.moviesAroundReleaseDate;
 
-    if (movies) {
-      return movies.map((mov: any) => [mov.title, mov.releaseDate, mov.cert, mov.runtime]);
+    if (items) {
+      return items.map((mov: any) => [mov.title, mov.releaseDate, mov.cert, mov.runtime]);
     }
+  }
+
+  @Watch('$route.params.id')
+  public onRouteIdChanged(val: string, oldVal: string) {
+    if (val !== oldVal) {
+      this.fetchData();
+    }
+  }
+
+  public fetchMoviesAroundReleaseDate() {
+    movieStore.fetchMoviesAroundDate(this.$store);
+  }
+
+  private created() {
+    this.fetchData();
+  }
+
+  private fetchData() {
+    console.log('fetching Movie data....');
+    movieStore.fetchMovieData(this.$store, { id: Number(this.$route.params.id) });
   }
 }

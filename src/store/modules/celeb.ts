@@ -1,6 +1,6 @@
 import { ActionContext } from 'vuex';
 import { getStoreAccessors } from 'vuex-typescript';
-import { getCeleb, getMoviesByCeleb } from '@/api';
+import * as API from '@/api';
 import { CelebState, RootState } from '@/store/interfaces';
 
 type CelebContext = ActionContext<CelebState, RootState>;
@@ -10,7 +10,8 @@ const state = {
   photo: null,
   dob: null,
   movies: {
-    all: []
+    items: [],
+    count: 0
   }
 };
 
@@ -20,24 +21,35 @@ const getters = {
 
 const actions = {
   fetchCelebData: async (context: CelebContext, payload: { id: string }) => {
-    const data = await getCeleb(payload.id);
-    context.commit('setInfo', data);
+    const data = await API.getCelebData(payload.id);
+    context.commit('setCelebData', data);
+  },
 
-    // TODO: set movies
-    const movies = await getMoviesByCeleb(payload.id);
-    context.commit('setAllMovies', movies);
+  fetchCelebMovies: async (context: CelebContext, payload: { id: string }) => {
+    const { movies } = context.state;
+    const count = movies.count;
+    const length = movies.items.length;
+
+    if (count === 0 || (count > length)) {
+      const from = length;
+      const to = !count || (count - from > 10) ? length + 9 : count;
+
+      const data = await API.getMoviesByCelebId(payload.id, { from, to });
+      context.commit('setCelebMovies', data);
+    }
   }
 };
 
 const mutations = {
-  setInfo: (state: CelebState, info: any) => {
+  setCelebData: (state: CelebState, info: any) => {
     state.name = info.name;
     state.photo = info.photo;
     state.dob = info.dob;
   },
 
-  setAllMovies: (state: CelebState, movies: any) => {
-    state.movies.all = movies;
+  setCelebMovies: (state: CelebState, data: any) => {
+    state.movies.items = state.movies.items.concat(data.items);
+    state.movies.count = data.count;
   }
 };
 
@@ -54,3 +66,4 @@ const { read, dispatch } = getStoreAccessors<CelebState, RootState>('celeb');
 
 export const getCelebData = read(celeb.getters.celeb);
 export const fetchCelebData = dispatch(celeb.actions.fetchCelebData);
+export const fetchCelebMovies = dispatch(celeb.actions.fetchCelebMovies);

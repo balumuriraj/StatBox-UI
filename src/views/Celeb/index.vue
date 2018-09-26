@@ -28,7 +28,7 @@
     <!-- content -->
     <section class="section">
       <div class="container"> 
-        <Carousel title="Movies" :movies=celeb.movies.all></Carousel>
+        <Carousel title="Movies" :movies=celeb.movies.items :count=celeb.movies.count @fetch=fetchMovies></Carousel>
       </div>
     </section>
     

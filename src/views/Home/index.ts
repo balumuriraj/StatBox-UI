@@ -1,7 +1,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import Menu from '@/components/common/Menu';
 import Footer from '@/components/common/Footer';
-import * as home from '@/store/modules/home';
+import * as homeStore from '@/store/modules/home';
 import Carousel from '../../components/common/Carousel';
 
 @Component({
@@ -12,24 +12,24 @@ import Carousel from '../../components/common/Carousel';
   }
 })
 export default class Home extends Vue {
-  get latestMovies() {
-    return home.getLatest(this.$store);
+  get latest() {
+    return homeStore.getLatest(this.$store);
   }
 
-  get upcomingMovies() {
-    return home.getUpcoming(this.$store);
+  get upcoming() {
+    return homeStore.getUpcoming(this.$store);
   }
 
-  public fetchLatestMovies() {
-    home.fetchLatest(this.$store);
+  public fetchLatest() {
+    homeStore.fetchLatest(this.$store);
   }
 
-  public fetchUpcomingMovies() {
-    home.fetchUpcoming(this.$store);
+  public fetchUpcoming() {
+    homeStore.fetchUpcoming(this.$store);
   }
 
   private created() {
-    this.fetchLatestMovies();
-    this.fetchUpcomingMovies();
+    this.fetchLatest();
+    this.fetchUpcoming();
   }
 }

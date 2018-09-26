@@ -16,19 +16,27 @@ export async function getMoviesBetweenDates(
   ]);
 
   const moviesObj = moviesResponse.json.moviesSearches[queryString];
-  const movies: any[] = [];
+  const items: any[] = [];
 
   for (const index in moviesObj) {
     if (moviesObj[index] && moviesObj[index].id && typeof moviesObj[index].id === 'number') {
-      movies.push(moviesObj[index]);
+      const movie = moviesObj[index];
+      items.push({
+        id: movie.id,
+        title: movie.title,
+        poster: movie.poster,
+        cert: movie.cert,
+        runtime: movie.runtime,
+        releaseDate: movie.releaseDate
+      });
     }
   }
 
-  return { movies, count };
+  return { items, count };
 }
 
-export async function getMovieById(movieId: number): Promise<any> {
-  return await model.get([
+export async function getMovieData(movieId: number): Promise<any> {
+  const response = await model.get([
     'moviesById', [movieId],
     [
       'id', 'title', 'description', 'releaseDate', 'poster', 'rating',
@@ -36,64 +44,62 @@ export async function getMovieById(movieId: number): Promise<any> {
     ],
     {length: 5}, ['id', 'type', 'category', 'celeb'],
     ['id', 'name', 'photo']
-  ])
-    .then((response: any) => {
-      const result: any = response.json.moviesById[movieId];
-      const {
-        id, title, description, releaseDate,
-        poster, runtime, rating, genre, cert
-      } = result;
-      const cast = [];
-      const crew = [];
+  ]);
 
-      for (const index in result.cast) {
-        if (result.cast[index] && result.cast[index].id && typeof result.cast[index].id === 'number') {
-          const obj = result.cast[index];
-          cast.push({
-            id: obj.celeb.id,
-            name: obj.celeb.name,
-            photo: obj.celeb.photo,
-            role: obj.type
-          });
-        }
-      }
+  const result: any = response.json.moviesById[movieId];
+  const {
+    id, title, description, releaseDate,
+    poster, runtime, rating, genre, cert
+  } = result;
+  const cast = [];
+  const crew = [];
 
-      for (const index in result.crew) {
-        if (result.crew[index] && result.crew[index].id && typeof result.crew[index].id === 'number') {
-          const obj = result.crew[index];
-          crew.push({
-            id: obj.celeb.id,
-            name: obj.celeb.name,
-            photo: obj.celeb.photo,
-            role: obj.type
-          });
-        }
-      }
+  for (const index in result.cast) {
+    if (result.cast[index] && result.cast[index].id && typeof result.cast[index].id === 'number') {
+      const obj = result.cast[index];
+      cast.push({
+        id: obj.celeb.id,
+        name: obj.celeb.name,
+        photo: obj.celeb.photo,
+        role: obj.type
+      });
+    }
+  }
 
-      return {
-        id, title, description, releaseDate, rating,
-        poster, runtime, genre, cert, cast, crew
-      };
-    });
+  for (const index in result.crew) {
+    if (result.crew[index] && result.crew[index].id && typeof result.crew[index].id === 'number') {
+      const obj = result.crew[index];
+      crew.push({
+        id: obj.celeb.id,
+        name: obj.celeb.name,
+        photo: obj.celeb.photo,
+        role: obj.type
+      });
+    }
+  }
+
+  return {
+    id, title, description, releaseDate, rating,
+    poster, runtime, genre, cert, cast, crew
+  };
 }
 
 
-export async function getMovieMetadataById(movieId: number): Promise<any> {
-  return await model.get([
+export async function getMovieMetadata(movieId: number): Promise<any> {
+  const response = await model.get([
     'moviesById', [movieId], 'metadata'
-  ])
-    .then((response: any) => {
-      const result: any = response.json.moviesById[movieId];
+  ]);
 
-      if (!result.metadata) {
-        return {
-          isSeen: false,
-          isBookmarked: false,
-          userRating: null
-        };
-      }
+  const result: any = response.json.moviesById[movieId];
 
-      const { isSeen, isBookmarked, userRating } = result.metadata;
-      return { isSeen, isBookmarked, userRating };
-    });
+  if (!result.metadata) {
+    return {
+      isSeen: false,
+      isBookmarked: false,
+      userRating: null
+    };
+  }
+
+  const { isSeen, isBookmarked, userRating } = result.metadata;
+  return { isSeen, isBookmarked, userRating };
 }

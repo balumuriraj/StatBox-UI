@@ -19,11 +19,11 @@
     <!-- content -->
     <section class="section">
       <div class="container">
-        <Carousel title="Latest" :movies=latestMovies.movies :count=latestMovies.count @fetch=fetchLatestMovies></Carousel>
+        <Carousel title="Latest" :movies=latest.items :count=latest.count @fetch=fetchLatest></Carousel>
         <br>
-        <Carousel title="Coming Soon" :movies=upcomingMovies.movies :count=upcomingMovies.count @fetch=fetchUpcomingMovies></Carousel>
+        <Carousel title="Coming Soon" :movies=upcoming.items :count=upcoming.count @fetch=fetchUpcoming></Carousel>
         <br>
-        <Carousel title="Trending" :movies=upcomingMovies.movies :count=upcomingMovies.count @fetch=fetchUpcomingMovies></Carousel>
+        <Carousel title="Trending" :movies=upcoming.items :count=upcoming.count @fetch=fetchUpcoming></Carousel>
       </div>
     </section>
     

@@ -1,13 +1,7 @@
 export interface HomeState {
   movies: {
-    latest: {
-      movies: any[];
-      count: number;
-    };
-    upcoming: {
-      movies: any[];
-      count: number;
-    };
+    latest: Items;
+    upcoming: Items;
   }
 }
 
@@ -15,9 +9,7 @@ export interface CelebState {
   name: string;
   photo: string;
   dob: string;
-  movies: {
-    all: any[];
-  }
+  movies: Items;
 }
 
 export interface MovieState {
@@ -32,10 +24,7 @@ export interface MovieState {
   rating: number;
   cast: any[];
   crew: any[];
-  moviesThisMonth: {
-    movies: any[];
-    count: number;
-  };
+  moviesAroundReleaseDate: Items;
   isSeen: boolean;
   isBookmarked: boolean;
   userRating: number;
@@ -48,9 +37,9 @@ export interface AuthState {
     photo: string;
     lastLogin: number;
     userSince: number;
-    bookmarks: any[];
-    seen: any[];
-    reviewed: any[];
+    bookmarks: Items;
+    seen: Items;
+    reviewed: Items;
   },
   isLoggedIn: boolean;
   token: string;
@@ -61,4 +50,9 @@ export interface RootState {
   auth: AuthState;
   movie: MovieState;
   celeb: CelebState;
+}
+
+interface Items {
+  items: any[];
+  count: number;
 }

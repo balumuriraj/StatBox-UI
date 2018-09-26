@@ -25,7 +25,7 @@
             </div>
           </swiper-slide>
         </template>
-        <swiper-slide>
+        <swiper-slide v-if="currentCount < count">
           <div class="movie-card-container">
             <div class="movie-card-wrapper">
               <MovieCard></MovieCard>
@@ -35,7 +35,7 @@
       </template>
 
       <template v-else>
-        <template v-for="i in 6">
+        <template v-for="i in 7">
           <swiper-slide :key="i">
             <div class="movie-card-container">
               <div class="movie-card-wrapper"></div>

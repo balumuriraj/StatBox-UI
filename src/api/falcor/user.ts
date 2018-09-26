@@ -1,170 +1,183 @@
 import model from '@/api/falcor/model';
 
-export async function getUser(id: number): Promise<any> {
-  const reviews = await getUserReviews(id);
-  console.log('reviews: ', reviews);
+export async function getBookmarks(id: number, range: { from: number; to: number; }): Promise<any> {
+  const countResponse = await model.get(['usersById', [id], 'bookmarks', 'length']);
+  const count = countResponse.json.usersById[id].bookmarks.length;
 
-  return await model.get([
+  const bookmarksResponse = await model.get([
     'usersById', [id],
-    ['id', 'authId', 'bookmarks', 'seen'],
-    {length: 10}, ['id', 'title', 'poster', 'rating']
-  ])
-    .then((response: any) => {
-      const userInfo = response.json.usersById[id];
-      const bookmarks: any[] = [];
-      const seen: any[] = [];
-      const reviewed: any[] = [];
+    'bookmarks',
+    range, ['id', 'title', 'poster']
+  ]);
+  const bookmarksObj = bookmarksResponse.json.usersById[id].bookmarks;
+  const items: any[] = [];
 
-      console.log(userInfo);
-
-      for (const index in userInfo.bookmarks) {
-        if (userInfo.bookmarks[index] && typeof userInfo.bookmarks[index].id === 'number') {
-          bookmarks.push({
-            id: userInfo.bookmarks[index].id,
-            title: userInfo.bookmarks[index].title,
-            poster: userInfo.bookmarks[index].poster
-          });
-        }
-      }
-
-      for (const index in userInfo.seen) {
-        if (userInfo.seen[index] && typeof userInfo.seen[index].id === 'number') {
-          seen.push({
-            id: userInfo.seen[index].id,
-            title: userInfo.seen[index].title,
-            poster: userInfo.seen[index].poster
-          });
-        }
-      }
-
-      reviews.forEach((review: any) => {
-        reviewed.push({
-          id: review.movie.id,
-          title: review.movie.title,
-          poster: review.movie.poster
-        });
+  for (const index in bookmarksObj) {
+    if (bookmarksObj[index] && typeof bookmarksObj[index].id === 'number') {
+      items.push({
+        id: bookmarksObj[index].id,
+        title: bookmarksObj[index].title,
+        poster: bookmarksObj[index].poster
       });
+    }
+  }
 
-      return {
-        id: userInfo.id,
-        authId: userInfo.authId,
-        bookmarks,
-        seen,
-        reviewed
-      };
-    });
+  console.log('bookmarks', items, count);
+
+  return { items, count };
 }
 
-export async function getUserReviews(id: number): Promise<any> {
-  return await model.get([
+export async function getSeen(id: number, range: { from: number; to: number; }): Promise<any> {
+  const countResponse = await model.get(['usersById', [id], 'seen', 'length']);
+  const count = countResponse.json.usersById[id].seen.length;
+
+  const seenResponse = await model.get([
     'usersById', [id],
-    'reviews',
-    {length: 10}, ['id', 'movie', 'rating'],
-    ['id', 'title', 'poster', 'rating']
-  ])
-    .then((response: any) => {
-      const userInfo = response.json.usersById[id];
-      const reviews: any[] = [];
+    'seen',
+    range, ['id', 'title', 'poster']
+  ]);
+  const seenObj = seenResponse.json.usersById[id].seen;
+  const items: any[] = [];
 
-      for (const index in userInfo.reviews) {
-        if (userInfo.reviews[index] && typeof userInfo.reviews[index].id === 'number') {
-          const review = userInfo.reviews[index];
-          const movie = review.movie;
+  for (const index in seenObj) {
+    if (seenObj[index] && typeof seenObj[index].id === 'number') {
+      items.push({
+        id: seenObj[index].id,
+        title: seenObj[index].title,
+        poster: seenObj[index].poster
+      });
+    }
+  }
 
-          reviews.push({
-            id: review.id,
-            movie: {
-              id: movie.id,
-              title: movie.title,
-              poster: movie.poster,
-              rating: movie.rating
-            },
-            rating: review.rating
-          });
-        }
-      }
+  console.log('seen', items, count);
 
-      return reviews;
+  return { items, count };
+}
+
+export async function getReviewed(id: number, range: { from: number; to: number; }): Promise<any> {
+  const { items: reviews, count } = await getUserReviews(id, range);
+  const items: any[] = [];
+
+  reviews.forEach((review: any) => {
+    items.push({
+      id: review.movie.id,
+      title: review.movie.title,
+      poster: review.movie.poster
     });
+  });
+
+  console.log('reviewed', items, count);
+
+  return { items, count };
+}
+
+export async function getUserReviews(id: number, range: { from: number; to: number; }): Promise<any> {
+  const countResponse = await model.get(['usersById', [id], 'reviews', 'length']);
+  const count = countResponse.json.usersById[id].reviews.length;
+
+  const reviewsResponse = await model.get([
+    'usersById', [id],
+    'reviews', range,
+    ['id', 'movie', 'rating'],
+    ['id', 'title', 'poster', 'rating']
+  ]);
+
+  const reviewsObj = reviewsResponse.json.usersById[id].reviews;
+  const items: any[] = [];
+
+  for (const index in reviewsObj) {
+    if (reviewsObj[index] && typeof reviewsObj[index].id === 'number') {
+      const review = reviewsObj[index];
+      const movie = review.movie;
+
+      items.push({
+        id: review.id,
+        movie: {
+          id: movie.id,
+          title: movie.title,
+          poster: movie.poster,
+          rating: movie.rating
+        },
+        rating: review.rating
+      });
+    }
+  }
+
+  return { items, count };
 }
 
 export async function addBookmark(userId: number, movieId: number) {
-  return await model.call(
+  const response = await model.call(
     ['usersById', userId, 'addBookmark'], // call path
     [movieId], // args
     [['isBookmarked']], // refPaths (moviesById)
     [['bookmarks', 'length']] // thisPaths (usersById)
-  )
-    .then((response: any) => {
-      console.log('addBookmark: ', response);
-      const bookmarks = response.json.usersById[userId].bookmarks;
-      const length = bookmarks.length;
+  );
 
-      return bookmarks[length - 1].isBookmarked;
-    });
+  console.log('addBookmark: ', response);
+  const bookmarks = response.json.usersById[userId].bookmarks;
+  const length = bookmarks.length;
+
+  return bookmarks[length - 1].isBookmarked;
 }
 
 export async function addSeen(userId: number, movieId: number) {
-  return await model.call(
+  const response = await model.call(
     ['usersById', userId, 'addSeen'],
     [movieId],
     [['isSeen']],
     [['seen', 'length']]
-  )
-    .then((response: any) => {
-      console.log('addSeen: ', response);
-      const seen = response.json.usersById[userId].seen;
-      const length = seen.length;
+  );
 
-      return seen[length - 1].isSeen;
-    });
+  console.log('addSeen: ', response);
+  const seen = response.json.usersById[userId].seen;
+  const length = seen.length;
+
+  return seen[length - 1].isSeen;
 }
 
 export async function removeBookmark(userId: number, movieId: number) {
-  return await model.call(
+  const response =  await model.call(
     ['usersById', userId, 'removeBookmark'],
     [movieId],
     [],
     [['bookmarks', 'length']]
-  )
-    .then((response: any) => {
-      console.log('removeBookmark: ', response);
-      const bookmarks = response.json.usersById[userId].bookmarks;
-      const length = bookmarks.length;
+  );
 
-      return false;
-    });
+  console.log('removeBookmark: ', response);
+  const bookmarks = response.json.usersById[userId].bookmarks;
+  const length = bookmarks.length;
+
+  return false;
 }
 
 export async function removeSeen(userId: number, movieId: number) {
-  return await model.call(
+  const response = await model.call(
     ['usersById', userId, 'removeSeen'],
     [movieId],
     [],
     [['seen', 'length']]
-  )
-    .then((response: any) => {
-      console.log('removeSeen: ', response);
-      const seen = response.json.usersById[userId].seen;
-      const length = seen.length;
+  );
 
-      return false;
-    });
+  console.log('removeSeen: ', response);
+  const seen = response.json.usersById[userId].seen;
+  const length = seen.length;
+
+  return false;
 }
 
 export async function updateReview(review: any) {
-  return await model.call(
+  const response = await model.call(
     ['usersById', review.userId, 'updateReview'],
     [review],
     [['rating', 'watchWith', 'pace', 'theme', 'plot']],
     [['reviews', 'lastUpdatedIndex']]
-  )
-    .then((response: any) => {
-      console.log('updateReview: ', response);
-      const reviews = response.json.usersById[review.userId].reviews;
-      const result = reviews[reviews.lastUpdatedIndex];
-      const { rating, watchWith, pace, theme, plot } = result;
+  );
 
-      return { rating, watchWith, pace, theme, plot };
-    });
+  console.log('updateReview: ', response);
+  const reviews = response.json.usersById[review.userId].reviews;
+  const result = reviews[reviews.lastUpdatedIndex];
+  const { rating, watchWith, pace, theme, plot } = result;
+
+  return { rating, watchWith, pace, theme, plot };
 }

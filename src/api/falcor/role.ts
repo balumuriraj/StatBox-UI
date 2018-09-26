@@ -43,24 +43,43 @@ export async function getRoleByMovieId(movieId: string, type: string, count: num
     });
 }
 
-export async function getMoviesByCelebId(celebId: string, count: number): Promise<any[]> {
+export async function getMoviesByCelebId(celebId: string, range: { from: number, to: number }): Promise<any> {
   const path = 'moviesByCelebId';
+  const countResponse = await model.get([path, [celebId], 'movies', 'length']);
+  let count = countResponse.json[path][celebId].movies.length;
 
-  return await model.get([
+  const response = await model.get([
     path, [celebId],
-    'movies', { length: count },
+    'movies', range,
     ['id', 'title', 'poster', 'rating']
-  ])
-    .then((response: any) => {
-      const moviesObj = response.json[path][celebId].movies;
-      const result: any[] = [];
+  ]);
 
-      for (const movieId in moviesObj) {
-        if (moviesObj[movieId] && moviesObj[movieId].title) {
-          result.push(moviesObj[movieId]);
-        }
-      }
+  const moviesObj = response.json[path][celebId].movies;
+  const items: any[] = [];
 
-      return result;
-    });
+  for (const movieId in moviesObj) {
+    if (moviesObj[movieId] && moviesObj[movieId].title) {
+      const movie = moviesObj[movieId];
+      items.push({
+        id: movie.id,
+        title: movie.title,
+        poster: movie.poster,
+        rating: movie.rating
+      });
+    }
+  }
+
+  // remove duplicates
+  const movieIds: string[] = [];
+
+  items.filter((movie: any) => {
+    if (movieIds.indexOf(movie.id) === -1) {
+      movieIds.push(movie.id);
+      return true;
+    } else {
+      count--;
+    }
+  });
+
+  return { items, count };
 }

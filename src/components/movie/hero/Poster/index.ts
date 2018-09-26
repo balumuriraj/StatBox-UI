@@ -1,12 +1,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
 import Rating from '../Rating';
-import {
-  isBookmarked as isMovieBookmarked,
-  isSeen as isMovieSeen,
-  updateSeen,
-  updateBookmark
-} from '@/store/modules/movie';
+import * as movieStore from '@/store/modules/movie';
 
 @Component({
   components: {
@@ -19,26 +14,26 @@ export default class Poster extends Vue {
   @Prop() public movieId!: number;
 
   get isBookmarked() {
-    return isMovieBookmarked(this.$store);
+    return movieStore.isBookmarked(this.$store);
   }
 
   get isSeen() {
-    return isMovieSeen(this.$store);
-  }
-
-  public setSeen() {
-    if (this.isSeen) {
-      updateSeen(this.$store, { id: this.movieId, isPush: false });
-    } else {
-      updateSeen(this.$store, { id: this.movieId, isPush: true });
-    }
+    return movieStore.isSeen(this.$store);
   }
 
   public setBookmark() {
     if (this.isBookmarked) {
-      updateBookmark(this.$store, { id: this.movieId, isPush: false });
+      movieStore.removeBookmark(this.$store, { id: this.movieId });
     } else {
-      updateBookmark(this.$store, { id: this.movieId, isPush: true });
+      movieStore.addBookmark(this.$store, { id: this.movieId });
+    }
+  }
+
+  public setSeen() {
+    if (this.isSeen) {
+      movieStore.removeSeen(this.$store, { id: this.movieId });
+    } else {
+      movieStore.addSeen(this.$store, { id: this.movieId });
     }
   }
 }

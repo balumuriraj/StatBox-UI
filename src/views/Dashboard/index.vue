@@ -22,11 +22,11 @@
     <section class="section">
         <div class="container">
           <!-- <pre>{{user}}</pre> -->
-          <Carousel title="Bookmarks" :movies="user.bookmarks"></Carousel>
+          <Carousel title="Bookmarks" :movies="user.bookmarks.items" :count=user.bookmarks.count @fetch=fetchBookmarks></Carousel>
           <br>
-          <Carousel title="Seen" :movies="user.seen"></Carousel>
+          <Carousel title="Seen" :movies="user.seen.items" :count=user.seen.count @fetch=fetchSeen></Carousel>
           <br>
-          <Carousel title="Reviewed" :movies="user.reviewed"></Carousel>
+          <Carousel title="Reviewed" :movies="user.reviewed.items"  :count=user.reviewed.count @fetch=fetchReviewed></Carousel>
           <br>
         </div>
     </section>

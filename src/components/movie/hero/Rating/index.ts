@@ -1,6 +1,6 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
-import { userRating, updateReview } from '@/store/modules/movie';
+import * as movieStore from '@/store/modules/movie';
 
 @Component({
   components: {
@@ -11,10 +11,9 @@ export default class Rating extends Vue {
   @Prop() public movieId!: number;
 
   private hoverVal: number = 0;
-  private val: number = 0;
 
   get value() {
-    return userRating(this.$store);
+    return movieStore.userRating(this.$store);
   }
 
   get hoverValue() {
@@ -45,7 +44,7 @@ export default class Rating extends Vue {
   }
 
   public async setRating(rating: number) {
-    await updateReview(this.$store, {
+    await movieStore.updateReview(this.$store, {
       review: {
         movieId: this.movieId,
         rating

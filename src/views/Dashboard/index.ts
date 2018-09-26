@@ -12,6 +12,26 @@ import * as authStore from '@/store/modules/auth';
   }
 })
 export default class Dashboard extends Vue {
+  get user() {
+    return authStore.getUser(this.$store);
+  }
+
+  get isLoggedIn() {
+    return authStore.isUserLoggedIn(this.$store);
+  }
+
+  public fetchBookmarks() {
+    authStore.fetchBookmarks(this.$store);
+  }
+
+  public fetchSeen() {
+    authStore.fetchSeen(this.$store);
+  }
+
+  public fetchReviewed() {
+    authStore.fetchReviewed(this.$store);
+  }
+
   @Watch('isLoggedIn')
   private onIsLoggedInChanged(val: string, oldVal: string) {
     if (val) {
@@ -26,13 +46,5 @@ export default class Dashboard extends Vue {
   private fetchData() {
     console.log('fetching User data...');
     authStore.fetchUserData(this.$store);
-  }
-
-  get user() {
-    return authStore.getUser(this.$store);
-  }
-
-  get isLoggedIn() {
-    return authStore.isUserLoggedIn(this.$store);
   }
 }

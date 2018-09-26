@@ -46,7 +46,7 @@
                   <div class="tile is-parent">
                     <article class="tile is-child notification is-white">
                       <Title name="Movies" subtitle=" released this month"></Title>
-                      <Table :headers="['Title','Release Date','Certification','Runtime']" :rows=movies></Table>
+                      <Table :headers="['Title','Release Date','Certification','Runtime']" :rows=moviesAroundReleaseDate></Table>
                     </article>
                   </div>
                 </div>
@@ -59,7 +59,12 @@
           </div>
         </div>
         
-        <Carousel title="Similars" :movies=movie.moviesThisMonth.movies :count=movie.moviesThisMonth.count></Carousel> 
+        <!-- <Carousel 
+          title="Similars" 
+          :movies=movie.moviesAroundReleaseDate.items 
+          :count=movie.moviesThisMonth.count
+          @fetch=fetchMoviesAroundReleaseDate
+          ></Carousel>  -->
       </div>
     </section>
     
