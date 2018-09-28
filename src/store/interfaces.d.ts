@@ -12,6 +12,15 @@ export interface CelebState {
   movies: Items;
 }
 
+export interface GenreState {
+  genreList: Items;
+  currentGenre: {
+    id: number;
+    name: string;
+    movies: Items;
+  }
+}
+
 export interface MovieState {
   id: string;
   title: string;

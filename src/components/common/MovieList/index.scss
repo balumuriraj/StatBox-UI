@@ -45,3 +45,13 @@
       background-position: 180px 0
   }
 }
+
+.loading {
+  text-align: center;
+  color: #ddd;
+
+  svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}

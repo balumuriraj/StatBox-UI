@@ -13,7 +13,7 @@
         <div class="navbar-start">
           <!-- <router-link class="navbar-item" to="/">RECOMMENDATIONS</router-link> -->
           <!-- <router-link class="navbar-item" to="/">WATCHLIST</router-link> -->
-          <router-link class="navbar-item" to="/">EXPLORE</router-link>
+          <router-link class="navbar-item" to="/movies">EXPLORE</router-link>
           <router-link class="navbar-item" to="/">SEARCH</router-link>
         </div>
         <div v-if="isUserLoggedIn" class="navbar-end">

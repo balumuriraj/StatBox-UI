@@ -144,19 +144,19 @@ const mutations = {
   },
   setBookmarks: (state: any, data: { items: any[], count: number }) => {
     if (data) {
-      state.user.bookmarks.items = state.user.bookmarks.items.concat(data.items);
+      state.user.bookmarks.items = state.user.bookmarks.items.concat(data.items.slice(0));
       state.user.bookmarks.count = data.count;
     }
   },
   setSeen: (state: any, data: { items: any[], count: number }) => {
     if (data) {
-      state.user.seen.items = state.user.seen.items.concat(data.items);
+      state.user.seen.items = state.user.seen.items.concat(data.items.slice(0));
       state.user.seen.count = data.count;
     }
   },
   setReviewed: (state: any, data: { items: any[], count: number }) => {
     if (data) {
-      state.user.reviewed.items = state.user.reviewed.items.concat(data.items);
+      state.user.reviewed.items = state.user.reviewed.items.concat(data.items.slice(0));
       state.user.reviewed.count = data.count;
     }
   },

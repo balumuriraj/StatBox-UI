@@ -4,11 +4,12 @@ import { auth } from '@/store/modules/auth';
 import { home } from './modules/home';
 import { celeb } from './modules/celeb';
 import { movie } from './modules/movie';
+import { genre } from './modules/genre';
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
-  modules: { auth, home, celeb, movie },
+  modules: { auth, home, celeb, movie, genre },
   getters: {
     userId(state) {
       return state.auth.user.id;

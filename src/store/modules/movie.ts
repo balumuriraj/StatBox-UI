@@ -109,7 +109,7 @@ const mutations = {
   },
   setMoviesAroundDate: (state: MovieState, data: any) => {
     if (data) {
-      state.moviesAroundReleaseDate.items = state.moviesAroundReleaseDate.items.concat(data.items);
+      state.moviesAroundReleaseDate.items = state.moviesAroundReleaseDate.items.concat(data.items.slice(0));
       state.moviesAroundReleaseDate.count = data.count;
     }
   },

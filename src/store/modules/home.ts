@@ -61,12 +61,12 @@ const actions = {
 
 const mutations = {
   setLatestMovies: (state: HomeState, data: { items: any[], count: number }) => {
-    state.movies.latest.items = state.movies.latest.items.concat(data.items);
+    state.movies.latest.items = state.movies.latest.items.concat(data.items.slice(0));
     state.movies.latest.count = data.count;
   },
 
   setUpcomingMovies: (state: HomeState, data: { items: any[], count: number }) => {
-    state.movies.upcoming.items = state.movies.upcoming.items.concat(data.items);
+    state.movies.upcoming.items = state.movies.upcoming.items.concat(data.items.slice(0));
     state.movies.upcoming.count = data.count;
   }
 };

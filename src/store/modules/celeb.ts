@@ -48,7 +48,7 @@ const mutations = {
   },
 
   setCelebMovies: (state: CelebState, data: any) => {
-    state.movies.items = state.movies.items.concat(data.items);
+    state.movies.items = state.movies.items.concat(data.items.slice(0));
     state.movies.count = data.count;
   }
 };
