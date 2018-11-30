@@ -3,7 +3,10 @@
     <div class="container">
       <div class="content has-text-centered">
         <p>
-          <strong>StatBox</strong> by MohanRaj Balumuri. The source code is licensed
+          <strong>TMDb</strong>
+        </p>
+        <p>
+          Telugu Movies Database. The source code is licensed
           <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
         </p>
       </div>

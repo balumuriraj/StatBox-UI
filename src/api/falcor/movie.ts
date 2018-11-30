@@ -86,6 +86,7 @@ export async function getMovieData(movieId: number): Promise<any> {
 
 
 export async function getMovieMetadata(movieId: number): Promise<any> {
+  console.log((model as any)._root.cache);
   const response = await model.get([
     'moviesById', [movieId], 'metadata'
   ]);

@@ -1,0 +1,24 @@
+/** Variables & Mixins **/
+$menu-height: 50px;
+
+.content {
+  display: flex;
+  overflow: auto;
+}
+
+@supports (display: grid) {
+  .content {
+    display: grid;
+    grid-template-rows: 40vh auto;
+    height: calc(100vh - #{$menu-height});
+  }
+
+  /* MEDIA QUERIES */
+
+  @media only screen and (min-width: 600px) {
+    .content {
+      display: block;
+      height: 100%;
+    }
+  }
+}

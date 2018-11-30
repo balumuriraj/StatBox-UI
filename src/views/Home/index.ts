@@ -1,14 +1,10 @@
 import { Component, Vue } from 'vue-property-decorator';
-import Menu from '@/components/common/Menu';
-import Footer from '@/components/common/Footer';
 import * as homeStore from '@/store/modules/home';
 import Carousel from '../../components/common/Carousel';
 
 @Component({
   components: {
-    Carousel,
-    Menu,
-    Footer
+    Carousel
   }
 })
 export default class Home extends Vue {

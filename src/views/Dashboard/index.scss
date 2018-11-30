@@ -1,12 +1,26 @@
 .hero {
   background-image: url("../../assets/hero-bg4.png");
+  position: relative;
+  clip-path: inset(0 0 0 0);
+  display: flex;
+  justify-content: center;
 
   .hero-body {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
+    padding: 7.5vh 0;
+    color: #fff;
+    text-align: center;
 
     .title {
-      padding-top: 1rem;
+      font-size: 1.1em;
+      font-weight: bold;
+      margin: 0;
+      padding-top: 1em;
     }
   }
+}
+
+.section {
+  max-width: 1350px;
+  margin: 0 auto;
+  padding: 0 2.5%;
 }

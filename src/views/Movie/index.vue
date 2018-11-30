@@ -1,75 +1,73 @@
 <template>
-  <div class="movie-wrapper">
-    <section class="hero is-dark is-medium">
-      <div class="movie-background">
+  <div class="content">
+    <section class="hero">
+      <div class="hero-background">
         <img :src="movie.poster" />
         <div class="overlay-gradient"></div>
       </div>
-      
-      <!-- Hero head: will stick at the top -->
-      <div class="hero-head">
-        <Menu></Menu>
-      </div>
 
-      <!-- Hero content: will be in the middle -->
       <div class="hero-body">
-        <div class="container">
-          <div class="columns is-centered">
-            <div class="column is-narrow has-text-centered">
-              <Poster :imageUrl=movie.poster :movieId=movie.id></Poster>
-            </div>
-            <div class="column is-half">
-              <Content :movie=movie></Content>      
-            </div>
-          </div>
-          
-        </div>
+        <Poster :imageUrl=movie.poster :movieId=movie.id></Poster>
+        <Content :movie=movie @show="showModal = true"></Content>
       </div>
     </section>
 
     <!-- content -->
     <section class="section">
-      <div class="container">
-        <div class="columns is-centered">
-          <div class="column">
-            <div class="main-container">
-              <div class="tile is-ancestor">
-                <div class="tile is-vertical">
-                  <div class="tile is-hidden-touch">
-                    <Stats></Stats>
-                    <Attributes></Attributes>
-                  </div>
-                  <div class="tile is-vertical is-hidden-desktop">
-                    <Stats></Stats>
-                    <Attributes></Attributes>
-                  </div>
-                  <div class="tile is-parent">
-                    <article class="tile is-child notification is-white">
-                      <Title name="Movies" subtitle=" released this month"></Title>
-                      <Table :headers="['Title','Release Date','Certification','Runtime']" :rows=moviesAroundReleaseDate></Table>
-                    </article>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="column side-container is-narrow">
-            <CelebsList :title="'Crew'" :celebs=crew></CelebsList>
-            <CelebsList :title="'Cast'" :celebs=cast></CelebsList>
+      <div class="stats-container">
+        <Stats></Stats>
+        <Attributes></Attributes>
+      </div>
+      <div class="celebs-container">
+        <CelebsList v-if=crew :title="'Crew'" :celebs=crew class="crew-container"></CelebsList>
+        <CelebsList v-if=cast :title="'Cast'" :celebs=cast class="cast-container"></CelebsList>
+      </div>
+        
+      <!-- <Carousel 
+        title="Similars" 
+        :movies=movie.moviesAroundReleaseDate.items 
+        :count=movie.moviesThisMonth.count
+        @fetch=fetchMoviesAroundReleaseDate
+        ></Carousel>  -->
+    </section>
+    <modal v-if="showModal" @close="showModal = false">
+      <div slot="body">
+        <div class="ques-section">
+          <div class="ques">Watch with?</div>
+          <div class="options">
+            <span>friends</span>
+            <span>self</span>
+            <span>family</span>
           </div>
         </div>
-        
-        <!-- <Carousel 
-          title="Similars" 
-          :movies=movie.moviesAroundReleaseDate.items 
-          :count=movie.moviesThisMonth.count
-          @fetch=fetchMoviesAroundReleaseDate
-          ></Carousel>  -->
+        <div class="ques-section">
+          <div class="ques">Movie Pace?</div>
+          <div class="options">
+            <span>slow</span>
+            <span>fast</span>
+          </div>
+        </div>
+        <div class="ques-section">
+          <div class="ques">Movie theme?</div>
+          <div class="options">
+            <span>simple</span>
+            <span>complex</span>
+          </div>
+        </div>
+        <div class="ques-section">
+          <div class="ques">Movie plot?</div>
+          <div class="options">
+            <span>light</span>
+            <span>dark</span>
+          </div>
+        </div>
+
+        <div class="buttons-section">
+          <button>submit</button>
+          <button @click.prevent="showModal = false">cancel</button>
+        </div>
       </div>
-    </section>
-    
-    <!-- footer -->
-    <Footer></Footer>
+    </modal>
   </div>
 </template>
 

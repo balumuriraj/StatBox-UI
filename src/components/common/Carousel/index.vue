@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="carousel-container">
     <div class="level">
       <div class="level-left">
         <div class="level-item">
@@ -18,28 +18,18 @@
       <template v-if="movies.length">
         <template v-for="movie in movies">
           <swiper-slide :key="movie.id">
-            <div class="movie-card-container">
-              <div class="movie-card-wrapper">
-                <MovieCard :movie="movie"></MovieCard>
-              </div>
-            </div>
+            <MovieCard :movie="movie"></MovieCard>
           </swiper-slide>
         </template>
         <swiper-slide v-if="currentCount < count">
-          <div class="movie-card-container">
-            <div class="movie-card-wrapper">
-              <MovieCard></MovieCard>
-            </div>
-          </div>
+          <MovieCard></MovieCard>
         </swiper-slide>
       </template>
 
       <template v-else>
-        <template v-for="i in 7">
+        <template v-for="i in 12">
           <swiper-slide :key="i">
-            <div class="movie-card-container">
-              <div class="movie-card-wrapper"></div>
-            </div>
+            <MovieCard></MovieCard>
           </swiper-slide>
         </template>
       </template>

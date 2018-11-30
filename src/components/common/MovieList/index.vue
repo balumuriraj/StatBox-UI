@@ -1,42 +1,22 @@
 <template>
-  <div>
+  <div class="list-container" ref="listBox">
     <div class="level">
-      <div class="level-left">
-        <div class="level-item">
-          <p class="title">{{ title }}</p>
-        </div>
+      <div class="level-item">
+        <p class="title">{{ title }}</p>
       </div>
-      <div class="level-right">
-        <div class="level-item">
-          <p>{{ count }} movies</p>
-        </div>
+      <div class="level-item">
+        <p class="count">{{ count }} movies</p>
       </div>
     </div>
 
-    <div class="columns is-multiline is-centered">
-      <template v-if="movies && movies.length">
-        <template v-for="movie in movies">
-          <div class="column is-narrow" :key="movie.id">
-            <div class="movie-card-container">
-              <div class="movie-card-wrapper">
-                <MovieCard :movie="movie"></MovieCard>
-              </div>
-            </div>
-          </div>
-        </template>
-      </template>
+    <div class="list-block">
+      <div v-if="movies && movies.length" v-for="movie in movies" :key="movie.id" class="list-item">
+        <MovieCard :movie="movie"></MovieCard>
+      </div>
 
-      <template v-else>
-        <template v-for="i in 10">
-          <div class="column is-narrow" :key="i">
-            <div class="movie-card-container">
-              <div class="movie-card-wrapper">
-                <MovieCard></MovieCard>
-              </div>
-            </div>
-          </div>
-        </template>
-      </template>
+      <div v-else v-for="i in 10" :key="i" class="list-item">
+        <MovieCard></MovieCard>
+      </div>
     </div>
 
     <div class="loading">

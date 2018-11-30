@@ -31,8 +31,8 @@ export default class Carousel extends Vue {
           this.loading = true;
           this.$emit('fetch');
         } else if (this.movies.length === this.count) {
-          this.swiper.removeSlide(this.movies.length);
-          this.swiper.update();
+          // this.swiper.removeSlide(this.movies.length);
+          // this.swiper.update();
         }
       }
     });
@@ -54,35 +54,39 @@ export default class Carousel extends Vue {
 
   get options() {
     return {
-      slidesPerView: 7,
-      slidesPerGroup: 3,
-      spaceBetween: 7,
+      slidesPerView: 3.5,
+      centerInsufficientSlides: false,
+      slidesPerGroup: 1,
+      spaceBetween: 4,
       freeMode: true,
+      preloadImages: false,
       loop: false,
       navigation: {
         nextEl: '.swiper-custom-next',
         prevEl: '.swiper-custom-prev'
       },
+      breakpointsInverse: true,
       breakpoints: {
-        1024: {
-          slidesPerView: 6,
-          spaceBetween: 7
+        1300: { // max-width
+          slidesPerView: 8.5,
+          spaceBetween: 7.5
         },
-        768: {
-          slidesPerView: 5,
+        1200: {
+          slidesPerView: 7.5,
           spaceBetween: 5
         },
-        640: {
-          slidesPerView: 4,
+        1000: {
+          slidesPerView: 6.5,
           spaceBetween: 5
         },
-        480: {
-          slidesPerView: 3,
-          spaceBetween: 5
+        800: {
+          slidesPerView: 5.5
         },
-        320: {
-          slidesPerView: 2,
-          spaceBetween: 5
+        600: {
+          slidesPerView: 4.5
+        },
+        500: {
+          slidesPerView: 3.5
         }
       }
     };

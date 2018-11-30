@@ -1,16 +1,14 @@
 <template>
-  <div v-if="isStacked">
-    <div class="level">
-      <div class="level-left is-half">
-        <progress class="progress is-small is-info" v-bind:value=value1 max="100"></progress>
-      </div>
-      <div class="level-right is-half">
-        <progress class="progress is-small is-success" v-bind:value=value2 max="100"></progress>
-      </div>
+  <div v-if="isStacked" class="level">
+    <div class="level-left holder">
+      <progress class="progress is-info" v-bind:value=value1 max="100"></progress>
+    </div>
+    <div class="level-right holder">
+      <progress class="progress is-success" v-bind:value=value2 max="100"></progress>
     </div>
   </div>
-  <div v-else>
-    <progress class="progress is-small" v-bind:class="getClass()" v-bind:value=value max="100">{{ value }}%</progress>
+  <div v-else class="holder">
+    <progress class="progress" v-bind:class="getClass()" v-bind:value=value max="100">{{ value }}%</progress>
   </div>
 </template>
 

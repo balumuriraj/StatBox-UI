@@ -8,4 +8,10 @@ import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
 })
 export default class MovieCard extends Vue {
   @Prop() public movie: any;
+
+  get year() {
+    const date = this.movie && new Date(this.movie.releaseDate);
+    console.log(this.movie);
+    return date.getFullYear();
+  }
 }

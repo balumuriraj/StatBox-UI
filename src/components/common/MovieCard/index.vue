@@ -1,14 +1,28 @@
 <template>
-  <div v-if=movie class="movie-card">
-    <router-link :to="'/movie/'+movie.id">
-      <figure class="image-wrapper">
-        <img v-lazy="movie.poster" :alt="movie.title">
-      </figure>
-    </router-link>
-    <div class="rating">
-      <font-awesome-icon :icon="['fas', 'star']"></font-awesome-icon>
-      <span> 3.5</span>
-    </div>    
+  <div class="movie-card-container">
+    <div class="movie-card">
+      <div v-if=movie class="data-container">
+        <router-link :to="'/movie/'+movie.id">
+          <img v-lazy="movie.poster" :alt="movie.title">
+        </router-link>
+      </div>
+      <div v-else class="placeholder-container"></div>
+    </div>
+    <div class="info-card">
+      <div class="title">
+        <p>{{movie && movie.title}}</p>
+      </div>
+      <div class="rating">
+        <div v-if=movie>
+          <span>{{year}}</span>
+        </div>
+        <div v-if=movie>
+          <span v-show="movie && movie.rating">
+            <font-awesome-icon icon="star" class="icon"></font-awesome-icon>{{movie.rating || "--"}}
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

@@ -1,14 +1,10 @@
-.stat-block {
-  text-align: center;
-  span {
-    color: #feca57;
-    padding: 0.5rem;
-    font-size: 2rem;
-    font-weight: bold;
-  }
-  p {
-    padding: 0.5rem;
-    color: #a4b0be;
-    font-size: 0.8rem;
+.chart-container {
+  .chart-content {
+    background: #fff;
+    padding: 1em;
+
+    #distributionChart {
+      margin-left: -5%;
+    }
   }
 }

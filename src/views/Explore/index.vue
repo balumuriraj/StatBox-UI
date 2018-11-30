@@ -1,6 +1,7 @@
 <template>
-  <section class="login-container">
-    <div id="firebaseui-auth-container"></div>
+  <section class="content">
+    <!-- Outlet for children routes -->
+    <router-view></router-view>
   </section>
 </template>
 

@@ -1,14 +1,10 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
-import Carousel from '@/components/common/Carousel/';
-import Menu from '@/components/common/Menu';
-import Footer from '@/components/common/Footer';
+import MovieList from '@/components/common/MovieList';
 import * as celebStore from '@/store/modules/celeb';
 
 @Component({
   components: {
-    Carousel,
-    Menu,
-    Footer
+    MovieList
   }
 })
 export default class Celeb extends Vue {

@@ -43,7 +43,7 @@ export async function getGenreMovies(id: number, range: { from: number; to: numb
   const genreResponse = await model.get([
     'genresById', [id],
     ['movies'],
-    range, ['id', 'title', 'poster']
+    range, ['id', 'title', 'poster', 'releaseDate', 'rating']
   ]);
   const moviesObj = genreResponse.json.genresById[id].movies;
   const items: any[] = [];
@@ -53,7 +53,9 @@ export async function getGenreMovies(id: number, range: { from: number; to: numb
       items.push({
         id: moviesObj[index].id,
         title: moviesObj[index].title,
-        poster: moviesObj[index].poster
+        poster: moviesObj[index].poster,
+        releaseDate: moviesObj[index].releaseDate,
+        rating: moviesObj[index].rating
       });
     }
   }

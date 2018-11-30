@@ -1,54 +1,76 @@
-// .hero-poster {
-//   height: 500px;
-//   overflow: hidden;
-// }
-.hero {
-  background-image: url("../../assets/hero-bg4.png");
-  position: relative;
+/** Variables & Mixins **/
+$menu-height: 50px;
+
+.content {
+  display: flex;
+  overflow: auto;
+
+  .hero {
+    background-image: url("../../assets/hero-bg5.jpg");
+    background-size: cover;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+
+    .hero-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+
+      .title {
+        font-size: 3em;
+        font-weight: 700;
+        margin: 0;
+        opacity: 0.9;
+      }
+    }
+  }
 }
 
-.hero::before {
-  box-shadow: inset -5px -100px 100px -15px #031424;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  content: "";
-}
+@supports (display: grid) {
+  .content {
+    display: grid;
+    grid-template-rows: 40vh auto;
+    height: calc(100vh - #{$menu-height});
 
-.section {
-  background: white;
-  color: #020d18;
-}
+    .carousels {
+      padding-top: 1em;
+      padding-bottom: 2em;
+    }
+  }
 
-.title {
-  font-family: "Dosis";
-}
-.search {
-  width: 500px;
-  font-size: 1.15rem;
-  line-height: 2rem;
-  padding: 15px;
-  border: none;
-  // border-bottom: 2px solid #dcf836;
-  background: rgba(2, 13, 24, .5);
-  color: #f06060;
-  text-align: center;
-  outline: none;
-  font-family: "Dosis";
-}
+  /* MEDIA QUERIES */
 
-::placeholder {
-  color: #dcf836;
-  opacity: 1; /* Firefox */
-}
+  @media only screen and (min-width: 600px) {
+    .content {
+      display: block;
+      // overflow: auto;
+      height: 100%;
 
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
- color: white;
-}
+      .hero {
+        height: 60vh;
+        display: block;
+        position: relative;
 
-::-ms-input-placeholder { /* Microsoft Edge */
- color: white;
+        .hero-body {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+
+          .title {
+            font-size: 2.5em;
+          }
+        }
+      }
+      
+      .carousels {
+        padding: 0 2.5%;
+        max-width: 1350px;
+        margin: 0 auto;
+      }
+    }
+  }
 }

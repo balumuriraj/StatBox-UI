@@ -1,128 +1,106 @@
-.title {
-  font-size: 1.25rem;
-  color: #020d18;
-}
+.carousel-container {
+  .level {
+    display: flex;
 
-.link {
-  color: #abb7c4;
-  font-size: 0.75rem;
-  font-weight: bold;
-  margin-left: 1rem;
-}
+    .level-left {
+      display: flex;
+      justify-content: flex-start;
+      flex-grow: 1;
+    }
 
-.link:hover {
-  color: #f06060;
-}
+    .level-right {
+      display: flex;
+      justify-content: flex-end;
+      flex-grow: 1;
+    }
 
-.swiper-slide{
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
+    .level-item {
+      align-self: center;
 
-.swiper-container {
-  width: 100%;
-  margin-top: -0.5em;
-  margin-bottom: 1em;
-}
+      .title {
+        font-size: 1.25rem;
+        color: #020d18;
+        font-weight: bold;
+      }
 
-.swiper-container:hover > .swiper-custom-button {
-  display: block;
-}
+      .link {
+        color: #abb7c4;
+        font-size: 0.75rem;
+        font-weight: bold;
+        margin-left: 1rem;
+        text-decoration: none;
+      }
+      
+      .link:hover {
+        color: #f06060;
+      }
+    }
+  }
 
-// custom swiper buttons
-.swiper-custom-button {
-  background: rgba(0,0,0,0.5);
-  width: 50px;
-  height: 100%;
-  z-index: 1;
-  opacity: 0.5;
-  display: none;
-  cursor: pointer;
+  .swiper-container {
+    width: calc(100vw - 2em);
 
-  .icon-holder {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  
-    svg {
-      width: 2rem;
-      height: 2rem;
-      color: white;
+    .swiper-wraper {
+      align-items: flex-start;
+    }
+
+    .swiper-custom-button {
+      display: none;
     }
   }
 }
 
-// .swiper-custom-button:hover {
-//   opacity: 0.75;
-// }
+@media only screen and (min-width: 600px) {
+  .carousel-container {
+    .swiper-container {
+      width: 100%;
 
-.swiper-custom-prev {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
+      &:hover > .swiper-custom-button {
+        display: block;
+      }
 
-.swiper-custom-next {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
+      .swiper-custom-button {
+        background: rgba(0,0,0,0.5);
+        width: 50px;
+        height: 100%;
+        z-index: 1;
+        opacity: 0.5;
+        cursor: pointer;
 
-.swiper-button-disabled {
-  pointer-events: none;
-  opacity: 0;
-}
+        .icon-holder {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        
+          svg {
+            width: 2rem;
+            height: 2rem;
+            color: white;
+          }
+        }
+      }
 
-.swiper-button-hidden {
-  opacity: 0;
-}
+      .swiper-custom-prev {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
 
-// movie-card
-.movie-card-container {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-end;
-  text-align: left;
-  width: 100%;
-  height: 0;
-  padding-top: 150%;
-  background-color: black;
-  background-repeat: no-repeat;
-  background-blend-mode: overlay;
-  background-size: contain;
-  background-position: center;
-  border-bottom: 3px solid white;
-}
+      .swiper-custom-next {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
 
-.movie-card-container:hover {
-  border-bottom: 3px solid #f06060;
-}
+      .swiper-button-disabled {
+        pointer-events: none;
+        opacity: 0;
+      }
 
-.movie-card-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  
-  animation-duration: 2s;
-  animation-fill-mode: forwards;
-  animation-iteration-count: infinite;
-  animation-name: placeHolderShimmer;
-  animation-timing-function: linear;
-  background: #f6f7f8;
-  background: linear-gradient(to right, #eeeeee 8%, #dddddd 55%, #eeeeee 100%);
-}
-
-@keyframes placeHolderShimmer{
-  0%{
-      background-position: -180px 0
-  }
-  100%{
-      background-position: 180px 0
+      .swiper-button-hidden {
+        opacity: 0;
+      }
+    }
   }
 }

@@ -6,3 +6,39 @@ table {
     vertical-align: middle;
   }
 }
+
+.attributes-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1em;
+
+  .attributes-item {
+    background: #fff;
+    padding: 1em;
+    margin-bottom: 1em;
+
+    .attribute-row {
+      display: flex;
+      padding-bottom: 0.5em;
+
+      .name {
+        width: 4em;
+        padding-left: 1em;
+      }
+
+      .progress-container {
+        display: flex;
+        flex-grow: 1;
+      }
+    }
+  }
+}
+
+@supports (display: grid) {
+  @media only screen and (min-width: 800px) {
+    .attributes-container {
+      display: grid;
+      margin-top: 0;
+    }
+  }
+}

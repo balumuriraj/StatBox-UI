@@ -1,7 +1,8 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import Footer from '@/components/common/Footer';
 import CelebsList from '@/components/movie/body/CelebsList';
-import Carousel from '@/components/common/Carousel';
+import Modal from '@/components/common/Modal';
+import MovieList from '@/components/common/MovieList';
 import Menu from '@/components/common/Menu/index';
 import Table from '@/components/common/Table';
 import Poster from '@/components/movie/hero/Poster';
@@ -20,12 +21,15 @@ import * as movieStore from '@/store/modules/movie';
     Title,
     Table,
     Menu,
-    Carousel,
+    Modal,
+    MovieList,
     CelebsList,
     Footer
   }
 })
 export default class Movie extends Vue {
+  public showModal: boolean = false;
+
   get movie() {
     return movieStore.getMovieData(this.$store);
   }
@@ -34,18 +38,14 @@ export default class Movie extends Vue {
     const movie = this.movie;
     const cast = movie && movie.cast;
 
-    if (cast) {
-      return cast.slice(0, 4);
-    }
+    return cast;
   }
 
   get crew() {
     const movie = this.movie;
     const crew = movie && movie.crew;
 
-    if (crew) {
-      return crew.slice(0, 2);
-    }
+    return crew;
   }
 
   // get reviews() {

@@ -9,18 +9,13 @@ import Title from '../Title';
 })
 export default class Stats extends Vue {
   private mounted() {
-    const lineElm = document.getElementById('distributionChart');
-    const chart = new Chartist.Line(lineElm, {
-      labels: [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5],
-      series: [
-        [0, 5, 5, 5, 5, 8, 17, 20, 35, 23, 5, 0]
-      ]
+    const elm = document.getElementById('distributionChart');
+    const chart = new Chartist.Bar(elm, {
+      labels: ['', '1', '', '2', '', '3', '', '4', '', '5'],
+      series: [1, 5, 5, 5, 8, 17, 20, 35, 23, 5]
     }, {
-        low: 0,
-        showArea: true,
-        showLine: false,
-        showPoint: false,
-        fullWidth: true,
+        // low: 0,
+        distributeSeries: true,
         axisY: {
           showLabel: false,
           showGrid: false

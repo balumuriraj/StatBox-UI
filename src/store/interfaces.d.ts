@@ -1,8 +1,5 @@
 export interface HomeState {
-  movies: {
-    latest: Items;
-    upcoming: Items;
-  }
+  movies: Map<string, Items>
 }
 
 export interface CelebState {
