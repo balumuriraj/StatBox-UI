@@ -1,4 +1,6 @@
 .list-container {
+  margin: 0 -0.5em;
+
   .level {
     width: 100%;
     display: flex;
@@ -25,7 +27,7 @@
     width: 100%;
 
     .list-item {
-      width: calc(100% / 3 - 1em);
+      width: calc(100% / 2 - 1em);
       padding: 0.5em;
     }
   }
@@ -43,35 +45,35 @@
 
 @media only screen and (min-width: 500px) {
   .list-container .list-block .list-item {
-    width: calc(100% / 4 - 1em);
+    width: calc(100% / 3 - 1em);
   }
 }
 
 @media only screen and (min-width: 700px) {
   .list-container .list-block .list-item {
-    width: calc(100% / 5 - 1em);
+    width: calc(100% / 4 - 1em);
   }
 }
 
 @media only screen and (min-width: 800px) {
   .list-container .list-block .list-item {
-    width: calc(100% / 6 - 1em);
+    width: calc(100% / 5 - 1em);
   }
 }
 
 @media only screen and (min-width: 1000px) {
   .list-container .list-block .list-item {
-    width: calc(100% / 7 - 1em);
+    width: calc(100% / 6 - 1em);
   }
 }
 
 @media only screen and (min-width: 1150px) {
   .list-container .list-block .list-item {
-    width: calc(100% / 8 - 1em);
+    width: calc(100% / 7 - 1em);
   }
 }
 
-// @media only screen and (min-width: 1350px) {
+// @media only screen and (min-width: 1240px) {
 //   .list-container .list-block .list-item {
 //     width: calc(100% / 9 - 1em);
 //   }

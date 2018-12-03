@@ -7,7 +7,7 @@ import * as homeStore from '@/store/modules/home';
     MovieList
   }
 })
-export default class Movies extends Vue {
+export default class Years extends Vue {
   public id!: string;
   public name!: string;
 
@@ -19,10 +19,11 @@ export default class Movies extends Vue {
   }
 
   public fetchMovies() {
-    if (this.id === 'latest') {
-      homeStore.fetchLatest(this.$store);
-    } else if (this.id === 'upcoming') {
-      homeStore.fetchUpcoming(this.$store);
+    if (this.id === 'recent') {
+      const date = new Date(2015);
+      const startDate = date.getTime();
+      const endDate = Date.now();
+      homeStore.fetchMoviesByDates(this.$store, { name: 'recent', startDate, endDate });
     }
   }
 
@@ -33,23 +34,24 @@ export default class Movies extends Vue {
   }
 
   private fetchData() {
-    if (this.id === 'latest') {
-      homeStore.fetchLatest(this.$store);
-    } else if (this.id === 'upcoming') {
-      homeStore.fetchUpcoming(this.$store);
+    if (this.id === 'recent') {
+      const date = new Date('2015');
+      const startDate = date.getTime();
+      const endDate = Date.now();
+      homeStore.fetchMoviesByDates(this.$store, { name: 'recent', startDate, endDate });
     }
   }
 
   get item() {
-    if (this.id === 'latest') {
+    const emptyItems = {
+      items: [],
+      count: 0
+    };
+
+    if (this.id === 'recent') {
       return {
-        name: 'Latest',
-        movies: homeStore.getLatest(this.$store)
-      };
-    } else if (this.id === 'upcoming') {
-      return {
-        name: 'Upcoming',
-        movies: homeStore.getUpcoming(this.$store)
+        name: 'Recent',
+        movies: homeStore.getMovies(this.$store, 'recent') || emptyItems
       };
     }
   }

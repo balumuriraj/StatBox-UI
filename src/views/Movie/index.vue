@@ -1,34 +1,41 @@
 <template>
   <div class="content">
-    <section class="hero">
-      <div class="hero-background">
-        <img :src="movie.poster" />
-        <div class="overlay-gradient"></div>
-      </div>
-
-      <div class="hero-body">
-        <Poster :imageUrl=movie.poster :movieId=movie.id></Poster>
-        <Content :movie=movie @show="showModal = true"></Content>
-      </div>
-    </section>
+    <div class="hero">
+      <img :src="movie.poster">
+      <div class="overlay-gradient"></div>
+    </div>
 
     <!-- content -->
     <section class="section">
-      <div class="stats-container">
-        <Stats></Stats>
-        <Attributes></Attributes>
+      <div class="left-section">
+        <Poster :imageUrl="movie.poster" :movieId="movie.id"></Poster>
+        <div class="info-container">
+          <Info :movie="movie"></Info>
+        </div>
       </div>
-      <div class="celebs-container">
-        <CelebsList v-if=crew :title="'Crew'" :celebs=crew class="crew-container"></CelebsList>
-        <CelebsList v-if=cast :title="'Cast'" :celebs=cast class="cast-container"></CelebsList>
-      </div>
-        
-      <!-- <Carousel 
+      <div class="right-section">
+        <div class="title-container">
+          <Content :movie="movie" @show="showModal = true"></Content>
+        </div>
+        <div class="info-container">
+          <Info :movie="movie"></Info>
+        </div>
+        <div class="stats-container">
+          <Stats></Stats>
+          <Attributes></Attributes>
+        </div>
+        <div class="celebs-container">
+          <CelebsList v-if="crew" :title="'Crew'" :celebs="crew" class="crew-container"></CelebsList>
+          <CelebsList v-if="cast" :title="'Cast'" :celebs="cast" class="cast-container"></CelebsList>
+        </div>
+
+        <!-- <Carousel 
         title="Similars" 
         :movies=movie.moviesAroundReleaseDate.items 
         :count=movie.moviesThisMonth.count
         @fetch=fetchMoviesAroundReleaseDate
-        ></Carousel>  -->
+        ></Carousel>-->
+      </div>
     </section>
     <modal v-if="showModal" @close="showModal = false">
       <div slot="body">

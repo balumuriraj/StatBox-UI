@@ -17,38 +17,6 @@
         </div>
       </div>
     </div>
-    <div class="navbar-bottom">
-      <router-link class="navbar-item" to="/">
-        <div class="icon">
-          <font-awesome-icon icon="home" />
-        </div>
-        <span>home</span>
-      </router-link>
-      <router-link class="navbar-item" to="/explore">
-        <div class="icon">
-          <font-awesome-icon icon="film" />
-        </div>
-        <span>explore</span>
-      </router-link>
-      <router-link v-if="isUserLoggedIn" class="navbar-item" to="/">
-        <div class="icon">
-          <font-awesome-icon icon="star" />
-        </div>
-        <span>rate</span>
-      </router-link>
-      <router-link class="navbar-item" to="/">
-        <div class="icon">
-          <font-awesome-icon icon="search" />
-        </div>
-        <span>search</span>
-      </router-link>
-      <router-link class="navbar-item" to="/dashboard">
-        <div class="icon">
-          <font-awesome-icon icon="user" />
-        </div>
-        <span>profile</span>
-      </router-link>
-    </div>
   </nav>
 </template>
 

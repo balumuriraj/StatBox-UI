@@ -14,7 +14,7 @@
           <router-link class="box" v-for="(item, i) in exploreList" :key="i" :to="item.url">
             <div class="image-container">
               <div class="image-wrapper">
-                <img :src="item.image">
+                <img :src="require(`@/assets/${item.image}`)">
               </div>
             </div>
             <p class="name">{{item.name}}</p>
@@ -28,7 +28,7 @@
           <router-link class="box" v-for="(item, i) in yearsList" :key="i" :to="item.url">
             <div class="image-container">
               <div class="image-wrapper">
-                <img :src="item.image">
+                <img :src="require(`@/assets/${item.image}`)">
               </div>
             </div>
             <p class="name">{{item.name}}</p>
@@ -42,7 +42,7 @@
           <router-link class="box" v-for="(item, i) in topGenreList" :key="i" :to="item.url">
             <div class="image-container">
               <div class="image-wrapper">
-                <img :src="item.image">
+                <img :src="require(`@/assets/${item.image}`)">
               </div>
             </div>
             <p class="name">{{item.name}}</p>

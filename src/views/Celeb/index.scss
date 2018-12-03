@@ -1,6 +1,7 @@
 .celeb-wrapper {
   .hero {
-    background-image: url("../../assets/hero-bg4.png");
+    background-image: url("../../assets/hero-bg5.jpg");
+    background-size: cover;
     position: relative;
     clip-path: inset(0 0 0 0);
     display: flex;
@@ -26,7 +27,7 @@
   }
 
   .list {
-    max-width: 1350px;
+    max-width: 1240px;
     margin: 0 auto;
   }
 }

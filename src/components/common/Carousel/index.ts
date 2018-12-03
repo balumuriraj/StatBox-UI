@@ -57,7 +57,7 @@ export default class Carousel extends Vue {
       slidesPerView: 3.5,
       centerInsufficientSlides: false,
       slidesPerGroup: 1,
-      spaceBetween: 4,
+      spaceBetween: 5,
       freeMode: true,
       preloadImages: false,
       loop: false,
@@ -67,23 +67,19 @@ export default class Carousel extends Vue {
       },
       breakpointsInverse: true,
       breakpoints: {
-        1300: { // max-width
-          slidesPerView: 8.5,
-          spaceBetween: 7.5
-        },
-        1200: {
-          slidesPerView: 7.5,
-          spaceBetween: 5
+        1200: { // max-width
+          slidesPerView: 6.5,
+          spaceBetween: 10
         },
         1000: {
-          slidesPerView: 6.5,
-          spaceBetween: 5
+          slidesPerView: 5.5,
+          spaceBetween: 7.5
         },
         800: {
-          slidesPerView: 5.5
+          slidesPerView: 4.5
         },
         600: {
-          slidesPerView: 4.5
+          slidesPerView: 3.5
         },
         500: {
           slidesPerView: 3.5

@@ -35,8 +35,6 @@ export default class List extends Vue {
   private mounted() {
     window.addEventListener('scroll', () => {
       if (!this.loading) {
-        console.log('length, count', this.movies.length, this.count);
-
         const isBottom = this.isScrollBottom();
 
         if (isBottom && (this.movies.length < this.count)) {

@@ -4,24 +4,25 @@
   display: flex;
   flex-direction: column;
   z-index: 1;
-  padding-top: 3em;
 
   img {
-    width: calc(100% - 6px);
-    height: 200px;
-    border: 3px solid #fff;
+    width: 100%;
+    border: 3px solid #f2f2f2;
     border-radius: 3px;
   }
 
   .stars-container {
+    width: 100%;
+    margin-left: 3px;
     position: relative;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.95);
     text-align: center;
   }
 }
 
 @media only screen and (min-width: 800px) {
   .poster-container {
-    padding: 2em;
+    width: 250px;
+    padding-top: 0;
   }
 }

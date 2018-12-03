@@ -22,22 +22,22 @@ export default class ExploreHome extends Vue {
       {
         url: '/explore/latest',
         name: 'Latest',
-        image: 'https://cdn.guidingtech.com/imager/media/assets/Stunning-2018-Upcoming-Games-Wallpapers-12_acdb3e4bb37d0e3bcc26c97591d3dd6b.jpg'
+        image: 'latest.jpg'
       },
       {
         url: '/explore/upcoming',
         name: 'Upcoming',
-        image: 'https://hdwallpaperim.com/wp-content/uploads/2017/08/25/463863-abstract-Superman_The_Movie-748x468.jpg'
+        image: 'upcoming.jpg'
       },
       {
         url: '/explore/trending',
         name: 'Trending',
-        image: 'http://www.portoalegre.travel/upload/s/88/886039_avatar-movie-wallpaper.jpg'
+        image: 'trending.jpg'
       },
       {
         url: '/explore/toprated',
         name: 'Top Rated',
-        image: 'https://4.bp.blogspot.com/-mjtvJw6t-3Q/Wia0VcSCLQI/AAAAAAAAHMc/H8bLXuGWAJsDQydCJ2Aex8H-EYCxd3aEgCLcBGAs/s1600/a512b900a11c1fe052555521dad12f92.jpg'
+        image: 'toprated.jpg'
       }
     ];
   }
@@ -47,22 +47,22 @@ export default class ExploreHome extends Vue {
       {
         url: '/explore/years/recent',
         name: 'Recent',
-        image: 'https://cdn.guidingtech.com/imager/media/assets/Stunning-2018-Upcoming-Games-Wallpapers-12_acdb3e4bb37d0e3bcc26c97591d3dd6b.jpg'
+        image: 'recent.jpg'
       },
       {
         url: '/explore/years/2010-2015',
         name: '2010-2015',
-        image: 'https://hdwallpaperim.com/wp-content/uploads/2017/08/25/463863-abstract-Superman_The_Movie-748x468.jpg'
+        image: '2010-2015.jpg'
       },
       {
         url: '/explore/years/2000-2010',
         name: '2000-2010',
-        image: 'http://www.portoalegre.travel/upload/s/88/886039_avatar-movie-wallpaper.jpg'
+        image: '2000-2010.jpg'
       },
       {
         url: '/explore/years/1990-2000',
         name: '1990-2000',
-        image: 'https://4.bp.blogspot.com/-mjtvJw6t-3Q/Wia0VcSCLQI/AAAAAAAAHMc/H8bLXuGWAJsDQydCJ2Aex8H-EYCxd3aEgCLcBGAs/s1600/a512b900a11c1fe052555521dad12f92.jpg'
+        image: '1990-2000.jpg'
       }
     ];
   }
@@ -73,7 +73,7 @@ export default class ExploreHome extends Vue {
       return {
         url: '/explore/genre/' + item.id,
         name: item.name,
-        image: 'https://cdn.guidingtech.com/imager/media/assets/Stunning-2018-Upcoming-Games-Wallpapers-12_acdb3e4bb37d0e3bcc26c97591d3dd6b.jpg',
+        image: 'latest.jpg',
         count: item.moviesCount
       };
     });

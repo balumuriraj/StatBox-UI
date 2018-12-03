@@ -1,17 +1,44 @@
 <template>
-  <div class="home">
-    <section class="hero is-danger">
+  <div class="dashboard">
+    <section class="hero">
       <!-- Hero content: will be in the middle -->
       <div class="hero-body">
         <div class="container has-text-centered">
           <!-- <img :src="user.photoURL" width="150"> -->
           <img src="../../assets/avatar.png" width="150">
           <p class="title">{{user.name}}</p>
-          <p>Last Login: {{user.lastLogin}}</p>
-          <p>User since: {{new Date(user.userSince).toLocaleDateString()}}</p>
+          <!-- <p>Last Login: {{user.lastLogin}}</p>
+          <p>User since: {{new Date(user.userSince).toLocaleDateString()}}</p> -->
         </div>
       </div>
     </section>
+
+    <div class="menu-container">
+      <div class="menu-item active">
+        <div class="icon-container">
+          <font-awesome-icon icon="chart-bar" class="icon"></font-awesome-icon>
+        </div>
+        <span>Overview</span>
+      </div>
+      <div class="menu-item"> 
+        <div class="icon-container">
+          <font-awesome-icon icon="heart" class="icon"></font-awesome-icon>
+        </div>
+        <span>Favorites</span>
+      </div>
+      <div class="menu-item">
+        <div class="icon-container">
+          <font-awesome-icon icon="bookmark" class="icon"></font-awesome-icon>
+        </div>
+        <span>WatchList</span>
+      </div>
+      <div class="menu-item">
+        <div class="icon-container">
+          <font-awesome-icon icon="star" class="icon"></font-awesome-icon>
+        </div>
+        <span>Ratings</span>
+      </div>
+    </div>
 
     <!-- content -->
     <section class="section">

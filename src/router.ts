@@ -10,6 +10,8 @@ import ViewAll from '@/views/ViewAll';
 import Explore from '@/views/Explore';
 import ExploreHome from '@/components/explore/ExploreHome';
 import Movies from '@/components/explore/Movies';
+import Genre from './components/explore/Genre';
+import Years from './components/explore/Years';
 
 Vue.use(Router);
 
@@ -21,12 +23,11 @@ const routes = [
   },
   {
     path: '/explore',
-    name: 'explore',
     component: Explore,
     children: [
       {
         path: '',
-        name: 'home',
+        name: 'explore',
         component: ExploreHome
       },
       {
@@ -37,12 +38,12 @@ const routes = [
       {
         path: 'genre/:id',
         name: 'genre',
-        component: Movies
+        component: Genre
       },
       {
         path: 'years/:id',
         name: 'years',
-        component: Movies
+        component: Years
       }
     ]
   },

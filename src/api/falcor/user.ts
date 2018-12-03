@@ -2,7 +2,8 @@ import model from '@/api/falcor/model';
 
 export async function getBookmarks(id: number, range: { from: number; to: number; }): Promise<any> {
   const countResponse = await model.get(['usersById', [id], 'bookmarks', 'length']);
-  const count = countResponse.json.usersById[id].bookmarks.length;
+  const bookmarks = countResponse.json.usersById[id].bookmarks;
+  const count = bookmarks && bookmarks.length;
 
   const bookmarksResponse = await model.get([
     'usersById', [id],
@@ -29,7 +30,8 @@ export async function getBookmarks(id: number, range: { from: number; to: number
 
 export async function getSeen(id: number, range: { from: number; to: number; }): Promise<any> {
   const countResponse = await model.get(['usersById', [id], 'seen', 'length']);
-  const count = countResponse.json.usersById[id].seen.length;
+  const seen = countResponse.json.usersById[id].seen;
+  const count = seen && seen.length;
 
   const seenResponse = await model.get([
     'usersById', [id],
@@ -73,7 +75,8 @@ export async function getReviewed(id: number, range: { from: number; to: number;
 
 export async function getUserReviews(id: number, range: { from: number; to: number; }): Promise<any> {
   const countResponse = await model.get(['usersById', [id], 'reviews', 'length']);
-  const count = countResponse.json.usersById[id].reviews.length;
+  const reviews = countResponse.json.usersById[id].reviews;
+  const count = reviews && reviews.length;
 
   const reviewsResponse = await model.get([
     'usersById', [id],

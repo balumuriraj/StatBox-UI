@@ -1,38 +1,17 @@
-@mixin multiLineEllipsis($lineHeight: 1em, $lineCount: 1, $bgColor: white){
-  overflow: hidden;
-  position: relative;
-  line-height: $lineHeight;
-  max-height: $lineHeight * $lineCount; 
-  text-align: justify;
-
-  &:before {
-    content: '...';
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    background: $bgColor;
-  }
-  
-  &:after {
-    content: '';
-    position: absolute;
-    right: 0;
-    width: 1em;
-    height: 1em;
-    margin-top: 0.2em;
-    background: $bgColor;
-  }
-}
-
 .content-container {
+  position: relative;
   width: 100%;
   z-index: 1;
   font-size: 1em;
   display: flex;
   flex-direction: column;
-  padding: 1em 0 0;
+  padding: 1em 0;
+  color: #fff;
 
   .title-block {
+    display: flex;
+    justify-content: center;
+
     .title {
       margin: 0;
       font-size: 1.75em;
@@ -43,7 +22,7 @@
   .ratings-block {
     display: flex;
     justify-content: center;
-    padding-top: 1em;
+    padding: 1.5em 0;
 
     .rating-block {
       text-align: center;
@@ -81,7 +60,6 @@
   .buttons-block {
     display: flex;
     justify-content: center;
-    padding-top: 1.5em;
 
     .button {
       padding: 0.5em 1em;
@@ -117,87 +95,23 @@
       }
     }
   }
-
-  .description-block {
-    background: #fff;
-    color: #444;
-    text-align: left;
-    padding: 1em;
-    margin-top: 3em;
-
-    .title {
-      font-size: 1.25rem;
-      font-weight: bold;
-      text-transform: capitalize;
-      margin: 0;
-      padding-bottom: 0.5em;
-    }
-
-    .info-block {
-      font-size: 0.8rem;
-  
-      div {
-        display: inline-block;
-        padding-right: 1rem;
-      }
-      
-      .cert {
-        border: 1px solid rgba(0, 0, 0, 0.25);
-        color: #444;
-        padding: 0.25em 0.5rem;
-        margin-right: 1rem;
-        border-radius: 3px;
-      }
-    }
-
-    .genre-block {
-      .genre-list {
-        list-style: none;
-        padding: 0;
-  
-        li {
-          display: inline;
-          font-size: 0.9rem;
-          padding: 0.25rem 0.5rem;
-          border-radius: 3px;
-          cursor: pointer;
-          border: 1px solid rgba(0, 0, 0, 0.25);
-  
-          &:not(:last-child) {
-            margin-right: 0.5rem;
-          }
-  
-          a {
-            text-decoration: none;
-            color: #444;
-          }
-        }
-      }
-    }
-
-    .text {
-      text-align: justify;
-      // @include multiLineEllipsis($lineHeight: 1.2em, $lineCount: 4, $bgColor: white); 
-    }
-  }
 }
 
 @media only screen and (min-width: 800px) {
   .content-container {
-    width: 500px;
-    padding: 2em 0;
+    padding: 0;
+    margin-top: 0;
+
+    .title-block {
+      justify-content: flex-start;
+    }
 
     .buttons-block {
       justify-content: flex-start;
-      padding-top: 0em;
     }
 
     .ratings-block {
-      background: transparent;
-      color: #fff;
-      padding: 1.5em 0;
       justify-content: flex-start;
-      border-radius: 5px;
 
       .rating-block {
         .score {
@@ -246,10 +160,6 @@
             }
           }
         }
-      }
-
-      .text {
-        // @include multiLineEllipsis($lineHeight: 1.2em, $lineCount: 4, $bgColor: transparent); 
       }
     }
   }

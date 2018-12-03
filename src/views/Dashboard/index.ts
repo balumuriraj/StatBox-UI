@@ -3,12 +3,14 @@ import Menu from '@/components/common/Menu';
 import Footer from '@/components/common/Footer';
 import Carousel from '@/components/common/Carousel';
 import * as authStore from '@/store/modules/auth';
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
 
 @Component({
   components: {
     Menu,
     Footer,
-    Carousel
+    Carousel,
+    FontAwesomeIcon
   }
 })
 export default class Dashboard extends Vue {
