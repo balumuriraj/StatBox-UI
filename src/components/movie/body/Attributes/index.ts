@@ -1,6 +1,6 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import Title from '../Title';
-import Progress from '../Progress';
+import Title from '@/components/common/Title';
+import Progress from '@/components/movie/body/Progress';
 
 @Component({
   components: {

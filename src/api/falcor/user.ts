@@ -23,8 +23,6 @@ export async function getBookmarks(id: number, range: { from: number; to: number
     }
   }
 
-  console.log('bookmarks', items, count);
-
   return { items, count };
 }
 
@@ -51,8 +49,6 @@ export async function getSeen(id: number, range: { from: number; to: number; }):
     }
   }
 
-  console.log('seen', items, count);
-
   return { items, count };
 }
 
@@ -67,8 +63,6 @@ export async function getReviewed(id: number, range: { from: number; to: number;
       poster: review.movie.poster
     });
   });
-
-  console.log('reviewed', items, count);
 
   return { items, count };
 }
@@ -117,7 +111,6 @@ export async function addBookmark(userId: number, movieId: number) {
     [['bookmarks', 'length']] // thisPaths (usersById)
   );
 
-  console.log('addBookmark: ', response);
   const bookmarks = response.json.usersById[userId].bookmarks;
   const length = bookmarks.length;
 
@@ -132,7 +125,6 @@ export async function addSeen(userId: number, movieId: number) {
     [['seen', 'length']]
   );
 
-  console.log('addSeen: ', response);
   const seen = response.json.usersById[userId].seen;
   const length = seen.length;
 
@@ -147,7 +139,6 @@ export async function removeBookmark(userId: number, movieId: number) {
     [['bookmarks', 'length']]
   );
 
-  console.log('removeBookmark: ', response);
   const bookmarks = response.json.usersById[userId].bookmarks;
   const length = bookmarks.length;
 
@@ -162,7 +153,6 @@ export async function removeSeen(userId: number, movieId: number) {
     [['seen', 'length']]
   );
 
-  console.log('removeSeen: ', response);
   const seen = response.json.usersById[userId].seen;
   const length = seen.length;
 
@@ -177,7 +167,6 @@ export async function updateReview(review: any) {
     [['reviews', 'lastUpdatedIndex']]
   );
 
-  console.log('updateReview: ', response);
   const reviews = response.json.usersById[review.userId].reviews;
   const result = reviews[reviews.lastUpdatedIndex];
   const { rating, watchWith, pace, theme, plot } = result;

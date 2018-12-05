@@ -7,6 +7,8 @@ declare module '@fortawesome/*';
 
 declare module 'vue-awesome-swiper';
 
+declare module 'vuewordcloud';
+
 declare module "firebaseui" {
 
   import firebase from 'firebase';

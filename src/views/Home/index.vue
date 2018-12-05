@@ -3,7 +3,7 @@
     <!-- Hero -->
     <div class="hero">
       <div class="hero-body">
-        <p class="title">TMDb</p>
+        <p class="title">StatBox</p>
         <p>Telugu Movies Database</p>
       </div>
     </div>

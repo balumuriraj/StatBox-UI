@@ -60,8 +60,5 @@ export async function getGenreMovies(id: number, range: { from: number; to: numb
     }
   }
 
-  console.log(genreResponse);
-  console.log('genre movies', items, count);
-
   return { items, count };
 }

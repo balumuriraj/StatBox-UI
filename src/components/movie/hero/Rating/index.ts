@@ -1,12 +1,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
 import * as movieStore from '@/store/modules/movie';
 
-@Component({
-  components: {
-    FontAwesomeIcon
-  }
-})
+@Component
 export default class Rating extends Vue {
   @Prop() public movieId!: number;
 

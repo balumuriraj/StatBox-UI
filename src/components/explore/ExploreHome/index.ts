@@ -1,19 +1,13 @@
 import { Component, Vue } from 'vue-property-decorator';
 import * as genreStore from '@/store/modules/genre';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-@Component({
-  components: {
-    FontAwesomeIcon
-  }
-})
+@Component
 export default class ExploreHome extends Vue {
   private created() {
     this.fetchData();
   }
 
   private fetchData() {
-    console.log('fetching GenreList....');
     genreStore.fetchGenreList(this.$store);
   }
 

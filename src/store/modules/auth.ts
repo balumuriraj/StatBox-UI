@@ -91,7 +91,7 @@ const actions = {
         context.commit('setReviewed', reviewedResult);
       }
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   },
   fetchBookmarks: async (context: UserContext) => {
@@ -100,7 +100,7 @@ const actions = {
       const result = await getUserBookmarks(id, bookmarks);
       context.commit('setBookmarks', result);
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   },
   fetchSeen: async (context: UserContext) => {
@@ -109,7 +109,7 @@ const actions = {
       const result = await getUserSeen(id, seen);
       context.commit('setSeen', result);
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   },
   fetchReviewed: async (context: UserContext) => {
@@ -118,7 +118,7 @@ const actions = {
       const result = await getUserReviewed(id, reviewed);
       context.commit('setReviewed', result);
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   },
   setToken: async (context: UserContext, payload: { token: string }) => {

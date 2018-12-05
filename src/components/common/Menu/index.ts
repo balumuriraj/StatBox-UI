@@ -1,13 +1,8 @@
 import { Component, Vue } from 'vue-property-decorator';
 import auth from '@/auth';
 import * as authStore from '@/store/modules/auth';
-import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
 
-@Component({
-  components: {
-    FontAwesomeIcon
-  }
-})
+@Component
 export default class Menu extends Vue {
   private scrollPosition: number = 0;
 

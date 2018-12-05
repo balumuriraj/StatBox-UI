@@ -1,19 +1,53 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import Menu from '@/components/common/Menu';
 import Footer from '@/components/common/Footer';
-import Carousel from '@/components/common/Carousel';
+import MovieList from '@/components/common/MovieList';
+import Overview from '@/components/dashboard/Overview';
 import * as authStore from '@/store/modules/auth';
-import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
 
 @Component({
   components: {
     Menu,
     Footer,
-    Carousel,
-    FontAwesomeIcon
+    Overview,
+    MovieList
   }
 })
 export default class Dashboard extends Vue {
+  public isOverview = true;
+  public isFavorite = false;
+  public isWatchlist = false;
+  public isRatings = false;
+
+  public setMenu(item: string) {
+    switch (item) {
+      case 'overview':
+        this.isOverview = true;
+        this.isFavorite = false;
+        this.isWatchlist = false;
+        this.isRatings = false;
+        break;
+      case 'favorite':
+        this.isOverview = false;
+        this.isFavorite = true;
+        this.isWatchlist = false;
+        this.isRatings = false;
+        break;
+      case 'watchlist':
+        this.isOverview = false;
+        this.isFavorite = false;
+        this.isWatchlist = true;
+        this.isRatings = false;
+        break;
+      case 'ratings':
+        this.isOverview = false;
+        this.isFavorite = false;
+        this.isWatchlist = false;
+        this.isRatings = true;
+        break;
+    }
+  }
+
   get user() {
     return authStore.getUser(this.$store);
   }
@@ -46,7 +80,6 @@ export default class Dashboard extends Vue {
   }
 
   private fetchData() {
-    console.log('fetching User data...');
     authStore.fetchUserData(this.$store);
   }
 }

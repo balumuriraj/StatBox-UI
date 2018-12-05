@@ -7,9 +7,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import Menu from "@/components/common/Menu";
-import Footer from "@/components/common/Footer";
+import { Component, Vue } from 'vue-property-decorator';
+import Menu from '@/components/common/Menu';
+import Footer from '@/components/common/Footer';
 
 @Component({
   components: {
@@ -23,6 +23,7 @@ export default class App extends Vue {}
 <style lang="scss">
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700);
 @import url(https://fonts.googleapis.com/css?family=Dosis:400,500,700);
+@import url(https://fonts.googleapis.com/css?family=Righteous);
 @import "../node_modules/chartist/dist/scss/chartist.scss";
 
 html,

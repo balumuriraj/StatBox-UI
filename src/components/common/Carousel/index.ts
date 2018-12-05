@@ -1,14 +1,12 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import MovieCard from '@/components/common/MovieCard/';
 import { swiper, swiperSlide } from 'vue-awesome-swiper';
-import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
 
 @Component({
   components: {
     MovieCard,
     swiper,
-    swiperSlide,
-    FontAwesomeIcon
+    swiperSlide
   }
 })
 export default class Carousel extends Vue {
@@ -26,7 +24,6 @@ export default class Carousel extends Vue {
 
     this.swiper.on('reachEnd', () => {
       if (!this.loading) {
-        console.log('length, count', this.movies.length, this.count);
         if (this.movies.length < this.count) {
           this.loading = true;
           this.$emit('fetch');
@@ -40,7 +37,6 @@ export default class Carousel extends Vue {
 
   @Watch('currentCount')
   public onCurrentCountChange(val: number, oldVal: number) {
-    console.log(oldVal, val, this.count);
     this.loading = false;
   }
 

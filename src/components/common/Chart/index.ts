@@ -7,9 +7,13 @@ import Title from '@/components/common/Title';
     Title
   }
 })
-export default class Stats extends Vue {
+export default class Chart extends Vue {
+  @Prop() public id!: string;
+  @Prop() public title!: string;
+  @Prop() public subtitle!: string;
+
   private mounted() {
-    const elm = document.getElementById('distributionChart');
+    const elm = document.getElementById(this.id);
     const chart = new Chartist.Bar(elm, {
       labels: ['', '1', '', '2', '', '3', '', '4', '', '5'],
       series: [1, 5, 5, 5, 8, 17, 20, 35, 23, 5]

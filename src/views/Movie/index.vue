@@ -25,8 +25,8 @@
           <Attributes></Attributes>
         </div>
         <div class="celebs-container">
-          <CelebsList v-if="crew" :title="'Crew'" :celebs="crew" class="crew-container"></CelebsList>
-          <CelebsList v-if="cast" :title="'Cast'" :celebs="cast" class="cast-container"></CelebsList>
+          <CelebList v-if="crew" :title="'Crew'" :celebs="crew" class="crew-container"></CelebList>
+          <CelebList v-if="cast" :title="'Cast'" :celebs="cast" class="cast-container"></CelebList>
         </div>
 
         <!-- <Carousel 

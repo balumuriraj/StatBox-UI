@@ -1,11 +1,6 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
 
-@Component({
-  components: {
-    FontAwesomeIcon
-  }
-})
+@Component
 export default class Info extends Vue {
   @Prop() public movie!: any;
 }

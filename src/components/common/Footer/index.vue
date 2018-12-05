@@ -3,7 +3,7 @@
     <div class="container">
       <div class="content has-text-centered">
         <p>
-          <strong>TMDb</strong>
+          <strong>StatBox</strong>
         </p>
         <p>
           Telugu Movies Database. The source code is licensed

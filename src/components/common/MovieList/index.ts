@@ -1,11 +1,9 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import MovieCard from '@/components/common/MovieCard/';
-import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
 
 @Component({
   components: {
-    MovieCard,
-    FontAwesomeIcon
+    MovieCard
   }
 })
 export default class List extends Vue {

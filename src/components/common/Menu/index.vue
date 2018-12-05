@@ -2,7 +2,7 @@
   <nav class="navbar" role="navigation" aria-label="main navigation" :class="{ 'white-bg': whiteBg }">
     <div class="navbar-top">
       <div class="navbar-brand">
-        <router-link class="navbar-item" to="/">TMDb</router-link>
+        <router-link class="navbar-item" to="/">StatBox</router-link>
       </div>
       <div class="navbar-menu">
         <div class="navbar-start">

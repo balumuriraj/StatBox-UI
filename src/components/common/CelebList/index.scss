@@ -1,7 +1,6 @@
 .celebs-list-contianer {
   background: #ffffff;
   padding: 1em;
-  margin-bottom: 1em;
 
   .celebs-list {
     .celeb-container {
@@ -34,14 +33,6 @@
           opacity: 0.75;
         }
       }
-    }
-  }
-}
-
-@supports (display: grid) {
-  @media only screen and (min-width: 800px) {
-    .celebs-list-contianer {
-      margin-bottom: 0;
     }
   }
 }

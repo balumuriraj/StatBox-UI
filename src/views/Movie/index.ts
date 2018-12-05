@@ -1,6 +1,6 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import Footer from '@/components/common/Footer';
-import CelebsList from '@/components/movie/body/CelebsList';
+import CelebList from '@/components/common/CelebList';
 import Modal from '@/components/common/Modal';
 import MovieList from '@/components/common/MovieList';
 import Menu from '@/components/common/Menu/index';
@@ -10,7 +10,7 @@ import Content from '@/components/movie/hero/Content';
 import Info from '@/components/movie/hero/Info';
 import Stats from '@/components/movie/body/Stats';
 import Attributes from '@/components/movie/body/Attributes';
-import Title from '@/components/movie/body/Title';
+import Title from '@/components/common/Title';
 import * as movieStore from '@/store/modules/movie';
 
 @Component({
@@ -25,7 +25,7 @@ import * as movieStore from '@/store/modules/movie';
     Menu,
     Modal,
     MovieList,
-    CelebsList,
+    CelebList,
     Footer
   }
 })
@@ -84,7 +84,6 @@ export default class Movie extends Vue {
   }
 
   private fetchData() {
-    console.log('fetching Movie data....');
     movieStore.fetchMovieData(this.$store, { id: Number(this.$route.params.id) });
   }
 }

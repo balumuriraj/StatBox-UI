@@ -1,6 +1,6 @@
 <template>
   <div class="celebs-list-contianer">
-    <Title :name=title></Title>
+    <Title :name=title :subtitle=subtitle></Title>
     <div class="celebs-list">
       <template v-for="(celeb, index) in celebs">
         <router-link :to="'/celeb/' + celeb.id" tag="div" class="celeb-container" :key='index'>
@@ -9,7 +9,7 @@
               <img :src="celeb.photo">
             </template>
             <template v-else>
-              <img src="../../../../assets/avatar.png">
+              <img src="../../../assets/avatar.png">
             </template>
           </div>
           <div class="celeb-content">

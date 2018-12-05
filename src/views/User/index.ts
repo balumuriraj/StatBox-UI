@@ -49,9 +49,10 @@ export default class User extends Vue {
 
   get name() {
     const user = this.$store.getters.userById;
+
     if (this.chart) {
       const ratings = user && user.ratings;
-      console.log(ratings);
+
       if (ratings) {
         this.chart.update({ labels: [null, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, null], series: [ratings] });
       }
