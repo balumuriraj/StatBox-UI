@@ -42,7 +42,7 @@
         box-shadow: 0 1px 1px 0 rgba(0,0,0,0.10), 0 0 0 0 #D2D2D2;
     
         .menu-item {
-          padding: 1em 2em;
+          padding: 1em;
           cursor: pointer;
           color: #aaa;
     
@@ -50,6 +50,10 @@
             color: #D2D2D2;
             display: inline;
             padding-right: 5px;
+          }
+
+          span {
+            display: none;
           }
         }
     
@@ -64,20 +68,8 @@
       }  
       
       .main-container {
-        .overview-container {
+        .item-container {
           margin: 1em 0;
-          display: none;
-        }
-
-        .favorites-container {
-          display: none;
-        }
-
-        .watchlist-container {
-          display: none;
-        }
-
-        .ratings-container {
           display: none;
         }
 
@@ -107,7 +99,7 @@
       .left-section {
         display: block;
         width: 200px;
-        margin-right: 1em;
+        margin-right: 1.5em;
         margin-top: -7em;
         position: relative;
 
@@ -125,6 +117,7 @@
 
       .right-section {
         flex-grow: 1;
+        flex-basis: 0;
         position: relative;
 
         .title-container {
@@ -136,6 +129,16 @@
           .title {
             margin: 0;
             font-size: 1.75em;
+          }
+        }
+
+        .menu-container {
+          .menu-item {
+            padding: 1em 2em;
+
+            span {
+              display: inline block;
+            }
           }
         }
       }

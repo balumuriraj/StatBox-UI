@@ -59,4 +59,8 @@ body {
     stroke: #ffd02e;
   }
 }
+
+.swiper-wrapper {
+  margin: 2px !important;
+}
 </style>

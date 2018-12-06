@@ -1,23 +1,21 @@
 .list-container {
   margin: 0 -0.5em;
 
-  .level {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    display: none;
+  .title-container {
+    margin: 0.5em;
 
-    .level-item {
-      align-self: center;
+    p {
+      margin: 0;
+    }
 
-      .title {
-        font-size: 1.25em;
-        font-weight: bold;
-      }
+    .title {
+      font-size: 1.25em;
+      font-weight: bold;
+    }
 
-      .count {
-        margin-right: 1em;
-      }
+    .count {
+      font-size: 0.85em;
+      color: #777;
     }
   }
 

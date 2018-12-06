@@ -4,7 +4,6 @@ import * as authStore from '@/store/modules/auth';
 
 @Component
 export default class Menu extends Vue {
-  private scrollPosition: number = 0;
 
   get user() {
     return authStore.getUser(this.$store);
@@ -16,6 +15,17 @@ export default class Menu extends Vue {
 
   get whiteBg() {
     return this.scrollPosition > 55;
+  }
+
+  public isSideMenuActive = false;
+  private scrollPosition: number = 0;
+
+  public toggleSideMenu() {
+    if (!this.isSideMenuActive) {
+      this.isSideMenuActive = true;
+    } else {
+      this.isSideMenuActive = false;
+    }
   }
 
   public logOut() {

@@ -1,0 +1,90 @@
+.container {
+  .title-container {
+
+    p {
+      margin: 0;
+    }
+
+    .title {
+      font-size: 1.25em;
+      font-weight: bold;
+    }
+
+    .subtitle {
+      font-size: 0.85em;
+      color: #777;
+    }
+  }
+
+  .trophies-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0.5em -0.5em;
+    width: 100%;
+
+    .item {
+      // flex-grow: 1;
+      // flex-basis: 0;
+      display: flex;
+      background: #fff;
+      padding: 1em;
+      margin: 0.5em;
+      width: calc(100% / 1 - 3em);
+      box-shadow: 0 1px 1px 0 rgba(0,0,0,0.10), 0 0 0 0 #D2D2D2;
+
+      .icon-container {
+        font-size: 5em;
+        color: #eee;
+
+        .bronze {
+          color: #fd9644;
+        }
+
+        .silver {
+          color: #d1d8e0;
+        }
+
+        .gold {
+          color: #fed330;
+        }
+      }
+
+      .info-container {
+        margin-left: 1em;
+        flex-grow: 1;
+
+        p {
+          margin: 0;
+        }
+
+        .title {
+          font-size: 1.25em;
+          font-weight: bold;
+          padding-bottom: 5px;
+          border-bottom: 1px solid #ccc;
+        }
+
+        .description {
+          margin-top: 5px;
+          color: #999;
+        }
+      }
+    }
+
+    .waiting {
+      opacity: 0.35;
+    }
+  }
+}
+
+@media only screen and (min-width: 700px) {
+  .container .trophies-container .item {
+    width: calc(100% / 2 - 3em);
+  }
+}
+
+@media only screen and (min-width: 1250px) {
+  .container .trophies-container .item {
+    width: calc(100% / 3 - 3em);
+  }
+}

@@ -1,12 +1,8 @@
 <template>
   <div class="list-container" ref="listBox">
-    <div class="level">
-      <div class="level-item">
-        <p class="title">{{ title }}</p>
-      </div>
-      <div class="level-item">
-        <p class="count">{{ count }} movies</p>
-      </div>
+    <div class="title-container">
+      <p class="title">{{ title }}</p>
+      <p class="count">{{ count }} movies</p>
     </div>
 
     <div class="list-block">

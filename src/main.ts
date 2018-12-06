@@ -12,7 +12,7 @@ import 'swiper/dist/css/swiper.css';
 
 library.add(fas);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
-Vue.use(VueLazyload);
+Vue.use(VueLazyload, { observer: true });
 Vue.config.productionTip = false;
 
 new Vue({

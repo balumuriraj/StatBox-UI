@@ -29,6 +29,8 @@ const state = {
   token: null
 };
 
+const defaultRange = { from: 0, to: 9 };
+
 // support
 function getRange(length: number, count: number) {
   if (count === 0 || (count > length)) {
@@ -81,13 +83,13 @@ const actions = {
         const id = user.id ? user.id : await getUserId(token);
         context.commit('setUserId', id);
 
-        const bookmarksResult = await getUserBookmarks(id, user.bookmarks);
+        const bookmarksResult = await getBookmarks(id, defaultRange);
         context.commit('setBookmarks', bookmarksResult);
 
-        const seenResult = await getUserSeen(id, user.seen);
+        const seenResult = await getSeen(id, defaultRange);
         context.commit('setSeen', seenResult);
 
-        const reviewedResult = await getUserReviewed(id, user.reviewed);
+        const reviewedResult = await getReviewed(id, defaultRange);
         context.commit('setReviewed', reviewedResult);
       }
     } catch (err) {
@@ -98,7 +100,7 @@ const actions = {
     try {
       const { id, bookmarks } = context.state.user;
       const result = await getUserBookmarks(id, bookmarks);
-      context.commit('setBookmarks', result);
+      context.commit('pushBookmarks', result);
     } catch (err) {
       // console.log(err);
     }
@@ -107,7 +109,7 @@ const actions = {
     try {
       const { id, seen } = context.state.user;
       const result = await getUserSeen(id, seen);
-      context.commit('setSeen', result);
+      context.commit('pushSeen', result);
     } catch (err) {
       // console.log(err);
     }
@@ -116,7 +118,7 @@ const actions = {
     try {
       const { id, reviewed } = context.state.user;
       const result = await getUserReviewed(id, reviewed);
-      context.commit('setReviewed', result);
+      context.commit('pushReviewed', result);
     } catch (err) {
       // console.log(err);
     }
@@ -144,17 +146,35 @@ const mutations = {
   },
   setBookmarks: (state: any, data: { items: any[], count: number }) => {
     if (data) {
+      state.user.bookmarks.items = data.items.slice(0);
+      state.user.bookmarks.count = data.count;
+    }
+  },
+  pushBookmarks: (state: any, data: { items: any[], count: number }) => {
+    if (data) {
       state.user.bookmarks.items = state.user.bookmarks.items.concat(data.items.slice(0));
       state.user.bookmarks.count = data.count;
     }
   },
   setSeen: (state: any, data: { items: any[], count: number }) => {
     if (data) {
+      state.user.seen.items = data.items.slice(0);
+      state.user.seen.count = data.count;
+    }
+  },
+  pushSeen: (state: any, data: { items: any[], count: number }) => {
+    if (data) {
       state.user.seen.items = state.user.seen.items.concat(data.items.slice(0));
       state.user.seen.count = data.count;
     }
   },
   setReviewed: (state: any, data: { items: any[], count: number }) => {
+    if (data) {
+      state.user.reviewed.items = data.items.slice(0);
+      state.user.reviewed.count = data.count;
+    }
+  },
+  pushReviewed: (state: any, data: { items: any[], count: number }) => {
     if (data) {
       state.user.reviewed.items = state.user.reviewed.items.concat(data.items.slice(0));
       state.user.reviewed.count = data.count;

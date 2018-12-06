@@ -114,7 +114,7 @@ export async function addBookmark(userId: number, movieId: number) {
   const bookmarks = response.json.usersById[userId].bookmarks;
   const length = bookmarks.length;
 
-  return bookmarks[length - 1].isBookmarked;
+  return true;
 }
 
 export async function addSeen(userId: number, movieId: number) {
@@ -128,7 +128,7 @@ export async function addSeen(userId: number, movieId: number) {
   const seen = response.json.usersById[userId].seen;
   const length = seen.length;
 
-  return seen[length - 1].isSeen;
+  return true;
 }
 
 export async function removeBookmark(userId: number, movieId: number) {

@@ -47,13 +47,13 @@
           <p class="title">{{user.name}}</p>
           <div class="numbers-block">
             <div class="item">
-              <font-awesome-icon icon="heart" class="icon favorite-icon"></font-awesome-icon> 24
+              <font-awesome-icon icon="heart" class="icon favorite-icon"></font-awesome-icon> {{user.seen.count}}
             </div>
             <div class="item">
-              <font-awesome-icon icon="bookmark" class="icon bookmark-icon"></font-awesome-icon> 42
+              <font-awesome-icon icon="bookmark" class="icon bookmark-icon"></font-awesome-icon> {{user.bookmarks.count}}
             </div>
             <div class="item">
-              <font-awesome-icon icon="star" class="icon rating-icon"></font-awesome-icon> 123
+              <font-awesome-icon icon="star" class="icon rating-icon"></font-awesome-icon> {{user.reviewed.count}}
             </div>
           </div>
         </div>
@@ -82,23 +82,34 @@
             </div>
             <span>Ratings</span>
           </div>
+          <div class="menu-item" :class="{ 'active': isTrophies }" v-on:click="setMenu('trophies')">
+            <div class="icon-container">
+              <font-awesome-icon icon="trophy" class="icon"></font-awesome-icon>
+            </div>
+            <span>Trophies</span>
+          </div>
         </div>
 
         <div class="main-container">
-          <div class="overview-container" :class="{ 'active': isOverview }">
+          <div class="item-container" :class="{ 'active': isOverview }">
             <Overview></Overview>
           </div>
 
-          <div class="favorites-container" :class="{ 'active': isFavorite }">
-            <MovieList :title=null :movies=user.bookmarks.items :count=user.bookmarks.count @fetch=fetchBookmarks></MovieList>
+          <div class="item-container" :class="{ 'active': isFavorite }">
+            <MovieList :title="'Favorites'" :movies=user.seen.items :count=user.seen.count @fetch=fetchSeen></MovieList>
           </div>
 
-          <div class="watchlist-container" :class="{ 'active': isWatchlist }">
-            <MovieList :title=null :movies=user.bookmarks.items :count=user.bookmarks.count @fetch=fetchBookmarks></MovieList>
+          <div class="item-container" :class="{ 'active': isWatchlist }">
+            <MovieList :title="'Watchlist'" :movies=user.bookmarks.items :count=user.bookmarks.count @fetch=fetchBookmarks></MovieList>
           </div>
 
-          <div class="ratings-container" :class="{ 'active': isRatings }">
-            <MovieList :title=null :movies=user.bookmarks.items :count=user.bookmarks.count @fetch=fetchBookmarks></MovieList>
+          <div class="item-container" :class="{ 'active': isRatings }">
+            <MovieList :title="'Ratings'" :movies=user.reviewed.items :count=user.reviewed.count @fetch=fetchReviewed></MovieList>
+          </div>
+
+          <div class="item-container" :class="{ 'active': isTrophies }">
+            <Trophies :title="'Trophies'" :subtitle="'you have earned'" :type="'earned'"></Trophies>
+            <Trophies :title="'Trophies'" :subtitle="'waiting for you'" :type="'waiting'"></Trophies>
           </div>
         </div>
 
