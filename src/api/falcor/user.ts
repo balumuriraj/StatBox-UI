@@ -26,25 +26,25 @@ export async function getBookmarks(id: number, range: { from: number; to: number
   return { items, count };
 }
 
-export async function getSeen(id: number, range: { from: number; to: number; }): Promise<any> {
-  const countResponse = await model.get(['usersById', [id], 'seen', 'length']);
-  const seen = countResponse.json.usersById[id].seen;
-  const count = seen && seen.length;
+export async function getFavorites(id: number, range: { from: number; to: number; }): Promise<any> {
+  const countResponse = await model.get(['usersById', [id], 'favorites', 'length']);
+  const favorites = countResponse.json.usersById[id].favorites;
+  const count = favorites && favorites.length;
 
-  const seenResponse = await model.get([
+  const favResponse = await model.get([
     'usersById', [id],
-    'seen',
+    'favorites',
     range, ['id', 'title', 'poster']
   ]);
-  const seenObj = seenResponse.json.usersById[id].seen;
+  const favObj = favResponse.json.usersById[id].favorites;
   const items: any[] = [];
 
-  for (const index in seenObj) {
-    if (seenObj[index] && typeof seenObj[index].id === 'number') {
+  for (const index in favObj) {
+    if (favObj[index] && typeof favObj[index].id === 'number') {
       items.push({
-        id: seenObj[index].id,
-        title: seenObj[index].title,
-        poster: seenObj[index].poster
+        id: favObj[index].id,
+        title: favObj[index].title,
+        poster: favObj[index].poster
       });
     }
   }
@@ -117,16 +117,16 @@ export async function addBookmark(userId: number, movieId: number) {
   return true;
 }
 
-export async function addSeen(userId: number, movieId: number) {
+export async function addFavorite(userId: number, movieId: number) {
   const response = await model.call(
-    ['usersById', userId, 'addSeen'],
+    ['usersById', userId, 'addFavorite'],
     [movieId],
-    [['isSeen']],
-    [['seen', 'length']]
+    [['isFavorite']],
+    [['favorites', 'length']]
   );
 
-  const seen = response.json.usersById[userId].seen;
-  const length = seen.length;
+  const favorites = response.json.usersById[userId].favorites;
+  const length = favorites.length;
 
   return true;
 }
@@ -145,16 +145,16 @@ export async function removeBookmark(userId: number, movieId: number) {
   return false;
 }
 
-export async function removeSeen(userId: number, movieId: number) {
+export async function removeFavorite(userId: number, movieId: number) {
   const response = await model.call(
-    ['usersById', userId, 'removeSeen'],
+    ['usersById', userId, 'removeFavorite'],
     [movieId],
     [],
-    [['seen', 'length']]
+    [['favorites', 'length']]
   );
 
-  const seen = response.json.usersById[userId].seen;
-  const length = seen.length;
+  const favorites = response.json.usersById[userId].favorites;
+  const length = favorites.length;
 
   return false;
 }

@@ -94,12 +94,12 @@ export async function getMovieMetadata(movieId: number): Promise<any> {
 
   if (!result.metadata) {
     return {
-      isSeen: false,
+      isFavorite: false,
       isBookmarked: false,
       userRating: null
     };
   }
 
-  const { isSeen, isBookmarked, userRating } = result.metadata;
-  return { isSeen, isBookmarked, userRating };
+  const { isFavorite, isBookmarked, userRating } = result.metadata;
+  return { isFavorite, isBookmarked, userRating };
 }

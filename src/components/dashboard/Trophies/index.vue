@@ -4,7 +4,7 @@
       <p class="title">{{ title }}</p>
       <p class="subtitle">{{ subtitle }}</p>
     </div>
-    <div class="trophies-container">
+    <div class="trophies-container" v-if="trophies && trophies.length">
       <template v-for="(trophy, index) in trophies">
         <div :key="index" class="item" :class="{'waiting': type === 'waiting'}">
           <div class="icon-container">
@@ -16,6 +16,9 @@
           </div>
         </div>
       </template>
+    </div>
+    <div v-else>
+      <EmptyBox></EmptyBox>
     </div>
   </div>
 </template>

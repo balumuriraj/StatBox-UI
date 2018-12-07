@@ -2,6 +2,7 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 import Menu from '@/components/common/Menu';
 import Footer from '@/components/common/Footer';
 import MovieList from '@/components/common/MovieList';
+import EmptyBox from '@/components/common/EmptyBox';
 import Overview from '@/components/dashboard/Overview';
 import Trophies from '@/components/dashboard/Trophies';
 import * as authStore from '@/store/modules/auth';
@@ -12,7 +13,8 @@ import * as authStore from '@/store/modules/auth';
     Footer,
     Overview,
     MovieList,
-    Trophies
+    Trophies,
+    EmptyBox
   }
 })
 export default class Dashboard extends Vue {
@@ -24,7 +26,7 @@ export default class Dashboard extends Vue {
 
   public setMenu(item: string) {
     switch (item) {
-      case 'favorite':
+      case 'favorites':
         this.isOverview = false;
         this.isFavorite = true;
         this.isWatchlist = false;
@@ -74,8 +76,8 @@ export default class Dashboard extends Vue {
     authStore.fetchBookmarks(this.$store);
   }
 
-  public fetchSeen() {
-    authStore.fetchSeen(this.$store);
+  public fetchFavorites() {
+    authStore.fetchFavorites(this.$store);
   }
 
   public fetchReviewed() {
@@ -90,7 +92,6 @@ export default class Dashboard extends Vue {
   }
 
   private created() {
-    console.log('fetching user data for dashboard...');
     this.fetchData();
   }
 

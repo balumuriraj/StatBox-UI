@@ -1,10 +1,12 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import Title from '@/components/common/Title';
+import EmptyBox from '@/components/common/EmptyBox';
 import * as authStore from '@/store/modules/auth';
 
 @Component({
   components: {
-    Title
+    Title,
+    EmptyBox
   }
 })
 export default class Trophies extends Vue {

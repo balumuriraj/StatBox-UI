@@ -21,7 +21,7 @@ const state = {
     items: [],
     count: 0
   },
-  isSeen: false,
+  isFavorite: false,
   isBookmarked: false,
   userRating: null
 };
@@ -44,7 +44,7 @@ async function getMoviesAroundDate(date: any, length: number, count: number) {
 const getters = {
   movie: (state: MovieState) => state,
   isBookmarked: (state: MovieState) => state.isBookmarked,
-  isSeen: (state: MovieState) => state.isSeen,
+  isFavorite: (state: MovieState) => state.isFavorite,
   userRating: (state: MovieState) => state.userRating
 };
 
@@ -56,8 +56,8 @@ const actions = {
     const metadata = await API.getMovieMetadata(payload.id);
     context.commit('setMovieMetadata', metadata);
 
-    const moviesData = await getMoviesAroundDate(data.releaseDate, 0, 0);
-    context.commit('setMoviesAroundDate', moviesData);
+    // const moviesData = await getMoviesAroundDate(data.releaseDate, 0, 0);
+    // context.commit('setMoviesAroundDate', moviesData);
   },
   fetchMoviesAroundDate: async (context: MovieContext) => {
     const { releaseDate, moviesAroundReleaseDate } = context.state;
@@ -74,13 +74,13 @@ const actions = {
     const result = await API.removeBookmark(context.rootGetters.userId, payload.id);
     context.commit('updateBookmark', result);
   },
-  addSeen: async (context: MovieContext, payload: { id: number }) => {
-    const result = await API.addSeen(context.rootGetters.userId, payload.id);
-    context.commit('updateSeen', result);
+  addFavorite: async (context: MovieContext, payload: { id: number }) => {
+    const result = await API.addFavorite(context.rootGetters.userId, payload.id);
+    context.commit('updateFavorite', result);
   },
-  removeSeen: async (context: MovieContext, payload: { id: number }) => {
-    const result = await API.removeSeen(context.rootGetters.userId, payload.id);
-    context.commit('updateSeen', result);
+  removeFavorite: async (context: MovieContext, payload: { id: number }) => {
+    const result = await API.removeFavorite(context.rootGetters.userId, payload.id);
+    context.commit('updateFavorite', result);
   },
   updateReview: async (context: MovieContext, payload: { review: any }) => {
     const result = await API.updateReview({ userId: context.rootGetters.userId, ...payload.review});
@@ -103,7 +103,7 @@ const mutations = {
     state.runtime = info.runtime;
   },
   setMovieMetadata: (state: MovieState, metadata: any) => {
-    state.isSeen = metadata.isSeen;
+    state.isFavorite = metadata.isFavorite;
     state.isBookmarked = metadata.isBookmarked;
     state.userRating = metadata.userRating;
   },
@@ -116,8 +116,8 @@ const mutations = {
   updateBookmark: (state: MovieState, value: boolean) => {
     state.isBookmarked = value;
   },
-  updateSeen: (state: MovieState, value: boolean) => {
-    state.isSeen = value;
+  updateFavorite: (state: MovieState, value: boolean) => {
+    state.isFavorite = value;
   },
   updateReview: (state: MovieState, review: any) => {
     state.userRating = review.rating;
@@ -137,12 +137,12 @@ const { read, dispatch } = getStoreAccessors<MovieState, RootState>('movie');
 
 export const getMovieData = read(movie.getters.movie);
 export const isBookmarked = read(movie.getters.isBookmarked);
-export const isSeen = read(movie.getters.isSeen);
+export const isFavorite = read(movie.getters.isFavorite);
 export const userRating = read(movie.getters.userRating);
 export const fetchMovieData = dispatch(movie.actions.fetchMovieData);
 export const fetchMoviesAroundDate = dispatch(movie.actions.fetchMoviesAroundDate);
 export const addBookmark = dispatch(movie.actions.addBookmark);
 export const removeBookmark = dispatch(movie.actions.removeBookmark);
-export const addSeen = dispatch(movie.actions.addSeen);
-export const removeSeen = dispatch(movie.actions.removeSeen);
+export const addFavorite = dispatch(movie.actions.addFavorite);
+export const removeFavorite = dispatch(movie.actions.removeFavorite);
 export const updateReview = dispatch(movie.actions.updateReview);

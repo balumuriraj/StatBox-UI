@@ -8,13 +8,13 @@
           <p class="title">{{user.name}}</p>
           <div class="numbers-block">
             <div class="item">
-              <font-awesome-icon icon="heart" class="icon favorite-icon"></font-awesome-icon> 24
+              <font-awesome-icon icon="heart" class="icon favorites-icon"></font-awesome-icon> {{user.favorites.count || 0}}
             </div>
             <div class="item">
-              <font-awesome-icon icon="bookmark" class="icon bookmark-icon"></font-awesome-icon> 42
+              <font-awesome-icon icon="bookmark" class="icon bookmark-icon"></font-awesome-icon> {{user.bookmarks.count || 0}}
             </div>
             <div class="item">
-              <font-awesome-icon icon="star" class="icon rating-icon"></font-awesome-icon> 123
+              <font-awesome-icon icon="star" class="icon rating-icon"></font-awesome-icon> {{user.reviewed.count || 0}}
             </div>
           </div>
         </div>
@@ -47,13 +47,13 @@
           <p class="title">{{user.name}}</p>
           <div class="numbers-block">
             <div class="item">
-              <font-awesome-icon icon="heart" class="icon favorite-icon"></font-awesome-icon> {{user.seen.count}}
+              <font-awesome-icon icon="heart" class="icon favorites-icon"></font-awesome-icon> {{user.favorites.count || 0}}
             </div>
             <div class="item">
-              <font-awesome-icon icon="bookmark" class="icon bookmark-icon"></font-awesome-icon> {{user.bookmarks.count}}
+              <font-awesome-icon icon="bookmark" class="icon bookmark-icon"></font-awesome-icon> {{user.bookmarks.count || 0}}
             </div>
             <div class="item">
-              <font-awesome-icon icon="star" class="icon rating-icon"></font-awesome-icon> {{user.reviewed.count}}
+              <font-awesome-icon icon="star" class="icon rating-icon"></font-awesome-icon> {{user.reviewed.count || 0}}
             </div>
           </div>
         </div>
@@ -64,7 +64,7 @@
             </div>
             <span>Overview</span>
           </div>
-          <div class="menu-item" :class="{ 'active': isFavorite }" v-on:click="setMenu('favorite')">
+          <div class="menu-item" :class="{ 'active': isFavorite }" v-on:click="setMenu('favorites')">
             <div class="icon-container">
               <font-awesome-icon icon="heart" class="icon"></font-awesome-icon>
             </div>
@@ -96,7 +96,7 @@
           </div>
 
           <div class="item-container" :class="{ 'active': isFavorite }">
-            <MovieList :title="'Favorites'" :movies=user.seen.items :count=user.seen.count @fetch=fetchSeen></MovieList>
+            <MovieList :title="'Favorites'" :movies=user.favorites.items :count=user.favorites.count @fetch=fetchFavorites></MovieList>
           </div>
 
           <div class="item-container" :class="{ 'active': isWatchlist }">

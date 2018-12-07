@@ -1,7 +1,7 @@
 import { ActionContext } from 'vuex';
 import { getStoreAccessors } from 'vuex-typescript';
 import { AuthState, RootState, Items } from '@/store/interfaces';
-import { getUserId, getBookmarks, getSeen, getReviewed } from '@/api';
+import { getUserId, getBookmarks, getFavorites, getReviewed } from '@/api';
 
 type UserContext = ActionContext<AuthState, RootState>;
 
@@ -16,7 +16,7 @@ const state = {
       items: [],
       count: 0
     },
-    seen: {
+    favorites: {
       items: [],
       count: 0
     },
@@ -46,9 +46,9 @@ async function getUserBookmarks(id: number, bookmarks: Items) {
   return id && range && await getBookmarks(id, range);
 }
 
-async function getUserSeen(id: number, seen: Items) {
-  const range = getRange(seen.items.length, seen.count);
-  return id && range && await getSeen(id, range);
+async function getUserFavorites(id: number, favorites: Items) {
+  const range = getRange(favorites.items.length, favorites.count);
+  return id && range && await getFavorites(id, range);
 }
 
 async function getUserReviewed(id: number, reviewed: Items) {
@@ -86,8 +86,8 @@ const actions = {
         const bookmarksResult = await getBookmarks(id, defaultRange);
         context.commit('setBookmarks', bookmarksResult);
 
-        const seenResult = await getSeen(id, defaultRange);
-        context.commit('setSeen', seenResult);
+        const favResult = await getFavorites(id, defaultRange);
+        context.commit('setFavorite', favResult);
 
         const reviewedResult = await getReviewed(id, defaultRange);
         context.commit('setReviewed', reviewedResult);
@@ -105,11 +105,11 @@ const actions = {
       // console.log(err);
     }
   },
-  fetchSeen: async (context: UserContext) => {
+  fetchFavorites: async (context: UserContext) => {
     try {
-      const { id, seen } = context.state.user;
-      const result = await getUserSeen(id, seen);
-      context.commit('pushSeen', result);
+      const { id, favorites } = context.state.user;
+      const result = await getUserFavorites(id, favorites);
+      context.commit('pushFavorites', result);
     } catch (err) {
       // console.log(err);
     }
@@ -156,16 +156,16 @@ const mutations = {
       state.user.bookmarks.count = data.count;
     }
   },
-  setSeen: (state: any, data: { items: any[], count: number }) => {
+  setFavorite: (state: any, data: { items: any[], count: number }) => {
     if (data) {
-      state.user.seen.items = data.items.slice(0);
-      state.user.seen.count = data.count;
+      state.user.favorites.items = data.items.slice(0);
+      state.user.favorites.count = data.count;
     }
   },
-  pushSeen: (state: any, data: { items: any[], count: number }) => {
+  pushFavorites: (state: any, data: { items: any[], count: number }) => {
     if (data) {
-      state.user.seen.items = state.user.seen.items.concat(data.items.slice(0));
-      state.user.seen.count = data.count;
+      state.user.favorites.items = state.user.favorites.items.concat(data.items.slice(0));
+      state.user.favorites.count = data.count;
     }
   },
   setReviewed: (state: any, data: { items: any[], count: number }) => {
@@ -193,7 +193,7 @@ const mutations = {
       items: [],
       count: 0
     };
-    state.user.seen = {
+    state.user.favorites = {
       items: [],
       count: 0
     };
@@ -222,5 +222,5 @@ export const isUserLoggedIn = read(auth.getters.isUserLoggedIn);
 export const setAuthUser = dispatch(auth.actions.setAuthUser);
 export const fetchUserData = dispatch(auth.actions.fetchUserData);
 export const fetchBookmarks = dispatch(auth.actions.fetchBookmarks);
-export const fetchSeen = dispatch(auth.actions.fetchSeen);
+export const fetchFavorites = dispatch(auth.actions.fetchFavorites);
 export const fetchReviewed = dispatch(auth.actions.fetchReviewed);

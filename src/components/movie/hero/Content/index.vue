@@ -21,8 +21,8 @@
     </div>
 
     <div class="buttons-block">
-      <div class="favorite-button button" v-on:click="setSeen()">
-        <font-awesome-icon icon="heart" class="icon" :class="{ 'active': isSeen }"></font-awesome-icon> 
+      <div class="favorites-button button" v-on:click="setFavorite()">
+        <font-awesome-icon icon="heart" class="icon" :class="{ 'active': isFavorite }"></font-awesome-icon> 
         <span> Favorite</span>
       </div>
       <div class="bookmark-button button" v-on:click="setBookmark()">

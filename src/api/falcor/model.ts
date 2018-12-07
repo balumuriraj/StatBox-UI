@@ -14,7 +14,7 @@ class FalcorDataSource extends HttpDataSource {
 }
 
 const model = new falcor.Model({
-  source: new FalcorDataSource(baseUrl + '/api/model.json', { withCredentials: false })
+  source: new FalcorDataSource(baseUrl + '/api/model.json', { withCredentials: false, timeout: 50000000 })
 });
 
 const batchModel = model.batch();

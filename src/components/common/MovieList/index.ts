@@ -1,9 +1,11 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import MovieCard from '@/components/common/MovieCard/';
+import MovieCard from '@/components/common/MovieCard';
+import EmptyBox from '@/components/common/EmptyBox';
 
 @Component({
   components: {
-    MovieCard
+    MovieCard,
+    EmptyBox
   }
 })
 export default class List extends Vue {

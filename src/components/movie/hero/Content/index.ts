@@ -23,8 +23,8 @@ export default class Content extends Vue {
     return movieStore.isBookmarked(this.$store);
   }
 
-  get isSeen() {
-    return movieStore.isSeen(this.$store);
+  get isFavorite() {
+    return movieStore.isFavorite(this.$store);
   }
 
   get isReviewed() {
@@ -39,11 +39,11 @@ export default class Content extends Vue {
     }
   }
 
-  public setSeen() {
-    if (this.isSeen) {
-      movieStore.removeSeen(this.$store, { id: this.movie.id });
+  public setFavorite() {
+    if (this.isFavorite) {
+      movieStore.removeFavorite(this.$store, { id: this.movie.id });
     } else {
-      movieStore.addSeen(this.$store, { id: this.movie.id });
+      movieStore.addFavorite(this.$store, { id: this.movie.id });
     }
   }
 

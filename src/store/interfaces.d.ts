@@ -31,7 +31,7 @@ export interface MovieState {
   cast: any[];
   crew: any[];
   moviesAroundReleaseDate: Items;
-  isSeen: boolean;
+  isFavorite: boolean;
   isBookmarked: boolean;
   userRating: number;
 }
@@ -44,7 +44,7 @@ export interface AuthState {
     lastLogin: number;
     userSince: number;
     bookmarks: Items;
-    seen: Items;
+    favorites: Items;
     reviewed: Items;
   },
   isLoggedIn: boolean;

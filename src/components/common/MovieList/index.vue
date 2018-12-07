@@ -5,14 +5,14 @@
       <p class="count">{{ count }} movies</p>
     </div>
 
-    <div class="list-block">
-      <div v-if="movies && movies.length" v-for="movie in movies" :key="movie.id" class="list-item">
+    <div class="list-block" v-if="movies && movies.length">
+      <div v-for="movie in movies" :key="movie.id" class="list-item">
         <MovieCard :movie="movie"></MovieCard>
       </div>
+    </div>
 
-      <div v-else v-for="i in 10" :key="i" class="list-item">
-        <MovieCard></MovieCard>
-      </div>
+    <div v-else>
+      <EmptyBox></EmptyBox>
     </div>
 
     <div class="loading">
