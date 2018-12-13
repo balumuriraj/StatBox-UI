@@ -14,7 +14,7 @@
           </div>
           <div class="celeb-content">
             <p>{{ celeb.name }}</p>
-            <span>{{ celeb.role }}</span>
+            <span>{{ celeb.role || (celeb.rating ? `Average Rating of ${Math.round(celeb.rating * 100) / 100}` : null) }}</span>
           </div>
         </router-link>
       </template>

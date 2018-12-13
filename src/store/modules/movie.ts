@@ -67,22 +67,37 @@ const actions = {
     context.commit('setMoviesAroundDate', data);
   },
   addBookmark: async (context: MovieContext, payload: { id: number }) => {
+    if (!context.rootGetters.userId) {
+      return;
+    }
     const result = await API.addBookmark(context.rootGetters.userId, payload.id);
     context.commit('updateBookmark', result);
   },
   removeBookmark: async (context: MovieContext, payload: { id: number }) => {
+    if (!context.rootGetters.userId) {
+      return;
+    }
     const result = await API.removeBookmark(context.rootGetters.userId, payload.id);
     context.commit('updateBookmark', result);
   },
   addFavorite: async (context: MovieContext, payload: { id: number }) => {
+    if (!context.rootGetters.userId) {
+      return;
+    }
     const result = await API.addFavorite(context.rootGetters.userId, payload.id);
     context.commit('updateFavorite', result);
   },
   removeFavorite: async (context: MovieContext, payload: { id: number }) => {
+    if (!context.rootGetters.userId) {
+      return;
+    }
     const result = await API.removeFavorite(context.rootGetters.userId, payload.id);
     context.commit('updateFavorite', result);
   },
   updateReview: async (context: MovieContext, payload: { review: any }) => {
+    if (!context.rootGetters.userId) {
+      return;
+    }
     const result = await API.updateReview({ userId: context.rootGetters.userId, ...payload.review});
     context.commit('updateReview', result);
   }

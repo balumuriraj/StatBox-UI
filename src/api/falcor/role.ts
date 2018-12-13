@@ -8,11 +8,11 @@ export async function getMoviesByCelebId(celebId: string, range: { from: number,
   const response = await model.get([
     path, [celebId],
     'movies', range,
-    ['id', 'title', 'poster', 'rating']
+    ['id', 'title', 'poster', 'releaseDate', 'rating']
   ]);
 
   const moviesObj = response.json[path][celebId].movies;
-  const items: any[] = [];
+  let items: any[] = [];
 
   for (const movieId in moviesObj) {
     if (moviesObj[movieId] && moviesObj[movieId].title) {
@@ -21,6 +21,7 @@ export async function getMoviesByCelebId(celebId: string, range: { from: number,
         id: movie.id,
         title: movie.title,
         poster: movie.poster,
+        releaseDate: movie.releaseDate,
         rating: movie.rating
       });
     }
@@ -29,7 +30,7 @@ export async function getMoviesByCelebId(celebId: string, range: { from: number,
   // remove duplicates
   const movieIds: string[] = [];
 
-  items.filter((movie: any) => {
+  items = items.filter((movie: any) => {
     if (movieIds.indexOf(movie.id) === -1) {
       movieIds.push(movie.id);
       return true;

@@ -54,7 +54,7 @@ body {
 .ct-series-i,
 .ct-series-j {
   .ct-bar {
-    stroke-width: 10%;
+    stroke-width: 9%;
     // fill-opacity: 0.5;
     stroke: #ffd02e;
   }

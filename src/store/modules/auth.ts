@@ -1,7 +1,7 @@
 import { ActionContext } from 'vuex';
 import { getStoreAccessors } from 'vuex-typescript';
 import { AuthState, RootState, Items } from '@/store/interfaces';
-import { getUserId, getBookmarks, getFavorites, getReviewed } from '@/api';
+import { getUserId, getBookmarks, getFavorites, getReviewed, getUserMetadata } from '@/api';
 
 type UserContext = ActionContext<AuthState, RootState>;
 
@@ -23,6 +23,14 @@ const state = {
     reviewed: {
       items: [],
       count: 0
+    },
+    metadata: {
+      genres: [],
+      ratings: [],
+      movieMinutes: 0,
+      moviesCount: 0,
+      topActors: [],
+      topDirectors: []
     }
   },
   isLoggedIn: false,
@@ -82,6 +90,9 @@ const actions = {
       if (token) {
         const id = user.id ? user.id : await getUserId(token);
         context.commit('setUserId', id);
+
+        const metadata = await getUserMetadata(id);
+        context.commit('setUserMetadata', metadata);
 
         const bookmarksResult = await getBookmarks(id, defaultRange);
         context.commit('setBookmarks', bookmarksResult);
@@ -144,9 +155,17 @@ const mutations = {
   setUserId: (state: any, id: number) => {
     state.user.id = id;
   },
+  setUserMetadata: (state: any, data: any) => {
+    state.user.metadata.genres = data.genres && data.genres.slice(0) || [];
+    state.user.metadata.ratings = data.ratings && data.ratings.slice(0) || [];
+    state.user.metadata.movieMinutes = data.movieMinutes;
+    state.user.metadata.moviesCount = data.moviesCount;
+    state.user.metadata.topActors = data.topActors && data.topActors.slice(0) || [];
+    state.user.metadata.topDirectors = data.topDirectors && data.topDirectors.slice(0) || [];
+  },
   setBookmarks: (state: any, data: { items: any[], count: number }) => {
     if (data) {
-      state.user.bookmarks.items = data.items.slice(0);
+      state.user.bookmarks.items = data.items && data.items.slice(0);
       state.user.bookmarks.count = data.count;
     }
   },
@@ -158,7 +177,7 @@ const mutations = {
   },
   setFavorite: (state: any, data: { items: any[], count: number }) => {
     if (data) {
-      state.user.favorites.items = data.items.slice(0);
+      state.user.favorites.items = data.items && data.items.slice(0);
       state.user.favorites.count = data.count;
     }
   },
@@ -170,13 +189,13 @@ const mutations = {
   },
   setReviewed: (state: any, data: { items: any[], count: number }) => {
     if (data) {
-      state.user.reviewed.items = data.items.slice(0);
+      state.user.reviewed.items = data.items && data.items.slice(0);
       state.user.reviewed.count = data.count;
     }
   },
   pushReviewed: (state: any, data: { items: any[], count: number }) => {
     if (data) {
-      state.user.reviewed.items = state.user.reviewed.items.concat(data.items.slice(0));
+      state.user.reviewed.items = state.user.reviewed.items.concat(data.items && data.items.slice(0));
       state.user.reviewed.count = data.count;
     }
   },
@@ -200,6 +219,14 @@ const mutations = {
     state.user.reviewed = {
       items: [],
       count: 0
+    };
+    state.user.metadata = {
+      genres: [],
+      ratings: [],
+      movieMinutes: 0,
+      moviesCount: 0,
+      topActors: [],
+      topDirectors: []
     };
     state.isLoggedIn = false;
     state.token = null;

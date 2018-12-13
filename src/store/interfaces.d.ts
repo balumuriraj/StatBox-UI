@@ -46,6 +46,14 @@ export interface AuthState {
     bookmarks: Items;
     favorites: Items;
     reviewed: Items;
+    metadata: {
+      genres: any[];
+      ratings: number[];
+      moviesCount: number;
+      movieMinutes: number;
+      topActors: any[];
+      topDirectors: any[];
+    }
   },
   isLoggedIn: boolean;
   token: string;

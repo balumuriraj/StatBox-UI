@@ -91,7 +91,7 @@ export default class Dashboard extends Vue {
     }
   }
 
-  private created() {
+  private mounted() {
     this.fetchData();
   }
 
