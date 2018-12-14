@@ -28,7 +28,7 @@
     }
   }
 
-  .section {
+  .content-section {
     background: #f2f2f2;
     margin-top: -400px;
     padding: 0 2.5%;
@@ -54,8 +54,18 @@
         display: block;
       }
 
-      .stats-container {
-        margin-top: 1em;
+      .items-container {
+        padding-bottom: 1em;
+        
+        .item {
+          &:last-child {
+            margin-top: 1em;   
+          }
+        }
+
+        .chart-block {
+          margin-top: 1em;
+        }
       }
     }
   }
@@ -103,14 +113,15 @@
       height: 300px;
     }
 
-    .section {
+    .content-section {
       max-width: 1240px;
       margin: 0 auto;
       margin-top: -10em;
       display: flex;
 
       .left-section {
-        width: 250px;
+        width: 20%;
+        min-width: 200px;
         padding-right: 2em;
         flex-direction: column;
         justify-content: flex-start;
@@ -133,26 +144,35 @@
           display: none;
         }
 
-        .stats-container {
-          margin-top: 0;
+        
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .content {
+    .content-section {
+      .right-section {
+        .items-container {
           display: flex;
 
-          .chart-container {
+          .item {
             flex-grow: 1;
-            padding-bottom: 1em;
+            width: 100%;
+
+            &:first-child {
+              margin-right: 0.5em;
+            }
+
+            &:last-child {
+              margin-top: 0;
+              margin-left: 0.5em;
+            }
           }
 
-          .attributes-container {
-            flex-grow: 1;
-            padding-left: 1em;
-          }
-        }
-
-        .celebs-container {
-          display: flex;
-
-          .celebs-list-contianer {
-            flex-grow: 1;
+          .chart-block {
+            margin-top: 0em;
           }
         }
       }

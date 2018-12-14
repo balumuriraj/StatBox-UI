@@ -8,55 +8,70 @@ import * as homeStore from '@/store/modules/home';
   }
 })
 export default class Years extends Vue {
-  public id!: string;
-  public name!: string;
+  public id = '';
+  public name = '';
 
   @Watch('$route.params.id')
   public onRouteIdChanged(val: string, oldVal: string) {
     if (val !== oldVal) {
-      this.fetchData();
+      this.fetchMovies();
     }
   }
 
   public fetchMovies() {
+    let startDate = 0;
+    let endDate = 0;
+    let name = '';
+
     if (this.id === 'recent') {
-      const date = new Date(2015);
-      const startDate = date.getTime();
-      const endDate = Date.now();
-      homeStore.fetchMoviesByDates(this.$store, { name: 'recent', startDate, endDate });
+      name = 'recent';
+      const date = new Date('2015');
+      startDate = date.getTime();
+      endDate = Date.now();
+    } else if (this.id === '2010-2015') {
+      name = 'from2010to2015';
+      const date1 = new Date('2010');
+      startDate = date1.getTime();
+      const date2 = new Date('2015');
+      endDate = date2.getTime();
+    } else if (this.id === '2000-2010') {
+      name = 'from2000to2010';
+      const date1 = new Date('2000');
+      startDate = date1.getTime();
+      const date2 = new Date('2010');
+      endDate = date2.getTime();
+    } else if (this.id === '1990-2000') {
+      name = 'from1990to2000';
+      const date1 = new Date('1990');
+      startDate = date1.getTime();
+      const date2 = new Date('2000');
+      endDate = date2.getTime();
+    }
+
+    if (startDate && endDate) {
+      homeStore.fetchMoviesByDates(this.$store, { name, startDate, endDate });
     }
   }
 
-  private created() {
+  private mounted() {
     this.id = this.$route.params.id;
     this.name = this.$route.name as string;
-    this.fetchData();
+    this.fetchMovies();
   }
 
-  private fetchData() {
-    if (this.id === 'recent') {
-      const date = new Date('2015');
-      const startDate = date.getTime();
-      const endDate = Date.now();
-      homeStore.fetchMoviesByDates(this.$store, { name: 'recent', startDate, endDate });
-    }
+  get recent() {
+    return homeStore.getRecent(this.$store);
   }
 
-  get item() {
-    const emptyItems = {
-      items: [],
-      count: 0
-    };
-
-    if (this.id === 'recent') {
-      return {
-        name: 'Recent',
-        movies: homeStore.getMovies(this.$store, 'recent') || emptyItems
-      };
-    }
+  get from2010to2015() {
+    return homeStore.get2010to2015(this.$store);
   }
 
-  get movies() {
-    return this.item && this.item.movies;
+  get from2000to2010() {
+    return homeStore.get2000to2010(this.$store);
+  }
+
+  get from1990to2000() {
+    return homeStore.get1990to2000(this.$store);
   }
 }

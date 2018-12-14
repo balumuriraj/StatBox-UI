@@ -23,6 +23,7 @@ const state = {
   },
   isFavorite: false,
   isBookmarked: false,
+  ratings: [],
   userRating: null
 };
 
@@ -120,6 +121,7 @@ const mutations = {
   setMovieMetadata: (state: MovieState, metadata: any) => {
     state.isFavorite = metadata.isFavorite;
     state.isBookmarked = metadata.isBookmarked;
+    state.ratings = metadata.ratings && metadata.ratings.slice(0),
     state.userRating = metadata.userRating;
   },
   setMoviesAroundDate: (state: MovieState, data: any) => {

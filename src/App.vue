@@ -1,8 +1,12 @@
 <template>
   <div id="app">
-    <Menu></Menu>
-    <router-view/>
-    <Footer></Footer>
+    <div class="main-container">
+      <Menu></Menu>
+      <router-view/>
+    </div>
+    <div class="footer-container">
+      <Footer></Footer>
+    </div>
   </div>
 </template>
 
@@ -36,6 +40,20 @@ body {
   background: #f2f2f2;
   width: 100%;
   height: 100%;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .main-container {
+    flex: 1 0 auto;
+  }
+
+  .footer-container {
+    flex-shrink: 0;
+  }
 }
 
 .ct-series-a .ct-area {

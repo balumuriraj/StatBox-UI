@@ -22,7 +22,7 @@ export default class Genre extends Vue {
     genreStore.fetchGenreMovies(this.$store, { id: Number(this.id) });
   }
 
-  private created() {
+  private mounted() {
     this.id = this.$route.params.id;
     this.name = this.$route.name as string;
     this.fetchData();

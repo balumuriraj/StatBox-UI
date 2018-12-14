@@ -10,11 +10,11 @@
 
     <!-- carousels -->
     <div class="carousels">
-      <Carousel title="Latest" :movies=latest.items :count=latest.count @fetch=fetchLatest></Carousel>
+      <Carousel title="Latest" :movies=latest.items :count=latest.count @fetch=fetchLatest :link="'/explore/latest'"></Carousel>
       <br>
-      <Carousel title="Coming Soon" :movies=upcoming.items :count=upcoming.count @fetch=fetchUpcoming></Carousel>
+      <Carousel title="Coming Soon" :movies=upcoming.items :count=upcoming.count @fetch=fetchUpcoming :link="'/explore/upcoming'"></Carousel>
       <br>
-      <Carousel title="Trending" :movies=upcoming.items :count=upcoming.count @fetch=fetchUpcoming></Carousel>
+      <Carousel title="2010-2015" :movies=from2010to2015.items :count=from2010to2015.count @fetch=fetchFrom2010to2015 :link="'/explore/years/2010-2015'"></Carousel>
     </div>
   </section>
 </template>

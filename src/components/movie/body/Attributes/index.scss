@@ -10,12 +10,15 @@ table {
 .attributes-container {
   display: flex;
   flex-direction: column;
-  margin-top: 1em;
 
   .attributes-item {
+    flex-grow: 1;
     background: #fff;
     padding: 1em;
-    margin-bottom: 1em;
+
+    &:last-child {
+      margin-top: 1em;
+    }
 
     .attribute-row {
       display: flex;
@@ -30,15 +33,6 @@ table {
         display: flex;
         flex-grow: 1;
       }
-    }
-  }
-}
-
-@supports (display: grid) {
-  @media only screen and (min-width: 800px) {
-    .attributes-container {
-      display: grid;
-      margin-top: 0;
     }
   }
 }

@@ -13,6 +13,7 @@ export default class Carousel extends Vue {
   @Prop() public title!: string;
   @Prop() public movies!: object[];
   @Prop() public count!: number;
+  @Prop() public link!: string;
 
   public loading: boolean = false;
 
@@ -50,7 +51,7 @@ export default class Carousel extends Vue {
 
   get options() {
     return {
-      slidesPerView: 3.5,
+      slidesPerView: 2.5,
       centerInsufficientSlides: false,
       slidesPerGroup: 1,
       spaceBetween: 5,

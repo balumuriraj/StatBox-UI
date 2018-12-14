@@ -1,10 +1,20 @@
-.chart-container {
+.chart-section {
+  background: #fff;
+  
   .chart-content {
-    background: #fff;
-    padding: 1em;
+    padding: 1em;    
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 2em);
+    justify-content: space-between;
 
-    .bar-chart {
-      margin-left: -5%;
+    .chart-container {
+      display: flex;
+      justify-content: center;
+
+      .bar-chart {
+        margin-left: -5%;
+      }
     }
   }
 }

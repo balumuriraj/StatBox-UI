@@ -53,26 +53,20 @@
   }
 }
 
-@media only screen and (min-width: 800px) {
+@media only screen and (min-width: 850px) {
   .list-container .list-block .list-item {
     width: calc(100% / 5 - 1em);
   }
 }
 
-@media only screen and (min-width: 1000px) {
+@media only screen and (min-width: 1100px) {
   .list-container .list-block .list-item {
     width: calc(100% / 6 - 1em);
   }
 }
 
-@media only screen and (min-width: 1150px) {
+@media only screen and (min-width: 1250px) {
   .list-container .list-block .list-item {
     width: calc(100% / 7 - 1em);
   }
 }
-
-// @media only screen and (min-width: 1240px) {
-//   .list-container .list-block .list-item {
-//     width: calc(100% / 9 - 1em);
-//   }
-// }

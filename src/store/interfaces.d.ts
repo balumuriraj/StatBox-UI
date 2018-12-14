@@ -33,6 +33,7 @@ export interface MovieState {
   moviesAroundReleaseDate: Items;
   isFavorite: boolean;
   isBookmarked: boolean;
+  ratings: number[];
   userRating: number;
 }
 

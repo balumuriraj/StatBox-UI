@@ -8,7 +8,7 @@ import Table from '@/components/common/Table';
 import Poster from '@/components/movie/hero/Poster';
 import Content from '@/components/movie/hero/Content';
 import Info from '@/components/movie/hero/Info';
-import Stats from '@/components/movie/body/Stats';
+import Chart from '@/components/common/Chart';
 import Attributes from '@/components/movie/body/Attributes';
 import Title from '@/components/common/Title';
 import * as movieStore from '@/store/modules/movie';
@@ -19,7 +19,7 @@ import * as movieStore from '@/store/modules/movie';
     Poster,
     Content,
     Info,
-    Stats,
+    Chart,
     Title,
     Table,
     Menu,

@@ -9,7 +9,7 @@
       <div class="level-right">
         <div class="level-item">
           <p v-show=loading>loading...</p>
-          <router-link class="link" :to="{ name: 'viewall', params: { movies, count } }">VIEW ALL</router-link>  
+          <router-link class="link" :to="link">VIEW ALL</router-link>  
         </div>
       </div>
     </div>

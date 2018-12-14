@@ -19,16 +19,16 @@ export default class Celeb extends Vue {
     }
   }
 
-  public fetchMovies() {
-    celebStore.fetchCelebMovies(this.$store, { id: this.$route.params.id });
+  public fetchMovies(firstFetch?: boolean) {
+    celebStore.fetchCelebMovies(this.$store, { id: this.$route.params.id, firstFetch });
   }
 
-  private created() {
+  private mounted() {
     this.fetchData();
   }
 
   private fetchData() {
     celebStore.fetchCelebData(this.$store, { id: this.$route.params.id });
-    this.fetchMovies();
+    this.fetchMovies(true);
   }
 }

@@ -1,7 +1,6 @@
 <template>
   <div class="dashboard">
     <section class="hero">
-      <!-- Hero content: will be in the middle -->
       <div class="hero-body">
         <div class="img-container">
           <img src="../../assets/avatar.png" width="150">
@@ -90,7 +89,7 @@
           </div>
         </div>
 
-        <div class="main-container">
+        <div class="main-content-container">
           <div class="item-container" :class="{ 'active': isOverview }">
             <Overview></Overview>
           </div>

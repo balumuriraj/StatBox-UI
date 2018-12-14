@@ -46,14 +46,11 @@ export default class List extends Vue {
   }
 
   private isScrollBottom(): boolean {
-    const elm = document.documentElement;
-    const pageHeight = elm && elm.offsetHeight || 0;
-    const windowHeight = window.innerHeight;
-    const scrollPosition =
-      window.scrollY ||
-      window.pageYOffset ||
-      document.body.scrollTop + (document.documentElement && document.documentElement.scrollTop || 0);
+    const { documentElement: elm, body } = document;
+    const totalHeight = elm.scrollHeight;
+    const clientHeight = elm.clientHeight;
+    const scrollTop = (body && body.scrollTop) ? body.scrollTop : elm.scrollTop;
 
-    return pageHeight <= windowHeight + scrollPosition;
+    return totalHeight === scrollTop + clientHeight;
   }
 }

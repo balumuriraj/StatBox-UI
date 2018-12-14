@@ -25,7 +25,11 @@ const actions = {
     context.commit('setCelebData', data);
   },
 
-  fetchCelebMovies: async (context: CelebContext, payload: { id: string }) => {
+  fetchCelebMovies: async (context: CelebContext, payload: { id: string, firstFetch?: boolean }) => {
+    if (payload.firstFetch) {
+      context.commit('resetCelebMovies');
+    }
+
     const { movies } = context.state;
     const count = movies.count;
     const length = movies.items.length;
@@ -50,6 +54,11 @@ const mutations = {
   setCelebMovies: (state: CelebState, data: any) => {
     state.movies.items = state.movies.items.concat(data.items.slice(0));
     state.movies.count = data.count;
+  },
+
+  resetCelebMovies: (state: CelebState) => {
+    state.movies.items = [];
+    state.movies.count = 0;
   }
 };
 

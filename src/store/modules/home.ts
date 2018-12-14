@@ -16,13 +16,33 @@ const state: any = {
     upcoming: {
       items: [],
       count: 0
+    },
+    recent: {
+      items: [],
+      count: 0
+    },
+    from2010to2015: {
+      items: [],
+      count: 0
+    },
+    from2000to2010: {
+      items: [],
+      count: 0
+    },
+    from1990to2000: {
+      items: [],
+      count: 0
     }
   }
 };
 
 const getters = {
   latest: (state: any) => state.movies.latest,
-  upcoming: (state: any) => state.movies.upcoming
+  upcoming: (state: any) => state.movies.upcoming,
+  recent: (state: any) => state.movies.recent,
+  from2010to2015: (state: any) => state.movies.from2010to2015,
+  from2000to2010: (state: any) => state.movies.from2000to2010,
+  from1990to2000: (state: any) => state.movies.from1990to2000
 };
 
 const actions = {
@@ -36,7 +56,7 @@ const actions = {
       const startDate = date.setDate(date.getDate() - days);
       const endDate = Date.now();
       const from = length;
-      const to = !count || (count - from > 10) ? length + 9 : count;
+      const to = !count || (count - from > 10) ? length + 9 : count - 1;
       const result = await API.getMoviesBetweenDates(startDate, endDate, { from, to });
       context.commit('setLatestMovies', result);
     }
@@ -52,7 +72,7 @@ const actions = {
       const endDate = date.setDate(date.getDate() + days);
       const startDate = Date.now();
       const from = length;
-      const to = !count || (count - from > 10) ? length + 9 : count;
+      const to = !count || (count - from > 10) ? length + 9 : count - 1;
       const result = await API.getMoviesBetweenDates(startDate, endDate, { from, to });
       context.commit('setUpcomingMovies', result);
     }
@@ -65,7 +85,7 @@ const actions = {
 
     if (count === 0 || (count > length)) {
       const from = length;
-      const to = !count || (count - from > 10) ? length + 9 : count;
+      const to = !count || (count - from > 10) ? length + 9 : count - 1;
       const result = await API.getMoviesBetweenDates(payload.startDate, payload.endDate, { from, to });
       result.name = payload.name;
       context.commit('setMoviesByDates', result);
@@ -110,10 +130,10 @@ const { read, dispatch } = getStoreAccessors<any, RootState>('home');
 
 export const getLatest = read(home.getters.latest);
 export const getUpcoming = read(home.getters.upcoming);
-export const getMovies = (state: any, name: string) => {
-  const movies = state.movies;
-  return movies && movies[name];
-};
+export const getRecent = read(home.getters.recent);
+export const get2010to2015 = read(home.getters.from2010to2015);
+export const get2000to2010 = read(home.getters.from2000to2010);
+export const get1990to2000 = read(home.getters.from1990to2000);
 
 export const fetchLatest = dispatch(home.actions.fetchLatest);
 export const fetchUpcoming = dispatch(home.actions.fetchUpcoming);

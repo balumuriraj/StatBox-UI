@@ -6,7 +6,6 @@ import Celeb from './views/Celeb/';
 import Movie from './views/Movie/';
 import Login from './views/Login/';
 import Dashboard from './views/Dashboard/';
-import ViewAll from '@/views/ViewAll';
 import Explore from '@/views/Explore';
 import ExploreHome from '@/components/explore/ExploreHome';
 import Movies from '@/components/explore/Movies';
@@ -46,12 +45,6 @@ const routes = [
         component: Years
       }
     ]
-  },
-  {
-    path: '/viewall',
-    name: 'viewall',
-    component: ViewAll,
-    props: true
   },
   {
     path: '/login',

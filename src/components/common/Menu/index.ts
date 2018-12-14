@@ -29,6 +29,7 @@ export default class Menu extends Vue {
   }
 
   public logOut() {
+    localStorage.clear();
     auth.logout();
   }
 
@@ -37,4 +38,4 @@ export default class Menu extends Vue {
       this.scrollPosition = window.scrollY;
     });
   }
- }
+}

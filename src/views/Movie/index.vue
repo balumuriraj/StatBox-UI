@@ -6,7 +6,7 @@
     </div>
 
     <!-- content -->
-    <section class="section">
+    <section class="content-section">
       <div class="left-section">
         <Poster :imageUrl="movie.poster" :movieId="movie.id"></Poster>
         <div class="info-container">
@@ -20,21 +20,14 @@
         <div class="info-container">
           <Info :movie="movie"></Info>
         </div>
-        <div class="stats-container">
-          <Stats></Stats>
-          <Attributes></Attributes>
+        <div class="items-container">
+          <Chart class="item chart-block" :id="'ratingsChart'" :title="'Distribution'" :subtitle="'of ratings'" :numbers=movie.ratings></Chart>
+          <Attributes class="item"></Attributes>
         </div>
-        <div class="celebs-container">
-          <CelebList v-if="crew" :title="'Crew'" :celebs="crew" class="crew-container"></CelebList>
-          <CelebList v-if="cast" :title="'Cast'" :celebs="cast" class="cast-container"></CelebList>
+        <div class="items-container">
+          <CelebList v-if="crew" :title="'Crew'" :celebs="crew" class="item"></CelebList>
+          <CelebList v-if="cast" :title="'Cast'" :celebs="cast" class="item"></CelebList>
         </div>
-
-        <!-- <Carousel 
-        title="Similars" 
-        :movies=movie.moviesAroundReleaseDate.items 
-        :count=movie.moviesThisMonth.count
-        @fetch=fetchMoviesAroundReleaseDate
-        ></Carousel>-->
       </div>
     </section>
     <modal v-if="showModal" @close="showModal = false">

@@ -1,4 +1,4 @@
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import * as Chartist from 'chartist';
 import Title from '@/components/common/Title';
 
@@ -22,7 +22,7 @@ export default class Chart extends Vue {
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
     this.numbers.forEach((value) => {
-      if (value != null &&  value >= min && value <= max) {
+      if (value != null && value >= min && value <= max) {
         const idx = binIndex(bins, value);
 
         if (idx > -1) {
@@ -36,12 +36,25 @@ export default class Chart extends Vue {
     return result;
   }
 
+  @Watch('numbers')
+  public onNumbersChange(val: number, oldVal: number) {
+    this.drawChart();
+  }
+
   private mounted() {
+    this.drawChart();
+  }
+
+  private drawChart() {
     const elm = document.getElementById(this.id);
-    const chart = new Chartist.Bar(elm, {
-      labels: ['', '1', '', '2', '', '3', '', '4', '', '5'],
-      series: this.series // [1, 5, 5, 5, 8, 17, 20, 35, 23, 5]
-    }, {
+
+    if (elm) {
+      elm.style.maxHeight = '250px';
+      elm.style.maxWidth = '500px';
+
+      const labels = ['', '1', '', '2', '', '3', '', '4', '', '5'];
+      const series = this.series; // [1, 5, 5, 5, 8, 17, 20, 35, 23, 5];
+      const options = {
         // low: 0,
         distributeSeries: true,
         // For Line
@@ -56,7 +69,10 @@ export default class Chart extends Vue {
         axisX: {
           showGrid: false
         }
-      });
+      };
+      const chart = new Chartist.Bar(elm, { labels, series }, options);
+    }
+
   }
 }
 

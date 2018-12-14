@@ -10,6 +10,13 @@ export async function getMoviesBetweenDates(
   const countResponse = await model.get(['moviesSearches', [queryString], 'length']);
   const count = countResponse.json.moviesSearches[queryString].length;
 
+  if (!count) {
+    return {
+      items: [],
+      count: 0
+    };
+  }
+
   const moviesResponse = await model.get([
     'moviesSearches', [queryString], range,
     ['id', 'title', 'releaseDate', 'poster', 'runtime', 'cert']
@@ -96,10 +103,11 @@ export async function getMovieMetadata(movieId: number): Promise<any> {
     return {
       isFavorite: false,
       isBookmarked: false,
+      ratings: [],
       userRating: null
     };
   }
 
-  const { isFavorite, isBookmarked, userRating } = result.metadata;
-  return { isFavorite, isBookmarked, userRating };
+  const { isFavorite, isBookmarked, userRating, ratings } = result.metadata;
+  return { isFavorite, isBookmarked, userRating, ratings };
 }
