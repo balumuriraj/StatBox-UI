@@ -8,14 +8,14 @@
       <div class="rating-block">
         <div class="score">
           <font-awesome-icon :icon="['fas', 'star']" class="icon"></font-awesome-icon> 
-          <span class="rating"> 3.5</span>
-          <span class="divisor"> (2,144 Ratings)</span>
+          <span class="rating"> {{movie.rating && Math.round(movie.rating * 100) / 100 || '-'}}</span>
+          <span class="divisor"> [ {{ movie.ratingsCount }} Ratings ]</span>
         </div>
       </div>
       <div class="rating-block">
         <div class="score">
-          <span class="rating"> 84</span>
-          <span class="divisor"> Critics Score </span>
+          <span class="rating"> {{ userRating || '-' }}</span>
+          <span class="divisor"> Your Rating </span>
         </div>
       </div>
     </div>

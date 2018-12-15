@@ -10,7 +10,7 @@ import Content from '@/components/movie/hero/Content';
 import Info from '@/components/movie/hero/Info';
 import Chart from '@/components/common/Chart';
 import Attributes from '@/components/movie/body/Attributes';
-import Title from '@/components/common/Title';
+import Rating from '@/components/movie/hero/Rating';
 import * as movieStore from '@/store/modules/movie';
 
 @Component({
@@ -20,7 +20,7 @@ import * as movieStore from '@/store/modules/movie';
     Content,
     Info,
     Chart,
-    Title,
+    Rating,
     Table,
     Menu,
     Modal,
@@ -30,8 +30,6 @@ import * as movieStore from '@/store/modules/movie';
   }
 })
 export default class Movie extends Vue {
-  public showModal: boolean = false;
-
   get movie() {
     return movieStore.getMovieData(this.$store);
   }
@@ -68,6 +66,12 @@ export default class Movie extends Vue {
     }
   }
 
+  public showModal: boolean = false;
+  public watchWith: string = null;
+  public pace: string = null;
+  public plot: string = null;
+  public theme: string = null;
+
   @Watch('$route.params.id')
   public onRouteIdChanged(val: string, oldVal: string) {
     if (val !== oldVal) {
@@ -77,6 +81,18 @@ export default class Movie extends Vue {
 
   public fetchMoviesAroundReleaseDate() {
     movieStore.fetchMoviesAroundDate(this.$store);
+  }
+
+  public async submitReview() {
+    await movieStore.updateReview(this.$store, {
+      review: {
+        movieId: this.movie.id,
+        watchWith: this.watchWith,
+        pace: this.pace,
+        plot: this.plot,
+        theme: this.theme
+      }
+    });
   }
 
   private created() {

@@ -70,39 +70,92 @@
     }
   }
 
-  .ques-section {
-    padding: 1em;
+  .review-container {
+    background: #fff;
+    color: #222;
+    max-height: 500px;
+    overflow: auto;
+    border-radius: 5px;
 
-    .ques {
+    .title {
+      font-size: 1.5em;
       font-weight: bold;
+      padding: 0.5em;
+      margin: 0;
+      text-align: center;
     }
 
-    .options {
-      display: flex;
+    .rating-container {
       text-align: center;
-      margin-top: 0.5em;
 
-      span {
+      .stars-container {
+        display: block;
+        background: #555;
+      }
+    }
+
+    .ques-section {
+      padding: 1em 1em 0 1em;
+  
+      .ques {
+        font-weight: bold;
+        text-transform: capitalize;
+      }
+  
+      .options {
+        display: flex;
+        text-align: center;
+        margin-top: 0.5em;
+  
+        .option {
+          font-size: 1em;
+          text-transform: capitalize;
+          cursor: pointer;
+          flex-grow: 1;
+          flex-basis: 0;
+          background: #e2e2e2;
+  
+          &:nth-child(odd) {
+            background: #eee;
+          }
+
+          input {
+            display: none;
+          }
+
+          input[type="radio"]:checked+label {
+            background: #f06060;
+            color: #fff;
+          } 
+
+          label {
+            display: flex;
+            justify-content: center;
+            padding: 0.5em;
+            cursor: pointer;
+          }
+        } 
+      }
+    }
+  
+    .buttons-section {
+      display: flex;
+      margin-top: 2em;
+  
+      button {
         cursor: pointer;
         flex-grow: 1;
-        padding: 0.5em;
-        background: #eee;
-
-        &:not(:last-child) {
-          margin-right: 1em;
+        padding: 1em;
+        background: #2ecc71;
+        border: 0;
+        font-size: 1em;
+        color: #fff;
+        text-transform: capitalize;
+  
+        &:last-child {
+          opacity: 0.8;
         }
-      } 
-    }
-  }
-
-  .buttons-section {
-    padding: 1em;
-    text-align: center;
-
-    button {
-      margin-right: 1em;
-      // text-transform: uppercase;
-      padding: 0.5em 1em;
+      }
     }
   }
 }

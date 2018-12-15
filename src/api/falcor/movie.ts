@@ -46,7 +46,7 @@ export async function getMovieData(movieId: number): Promise<any> {
   const response = await model.get([
     'moviesById', [movieId],
     [
-      'id', 'title', 'description', 'releaseDate', 'poster', 'rating',
+      'id', 'title', 'releaseDate', 'poster', 'rating', 'ratingsCount',
       'runtime', 'genre', 'cert', 'cast', 'crew'
     ],
     {length: 5}, ['id', 'type', 'category', 'celeb'],
@@ -55,8 +55,8 @@ export async function getMovieData(movieId: number): Promise<any> {
 
   const result: any = response.json.moviesById[movieId];
   const {
-    id, title, description, releaseDate,
-    poster, runtime, rating, genre, cert
+    id, title, releaseDate, poster,
+    runtime, genre, cert, rating, ratingsCount
   } = result;
   const cast = [];
   const crew = [];
@@ -86,7 +86,7 @@ export async function getMovieData(movieId: number): Promise<any> {
   }
 
   return {
-    id, title, description, releaseDate, rating,
+    id, title, releaseDate, rating, ratingsCount,
     poster, runtime, genre, cert, cast, crew
   };
 }
@@ -94,7 +94,8 @@ export async function getMovieData(movieId: number): Promise<any> {
 
 export async function getMovieMetadata(movieId: number): Promise<any> {
   const response = await model.get([
-    'moviesById', [movieId], 'metadata'
+    'moviesById', [movieId], 'metadata',
+    ['ratingBins', 'isFavorite', 'isBookmarked', 'userReview']
   ]);
 
   const result: any = response.json.moviesById[movieId];
@@ -103,11 +104,17 @@ export async function getMovieMetadata(movieId: number): Promise<any> {
     return {
       isFavorite: false,
       isBookmarked: false,
-      ratings: [],
-      userRating: null
+      ratingBins: null,
+      userReview: {
+        rating: null,
+        watchWith: null,
+        pace: null,
+        plot: null,
+        theme: null
+      }
     };
   }
 
-  const { isFavorite, isBookmarked, userRating, ratings } = result.metadata;
-  return { isFavorite, isBookmarked, userRating, ratings };
+  const { isFavorite, isBookmarked, userReview, ratingBins } = result.metadata;
+  return { isFavorite, isBookmarked, userReview, ratingBins };
 }

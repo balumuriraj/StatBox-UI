@@ -62,7 +62,7 @@ export default class ExploreHome extends Vue {
   }
 
   get topGenreList() {
-    const list = genreStore.getGenreList(this.$store) || [];
+    const list = genreStore.getGenreList(this.$store);
     const newList = list && list.items.map((item) => {
       return {
         url: '/explore/genre/' + item.id,
@@ -77,7 +77,7 @@ export default class ExploreHome extends Vue {
   }
 
   get restGenreList() {
-    const list = genreStore.getGenreList(this.$store) || [];
+    const list = genreStore.getGenreList(this.$store);
     const newList = list && list.items.slice(0);
     newList.sort((a: any, b: any) => b.moviesCount - a.moviesCount);
 

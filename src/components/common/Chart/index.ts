@@ -11,25 +11,29 @@ export default class Chart extends Vue {
   @Prop() public id!: string;
   @Prop() public title!: string;
   @Prop() public subtitle!: string;
-  @Prop() public numbers!: number[];
+  @Prop() public numbers!: any;
 
   get series() {
     const min = 0;
     const max = 5;
     const bins = getEqualIntervalBins(min, max, 10);
-    const result = this.numbers.length > 0 ?
-      [0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05] :
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    const isEmpty = !this.numbers || Object.keys(this.numbers).length === 0;
+    const result = isEmpty ?
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] :
+      [0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
 
-    this.numbers.forEach((value) => {
-      if (value != null && value >= min && value <= max) {
-        const idx = binIndex(bins, value);
+    if (!isEmpty) {
+      for (const rating in this.numbers) {
+        if (this.numbers[rating]) {
+          const count = this.numbers[rating];
+          const idx = binIndex(bins, Number(rating));
 
-        if (idx > -1) {
-          result[idx]++;
+          if (idx > -1) {
+            result[idx] += count;
+          }
         }
       }
-    });
+    }
 
     // result.splice(0, 0, 0); for Line chart
 

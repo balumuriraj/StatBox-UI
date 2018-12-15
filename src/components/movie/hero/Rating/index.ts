@@ -7,7 +7,7 @@ export default class Rating extends Vue {
 
   private hoverVal: number = 0;
 
-  get value() {
+  get value(): number {
     return movieStore.userRating(this.$store);
   }
 
@@ -44,6 +44,6 @@ export default class Rating extends Vue {
         movieId: this.movieId,
         rating
       }
-     });
+    });
   }
 }

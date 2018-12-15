@@ -5,15 +5,15 @@ import * as API from '@/api';
 
 type MovieContext = ActionContext<MovieState, RootState>;
 
-const state = {
+const state: MovieState = {
   id: null,
   title: null,
   releaseDate: null,
-  description: null,
   cert: null,
   poster: null,
   runtime: null,
   rating: null,
+  ratingsCount: null,
   genre: [],
   cast: [],
   crew: [],
@@ -23,8 +23,14 @@ const state = {
   },
   isFavorite: false,
   isBookmarked: false,
-  ratings: [],
-  userRating: null
+  ratingBins: null,
+  userReview: {
+    rating: null,
+    pace: null,
+    watchWith: null,
+    plot: null,
+    theme: null
+  }
 };
 
 async function getMoviesAroundDate(date: any, length: number, count: number) {
@@ -46,7 +52,8 @@ const getters = {
   movie: (state: MovieState) => state,
   isBookmarked: (state: MovieState) => state.isBookmarked,
   isFavorite: (state: MovieState) => state.isFavorite,
-  userRating: (state: MovieState) => state.userRating
+  userRating: (state: MovieState) => state.userReview && state.userReview.rating,
+  userReview: (state: MovieState) => state.userReview
 };
 
 const actions = {
@@ -109,20 +116,24 @@ const mutations = {
     state.id = info.id;
     state.title = info.title;
     state.poster = info.poster;
-    state.description = info.description;
     state.releaseDate = info.releaseDate;
     state.cert = info.cert;
     state.cast = info.cast;
     state.crew = info.crew;
     state.genre = info.genre;
     state.rating = info.rating;
+    state.ratingsCount = info.ratingsCount;
     state.runtime = info.runtime;
   },
   setMovieMetadata: (state: MovieState, metadata: any) => {
     state.isFavorite = metadata.isFavorite;
     state.isBookmarked = metadata.isBookmarked;
-    state.ratings = metadata.ratings && metadata.ratings.slice(0),
-    state.userRating = metadata.userRating;
+    state.ratingBins = metadata.ratingBins;
+
+    if (metadata.userReview) {
+      const { rating, watchWith, pace, plot, theme } = metadata.userReview;
+      state.userReview = { rating, watchWith, pace, plot, theme };
+    }
   },
   setMoviesAroundDate: (state: MovieState, data: any) => {
     if (data) {
@@ -137,7 +148,10 @@ const mutations = {
     state.isFavorite = value;
   },
   updateReview: (state: MovieState, review: any) => {
-    state.userRating = review.rating;
+    if (review) {
+      const { rating, watchWith, pace, plot, theme } = review;
+      state.userReview = { rating, watchWith, pace, plot, theme };
+    }
   }
 };
 
@@ -156,6 +170,7 @@ export const getMovieData = read(movie.getters.movie);
 export const isBookmarked = read(movie.getters.isBookmarked);
 export const isFavorite = read(movie.getters.isFavorite);
 export const userRating = read(movie.getters.userRating);
+export const userReview = read(movie.getters.userReview);
 export const fetchMovieData = dispatch(movie.actions.fetchMovieData);
 export const fetchMoviesAroundDate = dispatch(movie.actions.fetchMoviesAroundDate);
 export const addBookmark = dispatch(movie.actions.addBookmark);

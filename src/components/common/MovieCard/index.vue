@@ -17,8 +17,8 @@
           <span>{{year}}</span>
         </div>
         <div v-if=movie>
-          <span v-show="movie && (movie.userRating || movie.rating)" :class="{'user-rating': movie.userRating}">
-            <font-awesome-icon icon="star" class="icon"></font-awesome-icon>{{movie.userRating || movie.rating || "--"}}
+          <span v-show="movie && (userRating || rating)" :class="{'user-rating': userRating}">
+            <font-awesome-icon icon="star" class="icon"></font-awesome-icon>{{userRating || rating || "--"}}
           </span>
         </div>
       </div>

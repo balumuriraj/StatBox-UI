@@ -23,18 +23,24 @@ export interface MovieState {
   title: string;
   cert: string;
   releaseDate: string;
-  description: string;
   genre: any[];
   poster: string;
   runtime: string;
   rating: number;
+  ratingsCount: number;
   cast: any[];
   crew: any[];
   moviesAroundReleaseDate: Items;
   isFavorite: boolean;
   isBookmarked: boolean;
-  ratings: number[];
-  userRating: number;
+  ratingBins: any;
+  userReview: {
+    rating: number,
+    watchWith: string,
+    pace: string,
+    plot: string,
+    theme: string
+  };
 }
 
 export interface AuthState {
@@ -49,7 +55,7 @@ export interface AuthState {
     reviewed: Items;
     metadata: {
       genres: any[];
-      ratings: number[];
+      ratingBins: any;
       moviesCount: number;
       movieMinutes: number;
       topActors: any[];

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="section">
-      <Chart class="item" :id="'ratingsChart'" :title="'Distribution'" :subtitle="'of ratings'" :numbers=ratings></Chart>
+      <Chart class="item" :id="'ratingsChart'" :title="'Distribution'" :subtitle="'of ratings'" :numbers=ratingBins></Chart>
       <div class="numbers-container item">
         <div class="left-block">
           <div class="block">

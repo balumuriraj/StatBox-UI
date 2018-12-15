@@ -5,7 +5,7 @@ import { getUserId, getBookmarks, getFavorites, getReviewed, getUserMetadata } f
 
 type UserContext = ActionContext<AuthState, RootState>;
 
-const state = {
+const state: AuthState = {
   user: {
     id: null,
     name: null,
@@ -26,7 +26,7 @@ const state = {
     },
     metadata: {
       genres: [],
-      ratings: [],
+      ratingBins: null,
       movieMinutes: 0,
       moviesCount: 0,
       topActors: [],
@@ -157,7 +157,7 @@ const mutations = {
   },
   setUserMetadata: (state: any, data: any) => {
     state.user.metadata.genres = data.genres && data.genres.slice(0) || [];
-    state.user.metadata.ratings = data.ratings && data.ratings.slice(0) || [];
+    state.user.metadata.ratingBins = data.ratingBins;
     state.user.metadata.movieMinutes = data.movieMinutes;
     state.user.metadata.moviesCount = data.moviesCount;
     state.user.metadata.topActors = data.topActors && data.topActors.slice(0) || [];
@@ -222,7 +222,7 @@ const mutations = {
     };
     state.user.metadata = {
       genres: [],
-      ratings: [],
+      ratingBins: null,
       movieMinutes: 0,
       moviesCount: 0,
       topActors: [],

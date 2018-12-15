@@ -5,20 +5,6 @@ import * as movieStore from '@/store/modules/movie';
 export default class Content extends Vue {
   @Prop() public movie!: any;
 
-  get description() {
-    const movie = this.movie;
-
-    if (movie) {
-      let description = movie.description;
-
-      if (description && description.length > 300) {
-        description = description.substring(0, 300) + '...';
-      }
-
-      return description;
-    }
-  }
-
   get isBookmarked() {
     return movieStore.isBookmarked(this.$store);
   }
@@ -29,6 +15,10 @@ export default class Content extends Vue {
 
   get isReviewed() {
     return false;
+  }
+
+  get userRating(): number {
+    return movieStore.userRating(this.$store);
   }
 
   public setBookmark() {

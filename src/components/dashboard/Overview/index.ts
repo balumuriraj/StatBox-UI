@@ -30,18 +30,32 @@ export default class Overview extends Vue {
     return this.metadata && this.metadata.moviesCount;
   }
 
-  get ratings() {
-    return this.metadata && this.metadata.ratings;
+  get ratingBins() {
+    return this.metadata && this.metadata.ratingBins;
   }
 
   get maxRating() {
-    return this.ratings && this.ratings.length && Math.max(...this.ratings);
+    const ratings = this.ratingBins && Object.keys(this.ratingBins).map((rating) => Number(rating));
+    return ratings && ratings.length && Math.max(...ratings) || 0;
   }
 
   get avgRating() {
-    return this.ratings
-      && this.ratings.length
-      && Math.round(this.ratings.reduce((a, b) => a + b) / this.ratings.length * 100) / 100;
+    let ratingsTotal = 0;
+    let countTotal = 0;
+
+    if (this.ratingBins) {
+      for (const rating in this.ratingBins) {
+        if (this.ratingBins[rating]) {
+          const count = this.ratingBins[rating];
+          countTotal += count;
+          ratingsTotal += (Number(rating) * count);
+        }
+      }
+
+      return countTotal && Math.round(ratingsTotal / countTotal * 100) / 100;
+    }
+
+    return 0;
   }
 
   get directors() {

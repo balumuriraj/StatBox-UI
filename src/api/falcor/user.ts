@@ -5,7 +5,7 @@ export async function getUserMetadata(id: number) {
   const metdataResponse = await model.get([
     'usersById', [id],
     'metadata',
-    ['genres', 'ratings', 'movieMinutes', 'moviesCount', 'topDirectors', 'topActors'], range,
+    ['genres', 'ratingBins', 'movieMinutes', 'moviesCount', 'topDirectors', 'topActors'], range,
     ['celeb', 'rating'],
     ['id', 'name', 'photo']
   ]);
@@ -34,7 +34,7 @@ export async function getUserMetadata(id: number) {
 
   return {
     genres: metadataObj.genres,
-    ratings: metadataObj.ratings,
+    ratingBins: metadataObj.ratingBins,
     moviesCount: metadataObj.moviesCount,
     movieMinutes: metadataObj.movieMinutes,
     topActors,
@@ -107,7 +107,7 @@ export async function getReviewed(id: number, range: { from: number; to: number;
       poster: review.movie.poster,
       releaseDate: review.movie.releaseDate,
       rating: review.movie.rating,
-      userRating: review.rating
+      userReview: review.userReview
     });
   });
 
@@ -122,7 +122,7 @@ export async function getUserReviews(id: number, range: { from: number; to: numb
   const reviewsResponse = await model.get([
     'usersById', [id],
     'reviews', range,
-    ['id', 'movie', 'rating'],
+    ['id', 'movie', 'rating', 'watchWith', 'pace', 'theme', 'plot'],
     ['id', 'title', 'poster', 'releaseDate', 'rating']
   ]);
 
@@ -133,6 +133,7 @@ export async function getUserReviews(id: number, range: { from: number; to: numb
     if (reviewsObj[index] && typeof reviewsObj[index].id === 'number') {
       const review = reviewsObj[index];
       const movie = review.movie;
+      const { rating, watchWith, pace, plot, theme } = review;
 
       items.push({
         id: review.id,
@@ -143,7 +144,7 @@ export async function getUserReviews(id: number, range: { from: number; to: numb
           releaseDate: movie.releaseDate,
           rating: movie.rating
         },
-        rating: review.rating
+        userReview: { rating, watchWith, pace, plot, theme }
       });
     }
   }

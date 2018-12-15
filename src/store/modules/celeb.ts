@@ -5,7 +5,7 @@ import { CelebState, RootState } from '@/store/interfaces';
 
 type CelebContext = ActionContext<CelebState, RootState>;
 
-const state = {
+const state: CelebState = {
   name: null,
   photo: null,
   dob: null,

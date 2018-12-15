@@ -5,7 +5,7 @@ import { GenreState, RootState } from '@/store/interfaces';
 
 type GenreContext = ActionContext<GenreState, RootState>;
 
-const state = {
+const state: GenreState = {
   genreList: {
     items: [],
     count: 0
