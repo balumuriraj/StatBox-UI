@@ -118,14 +118,14 @@ const mutations = {
     state.poster = info.poster;
     state.releaseDate = info.releaseDate;
     state.cert = info.cert;
-    state.cast = info.cast;
-    state.crew = info.crew;
     state.genre = info.genre;
     state.rating = info.rating;
     state.ratingsCount = info.ratingsCount;
     state.runtime = info.runtime;
   },
   setMovieMetadata: (state: MovieState, metadata: any) => {
+    state.cast = metadata.cast;
+    state.crew = metadata.crew;
     state.isFavorite = metadata.isFavorite;
     state.isBookmarked = metadata.isBookmarked;
     state.ratingBins = metadata.ratingBins;
@@ -133,6 +133,8 @@ const mutations = {
     if (metadata.userReview) {
       const { rating, watchWith, pace, plot, theme } = metadata.userReview;
       state.userReview = { rating, watchWith, pace, plot, theme };
+    } else {
+      state.userReview = { rating: null, watchWith: null, pace: null, plot: null, theme: null };
     }
   },
   setMoviesAroundDate: (state: MovieState, data: any) => {

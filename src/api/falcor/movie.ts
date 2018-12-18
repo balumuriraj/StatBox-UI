@@ -47,10 +47,8 @@ export async function getMovieData(movieId: number): Promise<any> {
     'moviesById', [movieId],
     [
       'id', 'title', 'releaseDate', 'poster', 'rating', 'ratingsCount',
-      'runtime', 'genre', 'cert', 'cast', 'crew'
-    ],
-    {length: 5}, ['id', 'type', 'category', 'celeb'],
-    ['id', 'name', 'photo']
+      'runtime', 'genre', 'cert'
+    ]
   ]);
 
   const result: any = response.json.moviesById[movieId];
@@ -58,6 +56,23 @@ export async function getMovieData(movieId: number): Promise<any> {
     id, title, releaseDate, poster,
     runtime, genre, cert, rating, ratingsCount
   } = result;
+
+  return {
+    id, title, releaseDate, rating, ratingsCount,
+    poster, runtime, genre, cert
+  };
+}
+
+
+export async function getMovieMetadata(movieId: number): Promise<any> {
+  const response = await model.get([
+    'moviesById', [movieId], 'metadata',
+    ['cast', 'crew', 'ratingBins', 'isFavorite', 'isBookmarked', 'userReview'],
+    {length: 5}, ['id', 'type', 'category', 'celeb'],
+    ['id', 'name', 'photo']
+  ]);
+
+  const result: any = response.json.moviesById[movieId].metadata;
   const cast = [];
   const crew = [];
 
@@ -85,36 +100,6 @@ export async function getMovieData(movieId: number): Promise<any> {
     }
   }
 
-  return {
-    id, title, releaseDate, rating, ratingsCount,
-    poster, runtime, genre, cert, cast, crew
-  };
-}
-
-
-export async function getMovieMetadata(movieId: number): Promise<any> {
-  const response = await model.get([
-    'moviesById', [movieId], 'metadata',
-    ['ratingBins', 'isFavorite', 'isBookmarked', 'userReview']
-  ]);
-
-  const result: any = response.json.moviesById[movieId];
-
-  if (!result.metadata) {
-    return {
-      isFavorite: false,
-      isBookmarked: false,
-      ratingBins: null,
-      userReview: {
-        rating: null,
-        watchWith: null,
-        pace: null,
-        plot: null,
-        theme: null
-      }
-    };
-  }
-
-  const { isFavorite, isBookmarked, userReview, ratingBins } = result.metadata;
-  return { isFavorite, isBookmarked, userReview, ratingBins };
+  const { isFavorite, isBookmarked, userReview, ratingBins } = result;
+  return { isFavorite, isBookmarked, userReview, ratingBins, cast, crew };
 }

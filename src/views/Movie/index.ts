@@ -93,6 +93,8 @@ export default class Movie extends Vue {
         theme: this.theme
       }
     });
+
+    this.showModal = false;
   }
 
   private created() {
