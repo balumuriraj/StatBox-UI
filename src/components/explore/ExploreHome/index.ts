@@ -24,8 +24,8 @@ export default class ExploreHome extends Vue {
         image: 'upcoming.jpg'
       },
       {
-        url: '/explore/trending',
-        name: 'Trending',
+        url: '/explore/popular',
+        name: 'Popular',
         image: 'trending.jpg'
       },
       {

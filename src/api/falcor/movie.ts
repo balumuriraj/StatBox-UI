@@ -42,6 +42,41 @@ export async function getMoviesBetweenDates(
   return { items, count };
 }
 
+export async function getPopularMovies(range: { from: number; to: number; }): Promise<any> {
+  const countResponse = await model.get(['popularMovies', 'length']);
+  const count = countResponse.json.popularMovies.length;
+
+  if (!count) {
+    return {
+      items: [],
+      count: 0
+    };
+  }
+
+  const response = await model.get([
+    'popularMovies', range,
+    [ 'id', 'title', 'releaseDate', 'poster', 'rating' ]
+  ]);
+
+  const moviesObj = response.json.popularMovies;
+  const items: any[] = [];
+
+  for (const index in moviesObj) {
+    if (moviesObj[index] && moviesObj[index].id && typeof moviesObj[index].id === 'number') {
+      const movie = moviesObj[index];
+      items.push({
+        id: movie.id,
+        title: movie.title,
+        poster: movie.poster,
+        rating: movie.rating,
+        releaseDate: movie.releaseDate
+      });
+    }
+  }
+
+  return { items, count };
+}
+
 export async function getMovieData(movieId: number): Promise<any> {
   const response = await model.get([
     'moviesById', [movieId],

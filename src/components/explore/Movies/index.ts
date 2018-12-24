@@ -14,7 +14,7 @@ export default class Movies extends Vue {
   @Watch('$route.params.id')
   public onRouteIdChanged(val: string, oldVal: string) {
     if (val !== oldVal) {
-      this.fetchData();
+      this.fetchMovies();
     }
   }
 
@@ -23,21 +23,15 @@ export default class Movies extends Vue {
       homeStore.fetchLatest(this.$store);
     } else if (this.id === 'upcoming') {
       homeStore.fetchUpcoming(this.$store);
+    } else if (this.id === 'popular') {
+      homeStore.fetchPopular(this.$store);
     }
   }
 
   private created() {
     this.id = this.$route.params.id;
     this.name = this.$route.name as string;
-    this.fetchData();
-  }
-
-  private fetchData() {
-    if (this.id === 'latest') {
-      homeStore.fetchLatest(this.$store);
-    } else if (this.id === 'upcoming') {
-      homeStore.fetchUpcoming(this.$store);
-    }
+    this.fetchMovies();
   }
 
   get item() {
@@ -50,6 +44,11 @@ export default class Movies extends Vue {
       return {
         name: 'Upcoming',
         movies: homeStore.getUpcoming(this.$store)
+      };
+    } else if (this.id === 'popular') {
+      return {
+        name: 'Popular',
+        movies: homeStore.getPopular(this.$store)
       };
     }
   }

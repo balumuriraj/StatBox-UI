@@ -1,7 +1,7 @@
 import { ActionContext } from 'vuex';
 import { getStoreAccessors } from 'vuex-typescript';
 import * as API from '@/api';
-import { RootState, Items } from '@/store/interfaces';
+import { RootState } from '@/store/interfaces';
 
 // https://github.com/vuejs/vuex/blob/dev/examples/shopping-cart
 
@@ -14,6 +14,10 @@ const state: any = {
       count: 0
     },
     upcoming: {
+      items: [],
+      count: 0
+    },
+    popular: {
       items: [],
       count: 0
     },
@@ -39,6 +43,7 @@ const state: any = {
 const getters = {
   latest: (state: any) => state.movies.latest,
   upcoming: (state: any) => state.movies.upcoming,
+  popular: (state: any) => state.movies.popular,
   recent: (state: any) => state.movies.recent,
   from2010to2015: (state: any) => state.movies.from2010to2015,
   from2000to2010: (state: any) => state.movies.from2000to2010,
@@ -78,6 +83,18 @@ const actions = {
     }
   },
 
+  fetchPopular: async (context: HomeContext) => {
+    const count = context.state.movies.popular.count;
+    const length = context.state.movies.popular.items.length;
+
+    if (count === 0 || (count > length)) {
+      const from = length;
+      const to = !count || (count - from > 10) ? length + 9 : count - 1;
+      const result = await API.getPopularMovies({ from, to });
+      context.commit('setPopularMovies', result);
+    }
+  },
+
   fetchMoviesByDates: async (context: HomeContext, payload: { name: string, startDate: number, endDate: number }) => {
     const movies = context.state.movies[payload.name];
     const count = movies && movies.count || 0;
@@ -102,6 +119,11 @@ const mutations = {
   setUpcomingMovies: (state: any, data: { items: any[], count: number }) => {
     state.movies.upcoming.items = state.movies.upcoming.items.concat(data.items.slice(0));
     state.movies.upcoming.count = data.count;
+  },
+
+  setPopularMovies: (state: any, data: { items: any[], count: number }) => {
+    state.movies.popular.items = state.movies.popular.items.concat(data.items.slice(0));
+    state.movies.popular.count = data.count;
   },
 
   setMoviesByDates: (state: any, data: { name: string, items: any[], count: number }) => {
@@ -130,6 +152,7 @@ const { read, dispatch } = getStoreAccessors<any, RootState>('home');
 
 export const getLatest = read(home.getters.latest);
 export const getUpcoming = read(home.getters.upcoming);
+export const getPopular = read(home.getters.popular);
 export const getRecent = read(home.getters.recent);
 export const get2010to2015 = read(home.getters.from2010to2015);
 export const get2000to2010 = read(home.getters.from2000to2010);
@@ -137,5 +160,6 @@ export const get1990to2000 = read(home.getters.from1990to2000);
 
 export const fetchLatest = dispatch(home.actions.fetchLatest);
 export const fetchUpcoming = dispatch(home.actions.fetchUpcoming);
+export const fetchPopular = dispatch(home.actions.fetchPopular);
 
 export const fetchMoviesByDates = dispatch(home.actions.fetchMoviesByDates);
