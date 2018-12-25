@@ -25,6 +25,8 @@ export default class Movies extends Vue {
       homeStore.fetchUpcoming(this.$store);
     } else if (this.id === 'popular') {
       homeStore.fetchPopular(this.$store);
+    } else if (this.id === 'toprated') {
+      homeStore.fetchTopRated(this.$store);
     }
   }
 
@@ -49,6 +51,11 @@ export default class Movies extends Vue {
       return {
         name: 'Popular',
         movies: homeStore.getPopular(this.$store)
+      };
+    } else if (this.id === 'toprated') {
+      return {
+        name: 'Top Rated',
+        movies: homeStore.getTopRated(this.$store)
       };
     }
   }

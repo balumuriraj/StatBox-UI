@@ -14,6 +14,10 @@
       <br>
       <Carousel title="Coming Soon" :movies=upcoming.items :count=upcoming.count @fetch=fetchUpcoming :link="'/explore/upcoming'"></Carousel>
       <br>
+      <Carousel title="Popular" :movies=popular.items :count=popular.count @fetch=fetchPopular :link="'/explore/popular'"></Carousel>
+      <br>
+      <Carousel title="Top Rated" :movies=topRated.items :count=topRated.count @fetch=fetchTopRated :link="'/explore/toprated'"></Carousel>
+      <br>
       <Carousel title="2010-2015" :movies=from2010to2015.items :count=from2010to2015.count @fetch=fetchFrom2010to2015 :link="'/explore/years/2010-2015'"></Carousel>
     </div>
   </section>

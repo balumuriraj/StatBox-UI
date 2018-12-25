@@ -16,6 +16,14 @@ export default class Home extends Vue {
     return homeStore.getUpcoming(this.$store);
   }
 
+  get popular() {
+    return homeStore.getPopular(this.$store);
+  }
+
+  get topRated() {
+    return homeStore.getTopRated(this.$store);
+  }
+
   get from2010to2015() {
     return homeStore.get2010to2015(this.$store);
   }
@@ -26,6 +34,14 @@ export default class Home extends Vue {
 
   public fetchUpcoming() {
     homeStore.fetchUpcoming(this.$store);
+  }
+
+  public fetchPopular() {
+    homeStore.fetchPopular(this.$store);
+  }
+
+  public fetchTopRated() {
+    homeStore.fetchTopRated(this.$store);
   }
 
   public fetchFrom2010to2015() {
@@ -40,6 +56,8 @@ export default class Home extends Vue {
   private created() {
     this.fetchLatest();
     this.fetchUpcoming();
+    this.fetchPopular();
+    this.fetchTopRated();
     this.fetchFrom2010to2015();
   }
 }
