@@ -1,0 +1,89 @@
+.movie-card-container {
+  background: #fff;
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,0.10), 0 0 0 0 #D2D2D2;
+
+  .main-section {
+    padding: 1em;
+    display: flex;
+
+    .movie-card {
+      .data-container {
+        img {
+          height: 80px;
+          border-radius: 2.5px;
+        }
+      }
+    
+      .placeholder-container {
+        position: absolute;
+        top: 0; bottom: 0; left: 0; right: 0;
+        text-align: center;
+      }
+    }
+  
+    .info-card {
+      color: #555;
+      padding: 0em 1em;
+  
+      .title-container {
+        p { 
+          margin: 0;
+        }
+  
+        .title {
+          max-width: 200px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          font-size: 1.25em;
+          font-weight: bold;
+        }
+  
+        .sub-title {
+          font-size: 0.9em;
+          padding-top: 0.5em;
+        }
+      }
+  
+      .rating-container {
+        margin-left: -5px;
+
+        .stars {
+          font-size: 0.8em;
+        }
+      }
+    }
+  }
+
+  .buttons-section {
+    display: flex;
+    text-align: center;
+
+    .button {
+      cursor: pointer;
+      flex-grow: 1;
+      flex-basis: 0;
+      padding: 1em;
+      border-top: 1px solid #eee;
+      border-left: 1px solid #eee;
+      color: #ccc;
+      font-size: 0.9em;
+
+      .icon {
+        padding-right: 0.1em;
+      }
+    }
+
+    .favorite-button .active {
+      color: #f06060;
+    }
+
+    .bookmark-button .active {
+      color: #54a0ff;
+    }
+
+    .review-button .active {
+      color: #2ed573;
+    }
+  }
+}

@@ -122,7 +122,7 @@ export async function getUserReviews(id: number, range: { from: number; to: numb
   const reviewsResponse = await model.get([
     'usersById', [id],
     'reviews', range,
-    ['id', 'movie', 'rating', 'watchWith', 'pace', 'theme', 'plot'],
+    ['id', 'movie', 'rating', 'watchWith', 'pace', 'rewatch', 'story'],
     ['id', 'title', 'poster', 'releaseDate', 'rating']
   ]);
 
@@ -133,7 +133,7 @@ export async function getUserReviews(id: number, range: { from: number; to: numb
     if (reviewsObj[index] && typeof reviewsObj[index].id === 'number') {
       const review = reviewsObj[index];
       const movie = review.movie;
-      const { rating, watchWith, pace, plot, theme } = review;
+      const { rating, watchWith, pace, story, rewatch } = review;
 
       items.push({
         id: review.id,
@@ -144,7 +144,7 @@ export async function getUserReviews(id: number, range: { from: number; to: numb
           releaseDate: movie.releaseDate,
           rating: movie.rating
         },
-        userReview: { rating, watchWith, pace, plot, theme }
+        userReview: { rating, watchWith, pace, story, rewatch }
       });
     }
   }
@@ -212,13 +212,13 @@ export async function updateReview(review: any) {
   const response = await model.call(
     ['usersById', review.userId, 'updateReview'],
     [review],
-    [['rating', 'watchWith', 'pace', 'theme', 'plot']],
+    ['rating', 'watchWith', 'pace', 'rewatch', 'story'],
     [['reviews', 'lastUpdatedIndex']]
   );
 
   const reviews = response.json.usersById[review.userId].reviews;
   const result = reviews[reviews.lastUpdatedIndex];
-  const { rating, watchWith, pace, theme, plot } = result;
+  const { rating, watchWith, pace, rewatch, story } = result;
 
-  return { rating, watchWith, pace, theme, plot };
+  return { rating, watchWith, pace, rewatch, story };
 }

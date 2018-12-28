@@ -1,0 +1,70 @@
+.rate-container {
+  .hero {
+    background-image: url("../../assets/hero-bg5.jpg");
+    background-size: cover;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+  
+    .hero-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      height: 30vh;
+  
+      .title {
+        font-size: 2em;
+        font-weight: 700;
+        margin: 0;
+        opacity: 0.9;
+      }
+    }
+  }
+
+  .sub-menu {
+    background: #fff;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,0.10), 0 0 0 0 #D2D2D2;
+    font-size: 0.9em;
+
+    .items-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 2.5%;  
+      display: flex;
+      flex-wrap: wrap;
+      text-align: center;
+
+      p {
+        flex-grow: 1;
+        flex-basis: 0;
+        cursor: pointer;
+        margin: 0;
+        padding: 0.75em;
+        color: #555;
+        border: 1px solid #eee;
+      }
+
+      .active {
+        background: #eee;
+      }
+    }
+
+    .top {
+      p {
+        border: 0;
+      }
+
+      .active {
+        border-bottom: 2px solid #f06060;
+      }
+    }
+  }
+  
+  .list {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 1em 2.5%;
+  }
+
+}

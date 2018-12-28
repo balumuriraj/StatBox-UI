@@ -38,8 +38,8 @@ export interface MovieState {
     rating: number,
     watchWith: string,
     pace: string,
-    plot: string,
-    theme: string
+    story: string,
+    rewatch: string
   };
 }
 

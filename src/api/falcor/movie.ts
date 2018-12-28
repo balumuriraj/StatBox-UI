@@ -1,9 +1,11 @@
 import model from '@/api/falcor/model';
+import { applyUserMetadataToMovies } from './utils';
 
 export async function getMoviesBetweenDates(
   date1: number,
   date2: number,
-  range: { from: number; to: number; }
+  range: { from: number; to: number; },
+  includeUserMeta: boolean = false
 ): Promise<any> {
   const queryString = `date1=${date1}&date2=${date2}`;
 
@@ -23,56 +25,29 @@ export async function getMoviesBetweenDates(
   ]);
 
   const moviesObj = moviesResponse.json.moviesSearches[queryString];
-  const items: any[] = [];
+  const itemsObj: any = {};
 
   for (const index in moviesObj) {
     if (moviesObj[index] && moviesObj[index].id && typeof moviesObj[index].id === 'number') {
       const movie = moviesObj[index];
-      items.push({
+      itemsObj[movie.id] = {
         id: movie.id,
         title: movie.title,
         poster: movie.poster,
         cert: movie.cert,
         runtime: movie.runtime,
         releaseDate: movie.releaseDate
-      });
+      };
     }
   }
 
-  return { items, count };
-}
+  const movieIds = Object.keys(itemsObj);
 
-export async function getPopularMovies(range: { from: number; to: number; }): Promise<any> {
-  const countResponse = await model.get(['popularMovies', 'length']);
-  const count = countResponse.json.popularMovies.length;
-
-  if (!count) {
-    return {
-      items: [],
-      count: 0
-    };
+  if (includeUserMeta) {
+    await applyUserMetadataToMovies(movieIds, itemsObj);
   }
 
-  const response = await model.get([
-    'popularMovies', range,
-    [ 'id', 'title', 'releaseDate', 'poster', 'rating' ]
-  ]);
-
-  const moviesObj = response.json.popularMovies;
-  const items: any[] = [];
-
-  for (const index in moviesObj) {
-    if (moviesObj[index] && moviesObj[index].id && typeof moviesObj[index].id === 'number') {
-      const movie = moviesObj[index];
-      items.push({
-        id: movie.id,
-        title: movie.title,
-        poster: movie.poster,
-        rating: movie.rating,
-        releaseDate: movie.releaseDate
-      });
-    }
-  }
+  const items = movieIds.map((movieId) => itemsObj[movieId]);
 
   return { items, count };
 }

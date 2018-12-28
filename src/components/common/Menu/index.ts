@@ -29,7 +29,7 @@ export default class Menu extends Vue {
   }
 
   public logOut() {
-    localStorage.clear();
+    sessionStorage.clear();
     auth.logout();
   }
 

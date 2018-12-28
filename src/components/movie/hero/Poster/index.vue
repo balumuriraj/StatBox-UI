@@ -1,8 +1,8 @@
 <template>
   <div class="poster-container">
-    <img :src=imageUrl />
+    <img :src="movie && movie.poster" />
     <div class="stars-container">
-      <Rating :movieId=movieId></Rating>
+      <Rating :movie=movie></Rating>
     </div>
   </div>
 </template>

@@ -14,7 +14,13 @@ export default class Content extends Vue {
   }
 
   get isReviewed() {
-    return false;
+    return this.userReview && (
+      this.userReview.watchWith || this.userReview.pace || this.userReview.story || this.userReview.rewatch
+    );
+  }
+
+  get userReview() {
+    return movieStore.userReview(this.$store);
   }
 
   get userRating(): number {

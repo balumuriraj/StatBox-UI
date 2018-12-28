@@ -4,7 +4,7 @@ import { baseUrl } from '../config';
 
 class FalcorDataSource extends HttpDataSource {
   public onBeforeRequest(config: any) {
-    const localStore = JSON.parse(localStorage.getItem('store') as any);
+    const localStore = JSON.parse(sessionStorage.getItem('store') as any);
     const token = localStore && localStore.auth && localStore.auth.token;
 
     if (token) {

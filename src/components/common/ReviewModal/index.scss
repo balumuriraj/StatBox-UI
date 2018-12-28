@@ -1,0 +1,202 @@
+.review-container {
+  background: #fff;
+  color: #222;
+  max-height: 500px;
+  overflow: auto;
+
+  .title-container {
+    display: flex;
+    padding: 1em;
+
+    img {
+      width: 50px;
+      height: 60px;
+    }
+
+    .title-section {
+      padding-left: 0.5em;
+
+      p {
+        margin: 0;
+      }
+
+      .title {
+        font-size: 1.5em;
+        font-weight: bold;
+        margin: 0;
+        text-overflow: ellipsis;
+      }
+
+      .sub-title {
+        padding-top: 0.25em;
+        color: #aaa;
+      }
+    }
+  }
+
+  .rating-container {
+    text-align: center;
+    border: 1px solid #f0f0f0;
+
+    .stars-container {
+      display: block;
+
+      .stars {
+        font-size: 1em;
+      }
+    }
+  }
+
+  .ques-row {
+    display: flex;
+    text-align: center;
+    border-bottom: 1px solid #f0f0f0;
+
+    .ques-section {
+      padding: 1em 1em 2em 1em;
+      flex-grow: 1;
+      flex-basis: 0;
+
+      &:last-child {
+        border-left: 1px solid #f0f0f0;
+      }
+  
+      .ques {
+        color: #555;
+        font-weight: bold;
+        text-transform: capitalize;
+        padding: 0.5em;
+        border-bottom: 1px solid #f0f0f0;
+      }
+  
+      .options {
+        display: flex;
+        justify-content: center;
+  
+        .option {
+          font-size: 0.9em;
+          text-transform: capitalize;
+          cursor: pointer;
+          flex-grow: 1;
+          flex-basis: 0;
+  
+          &:last-child {
+            border-left: 1px solid #f0f0f0;
+          }
+
+          input {
+            display: none;
+          }
+
+          input[type="radio"]:checked+label {
+            background: #3498db;
+            color: #fff;
+            opacity: 1;
+          } 
+
+          label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1em 0.5em;
+            cursor: pointer;
+            opacity: 0.5;
+            text-align: center;
+
+            .icon {
+              font-size: 1.5em;
+            }
+
+            p {
+              margin: 0;
+              padding-top: 0.5em;
+            }
+          }
+
+          label:hover {
+            opacity: 1;
+          }
+        } 
+      }
+    }
+  }
+
+  .buttons-section {
+    display: flex;
+
+    button {
+      cursor: pointer;
+      flex-grow: 1;
+      flex-basis: 0;
+      padding: 1em;
+      background: #fff;
+      border: 0;
+      font-size: 1em;
+      color: #2ecc71;
+      text-transform: capitalize;
+      font-weight: bold;
+
+      &:last-child {
+        opacity: 0.8;
+        border-left: 1px solid #f0f0f0;
+        color: #f06060;
+      }
+    }
+  }
+}
+
+.modal-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .4);
+  display: table;
+  transition: opacity .3s ease;
+}
+
+.modal-wrapper {
+  display: table-cell;
+  vertical-align: bottom;
+}
+
+.modal-container {
+  width: 100%;
+  margin: 0 auto;
+  transition: all .3s ease;
+}
+
+/*
+ * The following styles are auto-applied to elements with
+ * transition="modal" when their visibility is toggled
+ * by Vue.js.
+ *
+ * You can easily play with the modal transition by editing
+ * these styles.
+ */
+
+.modal-enter {
+  opacity: 0;
+}
+
+.modal-leave-active {
+  opacity: 0;
+}
+
+.modal-enter .modal-container,
+.modal-leave-active .modal-container {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+@media only screen and (min-width: 700px) {
+  .modal-wrapper {
+    vertical-align: middle;
+  }
+
+  .modal-container {
+    max-width: 350px;
+  }
+}

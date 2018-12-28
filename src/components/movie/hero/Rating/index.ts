@@ -3,12 +3,12 @@ import * as movieStore from '@/store/modules/movie';
 
 @Component
 export default class Rating extends Vue {
-  @Prop() public movieId!: number;
+  @Prop() public movie!: any;
 
   private hoverVal: number = 0;
 
   get value(): number {
-    return movieStore.userRating(this.$store);
+    return this.movie && this.movie.userReview && this.movie.userReview.rating;
   }
 
   get hoverValue() {
@@ -39,11 +39,18 @@ export default class Rating extends Vue {
   }
 
   public async setRating(rating: number) {
-    await movieStore.updateReview(this.$store, {
-      review: {
-        movieId: this.movieId,
+    if ('setReview' in this.movie) {
+      this.movie.setReview({
+        movieId: this.movie.id,
         rating
-      }
-    });
+      });
+    } else {
+      await movieStore.updateReview(this.$store, {
+        review: {
+          movieId: this.movie.id,
+          rating
+        }
+      });
+    }
   }
 }

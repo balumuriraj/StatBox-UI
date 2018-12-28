@@ -1,8 +1,8 @@
 <template>
   <div class="list-container" ref="listBox">
     <div class="title-container">
-      <p class="title">{{ title }}</p>
-      <p class="count">{{ count }} movies</p>
+      <p class="title" v-if=title>{{ title }}</p>
+      <p class="count" v-if=count>displaying {{movies && movies.length || 0}} of {{ count }} movies</p>
     </div>
 
     <div class="list-block" v-if="movies && movies.length">

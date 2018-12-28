@@ -1,4 +1,5 @@
 import model from '@/api/falcor/model';
+import { applyUserMetadataToMovies } from './utils';
 
 export async function getGenreList(): Promise<any> {
   const countResponse = await model.get(['genresById', 'length']);
@@ -36,7 +37,11 @@ export async function getGenreData(id: number): Promise<any> {
   return { name };
 }
 
-export async function getGenreMovies(id: number, range: { from: number; to: number; }): Promise<any> {
+export async function getGenreMovies(
+  id: number,
+  range: { from: number; to: number; },
+  includeUserMeta: boolean = false
+): Promise<any> {
   const countResponse = await model.get(['genresById', [id], 'movies', 'length']);
   const count = countResponse.json.genresById[id].movies.length;
 
@@ -46,19 +51,28 @@ export async function getGenreMovies(id: number, range: { from: number; to: numb
     range, ['id', 'title', 'poster', 'releaseDate', 'rating']
   ]);
   const moviesObj = genreResponse.json.genresById[id].movies;
-  const items: any[] = [];
+  const itemsObj: any = {};
 
   for (const index in moviesObj) {
     if (moviesObj[index] && typeof moviesObj[index].id === 'number') {
-      items.push({
-        id: moviesObj[index].id,
-        title: moviesObj[index].title,
-        poster: moviesObj[index].poster,
-        releaseDate: moviesObj[index].releaseDate,
-        rating: moviesObj[index].rating
-      });
+      const movie = moviesObj[index];
+      itemsObj[movie.id] = {
+        id: movie.id,
+        title: movie.title,
+        poster: movie.poster,
+        releaseDate: movie.releaseDate,
+        rating: movie.rating
+      };
     }
   }
+
+  const movieIds = Object.keys(itemsObj);
+
+  if (includeUserMeta) {
+    await applyUserMetadataToMovies(movieIds, itemsObj);
+  }
+
+  const items = movieIds.map((movieId) => itemsObj[movieId]);
 
   return { items, count };
 }

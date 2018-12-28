@@ -22,7 +22,7 @@ const store = new Vuex.Store({
   },
   mutations: {
     initialiseStore(state) {
-      const localStore = localStorage.getItem('store');
+      const localStore = sessionStorage.getItem('store');
 
       if (localStore) {
         const payload = JSON.parse(localStore);
@@ -36,7 +36,7 @@ const store = new Vuex.Store({
 // Subscribe to store updates
 store.subscribe((mutation, state) => {
   // Store the state object as a JSON
-  localStorage.setItem('store', JSON.stringify(state));
+  sessionStorage.setItem('store', JSON.stringify(state));
 });
 
 export default store;

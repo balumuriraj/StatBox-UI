@@ -28,8 +28,8 @@ const state: MovieState = {
     rating: null,
     pace: null,
     watchWith: null,
-    plot: null,
-    theme: null
+    story: null,
+    rewatch: null
   }
 };
 
@@ -107,6 +107,7 @@ const actions = {
       return;
     }
     const result = await API.updateReview({ userId: context.rootGetters.userId, ...payload.review});
+    console.log(result);
     context.commit('updateReview', result);
   }
 };
@@ -131,10 +132,10 @@ const mutations = {
     state.ratingBins = metadata.ratingBins;
 
     if (metadata.userReview) {
-      const { rating, watchWith, pace, plot, theme } = metadata.userReview;
-      state.userReview = { rating, watchWith, pace, plot, theme };
+      const { rating, watchWith, pace, story, rewatch } = metadata.userReview;
+      state.userReview = { rating, watchWith, pace, story, rewatch };
     } else {
-      state.userReview = { rating: null, watchWith: null, pace: null, plot: null, theme: null };
+      state.userReview = { rating: null, watchWith: null, pace: null, story: null, rewatch: null };
     }
   },
   setMoviesAroundDate: (state: MovieState, data: any) => {
@@ -151,8 +152,8 @@ const mutations = {
   },
   updateReview: (state: MovieState, review: any) => {
     if (review) {
-      const { rating, watchWith, pace, plot, theme } = review;
-      state.userReview = { rating, watchWith, pace, plot, theme };
+      const { rating, watchWith, pace, story, rewatch } = review;
+      state.userReview = { rating, watchWith, pace, story, rewatch };
     }
   }
 };

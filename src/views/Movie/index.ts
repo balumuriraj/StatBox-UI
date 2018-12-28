@@ -1,7 +1,7 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import Footer from '@/components/common/Footer';
 import CelebList from '@/components/common/CelebList';
-import Modal from '@/components/common/Modal';
+import ReviewModal from '@/components/common/ReviewModal';
 import MovieList from '@/components/common/MovieList';
 import Menu from '@/components/common/Menu/index';
 import Table from '@/components/common/Table';
@@ -10,7 +10,6 @@ import Content from '@/components/movie/hero/Content';
 import Info from '@/components/movie/hero/Info';
 import Chart from '@/components/common/Chart';
 import Attributes from '@/components/movie/body/Attributes';
-import Rating from '@/components/movie/hero/Rating';
 import * as movieStore from '@/store/modules/movie';
 
 @Component({
@@ -20,10 +19,9 @@ import * as movieStore from '@/store/modules/movie';
     Content,
     Info,
     Chart,
-    Rating,
     Table,
     Menu,
-    Modal,
+    ReviewModal,
     MovieList,
     CelebList,
     Footer
@@ -67,10 +65,6 @@ export default class Movie extends Vue {
   }
 
   public showModal: boolean = false;
-  public watchWith: string = null;
-  public pace: string = null;
-  public plot: string = null;
-  public theme: string = null;
 
   @Watch('$route.params.id')
   public onRouteIdChanged(val: string, oldVal: string) {
@@ -81,20 +75,6 @@ export default class Movie extends Vue {
 
   public fetchMoviesAroundReleaseDate() {
     movieStore.fetchMoviesAroundDate(this.$store);
-  }
-
-  public async submitReview() {
-    await movieStore.updateReview(this.$store, {
-      review: {
-        movieId: this.movie.id,
-        watchWith: this.watchWith,
-        pace: this.pace,
-        plot: this.plot,
-        theme: this.theme
-      }
-    });
-
-    this.showModal = false;
   }
 
   private created() {

@@ -7,6 +7,5 @@ import Rating from '../Rating';
   }
 })
 export default class Poster extends Vue {
-  @Prop() public imageUrl!: string;
-  @Prop() public movieId!: number;
+  @Prop() public movie!: any;
 }

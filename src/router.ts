@@ -11,6 +11,7 @@ import ExploreHome from '@/components/explore/ExploreHome';
 import Movies from '@/components/explore/Movies';
 import Genre from './components/explore/Genre';
 import Years from './components/explore/Years';
+import Rate from './views/Rate';
 
 Vue.use(Router);
 
@@ -51,6 +52,12 @@ const routes = [
     name: 'login',
     component: Login,
     meta: { guestOnly: true }
+  },
+  {
+    path: '/rate',
+    name: 'rate',
+    component: Rate,
+    meta: { requireAuth: true }
   },
   {
     path: '/dashboard',
