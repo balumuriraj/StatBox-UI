@@ -2,7 +2,7 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 import Footer from '@/components/common/Footer';
 import CelebList from '@/components/common/CelebList';
 import ReviewModal from '@/components/common/ReviewModal';
-import MovieList from '@/components/common/MovieList';
+import List from '@/components/common/List';
 import Menu from '@/components/common/Menu/index';
 import Table from '@/components/common/Table';
 import Poster from '@/components/movie/hero/Poster';
@@ -22,7 +22,7 @@ import * as movieStore from '@/store/modules/movie';
     Table,
     Menu,
     ReviewModal,
-    MovieList,
+    List,
     CelebList,
     Footer
   }

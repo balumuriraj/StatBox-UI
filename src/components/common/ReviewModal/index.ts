@@ -17,24 +17,26 @@ export default class ReviewModal extends Vue {
 
 
   public async submitReview() {
-    if ('setReview' in this.movie) {
-      this.movie.setReview({
-        movieId: this.movie.id,
-        watchWith: this.watchWith,
-        pace: this.pace,
-        story: this.story,
-        rewatch: this.rewatch
-      });
-    } else {
-      await movieStore.updateReview(this.$store, {
-        review: {
+    if (this.watchWith || this.pace || this.story || this.rewatch) {
+      if ('setReview' in this.movie) {
+        this.movie.setReview({
           movieId: this.movie.id,
           watchWith: this.watchWith,
           pace: this.pace,
           story: this.story,
           rewatch: this.rewatch
-        }
-      });
+        });
+      } else {
+        await movieStore.updateReview(this.$store, {
+          review: {
+            movieId: this.movie.id,
+            watchWith: this.watchWith,
+            pace: this.pace,
+            story: this.story,
+            rewatch: this.rewatch
+          }
+        });
+      }
     }
 
     this.closeModal();

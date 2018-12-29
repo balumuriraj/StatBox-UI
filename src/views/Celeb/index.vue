@@ -15,7 +15,7 @@
 
     <!-- content -->
     <div class="list">
-      <MovieList title="Movies" :movies=celeb.movies.items :count=celeb.movies.count @fetch=fetchMovies></MovieList>
+      <List title="Movies" :items=celeb.movies.items :count=celeb.movies.count @fetch=fetchMovies></List>
     </div>
   </div>
 </template>

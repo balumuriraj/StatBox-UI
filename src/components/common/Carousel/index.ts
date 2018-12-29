@@ -1,10 +1,10 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import MovieCard from '@/components/common/MovieCard/';
+import Card from '@/components/common/Card/';
 import { swiper, swiperSlide } from 'vue-awesome-swiper';
 
 @Component({
   components: {
-    MovieCard,
+    Card,
     swiper,
     swiperSlide
   }

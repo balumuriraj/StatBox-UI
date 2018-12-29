@@ -18,18 +18,18 @@
       <template v-if="movies.length">
         <template v-for="movie in movies">
           <swiper-slide :key="movie.id">
-            <MovieCard :movie="movie"></MovieCard>
+            <Card :item="movie"></Card>
           </swiper-slide>
         </template>
         <swiper-slide v-if="currentCount < count">
-          <MovieCard></MovieCard>
+          <Card></Card>
         </swiper-slide>
       </template>
 
       <template v-else>
         <template v-for="i in 12">
           <swiper-slide :key="i">
-            <MovieCard></MovieCard>
+            <Card></Card>
           </swiper-slide>
         </template>
       </template>

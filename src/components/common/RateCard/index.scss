@@ -31,8 +31,8 @@
         }
   
         .title {
-          max-width: 200px;
-          white-space: nowrap;
+          // max-width: 200px;
+          // white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
           font-size: 1.25em;
@@ -67,7 +67,7 @@
       border-top: 1px solid #eee;
       border-left: 1px solid #eee;
       color: #ccc;
-      font-size: 0.9em;
+      font-size: 0.85em;
 
       .icon {
         padding-right: 0.1em;

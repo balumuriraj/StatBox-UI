@@ -23,7 +23,7 @@
         <div class="navbar-start">
           <router-link class="navbar-item" to="/explore">explore</router-link>
           <router-link v-if="isUserLoggedIn" class="navbar-item" to="/rate">rate</router-link>
-          <router-link class="navbar-item" to="/">search</router-link>
+          <router-link class="navbar-item" to="/search">search</router-link>
         </div>
         <div class="navbar-end">
           <router-link v-if="isUserLoggedIn" class="navbar-item" to="/dashboard">{{user.name}}</router-link>
@@ -43,7 +43,7 @@
         <router-link v-if="isUserLoggedIn" class="navbar-item" to="/rate">
           <font-awesome-icon icon="star" class="icon"></font-awesome-icon> rate
         </router-link>
-        <router-link class="navbar-item" to="/">
+        <router-link class="navbar-item" to="/search">
           <font-awesome-icon icon="search" class="icon"></font-awesome-icon> search
         </router-link>
         <router-link v-if="isUserLoggedIn" class="navbar-item" to="/dashboard">

@@ -1,10 +1,10 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
-import MovieList from '@/components/common/MovieList';
+import List from '@/components/common/List';
 import * as celebStore from '@/store/modules/celeb';
 
 @Component({
   components: {
-    MovieList
+    List
   }
 })
 export default class Celeb extends Vue {

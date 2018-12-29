@@ -107,7 +107,6 @@ const actions = {
       return;
     }
     const result = await API.updateReview({ userId: context.rootGetters.userId, ...payload.review});
-    console.log(result);
     context.commit('updateReview', result);
   }
 };

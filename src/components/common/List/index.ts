@@ -1,22 +1,22 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import MovieCard from '@/components/common/MovieCard';
+import Card from '@/components/common/Card';
 import EmptyBox from '@/components/common/EmptyBox';
 
 @Component({
   components: {
-    MovieCard,
+    Card,
     EmptyBox
   }
 })
 export default class List extends Vue {
   @Prop() public title!: string;
-  @Prop() public movies!: object[];
+  @Prop() public items!: object[];
   @Prop() public count!: number;
 
   public loading: boolean = false;
 
   get currentCount(): number {
-    return this.movies.length;
+    return this.items.length;
   }
 
   @Watch('currentCount')
@@ -37,7 +37,7 @@ export default class List extends Vue {
       if (!this.loading) {
         const isBottom = this.isScrollBottom();
 
-        if (isBottom && (this.movies.length < this.count)) {
+        if (isBottom && (this.items.length < this.count)) {
           this.loading = true;
           this.$emit('fetch');
         }

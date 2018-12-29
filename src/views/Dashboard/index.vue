@@ -95,15 +95,15 @@
           </div>
 
           <div class="item-container" :class="{ 'active': isFavorite }">
-            <MovieList :title="'Favorites'" :movies=user.favorites.items :count=user.favorites.count @fetch=fetchFavorites></MovieList>
+            <List :title="'Favorites'" :items=user.favorites.items :count=user.favorites.count @fetch=fetchFavorites></List>
           </div>
 
           <div class="item-container" :class="{ 'active': isWatchlist }">
-            <MovieList :title="'Watchlist'" :movies=user.bookmarks.items :count=user.bookmarks.count @fetch=fetchBookmarks></MovieList>
+            <List :title="'Watchlist'" :items=user.bookmarks.items :count=user.bookmarks.count @fetch=fetchBookmarks></List>
           </div>
 
           <div class="item-container" :class="{ 'active': isRatings }">
-            <MovieList :title="'Ratings'" :movies=user.reviewed.items :count=user.reviewed.count @fetch=fetchReviewed></MovieList>
+            <List :title="'Ratings'" :items=user.reviewed.items :count=user.reviewed.count @fetch=fetchReviewed></List>
           </div>
 
           <div class="item-container" :class="{ 'active': isTrophies }">

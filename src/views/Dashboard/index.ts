@@ -1,7 +1,7 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import Menu from '@/components/common/Menu';
 import Footer from '@/components/common/Footer';
-import MovieList from '@/components/common/MovieList';
+import List from '@/components/common/List';
 import EmptyBox from '@/components/common/EmptyBox';
 import Overview from '@/components/dashboard/Overview';
 import Trophies from '@/components/dashboard/Trophies';
@@ -12,7 +12,7 @@ import * as authStore from '@/store/modules/auth';
     Menu,
     Footer,
     Overview,
-    MovieList,
+    List,
     Trophies,
     EmptyBox
   }

@@ -12,6 +12,7 @@ import Movies from '@/components/explore/Movies';
 import Genre from './components/explore/Genre';
 import Years from './components/explore/Years';
 import Rate from './views/Rate';
+import Search from './views/Search';
 
 Vue.use(Router);
 
@@ -79,6 +80,11 @@ const routes = [
     path: '/user/:id',
     name: 'user',
     component: User
+  },
+  {
+    path: '/search',
+    name: 'search',
+    component: Search
   }
 ];
 

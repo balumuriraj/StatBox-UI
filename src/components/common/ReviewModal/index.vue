@@ -111,8 +111,8 @@
             </div>
 
             <div class="buttons-section">
-              <button @click.prevent="submitReview">submit</button>
-              <button @click.prevent="closeModal">close</button>
+              <!-- <button @click.prevent="submitReview">submit</button> -->
+              <button @click.prevent="submitReview">close</button>
             </div>
           </div>
         </div>

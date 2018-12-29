@@ -8,7 +8,7 @@
     </div>
     
     <div class="list">
-      <MovieList :title=null :movies=movies.items :count=movies.count @fetch=fetchMovies></MovieList>
+      <List :title=null :items=movies.items :count=movies.count @fetch=fetchMovies></List>
     </div>
   </div>
 </template>

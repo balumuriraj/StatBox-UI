@@ -2,12 +2,12 @@
   <div class="list-container" ref="listBox">
     <div class="title-container">
       <p class="title" v-if=title>{{ title }}</p>
-      <p class="count" v-if=count>displaying {{movies && movies.length || 0}} of {{ count }} movies</p>
+      <p class="count" v-if=count>displaying {{items && items.length || 0}} of {{ count }} items</p>
     </div>
 
-    <div class="list-block" v-if="movies && movies.length">
-      <div v-for="movie in movies" :key="movie.id" class="list-item">
-        <MovieCard :movie="movie"></MovieCard>
+    <div class="list-block" v-if="items && items.length">
+      <div v-for="item in items" :key="item.id" class="list-item">
+        <Card :item="item"></Card>
       </div>
     </div>
 
