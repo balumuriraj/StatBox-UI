@@ -39,13 +39,14 @@
     </div>
     <div class="genres-container">
       <Title :name="'Top Genres'" :subtitle="'watched by you'"></Title>
-      <div class="word-cloud-container">
+      <div class="word-cloud-container" v-if="genres && genres.length">
         <vue-word-cloud
           :words=genres
           :color="([, weight]) => weight > 10 ? 'rgb(217, 156, 209)' : weight > 5 ? 'rgb(201, 156, 209)' : 'rgb(185, 156, 209)'"
           font-family="Righteous"
         />
       </div>
+      <EmptyBox v-else></EmptyBox>
     </div>
   </div>
 </template>

@@ -18,11 +18,11 @@ export default class ExploreHome extends Vue {
         name: 'Latest',
         image: 'latest.jpg'
       },
-      {
-        url: '/explore/upcoming',
-        name: 'Upcoming',
-        image: 'upcoming.jpg'
-      },
+      // {
+      //   url: '/explore/upcoming',
+      //   name: 'Upcoming',
+      //   image: 'upcoming.jpg'
+      // },
       {
         url: '/explore/popular',
         name: 'Popular',
@@ -52,12 +52,12 @@ export default class ExploreHome extends Vue {
         url: '/explore/years/2000-2010',
         name: '2000-2010',
         image: '2000-2010.jpg'
-      },
-      {
-        url: '/explore/years/1990-2000',
-        name: '1990-2000',
-        image: '1990-2000.jpg'
       }
+      // {
+      //   url: '/explore/years/1990-2000',
+      //   name: '1990-2000',
+      //   image: '1990-2000.jpg'
+      // }
     ];
   }
 
@@ -67,7 +67,7 @@ export default class ExploreHome extends Vue {
       return {
         url: '/explore/genre/' + item.id,
         name: item.name,
-        image: 'latest.jpg',
+        image: `${item.name}.jpg`,
         count: item.moviesCount
       };
     });

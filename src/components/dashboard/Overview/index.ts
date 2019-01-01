@@ -2,6 +2,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import CelebList from '@/components/common/CelebList';
 import Chart from '@/components/common/Chart';
 import Title from '@/components/common/Title';
+import EmptyBox from '@/components/common/EmptyBox';
 import VueWordCloud from 'vuewordcloud';
 import * as authStore from '@/store/modules/auth';
 
@@ -10,7 +11,8 @@ import * as authStore from '@/store/modules/auth';
     CelebList,
     Chart,
     Title,
-    VueWordCloud
+    VueWordCloud,
+    EmptyBox
   }
 })
 export default class Overview extends Vue {

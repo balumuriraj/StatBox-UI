@@ -19,7 +19,10 @@ export async function getUserMetadata(id: number) {
     if (topActorsObj[prop] && 'celeb' in topActorsObj[prop]) {
       const { celeb, rating } = topActorsObj[prop];
       const { id, name, photo } = celeb;
-      topActors.push({ id, name, photo, rating});
+
+      if (id) {
+        topActors.push({ id, name, photo, rating});
+      }
     }
   }
 
@@ -28,7 +31,10 @@ export async function getUserMetadata(id: number) {
     if (topDirectorsObj[prop] && 'celeb' in topDirectorsObj[prop]) {
       const { celeb, rating } = topDirectorsObj[prop];
       const { id, name, photo } = celeb;
-      topDirectors.push({ id, name, photo, rating});
+
+      if (id) {
+        topDirectors.push({ id, name, photo, rating});
+      }
     }
   }
 

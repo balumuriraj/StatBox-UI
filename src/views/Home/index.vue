@@ -12,8 +12,8 @@
     <div class="carousels">
       <Carousel title="Latest" :movies=latest.items :count=latest.count @fetch=fetchLatest :link="'/explore/latest'"></Carousel>
       <br>
-      <Carousel title="Coming Soon" :movies=upcoming.items :count=upcoming.count @fetch=fetchUpcoming :link="'/explore/upcoming'"></Carousel>
-      <br>
+      <!-- <Carousel title="Coming Soon" :movies=upcoming.items :count=upcoming.count @fetch=fetchUpcoming :link="'/explore/upcoming'"></Carousel>
+      <br> -->
       <Carousel title="Popular" :movies=popular.items :count=popular.count @fetch=fetchPopular :link="'/explore/popular'"></Carousel>
       <br>
       <Carousel title="Top Rated" :movies=topRated.items :count=topRated.count @fetch=fetchTopRated :link="'/explore/toprated'"></Carousel>

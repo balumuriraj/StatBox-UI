@@ -1,9 +1,9 @@
 <template>
   <div class="celebs-list-contianer">
     <Title :name=title :subtitle=subtitle></Title>
-    <div class="celebs-list">
+    <div class="celebs-list" v-if="celebs && celebs.length">
       <template v-for="(celeb, index) in celebs">
-        <router-link :to="'/celeb/' + celeb.id" tag="div" class="celeb-container" :key='index'>
+        <router-link :to="'/celeb/' + celeb.id" tag="div" class="celeb-container" :key='index' v-if=celeb>
           <div class="celeb-image">
             <template v-if="celeb.photo">
               <img :src="celeb.photo">
@@ -18,6 +18,9 @@
           </div>
         </router-link>
       </template>
+    </div>
+    <div v-else>
+      <EmptyBox></EmptyBox>
     </div>
   </div>
 </template>
