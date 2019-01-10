@@ -21,24 +21,75 @@
       </div>
       <div class="navbar-menu desktop">
         <div class="navbar-start">
-          <router-link class="navbar-item" to="/explore">explore</router-link>
-          <router-link v-if="isUserLoggedIn" class="navbar-item" to="/rate">rate</router-link>
-          <router-link class="navbar-item" to="/search">search</router-link>
+          <router-link class="navbar-bucket" to="/explore">
+            <span class="navbar-item">movies</span>
+            <div class="navbar-bucket-items">
+              <router-link class="navbar-bucket-item" to="/explore/latest">Genres</router-link>
+              <router-link class="navbar-bucket-item" to="/explore/popular">Years</router-link>
+              <router-link class="navbar-bucket-item" to="/explore">More...</router-link>
+            </div>
+          </router-link>
+          <router-link class="navbar-bucket" v-if="isUserLoggedIn" to="/rate">
+            <span class="navbar-item">rate</span>
+          </router-link>
+          <router-link class="navbar-bucket" to="/search">
+            <span class="navbar-item">search</span>
+          </router-link>
         </div>
         <div class="navbar-end">
-          <router-link v-if="isUserLoggedIn" class="navbar-item" to="/dashboard">{{user.name}}</router-link>
-          <a v-if="isUserLoggedIn" class="navbar-item" @click="logOut">Logout</a>
-          <router-link v-if="!isUserLoggedIn" class="navbar-item" to="/login">Login</router-link>
+          <router-link class="navbar-bucket" to="/dashboard" v-if="isUserLoggedIn">
+            <div class="navbar-item">
+              <div class="img-holder">
+                <img src="../../../assets/avatar.png" />
+              </div>
+              <font-awesome-icon icon="caret-down" class="icon"></font-awesome-icon>
+            </div>
+            <div class="navbar-bucket-items">
+              <router-link class="navbar-bucket-item" to="/dashboard">Dashboard</router-link>
+              <router-link class="navbar-bucket-item" to="/settings">Settings</router-link>
+              <a v-if="isUserLoggedIn" class="navbar-bucket-item" @click="logOut">Logout</a>
+            </div>
+          </router-link>
+          <router-link v-if="!isUserLoggedIn" class="navbar-button" to="/login">Login</router-link>
         </div>
       </div>
     </div>
     <div class="navbar-side-menu" :class="{ 'active': isSideMenuActive }" @click="toggleSideMenu()">
       <div class="navbar-item-container" @click.stop="toggleSideMenu()">
-        <router-link class="navbar-item" to="/">
+        <router-link class="navbar-item brand" to="/" v-if="!isUserLoggedIn">StatBox</router-link>
+        <router-link class="navbar-item title-container" to="/dashboard" v-if="isUserLoggedIn">
+          <div class="img-holder">
+            <img src="../../../assets/avatar.png" />
+          </div>
+          <div class="info-block">
+            <p>{{user.name}}</p>
+            <div class="numbers-block">
+              <div class="item">
+                <font-awesome-icon icon="heart" class="icon favorites-icon"></font-awesome-icon> {{user.favorites.count || 0}}
+              </div>
+              <div class="item">
+                <font-awesome-icon icon="bookmark" class="icon bookmark-icon"></font-awesome-icon> {{user.bookmarks.count || 0}}
+              </div>
+              <div class="item">
+                <font-awesome-icon icon="star" class="icon rating-icon"></font-awesome-icon> {{user.reviewed.count || 0}}
+              </div>
+            </div>
+          </div>
+        </router-link>
+        <router-link class="navbar-item" to="/" v-if="isUserLoggedIn">
           <font-awesome-icon icon="home" class="icon"></font-awesome-icon> Home
         </router-link>
         <router-link class="navbar-item" to="/explore">
-          <font-awesome-icon icon="film" class="icon"></font-awesome-icon> explore
+          <font-awesome-icon icon="film" class="icon"></font-awesome-icon> Movies
+        </router-link>
+        <router-link class="navbar-item sub" to="/explore">
+          <font-awesome-icon icon="caret-right" class="icon"></font-awesome-icon> Genres
+        </router-link>
+        <router-link class="navbar-item sub" to="/explore">
+          <font-awesome-icon icon="caret-right" class="icon"></font-awesome-icon> By Years
+        </router-link>
+        <router-link class="navbar-item sub" to="/explore">
+          <font-awesome-icon icon="caret-right" class="icon"></font-awesome-icon> More...
         </router-link>
         <router-link v-if="isUserLoggedIn" class="navbar-item" to="/rate">
           <font-awesome-icon icon="star" class="icon"></font-awesome-icon> rate
@@ -46,14 +97,13 @@
         <router-link class="navbar-item" to="/search">
           <font-awesome-icon icon="search" class="icon"></font-awesome-icon> search
         </router-link>
-        <router-link v-if="isUserLoggedIn" class="navbar-item" to="/dashboard">
-          <font-awesome-icon icon="user" class="icon"></font-awesome-icon> 
-          {{user.name}}
+        <router-link class="navbar-item log" to="/settings" v-if="isUserLoggedIn">
+          <font-awesome-icon icon="cog" class="icon"></font-awesome-icon> settings
         </router-link>
-        <a v-if="isUserLoggedIn" class="navbar-item" @click="logOut">
+        <a v-if="isUserLoggedIn" class="navbar-item log" @click="logOut">
           <font-awesome-icon icon="sign-out-alt" class="icon"></font-awesome-icon> Logout
         </a>
-        <router-link v-if="!isUserLoggedIn" class="navbar-item" to="/login">
+        <router-link v-if="!isUserLoggedIn" class="navbar-item log" to="/login">
           <font-awesome-icon icon="sign-in-alt" class="icon"></font-awesome-icon> Login
         </router-link>
       </div>

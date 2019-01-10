@@ -17,7 +17,7 @@
                 <img :src="require(`@/assets/${item.image}`)">
               </div>
             </div>
-            <p class="name">{{item.name}}</p>
+            <p class="name-container"><span>{{item.name}}</span></p>
           </router-link>
         </div>
       </div>
@@ -31,7 +31,7 @@
                 <img :src="require(`@/assets/${item.image}`)">
               </div>
             </div>
-            <p class="name">{{item.name}}</p>
+            <p class="name-container"><span>{{item.name}}</span></p>
           </router-link>
         </div>
       </div>
@@ -45,13 +45,13 @@
                 <img :src="require(`@/assets/${item.image}`)">
               </div>
             </div>
-            <p class="name">{{item.name}}</p>
+            <p class="name-container"><span>{{item.name}}</span></p>
           </router-link>
         </div>
         <div class="genre-list-container">
-          <div v-for="genre in restGenreList" :key="genre.id" class="genre-card-container" v-if="genre.moviesCount > 2">
-            <router-link class="genre-card" :to="'/explore/genre/' + genre.id">
-              <p class="name"><font-awesome-icon icon="film" class="icon"></font-awesome-icon> {{genre.name}}</p>
+          <div v-for="genre in restGenreList" :key="genre.id" class="genre-card-container">
+            <router-link class="genre-card" :to="'/explore/genre/' + genre.id" v-if="genre.moviesCount > 2">
+              <p class="name-container"><font-awesome-icon icon="film" class="icon"></font-awesome-icon> {{genre.name}}</p>
             </router-link>
           </div>
         </div>

@@ -34,22 +34,138 @@
         align-self: center;
         display: flex;
         justify-content: flex-start;
+
+        .navbar-bucket {
+          position: relative;
+          text-align: center;
+          text-transform: capitalize;
+          padding: 0.75em;
+          cursor: pointer;
+          text-decoration: none;
+          color: #fff;
+          border: 2px solid transparent;
+
+          &:hover {
+            border-bottom: 2px solid #f06060;
+          }
+
+          &:hover > .navbar-bucket-items {
+            display: flex;
+          }
+
+          .navbar-bucket-items {
+            background: #fff;
+            position: absolute;
+            top: 41.5px;
+            left: 0;
+            display: none;
+            flex-direction: column;
+            box-shadow: 0 5px 15px 0 rgba(37,44,97,0.15), 0 2px 4px 0 rgba(93,100,148,0.2);
+
+            &:hover {
+              display: flex;
+            }
+            
+            .navbar-bucket-item {
+              text-align: left;
+              width: 125px;
+              padding: 1em;
+              text-decoration: none;
+              font-size: 0.9em;
+              color: #222;
+
+              &:hover {
+                background: #f0f0f0;
+              }
+            }
+          }
+        }
       }
   
       .navbar-end {
+        flex-grow: 1;
         align-self: center;
+        display: flex;
+        justify-content: flex-end;
+
+        .navbar-bucket {
+          position: relative;
+          cursor: pointer;
+          text-decoration: none;
+
+          &:hover > .navbar-bucket-items {
+            display: flex;
+          }
+
+          .navbar-item {
+            display: flex;
+
+            .img-holder {
+              background: rgba(255,255,255,0.75);
+              border-radius: 50px;
+              margin: 0.5em;
+              
+              img {
+                padding: 0 2.5px;
+                width: 27.5px;
+                height: 27.5px;
+              }
+            }
+
+            .icon {
+              margin-left: -2.5px;
+              font-size: 1em;
+              color: #ccc;
+              align-self: center;
+            }
+          }
+
+          .navbar-bucket-items {
+            background: #fff;
+            position: absolute;
+            top: 42.5px;
+            right: 0;
+            display: none;
+            flex-direction: column;
+            box-shadow: 0 5px 15px 0 rgba(37,44,97,0.15), 0 2px 4px 0 rgba(93,100,148,0.2);
+
+            &:hover {
+              display: flex;
+            }
+            
+            .navbar-bucket-item {
+              text-align: center;
+              width: 125px;
+              padding: 1em;
+              text-decoration: none;
+              font-size: 0.9em;
+              color: #222;
+
+              &:hover {
+                background: #f0f0f0;
+              }
+
+              &:last-child {
+                border-top: 1px solid #ccc;
+              }
+            }
+          }
+        }
+
+        .navbar-button {
+          padding: 0.5em 1em;
+          background: rgba(255,255,255,0.5);
+          align-self: center;
+          text-decoration: none;
+          color: #111;
+          font-size: 0.9em;
+          border-radius: 3px;
+        }
       }
   
       .navbar-item {
-        text-transform: capitalize;
-        padding: 0.75em;
-
         .icon-container {
           font-size: 1.5em;
-        }
-
-        &:last-child {
-          padding-right: 0;
         }
       }
     }
@@ -65,6 +181,24 @@
     }
   }
 
+  .sub-navbar-container {
+    background: #fff;
+    padding: 0 2.5%;
+
+    .sub-navbar-menu {
+      display: flex;
+      margin-left: 90px;
+
+      .navbar-item {
+        cursor: pointer;
+        text-decoration: none;
+        text-transform: capitalize;
+        padding: 0.75em;
+        color: #444;
+      }
+    }
+  }
+
   .navbar-side-menu {
     display: none;
     position: absolute;
@@ -72,15 +206,14 @@
     left: 0;
     z-index: 5;
     width: 100%;
-    background: rgba(0,0,0,0.75);
+    background: rgba(44, 44, 49, 0.75);
 
     .navbar-item-container {
       position: relative;
-      min-width: 40%;
-      max-width: 60%;
+      width: 275px;
       height: 100vh;
-      background: #191919;
-      box-shadow: 0 1px 1px 0 rgba(0,0,0,0.10), 0 0 0 0 #D2D2D2;
+      background: #232229;
+      box-shadow: -1em 0 4em #000;
 
       .navbar-item {
         cursor: pointer;
@@ -88,7 +221,85 @@
         color: #fff;
         padding: 1em;
         display: block;
-        border-bottom: 1px solid #222;
+        text-transform: capitalize;
+
+        &:hover {
+          background: #2f2e37;
+        }
+      }
+
+      .brand {
+        color: #f06060;
+        font-size: 1.5em;
+        font-weight: bold;
+        border-bottom: 1px solid #2f2e37;
+        padding: 0.75em;
+      }
+
+      .sub {
+        padding-left: 2.5em;
+        font-size: 0.9em;
+        background: #27262e;
+
+        .icon {
+          padding-right: 0.1em;
+        }
+      }
+
+      .log {
+        border-top: 1px solid #2f2e37;
+        border-bottom: 1px solid #2f2e37;
+      }
+
+      .title-container {
+        display: flex;
+        border-bottom: 1px solid #2f2e37;
+        padding: 1.25em 1em;
+
+        .img-holder {
+          img {
+            background: #fff;
+            border-radius: 3px;
+            padding: 0 2.5px;
+            width: 45px;
+            height: 45px;
+          }
+        }
+
+        .info-block {
+          margin-left: 0.5em;
+
+          p {
+            margin: 0;
+            font-size: 1.25em;
+            width: 200px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          .numbers-block {
+            margin-top: 0.25em;
+
+            .item {
+              display: inline-block;
+              margin-right: 1em;
+              opacity: 0.75;
+          
+              .favorites-icon {
+                color: #f06060;
+              }
+          
+              .bookmark-icon {
+                color: #54a0ff;
+              }
+          
+              .rating-icon {
+                color: #feca57;
+              }
+            }
+          }
+        }
       }
     }
   }

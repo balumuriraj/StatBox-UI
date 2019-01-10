@@ -13,6 +13,7 @@ import Genre from './components/explore/Genre';
 import Years from './components/explore/Years';
 import Rate from './views/Rate';
 import Search from './views/Search';
+import Settings from './views/Settings';
 
 Vue.use(Router);
 
@@ -85,6 +86,12 @@ const routes = [
     path: '/search',
     name: 'search',
     component: Search
+  },
+  {
+    path: '/settings',
+    name: 'settings',
+    component: Settings,
+    meta: { requireAuth: true }
   }
 ];
 

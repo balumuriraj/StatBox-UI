@@ -45,12 +45,12 @@ export default class ExploreHome extends Vue {
       },
       {
         url: '/explore/years/2010-2015',
-        name: '2010-2015',
+        name: '2010s',
         image: '2010-2015.jpg'
       },
       {
         url: '/explore/years/2000-2010',
-        name: '2000-2010',
+        name: '2000s',
         image: '2000-2010.jpg'
       }
       // {
