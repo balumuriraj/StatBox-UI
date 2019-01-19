@@ -2,10 +2,10 @@
   <section class="wrapper">
     <div class="hero">
       <div class="theme">
-        <img src="../../assets/toprated.jpg">
+        <img :src="require(`@/assets/themes/${user.theme || '1.svg'}`)">
       </div>
       <div class="hero-body">
-        <img src="../../assets/avatar.png" width="150">
+        <img :src="require(`@/assets/avatars/${user.avatar || '3.png'}`)" width="150">
         <p class="title">{{user.name}}</p>
         <div class="sub">
           <font-awesome-icon icon="cog" class="icon"></font-awesome-icon> Settings
@@ -24,7 +24,7 @@
           <div class="item-container">
             <template v-for="avatar in avatars">
               <div class="item avatar" :key="avatar.name" @click="selectedAvatar = avatar.name" :class="{'active': selectedAvatar === avatar.name}">
-                <img :src="require(`@/assets/${avatar.url}`)" >
+                <img :src="require(`@/assets/avatars/${avatar.url}`)" >
               </div>
             </template>
           </div>
@@ -35,7 +35,7 @@
           <div class="item-container">
             <template v-for="theme in themes">
               <div class="item theme" :key="theme.name" @click="selectedTheme = theme.name" :class="{'active': selectedTheme === theme.name}">
-                <img :src="require(`@/assets/${theme.url}`)" >
+                <img :src="require(`@/assets/themes/${theme.url}`)" >
               </div>
             </template>
           </div>
@@ -46,7 +46,7 @@
       <font-awesome-icon icon="times" class="icon" @click="selectedTheme = null; selectedAvatar=null;"></font-awesome-icon>
       <div>
         <p>Your settings have changed</p>
-        <button>save</button>
+        <button @click="save">save</button>
       </div>
     </div>
   </section>

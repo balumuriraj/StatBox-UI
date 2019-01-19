@@ -9,6 +9,8 @@ const state: AuthState = {
   user: {
     id: null,
     name: null,
+    avatar: null,
+    theme: null,
     photo: null,
     lastLogin: null,
     userSince: null,
@@ -139,6 +141,12 @@ const actions = {
   },
   resetAuthUser: async (context: UserContext) => {
     context.commit('resetAuthUser');
+  },
+  saveUserAvatar: async (context: UserContext, payload: { avatar: string }) => {
+    context.commit('saveUserAvatar', payload.avatar);
+  },
+  saveUserTheme: async (context: UserContext, payload: { theme: string }) => {
+    context.commit('saveUserTheme', payload.theme);
   }
 };
 
@@ -230,6 +238,12 @@ const mutations = {
     };
     state.isLoggedIn = false;
     state.token = null;
+  },
+  saveUserAvatar: (state: any, avatar: string) => {
+    state.user.avatar = avatar;
+  },
+  saveUserTheme: (state: any, theme: string) => {
+    state.user.theme = theme;
   }
 };
 
@@ -251,3 +265,5 @@ export const fetchUserData = dispatch(auth.actions.fetchUserData);
 export const fetchBookmarks = dispatch(auth.actions.fetchBookmarks);
 export const fetchFavorites = dispatch(auth.actions.fetchFavorites);
 export const fetchReviewed = dispatch(auth.actions.fetchReviewed);
+export const saveUserAvatar = dispatch(auth.actions.saveUserAvatar);
+export const saveUserTheme = dispatch(auth.actions.saveUserTheme);

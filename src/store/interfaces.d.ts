@@ -47,6 +47,8 @@ export interface AuthState {
   user: {
     id: number;
     name: string;
+    avatar: string;
+    theme: string;
     photo: string;
     lastLogin: number;
     userSince: number;

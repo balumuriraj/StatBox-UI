@@ -3,7 +3,7 @@
     <section class="hero">
       <div class="hero-body">
         <div class="img-container">
-          <img src="../../assets/avatar.png" width="150">
+          <img :src="require(`@/assets/avatars/${user.avatar || '3.png'}`)" width="150">
           <p class="title">{{user.name}}</p>
           <div class="numbers-block">
             <div class="item">
@@ -25,7 +25,7 @@
       <div class="left-section">
         <div class="img-container">
           <div class="img-block">
-            <img src="../../assets/avatar.png" width="150">
+            <img :src="require(`@/assets/avatars/${user.avatar || '3.png'}`)" width="150">
           </div>
         </div>
         <div class="trophies-container">

@@ -40,7 +40,7 @@
           <router-link class="navbar-bucket" to="/dashboard" v-if="isUserLoggedIn">
             <div class="navbar-item">
               <div class="img-holder">
-                <img src="../../../assets/avatar.png" />
+                <img :src="require(`@/assets/avatars/${user.avatar || '3.png'}`)" />
               </div>
               <font-awesome-icon icon="caret-down" class="icon"></font-awesome-icon>
             </div>
@@ -59,7 +59,7 @@
         <router-link class="navbar-item brand" to="/" v-if="!isUserLoggedIn">StatBox</router-link>
         <router-link class="navbar-item title-container" to="/dashboard" v-if="isUserLoggedIn">
           <div class="img-holder">
-            <img src="../../../assets/avatar.png" />
+            <img :src="require(`@/assets/avatars/${user.avatar || '3.png'}`)" />
           </div>
           <div class="info-block">
             <p>{{user.name}}</p>
