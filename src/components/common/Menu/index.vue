@@ -7,7 +7,10 @@
   >
     <div class="navbar-container">
       <div class="navbar-brand">
-        <router-link class="navbar-item" to="/">StatBox</router-link>
+        <router-link class="navbar-item" to="/">
+          <div class="logo"><img :src="require('@/assets/logo.svg')"></div>
+          <div class="title">StatBox</div>
+        </router-link>
       </div>
       <div class="navbar-menu mobile">
         <div class="navbar-start"></div>
