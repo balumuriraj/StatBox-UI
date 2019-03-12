@@ -1,6 +1,7 @@
 .movie-card-container {
-  background: #fff;
-  box-shadow: 0 1px 1px 0 rgba(0,0,0,0.10), 0 0 0 0 #D2D2D2;
+  background: rgba(255,255,255,0.05);;
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,0.10), 0 0 0 0 #000;
+  border-radius: 3px;
 
   .main-section {
     padding: 1em;
@@ -22,7 +23,7 @@
     }
   
     .info-card {
-      color: #555;
+      color: #dfe4ea;
       padding: 0em 1em;
   
       .title-container {
@@ -64,9 +65,9 @@
       flex-grow: 1;
       flex-basis: 0;
       padding: 1em;
-      border-top: 1px solid #eee;
-      border-left: 1px solid #eee;
-      color: #ccc;
+      border-top: 1px solid #100e17;
+      border-left: 1px solid #100e17;
+      color: #838c98;
       font-size: 0.85em;
 
       .icon {
@@ -75,7 +76,7 @@
     }
 
     .favorite-button .active {
-      color: #f06060;
+      color: #FC5C65;
     }
 
     .bookmark-button .active {

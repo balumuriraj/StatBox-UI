@@ -1,16 +1,27 @@
 .dashboard {
   .hero {
-    background-image: url("../../assets/hero-bg5.jpg");
+    background-image: url("../../assets/hero-bg.svg");
     background-size: cover;
     position: relative;
     clip-path: inset(0 0 0 0);
     display: flex;
     justify-content: center;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, rgba(16, 14, 23, 0.15) 0%, #100e17 100%);
+    }
   
     .hero-body {
+      z-index: 1;
       margin-top: 40px;
       padding: 3em;
-      color: #fff;
+      color: #DFE4EA;
       text-align: center;
 
       .img-container {
@@ -47,16 +58,16 @@
       .menu-container {
         display: flex;
         justify-content: center;
-        background: #fff;
+        background: rgba(255,255,255,0.05);
         box-shadow: 0 1px 1px 0 rgba(0,0,0,0.10), 0 0 0 0 #D2D2D2;
     
         .menu-item {
           padding: 1em;
           cursor: pointer;
-          color: #aaa;
+          color: #41464C;
     
           .icon-container {
-            color: #D2D2D2;
+            color: #41464C;
             display: inline;
             padding-right: 5px;
           }
@@ -67,11 +78,11 @@
         }
     
         .active {
-          color: #555;
-          border-bottom: 2px solid #f06060;
+          color: #DFE4EA;
+          border-bottom: 2px solid #FC5C65;
     
           .icon-container {
-            color: #555;
+            color: #DFE4EA;
           }
         }
       }  
@@ -133,7 +144,7 @@
           display: block;
           height: 90px;
           margin-top: -90px;
-          color: #fff;
+          color: #DFE4EA;
 
           .title {
             margin: 0;
@@ -156,7 +167,7 @@
 }
 
 .trophies-container {
-  background: #fff;
+  background: rgba(255,255,255,0.05);
   padding: 1em;
   margin-top: 1em;
   text-align: center;
@@ -165,7 +176,7 @@
     margin: 0;
     font-size: 1.25em;
     font-weight: bold;
-    color: #444;
+    color: #DFE4EA;
     padding-bottom: 0.5em;
     border-bottom: 1px solid #ccc;
   }
@@ -191,7 +202,7 @@
     opacity: 0.75;
 
     .favorites-icon {
-      color: #f06060;
+      color: #FC5C65;
     }
 
     .bookmark-icon {

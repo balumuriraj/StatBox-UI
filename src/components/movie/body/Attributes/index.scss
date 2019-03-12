@@ -10,11 +10,13 @@ table {
 .attributes-container {
   display: flex;
   flex-direction: column;
+  color: #85888c;
 
   .attributes-item {
     flex-grow: 1;
-    background: #fff;
+    background: rgba(255,255,255,0.05);
     padding: 1em;
+    border-radius: 5px;
 
     &:last-child {
       margin-top: 1em;

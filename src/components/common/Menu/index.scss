@@ -2,7 +2,8 @@
   width: 100%;
   position: fixed;
   z-index: 3;
-  transition: background-color .2s;
+  // transition: background-color .2s;
+  // background: linear-gradient(to top, rgba(16, 14, 23, 0) 0%, #100e17 90%);
 
   .navbar-container {
     display: flex;
@@ -19,49 +20,52 @@
         flex-direction: row;
 
         .logo {
-          width: 30px;
+          height: 30px;
 
           img {
-            width: 100%;
+            height: 100%;
           }
         }
 
-        .title {
-          align-self: center;
-          padding-left: 7.5px;
-          color: #FF6F69;
-          font-size: 1.5em;
+        .title {      
+          display: none;  
+          align-self: top;
+          padding: 0 7.5px;
+          color: rgba(255, 255, 255, 0.9);
+          font-size: 1.75em;
           font-weight: 700;
+          text-transform: lowercase;
         }
       }
     }
   
     .navbar-menu {
       font-size: 1em;
-      font-weight: 300;
       z-index: 1;
       display: flex;
       flex-direction: row;
       flex-grow: 1;
+      justify-content: flex-end;
   
       .navbar-start {
         flex-grow: 1;
         align-self: center;
         display: flex;
-        justify-content: flex-start;
+        justify-content: flex-end;
+        font-weight: 300;
 
         .navbar-bucket {
           position: relative;
           text-align: center;
           text-transform: capitalize;
-          padding: 0.75em;
+          padding: 1em;
           cursor: pointer;
           text-decoration: none;
-          color: #fff;
+          color: #dfe4ea;
           border: 2px solid transparent;
 
           &:hover {
-            border-bottom: 2px solid #f06060;
+            border-bottom: 2px solid #e74c3c;
           }
 
           &:hover > .navbar-bucket-items {
@@ -69,13 +73,13 @@
           }
 
           .navbar-bucket-items {
-            background: #fff;
+            background: #17141d;
             position: absolute;
-            top: 41.5px;
+            top: 3.4em;
             left: 0;
             display: none;
             flex-direction: column;
-            box-shadow: 0 5px 15px 0 rgba(37,44,97,0.15), 0 2px 4px 0 rgba(93,100,148,0.2);
+            box-shadow: 4px 22px 54px 0 rgba(0,0,0,.35);
 
             &:hover {
               display: flex;
@@ -87,10 +91,10 @@
               padding: 1em;
               text-decoration: none;
               font-size: 0.9em;
-              color: #222;
+              color: #ccc;
 
               &:hover {
-                background: #f0f0f0;
+                background: #1e1a25;
               }
             }
           }
@@ -98,10 +102,40 @@
       }
   
       .navbar-end {
-        flex-grow: 1;
+        // flex-grow: 1;
         align-self: center;
         display: flex;
         justify-content: flex-end;
+
+        .search-container {
+          padding: 0.65em 1em;
+          position: relative;
+
+          input {
+            width: 150px;
+            font-size: 0.95em;
+            font-weight: 100;
+            padding: 0.5em 0.75em;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 4px;
+            color: rgba(255, 255, 255, 0.75);
+            outline: none;
+
+            &::placeholder {
+              color: #DFE4EA;
+              opacity: 0.15; /* Firefox */
+            }
+          }
+
+          .icon {
+            position: absolute;
+            top: 15px;
+            right: 22.5px;
+            color: rgba(223, 228, 234, 0.15);
+            font-size: 1.25em;
+          }
+        }
 
         .navbar-bucket {
           position: relative;
@@ -136,13 +170,13 @@
           }
 
           .navbar-bucket-items {
-            background: #fff;
+            background: #17141d;
             position: absolute;
-            top: 42.5px;
+            top: 3.4em;
             right: 0;
             display: none;
             flex-direction: column;
-            box-shadow: 0 5px 15px 0 rgba(37,44,97,0.15), 0 2px 4px 0 rgba(93,100,148,0.2);
+            box-shadow: 4px 22px 54px 0 rgba(0,0,0,.35);
 
             &:hover {
               display: flex;
@@ -154,25 +188,26 @@
               padding: 1em;
               text-decoration: none;
               font-size: 0.9em;
-              color: #222;
+              color: #ccc;
 
               &:hover {
-                background: #f0f0f0;
+                background: #1e1a25;
               }
 
               &:last-child {
-                border-top: 1px solid #ccc;
+                border-top: 1px solid #26212e;
               }
             }
           }
         }
 
         .navbar-button {
+          margin-left: 1em;
           padding: 0.5em 1em;
-          background: rgba(255,255,255,0.5);
+          background: #056EBA;
           align-self: center;
           text-decoration: none;
-          color: #111;
+          color: #dfe4ea;
           font-size: 0.9em;
           border-radius: 3px;
         }
@@ -180,6 +215,7 @@
   
       .navbar-item {
         .icon-container {
+          padding: 0.5em 0;
           font-size: 1.5em;
         }
       }
@@ -192,12 +228,12 @@
     .navbar-item {
       cursor: pointer;
       text-decoration: none;
-      color: #fff;
+      color: #dfe4ea;
     }
   }
 
   .sub-navbar-container {
-    background: #fff;
+    background: #dfe4ea;
     padding: 0 2.5%;
 
     .sub-navbar-menu {
@@ -233,7 +269,7 @@
       .navbar-item {
         cursor: pointer;
         text-decoration: none;
-        color: #fff;
+        color: #dfe4ea;
         padding: 1em;
         display: block;
         text-transform: capitalize;
@@ -244,7 +280,7 @@
       }
 
       .brand {
-        color: #f06060;
+        color: #FC5C65;
         font-size: 1.5em;
         font-weight: bold;
         border-bottom: 1px solid #2f2e37;
@@ -302,7 +338,7 @@
               opacity: 0.75;
           
               .favorites-icon {
-                color: #f06060;
+                color: #FC5C65;
               }
           
               .bookmark-icon {
@@ -325,14 +361,8 @@
 }
 
 .white-bg {
-  background: rgba(255, 255, 255, 0.99);
+  background: #17141d;
   box-shadow: 0 1px 1px 0 rgba(0,0,0,0.10), 0 0 0 0 #D2D2D2;
-
-  .navbar-container {
-    .navbar-item {
-      color: #444;
-    }
-  }
 }
 
 @media only screen and (min-width: 600px) {
@@ -340,6 +370,10 @@
     .navbar-container {
       .desktop {
         display: flex;
+
+        .search-container {
+          width: 200px;
+        }
       }
       .mobile {
         display: none;
@@ -349,5 +383,11 @@
     .navbar-side-menu {
       display: none;
     }
+  }
+}
+
+@media only screen and (min-width: 400px) {
+  .navbar .navbar-container .navbar-brand .navbar-item .title {
+    display: block;
   }
 }

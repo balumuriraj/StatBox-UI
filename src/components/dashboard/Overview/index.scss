@@ -12,7 +12,7 @@
     }
 
     .numbers-container {
-      background: #fff;
+      background: rgba(255,255,255,0.05);
       display: flex;
 
       .left-block {
@@ -20,7 +20,7 @@
         display: flex;
         flex-direction: column;
         width: 100%;
-        border-right: 1px solid #ddd;
+        border-right: 1px solid #838C98;
       }
 
       .right-block {
@@ -38,7 +38,7 @@
         align-items: center;
 
         &:first-child {
-          border-bottom: 1px solid #ddd;
+          border-bottom: 1px solid #838C98;
         }
 
         .holder {
@@ -50,12 +50,13 @@
           .number {
             font-size: 2em;
             font-weight: bold;
-            color: #4b4b4b;
+            color: #DFE4EA;
           }
 
           .name {
+            margin-top: 10px;
             font-size: 1em;
-            color: #bbb;
+            color: #41464C;
           }
         }
       }
@@ -64,7 +65,7 @@
 
   .genres-container {
     padding: 1em;
-    background: #fff;
+    background: rgba(255,255,255,0.05);
     
     .word-cloud-container {
       overflow: hidden;

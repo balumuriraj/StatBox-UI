@@ -23,7 +23,7 @@
   }
 
   .sub-menu {
-    background: #fff;
+    background: rgba(255,255,255,0.05);
     box-shadow: 0 1px 1px 0 rgba(0,0,0,0.10), 0 0 0 0 #D2D2D2;
     font-size: 0.9em;
 
@@ -41,12 +41,12 @@
         cursor: pointer;
         margin: 0;
         padding: 0.75em;
-        color: #555;
-        border: 1px solid #eee;
+        color: #fff;
+        border: 1px solid #100E17;
       }
 
       .active {
-        background: #eee;
+        background: #27262E;
       }
     }
 
@@ -56,7 +56,7 @@
       }
 
       .active {
-        border-bottom: 2px solid #f06060;
+        border-bottom: 2px solid #FC5C65;
       }
     }
   }

@@ -1,10 +1,9 @@
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import auth from '@/auth';
 import * as authStore from '@/store/modules/auth';
 
 @Component
 export default class Menu extends Vue {
-
   get user() {
     return authStore.getUser(this.$store);
   }
@@ -17,6 +16,7 @@ export default class Menu extends Vue {
     return this.scrollPosition > 55;
   }
 
+  public searchTerm: string = null;
   public isSideMenuActive = false;
   private scrollPosition: number = 0;
 
@@ -37,5 +37,11 @@ export default class Menu extends Vue {
     window.addEventListener('scroll', () => {
       this.scrollPosition = window.scrollY;
     });
+  }
+
+  @Watch('searchTerm')
+  private onSearchTermChanged(newVal: string, oldVal: string) {
+    const term = newVal;
+    this.$router.push({ name: 'search', query: { term } });
   }
 }

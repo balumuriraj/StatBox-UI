@@ -1,23 +1,118 @@
 .content {
   .hero {
-    background-image: url("../../assets/hero-bg5.jpg");
-    background-size: cover;
-    color: #fff;
+    background-image: url("../../assets/hero-bg.svg");
+    color: #dfe4ea;
     display: flex;
     justify-content: center;
-    height: 60vh;
+    // height: 60vh;
+    background-color: #100e17;
+    overflow: hidden;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url("../../assets/heros.png");
+      background-repeat: repeat;
+      // background-size: cover;
+      background-position: center;
+      transform: rotate(-5deg) scale(1);
+      animation: move 60s 1 alternate;
+    }
+
+    @keyframes move {
+      0%{
+        background-position: 15% 15%;
+        transform: rotate(-5deg) scale(1.25) translateX(5%);
+      }
+      33%{
+        background-position: 85% 15%;
+        transform: rotate(5deg) scale(1) translateX(0%);
+      }
+      66%{
+        background-position: 15% 85%;
+        transform: rotate(-5deg) scale(1.25) translateX(5%);
+      }
+      100%{
+        background-position: 85% 85%;
+        transform: rotate(5deg) scale(1) translateX(0%);
+      }
+    } 
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, rgba(16, 14, 23, 0.75) 0%, #100e17 100%);
+    }
 
     .hero-body {
+      margin-top: 1em;
+      z-index: 1;
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       justify-content: center;
       text-align: center;
+      padding: 2.5em 2.5%;
 
-      .title {
-        font-size: 3em;
-        font-weight: 700;
-        margin: 0;
-        opacity: 0.9;
+      .title-container {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-grow: 1;
+        flex-basis: 0;
+        // background-image: url("../../assets/BG.svg");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 100%;
+  
+        .title-block {
+          display: flex;
+          flex-direction: column;
+          align-self: center;
+          color: #dfe4ea;
+          padding: 4em 0;
+          width: 75%;
+          font-family: "Dosis";
+          text-align: center;
+          
+          .title {
+            font-size: 30px;
+            line-height: 40px;
+            font-weight: 700;
+            opacity: 0.9;
+            
+          }
+  
+          .sub-title {
+            margin-top: 1em;
+            font-size: 16px;
+            line-height: 32px;
+          }
+  
+          .button {
+            cursor: pointer;
+            text-decoration: none;
+            font-family: "Roboto";
+            align-self: center;
+            width: 120px;
+            padding: 0.75em;
+            background: #056EBA;
+            color: rgba($color: #fff, $alpha: 0.9);
+            font-size: 1em;
+            // font-weight: bold;
+            border-radius: 3px;
+            border: none;
+          }
+        }
       }
     }
   }
@@ -26,5 +121,23 @@
     padding: 0 2.5%;
     max-width: 1240px;
     margin: 0 auto;
+  }
+}
+
+@media only screen and (min-width: 800px) {
+  .content .hero .hero-body {
+    padding: 5em 2.5%;
+
+    .title-container {
+      .title-block {
+        .title {
+          font-size: 32px;
+        }
+    
+        .sub-title {
+          font-size: 20px;
+        }
+      }
+    }
   }
 }

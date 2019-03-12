@@ -9,12 +9,16 @@
       <div class="navbar-brand">
         <router-link class="navbar-item" to="/">
           <div class="logo"><img :src="require('@/assets/logo.svg')"></div>
-          <div class="title">StatBox</div>
+          <div class="title">statbox</div>
         </router-link>
       </div>
       <div class="navbar-menu mobile">
         <div class="navbar-start"></div>
         <div class="navbar-end">
+          <div class="search-container">
+            <input type="text" placeholder="search" v-model="searchTerm" >
+            <font-awesome-icon icon="search" class="icon"></font-awesome-icon>
+          </div>
           <div class="navbar-item" @click="toggleSideMenu()">
             <div class="icon-container">
               <font-awesome-icon icon="bars" class="icon"></font-awesome-icon>
@@ -35,11 +39,12 @@
           <router-link class="navbar-bucket" v-if="isUserLoggedIn" to="/rate">
             <span class="navbar-item">rate</span>
           </router-link>
-          <router-link class="navbar-bucket" to="/search">
-            <span class="navbar-item">search</span>
-          </router-link>
         </div>
         <div class="navbar-end">
+          <div class="search-container">
+            <input type="text" placeholder="search movies or celebs" v-model="searchTerm" >
+            <font-awesome-icon icon="search" class="icon"></font-awesome-icon>
+          </div>
           <router-link class="navbar-bucket" to="/dashboard" v-if="isUserLoggedIn">
             <div class="navbar-item">
               <div class="img-holder">
@@ -97,9 +102,9 @@
         <router-link v-if="isUserLoggedIn" class="navbar-item" to="/rate">
           <font-awesome-icon icon="star" class="icon"></font-awesome-icon> rate
         </router-link>
-        <router-link class="navbar-item" to="/search">
+        <!-- <router-link class="navbar-item" to="/search">
           <font-awesome-icon icon="search" class="icon"></font-awesome-icon> search
-        </router-link>
+        </router-link> -->
         <router-link class="navbar-item log" to="/settings" v-if="isUserLoggedIn">
           <font-awesome-icon icon="cog" class="icon"></font-awesome-icon> settings
         </router-link>

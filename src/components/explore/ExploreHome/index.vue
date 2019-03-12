@@ -4,6 +4,7 @@
     <div class="hero">
       <div class="hero-body">
         <p class="title">Explore Movies</p>
+        <p class="sub-title">Find movies based on years, genre and more.</p>
       </div>
     </div>
     <!-- Content -->

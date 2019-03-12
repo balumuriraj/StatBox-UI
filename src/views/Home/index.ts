@@ -1,6 +1,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import * as homeStore from '@/store/modules/home';
 import Carousel from '../../components/common/Carousel';
+import * as authStore from '@/store/modules/auth';
 
 @Component({
   components: {
@@ -26,6 +27,10 @@ export default class Home extends Vue {
 
   get from2010to2015() {
     return homeStore.get2010to2015(this.$store);
+  }
+
+  get isUserLoggedIn() {
+    return authStore.isUserLoggedIn(this.$store);
   }
 
   public fetchLatest() {

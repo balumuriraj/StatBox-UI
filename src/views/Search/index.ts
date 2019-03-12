@@ -12,56 +12,48 @@ const celebsIndex = client.initIndex('celebs');
   }
 })
 export default class Search extends Vue {
-  public selected = 'movies';
-  public searchTerm: string = null;
-  public hits: any[] = [];
-  public showAutoComplete = false;
-  private turnoffAutocomplete = false;
+  public term: string = null;
+  public movieHits: any[] = [];
+  public celebHits: any[] = [];
 
-  public setSearchTerm(hit: any) {
-    this.searchTerm = this.selected === 'movies' ? hit.title : hit.name;
-    this.showAutoComplete = false;
-    this.turnoffAutocomplete = true;
-  }
-
-  @Watch('searchTerm')
+  @Watch('$route.query.term')
   private onSearchTermChanged(newVal: string, oldVal: string) {
+    this.term = newVal;
     this.executeSearch(newVal);
-  }
-
-  @Watch('selected')
-  private onSelectedChanged(newVal: string, oldVal: string) {
-    // this.turnoffAutocomplete = true;
-    this.executeSearch(this.searchTerm);
   }
 
   private executeSearch(term: string) {
     if (term && term.length > 3) {
-      const index = this.selected === 'movies' ? moviesIndex : celebsIndex;
-      index.search(this.searchTerm, this.algolioCallback);
+      moviesIndex.search(term, this.algolioMovieCallback);
+      celebsIndex.search(term, this.algolioCelebCallback);
     } else {
-      this.showAutoComplete = false;
-      this.hits = [];
+      this.movieHits = [];
+      this.celebHits = [];
     }
   }
 
-  private algolioCallback(err: any, res: any) {
+  private algolioMovieCallback(err: any, res: any) {
     if (!err && res) {
-      this.hits = res.hits;
+      this.movieHits = res.hits;
 
-      if (this.selected === 'movies') {
-        this.hits.forEach((hit) => {
-          hit.releaseDate = hit.releasedate;
-          delete hit.releasedate;
-        });
-      }
+      this.movieHits.forEach((hit) => {
+        hit.releaseDate = hit.releasedate;
+        delete hit.releasedate;
+      });
+    }
+  }
 
-      if (this.turnoffAutocomplete) {
-        this.showAutoComplete = false;
-        this.turnoffAutocomplete = false;
-      } else {
-        this.showAutoComplete = true;
-      }
+  private algolioCelebCallback(err: any, res: any) {
+    if (!err && res) {
+      this.celebHits = res.hits;
+    }
+  }
+
+  private created() {
+    this.term = this.$route.query.term as string;
+
+    if (this.term) {
+      this.executeSearch(this.term);
     }
   }
 }
