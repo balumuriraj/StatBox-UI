@@ -17,7 +17,9 @@
         <div class="navbar-end">
           <div class="search-container">
             <input type="text" placeholder="search" v-model="searchTerm" >
-            <font-awesome-icon icon="search" class="icon"></font-awesome-icon>
+            <div class="icon-block">
+              <font-awesome-icon icon="search" class="icon"></font-awesome-icon>
+            </div>
           </div>
           <div class="navbar-item" @click="toggleSideMenu()">
             <div class="icon-container">
@@ -29,7 +31,7 @@
       <div class="navbar-menu desktop">
         <div class="navbar-start">
           <router-link class="navbar-bucket" to="/explore">
-            <span class="navbar-item">movies</span>
+            <span class="navbar-item">Browse</span>
             <div class="navbar-bucket-items">
               <router-link class="navbar-bucket-item" to="/explore/latest">Genres</router-link>
               <router-link class="navbar-bucket-item" to="/explore/popular">Years</router-link>
@@ -43,7 +45,9 @@
         <div class="navbar-end">
           <div class="search-container">
             <input type="text" placeholder="search movies or celebs" v-model="searchTerm" >
-            <font-awesome-icon icon="search" class="icon"></font-awesome-icon>
+            <div class="icon-block">
+              <font-awesome-icon icon="search" class="icon"></font-awesome-icon>
+            </div>
           </div>
           <router-link class="navbar-bucket" to="/dashboard" v-if="isUserLoggedIn">
             <div class="navbar-item">
@@ -88,7 +92,7 @@
           <font-awesome-icon icon="home" class="icon"></font-awesome-icon> Home
         </router-link>
         <router-link class="navbar-item" to="/explore">
-          <font-awesome-icon icon="film" class="icon"></font-awesome-icon> Movies
+          <font-awesome-icon icon="film" class="icon"></font-awesome-icon> Browse
         </router-link>
         <router-link class="navbar-item sub" to="/explore">
           <font-awesome-icon icon="caret-right" class="icon"></font-awesome-icon> Genres

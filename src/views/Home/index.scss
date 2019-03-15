@@ -81,7 +81,6 @@
           color: #dfe4ea;
           padding: 4em 0;
           width: 75%;
-          font-family: "Dosis";
           text-align: center;
           
           .title {
@@ -90,18 +89,23 @@
             font-weight: 700;
             opacity: 0.9;
             
+            span {
+              font-size: 70%;
+              opacity: 0.5;
+              vertical-align: middle;
+            }
           }
   
           .sub-title {
             margin-top: 1em;
             font-size: 16px;
             line-height: 32px;
+            opacity: 0.85;
           }
   
           .button {
             cursor: pointer;
             text-decoration: none;
-            font-family: "Roboto";
             align-self: center;
             width: 120px;
             padding: 0.75em;
@@ -135,7 +139,7 @@
         }
     
         .sub-title {
-          font-size: 20px;
+          font-size: 18px;
         }
       }
     }

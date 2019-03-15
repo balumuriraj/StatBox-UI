@@ -1,8 +1,12 @@
 <template>
   <section class="login-container">
-    <div class="login-block">
-      <p>Login</p>
-      <div id="firebaseui-auth-container"></div>
+    <div class=login-holder>
+      <div class="login-block">
+        <div class="login">
+          <p>Login</p>
+          <div id="firebaseui-auth-container"></div>
+        </div>
+      </div>
     </div>
   </section>
 </template>

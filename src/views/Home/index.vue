@@ -5,7 +5,7 @@
       <div class="hero-body">
         <div class="title-container">
           <div class="title-block">
-            <div class="title">statbox - A Telugu Movie Database</div>
+            <div class="title">statbox <span>- Telugu Movie Database</span></div>
             <p class="sub-title">Browse, search, rate, and stream Movies from Netflix, Prime Video and YouTube!</p>
             <router-link v-if="!isUserLoggedIn" to="/login" class="button">Get Started</router-link>
           </div>
