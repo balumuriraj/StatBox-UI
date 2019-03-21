@@ -13,6 +13,7 @@ export default class List extends Vue {
   @Prop() public items!: object[];
   @Prop() public count!: number;
 
+  public processedItems: object[] = [];
   public loading: boolean = false;
 
   get currentCount(): number {
@@ -30,6 +31,22 @@ export default class List extends Vue {
       this.loading = true;
       this.$emit('fetch');
     }
+  }
+
+  @Watch('items')
+  private onItemsChange(val: any[], oldVal: any[]) {
+    this.processedItems = [];
+    let set = new Set();
+
+    for (const obj of val) {
+      if (!set.has(obj.id)) {
+        this.processedItems.push(obj);
+        set.add(obj.id);
+      }
+    }
+
+    set.clear();
+    set = null;
   }
 
   private mounted() {

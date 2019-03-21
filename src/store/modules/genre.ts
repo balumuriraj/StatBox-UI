@@ -35,14 +35,18 @@ const actions = {
     const data = await API.getGenreData(payload.id);
     context.commit('setGenreData', { id: payload.id, ...data });
   },
-  fetchGenreMovies: async (context: GenreContext, payload: { id: number }) => {
+  fetchGenreMovies: async (context: GenreContext, payload: { ids: number[] }) => {
+    if (payload.ids.length > 1) {
+      context.commit('resetCurrentGenre');
+    }
+
     const count = context.state.currentGenre.movies.count;
     const length = context.state.currentGenre.movies.items.length;
 
     if (count === 0 || (count > length)) {
       const from = length;
       const to = !count || (count - from > 10) ? length + 9 : count - 1;
-      const data = await API.getGenreMovies(payload.id, { from, to });
+      const data = await API.getGenreMovies(payload.ids, { from, to });
       context.commit('setGenreMovies', data);
     }
   }

@@ -30,13 +30,13 @@
       </div>
       <div class="navbar-menu desktop">
         <div class="navbar-start">
-          <router-link class="navbar-bucket" to="/explore">
+          <router-link class="navbar-bucket" to="/browse">
             <span class="navbar-item">Browse</span>
-            <div class="navbar-bucket-items">
+            <!-- <div class="navbar-bucket-items">
               <router-link class="navbar-bucket-item" to="/explore/latest">Genres</router-link>
               <router-link class="navbar-bucket-item" to="/explore/popular">Years</router-link>
-              <router-link class="navbar-bucket-item" to="/explore">More...</router-link>
-            </div>
+              <router-link class="navbar-bucket-item" to="/browse">More...</router-link>
+            </div> -->
           </router-link>
           <router-link class="navbar-bucket" v-if="isUserLoggedIn" to="/rate">
             <span class="navbar-item">rate</span>

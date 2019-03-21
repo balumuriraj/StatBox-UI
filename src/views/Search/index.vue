@@ -15,7 +15,7 @@
           <p v-else class="msg">No results found!</p>
         </div> 
       </template>
-      <p v-else class="msg">search for movies or celebs..</p>       
+      <p v-else class="placeholder">search for movies or celebs..</p>       
     </div>
   </div>
 </template>

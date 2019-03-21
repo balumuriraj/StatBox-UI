@@ -14,6 +14,7 @@ import Years from './components/explore/Years';
 import Rate from './views/Rate';
 import Search from './views/Search';
 import Settings from './views/Settings';
+import Browse from './views/Browse';
 
 Vue.use(Router);
 
@@ -22,6 +23,11 @@ const routes = [
     path: '/',
     name: 'home',
     component: Home
+  },
+  {
+    path: '/browse',
+    name: 'browse',
+    component: Browse
   },
   {
     path: '/explore',

@@ -38,35 +38,49 @@ export async function getGenreData(id: number): Promise<any> {
 }
 
 export async function getGenreMovies(
-  id: number,
+  ids: number[],
   range: { from: number; to: number; },
+  sortBy?: 'releasedate' | 'title' | 'rating',
   includeUserMeta: boolean = false
 ): Promise<any> {
-  const countResponse = await model.get(['genresById', [id], 'movies', 'length']);
-  const count = countResponse.json.genresById[id].movies.length;
+  const countResponse = await model.get(['genresById', ids, 'movies', 'length']);
+  let count = 0;
 
-  const genreResponse = await model.get([
-    'genresById', [id],
-    ['movies'],
-    range, ['id', 'title', 'poster', 'releaseDate', 'rating']
-  ]);
-  const moviesObj = genreResponse.json.genresById[id].movies;
-  const itemsObj: any = {};
-
-  for (const index in moviesObj) {
-    if (moviesObj[index] && typeof moviesObj[index].id === 'number') {
-      const movie = moviesObj[index];
-      itemsObj[movie.id] = {
-        id: movie.id,
-        title: movie.title,
-        poster: movie.poster,
-        releaseDate: movie.releaseDate,
-        rating: movie.rating
-      };
+  for (const index in countResponse.json.genresById) {
+    if (index !== '$__path') {
+      count += countResponse.json.genresById[index].movies.length;
     }
   }
 
-  const movieIds = Object.keys(itemsObj);
+  const key = sortBy || 'movies';
+  const genreResponse = await model.get([
+    'genresById', ids,
+    [key],
+    range, ['id', 'title', 'poster', 'releaseDate', 'rating']
+  ]);
+
+  const itemsObj: any = {};
+  const movieIds: string[] = []; // to preserve order
+
+  for (const i in genreResponse.json.genresById) {
+    if (i !== '$__path') {
+      const moviesObj = genreResponse.json.genresById[i][key];
+
+      for (const index in moviesObj) {
+        if (moviesObj[index] && typeof moviesObj[index].id === 'number') {
+          const movie = moviesObj[index];
+          itemsObj[movie.id] = {
+            id: movie.id,
+            title: movie.title,
+            poster: movie.poster,
+            releaseDate: movie.releaseDate,
+            rating: movie.rating
+          };
+          movieIds.push(movie.id);
+        }
+      }
+    }
+  }
 
   if (includeUserMeta) {
     await applyUserMetadataToMovies(movieIds, itemsObj);

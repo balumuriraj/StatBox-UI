@@ -179,7 +179,7 @@ export default class Rate extends Vue {
       const range = this.getRange();
 
       if (range) {
-        const result = await API.getGenreMovies(id, range, true);
+        const result = await API.getGenreMovies([id], range, null, true);
         this.processResult(result);
       }
     }

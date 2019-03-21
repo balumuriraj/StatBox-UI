@@ -19,7 +19,7 @@ export default class Genre extends Vue {
   }
 
   public fetchMovies() {
-    genreStore.fetchGenreMovies(this.$store, { id: Number(this.id) });
+    genreStore.fetchGenreMovies(this.$store, { ids: [Number(this.id)] });
   }
 
   private mounted() {
@@ -30,7 +30,7 @@ export default class Genre extends Vue {
 
   private fetchData() {
     genreStore.fetchGenreData(this.$store, { id: Number(this.id) });
-    genreStore.fetchGenreMovies(this.$store, { id: Number(this.id) });
+    genreStore.fetchGenreMovies(this.$store, { ids: [Number(this.id)] });
   }
 
   get item() {
