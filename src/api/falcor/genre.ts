@@ -96,13 +96,13 @@ export async function getSortedGenreMovies(
   sortBy: 'releasedate' | 'title' | 'rating',
   includeUserMeta: boolean = false
 ): Promise<any> {
-  const genresKey = ids.join(',');
+  const genresKey = Array.isArray(ids) ? ids.join(',') : ids;
   const countResponse = await model.get(['sortedMoviesByGenreKeys', genresKey, sortBy, 'length']);
   let count = 0;
 
-  for (const index in countResponse.json.genresById) {
+  for (const index in countResponse.json.sortedMoviesByGenreKeys) {
     if (index !== '$__path') {
-      count += countResponse.json.genresById[index].movies.length;
+      count += countResponse.json.sortedMoviesByGenreKeys[index][sortBy].length;
     }
   }
 

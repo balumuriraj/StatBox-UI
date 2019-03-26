@@ -38,7 +38,7 @@ export default class Browse extends Vue {
       this.selectedGenres.every((id) => genre && genre.indexOf(id) > -1);
 
     if (!isSortEqual || !isGenresEqual) {
-      this.selectedGenres = genre || [];
+      this.selectedGenres = (genre && Array.isArray(genre) ? genre : [genre]) || [];
       this.sortOrder = sort;
 
       this.movies.items = [];
