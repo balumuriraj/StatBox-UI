@@ -13,7 +13,7 @@ export default class Menu extends Vue {
   }
 
   get whiteBg() {
-    return this.scrollPosition > 55;
+    return this.scrollPosition > 25;
   }
 
   public searchTerm: string = null;

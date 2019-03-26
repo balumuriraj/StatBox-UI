@@ -2,10 +2,10 @@
   <div class="list-container" ref="listBox">
     <div class="title-container">
       <p class="title" v-if=title>{{ title }}</p>
-      <p class="count" v-if=count>{{items && items.length || 0}} / {{ count }}</p>
+      <p class="count" v-if=count>{{processedItems && processedItems.length || 0}} / {{ count }}</p>
     </div>
 
-    <div class="list-block" v-if="items && items.length">
+    <div class="list-block" v-if="processedItems && processedItems.length">
       <div v-for="item in processedItems" :key="item.id" class="list-item">
         <Card :item="item"></Card>
       </div>

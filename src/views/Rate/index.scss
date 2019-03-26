@@ -1,70 +1,69 @@
 .rate-container {
+  color: #dfe4ea;
+
   .hero {
-    background-image: url("../../assets/hero-bg5.jpg");
+    background-image: url("../../assets/hero-bg.svg");
     background-size: cover;
     color: #fff;
     display: flex;
-    justify-content: center;
-  
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, rgba(16, 14, 23, 0.15) 0%, #100e17 100%);
+    }
+
     .hero-body {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      text-align: center;
-      height: 30vh;
-  
+      max-width: 1240px;
+      margin: 0 auto;
+      margin-top: 50px; // Menu height
+      padding: 2em 2.5%;
+      color: #a4b0be;
+      z-index: 1;
+      font-size: 0.85em;
+      width: 100%;
+
       .title {
         font-size: 2em;
-        font-weight: 700;
+        font-weight: 500;
         margin: 0;
         opacity: 0.9;
       }
-    }
-  }
 
-  .sub-menu {
-    background: rgba(255,255,255,0.05);
-    box-shadow: 0 1px 1px 0 rgba(0,0,0,0.10), 0 0 0 0 #D2D2D2;
-    font-size: 0.9em;
+      .sub-title {
+        opacity: 0.9;
+        font-weight: 300;
+        line-height: 1.5em;        
 
-    .items-container {
-      max-width: 1240px;
-      margin: 0 auto;
-      padding: 0 2.5%;  
-      display: flex;
-      flex-wrap: wrap;
-      text-align: center;
+        span {
+          color: #32ff7e;
+          cursor: pointer;
 
-      p {
-        flex-grow: 1;
-        flex-basis: 0;
-        cursor: pointer;
-        margin: 0;
-        padding: 0.75em;
-        color: #fff;
-        border: 1px solid #100E17;
-      }
-
-      .active {
-        background: #27262E;
-      }
-    }
-
-    .top {
-      p {
-        border: 0;
-      }
-
-      .active {
-        border-bottom: 2px solid #FC5C65;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
       }
     }
   }
   
-  .list {
+  .body {
     max-width: 1240px;
     margin: 0 auto;
     padding: 1em 2.5%;
+    margin-top: -2em;
   }
+}
 
+@media only screen and (min-width: 800px) {
+  .container {
+    .hero .hero-body {
+      font-size: 1em;
+    }
+  }
 }

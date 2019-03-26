@@ -1,11 +1,11 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import RateList from '@/components/common/RateList';
+import MovieFilter from '@/components/common/Filter';
 import * as API from '@/api';
 import * as authStore from '@/store/modules/auth';
-import { getGenreIdByName } from '@/support/utils';
 
 async function setReview(userId: number, movie: any, review: any) {
-  const result = await API.updateReview({ userId, ...review});
+  const result = await API.updateReview({ userId, ...review });
   const { rating, watchWith, pace, story, rewatch } = result;
   movie.userReview = { rating, watchWith, pace, story, rewatch };
 }
@@ -32,7 +32,8 @@ async function setBookmark(userId: number, movie: any, value: boolean) {
 
 @Component({
   components: {
-    RateList
+    RateList,
+    MovieFilter
   }
 })
 export default class Rate extends Vue {
@@ -44,53 +45,74 @@ export default class Rate extends Vue {
     return this.user && this.user.id;
   }
 
-  public selected = 'popular';
-  public selectedYears = 'recent';
-  public selectedGenre = 'action';
+  get selectedGenreNames() {
+    const items = this.genreList;
+    const map: any = {};
+    items.forEach((item) => {
+      map[item.id] = item.name;
+    });
 
+    return this.selectedGenres && this.selectedGenres.map((id) => map[id]) || [];
+  }
+
+  public genreList: any[] = [];
+  public sortOrder: 'releasedate' | 'title' | 'rating' = null;
+  public selectedGenres: number[] = [];
   public movies: any = {
     items: [],
     ratedItems: [],
     count: 0
   };
 
-  public fetchMovies() {
-    switch (this.selected) {
-      case 'popular': {
-        return this.fetchPopular();
-      }
-      case 'years': {
-        return this.fetchMoviesByYears();
-      }
-      case 'genre': {
-        return this.fetchMoviesByGenre();
-      }
+  @Watch('$route.query')
+  private onQueryChanged(newVal: any, oldVal: any) {
+    const { genre, sort } = newVal;
+    const isSortEqual = this.sortOrder === sort;
+    const isGenresEqual =
+      this.selectedGenres.length === genre.length &&
+      this.selectedGenres.every((id) => genre && genre.indexOf(id) > -1);
+
+    if (!isSortEqual || !isGenresEqual) {
+      this.selectedGenres = genre || [];
+      this.sortOrder = sort;
+
+      this.movies.items = [];
+      this.movies.ratedItems = [];
+      this.movies.count = 0;
+      this.fetchData();
     }
   }
 
-  @Watch('selected')
-  private onSelectedChange(val: number, oldVal: number) {
-    this.refresh();
+  private mounted() {
+    this.sortOrder = this.$route.query.sort as any;
+    const genreParams = this.$route.query.genre;
+
+    if (genreParams) {
+      if (Array.isArray(genreParams)) {
+        this.selectedGenres = genreParams.map((genre) => Number(genre));
+      } else {
+        this.selectedGenres.push(Number(genreParams));
+      }
+    }
+
+    this.fetchGenreList();
+    this.fetchData();
   }
 
-  @Watch('selectedYears')
-  private onSelectedYearsChange(val: number, oldVal: number) {
-    this.refresh();
+  private async fetchGenreList() {
+    this.genreList = await API.getGenreList();
   }
 
-  @Watch('selectedGenre')
-  private onSelectedGenreChange(val: number, oldVal: number) {
-    this.refresh();
-  }
-
-  private refresh() {
-    this.movies = {
-      items: [],
-      ratedItems: [],
-      count: 0
-    };
-
-    this.fetchMovies();
+  private async fetchData() {
+    if (this.selectedGenres.length) {
+      if (this.sortOrder) {
+        const result = await API.getSortedGenreMovies(this.selectedGenres, this.getRange(), this.sortOrder, true);
+        this.processResult(result);
+      } else {
+        const result = await API.getGenreMovies(this.selectedGenres, this.getRange(), true);
+        this.processResult(result);
+      }
+    }
   }
 
   private getRange() {
@@ -100,7 +122,7 @@ export default class Rate extends Vue {
     if (count === 0 || (count > length)) {
       const from = length;
       const to = !count || (count - from > 10) ? length + 9 : count - 1;
-      return {from, to};
+      return { from, to };
     }
   }
 
@@ -120,72 +142,5 @@ export default class Rate extends Vue {
       this.movies.ratedItems = this.movies.ratedItems.concat(rated);
       this.movies.count = result.count;
     }
-  }
-
-  private async fetchPopular() {
-    const range = this.getRange();
-
-    if (range) {
-      const result = await API.getPopularMovies(range, true);
-      this.processResult(result);
-    }
-  }
-
-  private fetchMoviesByYears() {
-    switch (this.selectedYears) {
-      case 'recent': {
-        const date = new Date('2016');
-        const startDate = date.getTime();
-        const endDate = Date.now();
-        return this.fetchMoviesByDates(startDate, endDate);
-      }
-      case '2011-15': {
-        const date1 = new Date('2011');
-        const startDate = date1.getTime();
-        const date2 = new Date('2016');
-        const endDate = date2.getTime();
-        return this.fetchMoviesByDates(startDate, endDate);
-      }
-      case '2006-10': {
-        const date1 = new Date('2005');
-        const startDate = date1.getTime();
-        const date2 = new Date('2011');
-        const endDate = date2.getTime();
-        return this.fetchMoviesByDates(startDate, endDate);
-      }
-      case '2000-05': {
-        const date1 = new Date('2000');
-        const startDate = date1.getTime();
-        const date2 = new Date('2006');
-        const endDate = date2.getTime();
-        return this.fetchMoviesByDates(startDate, endDate);
-      }
-    }
-  }
-
-  private async fetchMoviesByDates(startDate: number, endDate: number) {
-    const range = this.getRange();
-
-    if (range) {
-      const result = await API.getMoviesBetweenDates(startDate, endDate, range, true);
-      this.processResult(result);
-    }
-  }
-
-  private async fetchMoviesByGenre() {
-    const id = getGenreIdByName(this.selectedGenre);
-
-    if (id) {
-      const range = this.getRange();
-
-      if (range) {
-        const result = await API.getGenreMovies([id], range, null, true);
-        this.processResult(result);
-      }
-    }
-  }
-
-  private mounted() {
-    this.fetchMovies();
   }
 }

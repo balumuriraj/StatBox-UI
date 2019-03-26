@@ -65,7 +65,8 @@
           border: 2px solid transparent;
 
           &:hover {
-            border-bottom: 2px solid #e74c3c;
+            // border-bottom: 2px solid #e74c3c;
+            color: #FC5C65;
           }
 
           &:hover > .navbar-bucket-items {

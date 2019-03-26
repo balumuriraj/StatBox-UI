@@ -40,7 +40,6 @@ export async function getGenreData(id: number): Promise<any> {
 export async function getGenreMovies(
   ids: number[],
   range: { from: number; to: number; },
-  sortBy?: 'releasedate' | 'title' | 'rating',
   includeUserMeta: boolean = false
 ): Promise<any> {
   const countResponse = await model.get(['genresById', ids, 'movies', 'length']);
@@ -52,7 +51,7 @@ export async function getGenreMovies(
     }
   }
 
-  const key = sortBy || 'movies';
+  const key = 'movies';
   const genreResponse = await model.get([
     'genresById', ids,
     [key],
@@ -65,6 +64,60 @@ export async function getGenreMovies(
   for (const i in genreResponse.json.genresById) {
     if (i !== '$__path') {
       const moviesObj = genreResponse.json.genresById[i][key];
+
+      for (const index in moviesObj) {
+        if (moviesObj[index] && typeof moviesObj[index].id === 'number') {
+          const movie = moviesObj[index];
+          itemsObj[movie.id] = {
+            id: movie.id,
+            title: movie.title,
+            poster: movie.poster,
+            releaseDate: movie.releaseDate,
+            rating: movie.rating
+          };
+          movieIds.push(movie.id);
+        }
+      }
+    }
+  }
+
+  if (includeUserMeta) {
+    await applyUserMetadataToMovies(movieIds, itemsObj);
+  }
+
+  const items = movieIds.map((movieId) => itemsObj[movieId]);
+
+  return { items, count };
+}
+
+export async function getSortedGenreMovies(
+  ids: number[],
+  range: { from: number; to: number; },
+  sortBy: 'releasedate' | 'title' | 'rating',
+  includeUserMeta: boolean = false
+): Promise<any> {
+  const genresKey = ids.join(',');
+  const countResponse = await model.get(['sortedMoviesByGenreKeys', genresKey, sortBy, 'length']);
+  let count = 0;
+
+  for (const index in countResponse.json.genresById) {
+    if (index !== '$__path') {
+      count += countResponse.json.genresById[index].movies.length;
+    }
+  }
+
+  const genreResponse = await model.get([
+    'sortedMoviesByGenreKeys', genresKey,
+    [sortBy],
+    range, ['id', 'title', 'poster', 'releaseDate', 'rating']
+  ]);
+
+  const itemsObj: any = {};
+  const movieIds: string[] = []; // to preserve order
+
+  for (const i in genreResponse.json.sortedMoviesByGenreKeys) {
+    if (i !== '$__path') {
+      const moviesObj = genreResponse.json.sortedMoviesByGenreKeys[i][sortBy];
 
       for (const index in moviesObj) {
         if (moviesObj[index] && typeof moviesObj[index].id === 'number') {
