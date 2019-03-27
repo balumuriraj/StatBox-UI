@@ -9,19 +9,21 @@ import Progress from '@/components/movie/body/Progress';
   }
 })
 export default class Attributes extends Vue {
+  @Prop() public props!: any;
+
   get watchWithAttributes() {
     return [
       {
         name: 'Friends',
-        value: 26
+        value: this.props && this.props.watchWith.friends
       },
       {
         name: 'Self',
-        value: 10
+        value: this.props && this.props.watchWith.self
       },
       {
         name: 'Family',
-        value: 64
+        value: this.props && this.props.watchWith.family
       }
     ];
   }
@@ -30,21 +32,21 @@ export default class Attributes extends Vue {
     return [
       {
         name1: 'Slow',
-        value1: 26,
+        value1: this.props && this.props.pace.slow,
         name2: 'Fast',
-        value2: 0
+        value2: this.props && this.props.pace.fast
       },
       {
         name1: 'Simple',
-        value1: 0,
+        value1: this.props && this.props.story.simple,
         name2: 'Complex',
-        value2: 45
+        value2: this.props && this.props.story.complex
       },
       {
-        name1: 'Light',
-        value1: 0,
-        name2: 'Dark',
-        value2: 15
+        name1: 'Yes',
+        value1: this.props && this.props.rewatch.yes,
+        name2: 'No',
+        value2: this.props && this.props.rewatch.no
       }
     ];
   }

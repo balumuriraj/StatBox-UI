@@ -22,7 +22,7 @@
         </div>
         <div class="items-container">
           <Chart class="item chart-block" :id="'ratingsChart'" :title="'Distribution'" :subtitle="'of ratings'" :numbers=movie.ratingBins></Chart>
-          <Attributes class="item"></Attributes>
+          <Attributes class="item" :props=attributes></Attributes>
         </div>
         <div class="items-container">
           <CelebList v-if="crew" :title="'Crew'" :celebs="crew" class="item"></CelebList>

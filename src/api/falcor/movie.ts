@@ -77,7 +77,7 @@ export async function getMovieData(movieId: number): Promise<any> {
 export async function getMovieMetadata(movieId: number): Promise<any> {
   const response = await model.get([
     'moviesById', [movieId], 'metadata',
-    ['cast', 'crew', 'ratingBins', 'isFavorite', 'isBookmarked', 'userReview'],
+    ['cast', 'crew', 'ratingBins', 'attributes', 'isFavorite', 'isBookmarked', 'userReview'],
     {length: 5}, ['id', 'type', 'category', 'celeb'],
     ['id', 'name', 'photo']
   ]);
@@ -110,6 +110,6 @@ export async function getMovieMetadata(movieId: number): Promise<any> {
     }
   }
 
-  const { isFavorite, isBookmarked, userReview, ratingBins } = result;
-  return { isFavorite, isBookmarked, userReview, ratingBins, cast, crew };
+  const { isFavorite, isBookmarked, userReview, ratingBins, attributes } = result;
+  return { isFavorite, isBookmarked, userReview, attributes, ratingBins, cast, crew };
 }

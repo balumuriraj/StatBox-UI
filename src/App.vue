@@ -81,6 +81,10 @@ body {
   }
 }
 
+.ct-label {
+  color: #DFE4EA;
+}
+
 .swiper-wrapper {
   margin: 2px !important;
 }

@@ -34,6 +34,7 @@ export interface MovieState {
   isFavorite: boolean;
   isBookmarked: boolean;
   ratingBins: any;
+  attributes: any;
   userReview: {
     rating: number,
     watchWith: string,

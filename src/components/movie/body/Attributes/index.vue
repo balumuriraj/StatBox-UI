@@ -11,7 +11,7 @@
       </div>
     </article>
     <article class="attributes-item">
-      <Title name="Pace/Theme/Plot"></Title>
+      <Title name="Pace/Theme/Rewatch"></Title>
       <div v-for="(attribute, index) in movieAttributes" :key="index" class="attribute-row">
         <div class="name">{{ attribute.name1 }}</div>
         <div class="progress-container">

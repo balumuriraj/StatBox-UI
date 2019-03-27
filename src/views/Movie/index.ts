@@ -46,6 +46,56 @@ export default class Movie extends Vue {
     return crew;
   }
 
+  get attributes() {
+    if (this.movie) {
+      const attr = this.movie.attributes;
+      const result = {
+        watchWith: {
+          friends: 0,
+          self: 0,
+          family: 0
+        },
+        pace: {
+          slow: 0,
+          fast: 0
+        },
+        story: {
+          simple: 0,
+          complex: 0
+        },
+        rewatch: {
+          yes: 0,
+          no: 0
+        }
+      };
+
+      if (attr) {
+        const { friends, family, self } = attr.watchWith;
+        const watchWithTotal = friends + family + self;
+        result.watchWith.family = family / watchWithTotal * 100;
+        result.watchWith.friends = friends / watchWithTotal * 100;
+        result.watchWith.self = self / watchWithTotal * 100;
+
+        const { slow, fast } = attr.pace;
+        const paceTotal = slow + fast;
+        result.pace.slow = slow / paceTotal * 100;
+        result.pace.fast = fast / paceTotal * 100;
+
+        const { simple, complex } = attr.story;
+        const storyTotal = simple + complex;
+        result.story.simple = simple / storyTotal * 100;
+        result.story.complex = complex / storyTotal * 100;
+
+        const { yes, no } = attr.rewatch;
+        const rewatchTotal = yes + no;
+        result.rewatch.yes = yes / rewatchTotal * 100;
+        result.rewatch.no = no / rewatchTotal * 100;
+      }
+
+      return result;
+    }
+  }
+
   // get reviews() {
   //   const movie = this.movie;
   //   const reviews = movie && movie.reviews;

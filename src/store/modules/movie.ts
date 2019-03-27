@@ -24,6 +24,7 @@ const state: MovieState = {
   isFavorite: false,
   isBookmarked: false,
   ratingBins: null,
+  attributes: null,
   userReview: {
     rating: null,
     pace: null,
@@ -129,6 +130,7 @@ const mutations = {
     state.isFavorite = metadata.isFavorite;
     state.isBookmarked = metadata.isBookmarked;
     state.ratingBins = metadata.ratingBins;
+    state.attributes = metadata.attributes;
 
     if (metadata.userReview) {
       const { rating, watchWith, pace, story, rewatch } = metadata.userReview;
