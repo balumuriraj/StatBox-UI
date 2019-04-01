@@ -28,9 +28,7 @@
             <img :src="require(`@/assets/avatars/${user.avatar || '3.png'}`)" width="150">
           </div>
         </div>
-        <div class="trophies-container">
-          <!-- <p><b>User since - </b> {{new Date(user.userSince).toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric' })}}</p>
-          <p><b>Last Login - </b> {{user.lastLogin}}</p> -->
+        <!-- <div class="trophies-container">
           <p class="title">Trophies</p>
           <div class="list">
             <font-awesome-icon icon="certificate" class="icon"></font-awesome-icon>
@@ -39,7 +37,7 @@
             <font-awesome-icon icon="trophy" class="icon"></font-awesome-icon>
             <font-awesome-icon icon="trophy" class="icon"></font-awesome-icon>
           </div>
-        </div>
+        </div> -->
       </div>
       <div class="right-section">
         <div class="title-container">
@@ -81,12 +79,12 @@
             </div>
             <span>Ratings</span>
           </div>
-          <div class="menu-item" :class="{ 'active': isTrophies }" v-on:click="setMenu('trophies')">
+          <!-- <div class="menu-item" :class="{ 'active': isTrophies }" v-on:click="setMenu('trophies')">
             <div class="icon-container">
               <font-awesome-icon icon="trophy" class="icon"></font-awesome-icon>
             </div>
             <span>Trophies</span>
-          </div>
+          </div> -->
         </div>
 
         <div class="main-content-container">

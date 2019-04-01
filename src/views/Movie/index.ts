@@ -1,7 +1,6 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import Footer from '@/components/common/Footer';
 import CelebList from '@/components/common/CelebList';
-import ReviewModal from '@/components/common/ReviewModal';
 import List from '@/components/common/List';
 import Menu from '@/components/common/Menu/index';
 import Table from '@/components/common/Table';
@@ -10,7 +9,8 @@ import Content from '@/components/movie/hero/Content';
 import Info from '@/components/movie/hero/Info';
 import Chart from '@/components/common/Chart';
 import Attributes from '@/components/movie/body/Attributes';
-import * as movieStore from '@/store/modules/movie';
+import * as API from '@/api';
+import { applyUserMetadataToMovies } from '@/api/falcor/utils';
 
 @Component({
   components: {
@@ -21,30 +21,14 @@ import * as movieStore from '@/store/modules/movie';
     Chart,
     Table,
     Menu,
-    ReviewModal,
     List,
     CelebList,
     Footer
   }
 })
 export default class Movie extends Vue {
-  get movie() {
-    return movieStore.getMovieData(this.$store);
-  }
-
-  get cast() {
-    const movie = this.movie;
-    const cast = movie && movie.cast;
-
-    return cast;
-  }
-
-  get crew() {
-    const movie = this.movie;
-    const crew = movie && movie.crew;
-
-    return crew;
-  }
+  public movie: any = null;
+  public loading: boolean = false;
 
   get attributes() {
     if (this.movie) {
@@ -71,67 +55,52 @@ export default class Movie extends Vue {
 
       if (attr) {
         const { friends, family, self } = attr.watchWith;
-        const watchWithTotal = friends + family + self;
-        result.watchWith.family = family / watchWithTotal * 100;
-        result.watchWith.friends = friends / watchWithTotal * 100;
-        result.watchWith.self = self / watchWithTotal * 100;
+        if (friends || family || self) {
+          const watchWithTotal = friends + family + self;
+          result.watchWith.family = Math.round(family / watchWithTotal * 100);
+          result.watchWith.friends = Math.round(friends / watchWithTotal * 100);
+          result.watchWith.self = Math.round(self / watchWithTotal * 100);
+        }
 
         const { slow, fast } = attr.pace;
-        const paceTotal = slow + fast;
-        result.pace.slow = slow / paceTotal * 100;
-        result.pace.fast = fast / paceTotal * 100;
+        if (slow || fast) {
+          const paceTotal = slow + fast;
+          result.pace.slow = Math.round(slow / paceTotal * 100);
+          result.pace.fast = Math.round(fast / paceTotal * 100);
+        }
 
         const { simple, complex } = attr.story;
-        const storyTotal = simple + complex;
-        result.story.simple = simple / storyTotal * 100;
-        result.story.complex = complex / storyTotal * 100;
+        if (simple || complex) {
+          const storyTotal = simple + complex;
+          result.story.simple = Math.round(simple / storyTotal * 100);
+          result.story.complex = Math.round(complex / storyTotal * 100);
+        }
 
         const { yes, no } = attr.rewatch;
-        const rewatchTotal = yes + no;
-        result.rewatch.yes = yes / rewatchTotal * 100;
-        result.rewatch.no = no / rewatchTotal * 100;
+        if (yes || no) {
+          const rewatchTotal = yes + no;
+          result.rewatch.yes = Math.round(yes / rewatchTotal * 100);
+          result.rewatch.no = Math.round(no / rewatchTotal * 100);
+        }
       }
 
       return result;
     }
   }
 
-  // get reviews() {
-  //   const movie = this.movie;
-  //   const reviews = movie && movie.reviews;
+  private async mounted() {
+    this.loading = true;
+    const id = Number(this.$route.params.id);
 
-  //   if (reviews) {
-  //     return reviews.map((review: any) => [review.critic, review.rating]);
-  //   }
-  // }
+    const data = await API.getMovieData(id);
+    const metadata = await API.getMovieMetadata(id);
+    const movie = { ...data, ...metadata };
 
-  get moviesAroundReleaseDate() {
-    const movie = this.movie;
-    const { items } = movie && movie.moviesAroundReleaseDate;
+    const itemsObj: any = {};
+    itemsObj[id] = movie;
+    await applyUserMetadataToMovies([id], itemsObj);
+    this.movie = movie;
 
-    if (items) {
-      return items.map((mov: any) => [mov.title, mov.releaseDate, mov.cert, mov.runtime]);
-    }
-  }
-
-  public showModal: boolean = false;
-
-  @Watch('$route.params.id')
-  public onRouteIdChanged(val: string, oldVal: string) {
-    if (val !== oldVal) {
-      this.fetchData();
-    }
-  }
-
-  public fetchMoviesAroundReleaseDate() {
-    movieStore.fetchMoviesAroundDate(this.$store);
-  }
-
-  private created() {
-    this.fetchData();
-  }
-
-  private fetchData() {
-    movieStore.fetchMovieData(this.$store, { id: Number(this.$route.params.id) });
+    this.loading = false;
   }
 }

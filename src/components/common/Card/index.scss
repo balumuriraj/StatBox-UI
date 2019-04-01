@@ -44,7 +44,7 @@
       }
     }
 
-    .rating {
+    .info {
       height: 20px;
       color: #838C98;
       display: flex;
@@ -61,8 +61,12 @@
         font-size: 0.9em;
       }
 
-      .user-rating {
+      .rating {
         color: #f1c40f;
+
+        .user-rating {
+          color: #838C98;
+        }
       }
     } 
   }

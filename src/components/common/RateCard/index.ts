@@ -1,17 +1,13 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import Rating from '@/components/movie/hero/Rating';
-import ReviewModal from '@/components/common/ReviewModal';
 
 @Component({
   components: {
-    Rating,
-    ReviewModal
+    Rating
   }
 })
 export default class RateCard extends Vue {
   @Prop() public movie: any;
-
-  public showModal = false;
 
   get year() {
     const date = this.movie && new Date(this.movie.releaseDate);
@@ -30,17 +26,7 @@ export default class RateCard extends Vue {
     return this.movie && this.movie.userReview;
   }
 
-  get isReviewed() {
-    return this.userReview && (
-      this.userReview.watchWith || this.userReview.pace || this.userReview.story || this.userReview.rewatch
-    );
-  }
-
-  public setFavorite() {
-    this.movie.setFavorite(!this.movie.isFavorite);
-  }
-
-  public setBookmark() {
-    this.movie.setBookmark(!this.movie.isBookmarked);
+  public setReview() {
+    this.$store.dispatch('toggleModal', { movie: this.movie });
   }
 }

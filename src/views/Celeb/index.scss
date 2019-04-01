@@ -1,27 +1,54 @@
 .celeb-wrapper {
   .hero {
-    background-image: url("../../assets/hero-bg5.jpg");
+    background-image: url("../../assets/hero-bg.svg");
     background-size: cover;
-    position: relative;
-    clip-path: inset(0 0 0 0);
+    color: #DFE4EA;
     display: flex;
-    justify-content: center;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, rgba(16, 14, 23, 0.15) 0%, #100e17 100%);
+    }
 
     .hero-body {
-      padding: 10vh 0;
-      color: #fff;
-      text-align: center;
-  
-      .title {
-        font-size: 1.1em;
-        font-weight: bold;
-        margin: 0;
-        padding-top: 1em;
+      max-width: 1240px;
+      margin: 0 auto;
+      margin-top: 50px; // Menu height
+      padding: 2em 2.5%;
+      z-index: 1;
+      font-size: 0.85em;
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+
+      .img-container {
+        img {
+          width: 75px;
+          border-radius: 3px;
+          box-shadow: 4px 22px 54px 0 rgba(0,0,0,1);
+        }
       }
-  
-      img {
-        border: 3px solid white;
-        border-radius: 1.5px;
+
+      .info {
+        margin-left: 1em;
+        align-self: flex-end;
+
+        .title {
+          font-size: 2em;
+          font-weight: 500;
+          margin: 0;
+          opacity: 0.9;
+        }
+
+        .desc {
+          margin: 0.25em 0;
+        }
       }
     }
   }

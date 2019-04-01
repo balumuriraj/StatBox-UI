@@ -1,6 +1,6 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import List from '@/components/common/List';
-import MovieFilter from '@/components/common/Filter';
+import MovieFilter from '@/components/common/MovieFilter';
 import * as API from '@/api';
 
 @Component({

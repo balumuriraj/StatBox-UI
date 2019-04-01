@@ -1,7 +1,7 @@
 import { Prop, Component, Vue, Watch } from 'vue-property-decorator';
 
 @Component
-export default class Filter extends Vue {
+export default class MovieFilter extends Vue {
   @Prop() public show: boolean = true;
   @Prop() public genreList!: string[];
 

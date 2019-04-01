@@ -3,6 +3,7 @@
     <div class="main-container">
       <Menu></Menu>
       <router-view/>
+      <ReviewModal v-if="showModal"></ReviewModal>
     </div>
     <div class="footer-container">
       <Footer></Footer>
@@ -14,14 +15,21 @@
 import { Component, Vue } from 'vue-property-decorator';
 import Menu from '@/components/common/Menu';
 import Footer from '@/components/common/Footer';
+import ReviewModal from '@/components/common/ReviewModal';
 
 @Component({
   components: {
     Menu,
-    Footer
+    Footer,
+    ReviewModal
   }
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  get showModal() {
+    console.log(this.$store.state.showModal);
+    return this.$store.state.showModal;
+  }
+}
 </script>
 
 <style lang="scss">

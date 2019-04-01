@@ -1,34 +1,7 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import RateList from '@/components/common/RateList';
-import MovieFilter from '@/components/common/Filter';
+import MovieFilter from '@/components/common/MovieFilter';
 import * as API from '@/api';
-import * as authStore from '@/store/modules/auth';
-
-async function setReview(userId: number, movie: any, review: any) {
-  const result = await API.updateReview({ userId, ...review });
-  const { rating, watchWith, pace, story, rewatch } = result;
-  movie.userReview = { rating, watchWith, pace, story, rewatch };
-}
-
-async function setFavorite(userId: number, movie: any, value: boolean) {
-  if (value) {
-    const result = await API.addFavorite(userId, movie.id);
-    movie.isFavorite = result;
-  } else {
-    const result = await API.removeFavorite(userId, movie.id);
-    movie.isFavorite = result;
-  }
-}
-
-async function setBookmark(userId: number, movie: any, value: boolean) {
-  if (value) {
-    const result = await API.addBookmark(userId, movie.id);
-    movie.isBookmarked = result;
-  } else {
-    const result = await API.removeBookmark(userId, movie.id);
-    movie.isBookmarked = result;
-  }
-}
 
 @Component({
   components: {
@@ -37,14 +10,6 @@ async function setBookmark(userId: number, movie: any, value: boolean) {
   }
 })
 export default class Rate extends Vue {
-  get user() {
-    return authStore.getUser(this.$store);
-  }
-
-  get userId() {
-    return this.user && this.user.id;
-  }
-
   get selectedGenreNames() {
     const items = this.genreList;
     const map: any = {};
@@ -106,10 +71,11 @@ export default class Rate extends Vue {
   private async fetchData() {
     if (this.selectedGenres.length) {
       if (this.sortOrder) {
-        const result = await API.getSortedGenreMovies(this.selectedGenres, this.getRange(), this.sortOrder, true);
+        const result =
+          await API.getSortedGenreMovies(this.selectedGenres, this.getRange(), this.sortOrder);
         this.processResult(result);
       } else {
-        const result = await API.getGenreMovies(this.selectedGenres, this.getRange(), true);
+        const result = await API.getGenreMovies(this.selectedGenres, this.getRange());
         this.processResult(result);
       }
     }
@@ -128,13 +94,7 @@ export default class Rate extends Vue {
 
   private processResult(result: any) {
     if (result) {
-      const items = result.items.map((item: any) => {
-        item.setReview = setReview.bind(item, this.userId, item);
-        item.setFavorite = setFavorite.bind(item, this.userId, item);
-        item.setBookmark = setBookmark.bind(item, this.userId, item);
-        return item;
-      });
-
+      const items = [...result.items];
       const unrated = items && items.filter((movie: any) => !(movie.userReview && movie.userReview.rating));
       const rated = items && items.filter((movie: any) => (movie.userReview && movie.userReview.rating));
 

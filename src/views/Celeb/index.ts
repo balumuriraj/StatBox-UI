@@ -1,6 +1,6 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import List from '@/components/common/List';
-import * as celebStore from '@/store/modules/celeb';
+import * as API from '@/api';
 
 @Component({
   components: {
@@ -8,27 +8,59 @@ import * as celebStore from '@/store/modules/celeb';
   }
 })
 export default class Celeb extends Vue {
-  get celeb() {
-    return celebStore.getCelebData(this.$store);
-  }
-
-  @Watch('$route.params.id')
-  public onRouteIdChanged(val: string, oldVal: string) {
-    if (val !== oldVal) {
-      this.fetchData();
+  get age() {
+    if (this.celeb && this.celeb.dob) {
+      const today = new Date();
+      const birthDate = new Date(this.celeb.dob);
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+      return age;
     }
   }
 
-  public fetchMovies(firstFetch?: boolean) {
-    celebStore.fetchCelebMovies(this.$store, { id: this.$route.params.id, firstFetch });
+  public celeb: any = {
+    id: null,
+    name: null,
+    photo: null,
+    dob: null
+  };
+  public movies: any = {
+    items: [],
+    count: 0
+  };
+
+  public async fetchMovies() {
+    console.log(this.$store);
+    const result = await API.getMoviesByCelebId(this.celeb.id, this.getRange());
+
+    if (result) {
+      this.movies.items = this.movies.items.concat(result.items);
+      this.movies.count = result.count;
+    }
   }
 
-  private mounted() {
-    this.fetchData();
+  private async mounted() {
+    const id = this.$route.params.id;
+    const data = await API.getCelebData(id);
+    this.celeb.id = id;
+    this.celeb.name = data.name;
+    this.celeb.photo = data.photo;
+    this.celeb.dob = data.dob;
+
+    this.fetchMovies();
   }
 
-  private fetchData() {
-    celebStore.fetchCelebData(this.$store, { id: this.$route.params.id });
-    this.fetchMovies(true);
+  private getRange() {
+    const count = this.movies.count;
+    const length = this.movies.items.length;
+
+    if (count === 0 || (count > length)) {
+      const from = length;
+      const to = !count || (count - from > 10) ? length + 9 : count - 1;
+      return { from, to };
+    }
   }
 }

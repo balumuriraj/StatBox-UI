@@ -70,10 +70,8 @@ export interface AuthState {
 }
 
 export interface RootState {
-  home: HomeState;
-  auth: AuthState;
-  movie: MovieState;
-  celeb: CelebState;
+  showModal: boolean;
+  modalMovie: any;
 }
 
 interface Items {

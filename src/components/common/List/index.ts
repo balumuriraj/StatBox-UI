@@ -10,14 +10,20 @@ import EmptyBox from '@/components/common/EmptyBox';
 })
 export default class List extends Vue {
   @Prop() public title!: string;
+  @Prop() public subtitle!: string;
   @Prop() public items!: object[];
   @Prop() public count!: number;
 
   public processedItems: object[] = [];
   public loading: boolean = false;
+  public view: 'list' | 'box' = 'box';
 
   get currentCount(): number {
     return this.items.length;
+  }
+
+  public setReview(movie: any) {
+    this.$store.dispatch('toggleModal', { movie });
   }
 
   @Watch('currentCount')

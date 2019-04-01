@@ -2,25 +2,30 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import { auth } from '@/store/modules/auth';
 import { home } from './modules/home';
-import { celeb } from './modules/celeb';
-import { movie } from './modules/movie';
 import { genre } from './modules/genre';
+import { RootState } from './interfaces';
 
 Vue.use(Vuex);
 
-const store = new Vuex.Store({
-  modules: { auth, home, celeb, movie, genre },
-  getters: {
-    userId(state) {
-      return state.auth.user.id;
-    }
+const store = new Vuex.Store<RootState>({
+  state: {
+    showModal: false,
+    modalMovie: null
   },
+  modules: { auth, home, genre },
   actions: {
+    toggleModal(context, payload) {
+      context.commit('toggleModal', payload && payload.movie);
+    },
     initialiseStore(context) {
       context.commit('initialiseStore');
     }
   },
   mutations: {
+    toggleModal(state, movie) {
+      state.modalMovie = movie || null;
+      state.showModal = !state.showModal;
+    },
     initialiseStore(state) {
       const localStore = sessionStorage.getItem('store');
 

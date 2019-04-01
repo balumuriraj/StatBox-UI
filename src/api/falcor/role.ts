@@ -1,43 +1,49 @@
 import model from '@/api/falcor/model';
+import { applyUserMetadataToMovies } from './utils';
 
-export async function getMoviesByCelebId(celebId: string, range: { from: number, to: number }): Promise<any> {
+export async function getMoviesByCelebId(
+  celebId: string,
+  range: { from: number, to: number },
+  includeUserMeta: boolean = true
+): Promise<any> {
   const path = 'moviesByCelebId';
   const countResponse = await model.get([path, [celebId], 'movies', 'length']);
-  let count = countResponse.json[path][celebId].movies.length;
+  const count = countResponse.json[path][celebId].movies.length;
 
   const response = await model.get([
     path, [celebId],
     'movies', range,
-    ['id', 'title', 'poster', 'releaseDate', 'rating']
+    ['id', 'title', 'poster', 'cert', 'releaseDate', 'rating']
   ]);
 
   const moviesObj = response.json[path][celebId].movies;
-  let items: any[] = [];
+  const itemsObj: any = {};
+  const movieIds: string[] = []; // to preserve order
 
   for (const movieId in moviesObj) {
-    if (moviesObj[movieId] && moviesObj[movieId].title) {
+    if (movieId !== '$__path') {
       const movie = moviesObj[movieId];
-      items.push({
-        id: movie.id,
-        title: movie.title,
-        poster: movie.poster,
-        releaseDate: movie.releaseDate,
-        rating: movie.rating
-      });
+
+      if (movie) {
+        itemsObj[movie.id] = {
+          id: movie.id,
+          title: movie.title,
+          poster: movie.poster,
+          releaseDate: movie.releaseDate,
+          cert: movie.cert,
+          rating: movie.rating
+        };
+        movieIds.push(movie.id);
+      }
     }
   }
 
-  // remove duplicates
-  const movieIds: string[] = [];
+  if (includeUserMeta) {
+    await applyUserMetadataToMovies(movieIds, itemsObj);
+  }
 
-  items = items.filter((movie: any) => {
-    if (movieIds.indexOf(movie.id) === -1) {
-      movieIds.push(movie.id);
-      return true;
-    } else {
-      count--;
-    }
-  });
+  const items = movieIds.map((movieId) => itemsObj[movieId]);
+  console.log(items);
 
   return { items, count };
 }

@@ -46,7 +46,7 @@ const actions = {
     if (count === 0 || (count > length)) {
       const from = length;
       const to = !count || (count - from > 10) ? length + 9 : count - 1;
-      const data = await API.getGenreMovies(payload.ids, { from, to });
+      const data = await API.getGenreMovies(payload.ids, { from, to }, null);
       context.commit('setGenreMovies', data);
     }
   }

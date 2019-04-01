@@ -16,11 +16,11 @@
       <div class="title">
         <p>{{item && (item.title || item.name)}}</p>
       </div>
-      <div class="rating">
+      <div class="info">
         <div v-if=item>
           <span>{{year || "year N/A"}}</span>
         </div>
-        <div v-if="item && isMovie">
+        <div v-if="item && isMovie" class="rating">
           <span v-show="item && (userRating || rating)" :class="{'user-rating': userRating}">
             <font-awesome-icon icon="star" class="icon"></font-awesome-icon>{{userRating || rating || "--"}}
           </span>

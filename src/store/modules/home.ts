@@ -67,7 +67,7 @@ const actions = {
       const endDate = Date.now();
       const from = length;
       const to = !count || (count - from > 10) ? length + 9 : count - 1;
-      const result = await API.getMoviesBetweenDates(startDate, endDate, { from, to });
+      const result = await API.getMoviesBetweenDates(startDate, endDate, { from, to }, null);
       context.commit('setLatestMovies', result);
     }
   },
@@ -83,7 +83,7 @@ const actions = {
       const startDate = Date.now();
       const from = length;
       const to = !count || (count - from > 10) ? length + 9 : count - 1;
-      const result = await API.getMoviesBetweenDates(startDate, endDate, { from, to });
+      const result = await API.getMoviesBetweenDates(startDate, endDate, { from, to }, null);
       context.commit('setUpcomingMovies', result);
     }
   },
@@ -95,7 +95,7 @@ const actions = {
     if (count === 0 || (count > length)) {
       const from = length;
       const to = !count || (count - from > 10) ? length + 9 : count - 1;
-      const result = await API.getPopularMovies({ from, to });
+      const result = await API.getPopularMovies({ from, to }, null);
       context.commit('setPopularMovies', result);
     }
   },
@@ -120,7 +120,7 @@ const actions = {
     if (count === 0 || (count > length)) {
       const from = length;
       const to = !count || (count - from > 10) ? length + 9 : count - 1;
-      const result = await API.getMoviesBetweenDates(payload.startDate, payload.endDate, { from, to });
+      const result = await API.getMoviesBetweenDates(payload.startDate, payload.endDate, { from, to }, null);
       result.name = payload.name;
       context.commit('setMoviesByDates', result);
     }

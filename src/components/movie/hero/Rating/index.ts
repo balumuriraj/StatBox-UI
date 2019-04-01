@@ -1,5 +1,4 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import * as movieStore from '@/store/modules/movie';
 
 @Component
 export default class Rating extends Vue {
@@ -43,13 +42,6 @@ export default class Rating extends Vue {
       this.movie.setReview({
         movieId: this.movie.id,
         rating
-      });
-    } else {
-      await movieStore.updateReview(this.$store, {
-        review: {
-          movieId: this.movie.id,
-          rating
-        }
       });
     }
   }

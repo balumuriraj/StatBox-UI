@@ -5,7 +5,7 @@ export async function getMoviesBetweenDates(
   date1: number,
   date2: number,
   range: { from: number; to: number; },
-  includeUserMeta: boolean = false
+  includeUserMeta: boolean = true
 ): Promise<any> {
   const queryString = `date1=${date1}&date2=${date2}`;
 
@@ -77,7 +77,7 @@ export async function getMovieData(movieId: number): Promise<any> {
 export async function getMovieMetadata(movieId: number): Promise<any> {
   const response = await model.get([
     'moviesById', [movieId], 'metadata',
-    ['cast', 'crew', 'ratingBins', 'attributes', 'isFavorite', 'isBookmarked', 'userReview'],
+    ['cast', 'crew', 'ratingBins', 'attributes'],
     {length: 5}, ['id', 'type', 'category', 'celeb'],
     ['id', 'name', 'photo']
   ]);
@@ -110,6 +110,8 @@ export async function getMovieMetadata(movieId: number): Promise<any> {
     }
   }
 
-  const { isFavorite, isBookmarked, userReview, ratingBins, attributes } = result;
-  return { isFavorite, isBookmarked, userReview, attributes, ratingBins, cast, crew };
+  const { ratingBins, attributes } = result;
+  const item = { attributes, ratingBins, cast, crew };
+
+  return item;
 }

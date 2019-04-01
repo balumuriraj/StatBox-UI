@@ -13,6 +13,7 @@
     justify-content: center;
 
     .title {
+      text-align: center;
       margin: 0;
       font-size: 1.75em;
       font-weight: bold;
@@ -107,6 +108,10 @@
     }
 
     .buttons-block {
+      justify-content: flex-start;
+    }
+
+    .streaming-block {
       justify-content: flex-start;
     }
 

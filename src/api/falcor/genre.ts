@@ -40,7 +40,7 @@ export async function getGenreData(id: number): Promise<any> {
 export async function getGenreMovies(
   ids: number[],
   range: { from: number; to: number; },
-  includeUserMeta: boolean = false
+  includeUserMeta: boolean = true
 ): Promise<any> {
   const countResponse = await model.get(['genresById', ids, 'movies', 'length']);
   let count = 0;
@@ -94,7 +94,7 @@ export async function getSortedGenreMovies(
   ids: number[],
   range: { from: number; to: number; },
   sortBy: 'releasedate' | 'title' | 'rating',
-  includeUserMeta: boolean = false
+  includeUserMeta: boolean = true
 ): Promise<any> {
   const genresKey = Array.isArray(ids) ? ids.join(',') : ids;
   const countResponse = await model.get(['sortedMoviesByGenreKeys', genresKey, sortBy, 'length']);

@@ -58,18 +58,21 @@
       .menu-container {
         display: flex;
         justify-content: center;
-        background: rgba(255,255,255,0.05);
+        // background: rgba(255,255,255,0.05);
         box-shadow: 0 1px 1px 0 rgba(0,0,0,0.10), 0 0 0 0 #D2D2D2;
     
         .menu-item {
-          padding: 1em;
+          flex-grow: 1;
+          flex-basis: 0;
+          text-align: center;
+          padding: 0.5em 1em;
           cursor: pointer;
           color: #41464C;
     
           .icon-container {
             color: #41464C;
             display: inline;
-            padding-right: 5px;
+            font-size: 1.25em;
           }
 
           span {
@@ -79,9 +82,11 @@
     
         .active {
           color: #DFE4EA;
-          border-bottom: 2px solid #FC5C65;
+          // border-bottom: 2px solid #FC5C65;
+          background: rgba(255,255,255,0.05);
+          border-radius: 5px;
     
-          .icon-container {
+          .icon-container {            
             color: #DFE4EA;
           }
         }
@@ -153,11 +158,18 @@
         }
 
         .menu-container {
+          justify-content: flex-start;
+
           .menu-item {
             padding: 1em 2em;
 
+            .icon-container {
+              font-size: 1em;
+            }
+
             span {
               display: inline;
+              padding-left: 5px;
             }
           }
         }

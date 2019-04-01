@@ -91,10 +91,10 @@
         <router-link class="navbar-item" to="/" v-if="isUserLoggedIn">
           <font-awesome-icon icon="home" class="icon"></font-awesome-icon> Home
         </router-link>
-        <router-link class="navbar-item" to="/explore">
+        <router-link class="navbar-item" to="/browse">
           <font-awesome-icon icon="film" class="icon"></font-awesome-icon> Browse
         </router-link>
-        <router-link class="navbar-item sub" to="/explore">
+        <!-- <router-link class="navbar-item sub" to="/explore">
           <font-awesome-icon icon="caret-right" class="icon"></font-awesome-icon> Genres
         </router-link>
         <router-link class="navbar-item sub" to="/explore">
@@ -102,7 +102,7 @@
         </router-link>
         <router-link class="navbar-item sub" to="/explore">
           <font-awesome-icon icon="caret-right" class="icon"></font-awesome-icon> More...
-        </router-link>
+        </router-link> -->
         <router-link v-if="isUserLoggedIn" class="navbar-item" to="/rate">
           <font-awesome-icon icon="star" class="icon"></font-awesome-icon> rate
         </router-link>

@@ -158,71 +158,73 @@ export async function getUserReviews(id: number, range: { from: number; to: numb
   return { items, count };
 }
 
-export async function addBookmark(userId: number, movieId: number) {
+export async function addBookmark(movieId: number) {
   const response = await model.call(
-    ['usersById', userId, 'addBookmark'], // call path
+    ['addBookmark'], // call path
     [movieId], // args
     [['isBookmarked']], // refPaths (moviesById)
-    [['bookmarks', 'length']] // thisPaths (usersById)
+    [['userBookmarks', 'length']] // thisPaths (usersById)
   );
 
-  const bookmarks = response.json.usersById[userId].bookmarks;
-  const length = bookmarks.length;
+  const bookmarks = response.json.userBookmarks;
+  console.log(bookmarks);
 
   return true;
 }
 
-export async function addFavorite(userId: number, movieId: number) {
+export async function addFavorite(movieId: number) {
+  console.log('addFavorite movieId', movieId);
   const response = await model.call(
-    ['usersById', userId, 'addFavorite'],
+    ['addFavorite'],
     [movieId],
     [['isFavorite']],
-    [['favorites', 'length']]
+    [['userFavorites', 'length']]
   );
 
-  const favorites = response.json.usersById[userId].favorites;
-  const length = favorites.length;
+  const favorites = response.json;
+  console.log(favorites);
 
   return true;
 }
 
-export async function removeBookmark(userId: number, movieId: number) {
+export async function removeBookmark(movieId: number) {
   const response =  await model.call(
-    ['usersById', userId, 'removeBookmark'],
+    ['removeBookmark'],
     [movieId],
     [],
-    [['bookmarks', 'length']]
+    [['userBookmarks', 'length']]
   );
 
-  const bookmarks = response.json.usersById[userId].bookmarks;
-  const length = bookmarks.length;
+  const bookmarks = response.json;
+  console.log(bookmarks);
 
   return false;
 }
 
-export async function removeFavorite(userId: number, movieId: number) {
+export async function removeFavorite(movieId: number) {
+  console.log('removeFavorite movieId', movieId);
   const response = await model.call(
-    ['usersById', userId, 'removeFavorite'],
+    ['removeFavorite'],
     [movieId],
     [],
-    [['favorites', 'length']]
+    [['userFavorites', 'length']]
   );
 
-  const favorites = response.json.usersById[userId].favorites;
-  const length = favorites.length;
+  const favorites = response.json.userFavorites;
+  console.log(favorites);
 
   return false;
 }
 
 export async function updateReview(review: any) {
   const response = await model.call(
-    ['usersById', review.userId, 'updateReview'],
+    ['updateReview'],
     [review],
     ['rating', 'watchWith', 'pace', 'rewatch', 'story'],
     [['reviews', 'lastUpdatedIndex']]
   );
 
-  const reviews = response.json.usersById[review.userId].reviews;
+  const reviews = response.json.userReviews;
   const result = reviews[reviews.lastUpdatedIndex];
   const { rating, watchWith, pace, rewatch, story } = result;
 
