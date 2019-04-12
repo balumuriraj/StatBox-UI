@@ -1,33 +1,4 @@
 import model from '@/api/falcor/model';
-import * as API from '@/api';
-
-async function setReview(movie: any, review: any) {
-  const result = await API.updateReview({ ...review });
-  const { rating, watchWith, pace, story, rewatch } = result;
-  movie.userReview = { rating, watchWith, pace, story, rewatch };
-  movie.isReviewed = !!(watchWith || pace || story || rewatch);
-}
-
-async function setFavorite(movie: any, value: boolean) {
-  console.log(movie, value);
-  if (value) {
-    const result = await API.addFavorite(movie.id);
-    movie.isFavorite = result;
-  } else {
-    const result = await API.removeFavorite(movie.id);
-    movie.isFavorite = result;
-  }
-}
-
-async function setBookmark(movie: any, value: boolean) {
-  if (value) {
-    const result = await API.addBookmark(movie.id);
-    movie.isBookmarked = result;
-  } else {
-    const result = await API.removeBookmark(movie.id);
-    movie.isBookmarked = result;
-  }
-}
 
 export async function applyUserMetadataToMovies(movieIds: number[] | string[], itemsObj: any) {
   const response = await model.get([
@@ -59,11 +30,6 @@ export async function applyUserMetadataToMovies(movieIds: number[] | string[], i
         } else {
           item.userReview = userReview;
         }
-        item.setReview = setReview.bind(item, item);
-        item.setFavorite = setFavorite.bind(item, item);
-        item.setBookmark = setBookmark.bind(item, item);
-
-        console.log(item);
       }
     }
   }

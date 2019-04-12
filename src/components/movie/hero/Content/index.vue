@@ -1,7 +1,7 @@
 <template>
   <div class="content-container">
     <div class="title-block">
-      <p class="title">{{ movie.title }}</p>
+      <p class="title">{{ movie.title || "Title" }}</p>
     </div>
 
     <div class="ratings-block">

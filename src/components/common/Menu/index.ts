@@ -28,9 +28,8 @@ export default class Menu extends Vue {
     }
   }
 
-  public logOut() {
-    sessionStorage.clear();
-    auth.logout();
+  public async logOut() {
+    this.$store.dispatch('auth/logout');
   }
 
   private mounted() {

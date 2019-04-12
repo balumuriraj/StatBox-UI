@@ -1,9 +1,17 @@
 <template>
   <div class="celebs-list-contianer">
     <Title :name=title :subtitle=subtitle></Title>
-    <div class="celebs-list" v-if="celebs && celebs.length">
+    <div class="buttons-container">
+      <div @click="scrollLeft()" class="icon-container">
+        <font-awesome-icon icon="angle-left" class="icon"></font-awesome-icon>
+      </div>
+      <div @click="scrollRight()" class="icon-container">
+        <font-awesome-icon icon="angle-right" class="icon"></font-awesome-icon>
+      </div>
+    </div>
+    <div class="celebs-list" v-if="celebs && celebs.length" ref="celebsBox">
       <template v-for="(celeb, index) in celebs">
-        <router-link :to="'/celeb/' + celeb.id" tag="div" class="celeb-container" :key='index' v-if=celeb>
+        <router-link :to="'/celeb/' + celeb.id" class="celeb-container" :key='index' v-if="celeb">
           <div class="celeb-image">
             <template v-if="celeb.photo">
               <img :src="celeb.photo">

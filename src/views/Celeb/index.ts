@@ -33,7 +33,6 @@ export default class Celeb extends Vue {
   };
 
   public async fetchMovies() {
-    console.log(this.$store);
     const result = await API.getMoviesByCelebId(this.celeb.id, this.getRange());
 
     if (result) {
@@ -43,14 +42,22 @@ export default class Celeb extends Vue {
   }
 
   private async mounted() {
-    const id = this.$route.params.id;
-    const data = await API.getCelebData(id);
-    this.celeb.id = id;
-    this.celeb.name = data.name;
-    this.celeb.photo = data.photo;
-    this.celeb.dob = data.dob;
+    try {
+      const id = this.$route.params.id;
+      const data = await API.getCelebData(id);
+      this.celeb.id = id;
+      this.celeb.name = data.name;
+      this.celeb.photo = data.photo;
+      this.celeb.dob = data.dob;
 
-    this.fetchMovies();
+      this.fetchMovies();
+    } catch (err) {
+      if (err.message === 'invalid_token') {
+        this.$store.dispatch('notification/set', { message: 'Login Required!' });
+        this.$store.dispatch('auth/logout');
+        this.$router.push({ name: 'login' });
+      }
+    }
   }
 
   private getRange() {

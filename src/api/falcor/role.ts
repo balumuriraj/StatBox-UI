@@ -43,7 +43,6 @@ export async function getMoviesByCelebId(
   }
 
   const items = movieIds.map((movieId) => itemsObj[movieId]);
-  console.log(items);
 
   return { items, count };
 }

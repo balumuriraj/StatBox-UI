@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="buttons">
+      <div class="buttons" :class="{ 'closed': !showFilter }">
         <div class="button" @click="showFilter = !showFilter">
           <font-awesome-icon :icon="showFilter ? 'caret-up' : 'caret-down'" class="icon"></font-awesome-icon>Filter
         </div>

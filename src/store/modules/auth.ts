@@ -2,6 +2,7 @@ import { ActionContext } from 'vuex';
 import { getStoreAccessors } from 'vuex-typescript';
 import { AuthState, RootState, Items } from '@/store/interfaces';
 import { getUserId, getBookmarks, getFavorites, getReviewed, getUserMetadata } from '@/api';
+import firebaseAuth from '@/auth';
 
 type UserContext = ActionContext<AuthState, RootState>;
 
@@ -45,7 +46,7 @@ const defaultRange = { from: 0, to: 9 };
 function getRange(length: number, count: number) {
   if (count === 0 || (count > length)) {
     const from = length;
-    const to = !count || (count - from > 10) ? length + 9 : count;
+    const to = !count || (count - from > 10) ? length + 9 : count - 1;
 
     return { from, to };
   }
@@ -147,6 +148,10 @@ const actions = {
   },
   saveUserTheme: async (context: UserContext, payload: { theme: string }) => {
     context.commit('saveUserTheme', payload.theme);
+  },
+  logout: async (context: UserContext) => {
+    await firebaseAuth.logout();
+    context.commit('resetAuthUser');
   }
 };
 

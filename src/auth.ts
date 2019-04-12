@@ -28,17 +28,22 @@ const init = (context: any) => {
   firebase.initializeApp(config);
   context.$store.dispatch('initialiseStore');
 };
+
 const initObserver = (context: any) => {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      user.getIdToken(/* forceRefresh */ true).then((token) => {
-        // Send token to your backend via HTTPS
-        context.$store.dispatch('auth/setAuthUser', { token, user });
-      }).catch((error) => {
-        // Handle error
-      });
+      // console.log('user logged in!');
+
+      if (!context.$store.state.auth.token) {
+        user.getIdToken(/* forceRefresh */ true).then((token) => {
+          // Send token to your backend via HTTPS
+          context.$store.dispatch('auth/setAuthUser', { token, user });
+        }).catch((error) => {
+          // Handle error
+        });
+      }
     } else {
-      context.$store.dispatch('auth/resetAuthUser');
+      // console.log('user logged out!');
     }
 
     const requireAuth = context.$route.matched.some((record: any) => record.meta.requireAuth);
@@ -50,19 +55,8 @@ const initObserver = (context: any) => {
       context.$router.push('dashboard');
     }
   });
-
-  // firebase.auth().onIdTokenChanged((user) => {
-  //   if (user) {
-  //     // User is signed in or token was refreshed.
-  //     user.getIdToken(/* forceRefresh */ true).then((token) => {
-  //       // Send token to your backend via HTTPS
-  //       context.$store.dispatch('auth/setToken', { token });
-  //     }).catch((error) => {
-  //       // Handle error
-  //     });
-  //   }
-  // });
 };
+
 const initUI = (container: any) => {
   let ui: any = null;
   const AuthUI = firebaseui.auth.AuthUI;
@@ -75,6 +69,9 @@ const initUI = (container: any) => {
 
   ui.start(container, uiConfig);
 };
-const logout = () => firebase.auth().signOut();
+
+const logout = async () => {
+  await firebase.auth().signOut();
+};
 
 export default { init, initObserver, initUI, logout };

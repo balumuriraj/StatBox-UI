@@ -1,46 +1,46 @@
 <template>
   <div>
-    <div class="content" v-if="movie">
+    <div class="content" v-if="this">
       <div class="hero">
-        <img :src="movie.poster">
+        <img :src="poster">
         <div class="overlay-gradient"></div>
       </div>
 
       <!-- content -->
       <section class="content-section">
         <div class="left-section">
-          <Poster :movie="movie"></Poster>
+          <Poster :movie="this"></Poster>
           <div class="info-container">
-            <Info :movie="movie"></Info>
+            <Info :movie="this"></Info>
           </div>
         </div>
         <div class="right-section">
           <div class="title-container">
-            <Content :movie="movie" @show="showModal = true"></Content>
+            <Content :movie="this"></Content>
           </div>
           <div class="info-container">
-            <Info :movie="movie"></Info>
+            <Info :movie="this"></Info>
           </div>
           <div class="streamings-container">
             <div class="title-block">
               <p class="title">Watch Now</p>
               <div class="button">
                 <font-awesome-icon icon="play" class="icon"></font-awesome-icon>
-                <span>Trailer</span>
+                <span>TRAILER</span>
               </div>
             </div>
             <div class="streams">
-              <div class="stream" :class="{ 'active': movie.url }">
+              <div class="stream" :class="{ 'active': streams && streams.netflix }">
                 <span class="name netflix">NETFLIX</span>
-                <span class="type">{{ movie.url ? "Subscription" : "Unavailable" }}</span>
+                <span class="type">{{ streams && streams.netflix ? "Subscription" : "Unavailable" }}</span>
               </div>
-              <div class="stream" :class="{ 'active': movie.url }">
+              <div class="stream" :class="{ 'active': streams && streams.prime }">
                 <span class="name prime">Prime Video</span>
-                <span class="type">{{ movie.url ? "Subscription" : "Unavailable" }}</span>
+                <span class="type">{{ streams && streams.prime ? "Subscription" : "Unavailable" }}</span>
               </div>
-              <div class="stream" :class="{ 'active': movie.url }">
+              <div class="stream" :class="{ 'active': streams && streams.youtube }">
                 <span class="name youtube">YouTube</span>
-                <span class="type">{{ movie.url ? "Free" : "Unavailable" }}</span>
+                <span class="type">{{ streams && streams.youtube ? "Free" : "Unavailable" }}</span>
               </div>
             </div>
           </div>
@@ -50,19 +50,16 @@
               :id="'ratingsChart'"
               :title="'Distribution'"
               :subtitle="'of ratings'"
-              :numbers="movie.ratingBins"
+              :numbers="ratingBins"
             ></Chart>
             <Attributes class="item" :props="attributes"></Attributes>
           </div>
           <div class="items-container">
-            <CelebList v-if="movie.crew" :title="'Crew'" :celebs="movie.crew" class="item"></CelebList>
-            <CelebList v-if="movie.cast" :title="'Cast'" :celebs="movie.cast" class="item"></CelebList>
+            <CelebList :title="'Crew'" :celebs="crew" class="item"></CelebList>
+            <CelebList :title="'Cast'" :celebs="cast" class="item"></CelebList>
           </div>
         </div>
       </section>
-    </div>
-    <div class="loading">
-      <font-awesome-icon v-show="loading" icon="spinner" class="icon" spin/>
     </div>
   </div>
 </template>

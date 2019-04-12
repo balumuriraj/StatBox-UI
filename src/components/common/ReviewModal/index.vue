@@ -111,8 +111,10 @@
             </div>
 
             <div class="buttons-section">
-              <!-- <button @click.prevent="submitReview">submit</button> -->
-              <button @click.prevent="submitReview">close</button>
+              <button v-if="isLoading" class="icon-container">
+                <font-awesome-icon icon="spinner" spin />
+              </button>
+              <button v-else @click.prevent="submitReview">close</button>
             </div>
           </div>
         </div>

@@ -136,6 +136,10 @@
       text-transform: capitalize;
       font-weight: bold;
 
+      .icon-container {
+        padding: 1em;
+      }
+
       &:last-child {
         opacity: 0.8;
         border-left: 1px solid #f0f0f0;

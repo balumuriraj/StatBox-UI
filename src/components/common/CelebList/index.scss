@@ -2,13 +2,51 @@
   background: rgba(255,255,255,0.05);;
   padding: 1em;
   border-radius: 5px;
+  position: relative;
+
+  .buttons-container {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    display: flex;
+    color: #dfe4ea;
+
+    .icon-container {
+      cursor: pointer;
+      padding: 0 0.5em;
+      font-size: 1.5em;
+      opacity: 0.75;
+    }
+  }
 
   .celebs-list {
+    height: 250px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    display: flex;
+    flex-direction: column;
+    flex-flow: column wrap;
+    -webkit-overflow-scrolling: touch;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
     .celeb-container {
       display: flex;
-      padding: 1em;
-      cursor: pointer;
+      padding: 0 1em;
+      margin-right: 1em;
       color: #dfe4ea;
+      text-decoration: none;
+      width: 70%;
+      height: 75px;
+      align-items: center;
+      overflow: hidden;
+
+      &:hover {
+        background: rgba(255,255,255,0.05);
+      }
 
       &:not(:last-child) {
         border-bottom: 1px solid #27262E;
@@ -24,8 +62,13 @@
       .celeb-content {
         padding-left: 0.5em;
         flex-grow: 1;
+        display: block;
+        max-height: 40px;
+        white-space: nowrap; 
+        overflow: hidden;
+        text-overflow: ellipsis;
 
-        p {
+        p {          
           font-size: 1em;
           margin: 0;
         }

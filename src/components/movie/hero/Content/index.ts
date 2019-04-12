@@ -1,10 +1,11 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import { EventBus } from '@/events';
 
 @Component
 export default class Content extends Vue {
   @Prop() public movie!: any;
 
   public setReview() {
-    this.$store.dispatch('toggleModal', { movie: this.movie });
+    EventBus.$emit('toggleModal', this.movie);
   }
 }

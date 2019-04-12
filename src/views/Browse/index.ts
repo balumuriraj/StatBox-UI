@@ -33,12 +33,15 @@ export default class Browse extends Vue {
   private onQueryChanged(newVal: any, oldVal: any) {
     const { genre, sort } = newVal;
     const isSortEqual = this.sortOrder === sort;
-    const isGenresEqual =
+    const isGenresEqual = this.selectedGenres && genre &&
       this.selectedGenres.length === genre.length &&
       this.selectedGenres.every((id) => genre && genre.indexOf(id) > -1);
 
     if (!isSortEqual || !isGenresEqual) {
-      this.selectedGenres = (genre && Array.isArray(genre) ? genre : [genre]) || [];
+      if (genre) {
+        this.selectedGenres = (Array.isArray(genre) ? genre : [genre]) || [];
+      }
+
       this.sortOrder = sort;
 
       this.movies.items = [];

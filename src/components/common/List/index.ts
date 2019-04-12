@@ -1,6 +1,7 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import Card from '@/components/common/Card';
 import EmptyBox from '@/components/common/EmptyBox';
+import { EventBus } from '@/events';
 
 @Component({
   components: {
@@ -23,7 +24,7 @@ export default class List extends Vue {
   }
 
   public setReview(movie: any) {
-    this.$store.dispatch('toggleModal', { movie });
+    EventBus.$emit('toggleModal', movie);
   }
 
   @Watch('currentCount')

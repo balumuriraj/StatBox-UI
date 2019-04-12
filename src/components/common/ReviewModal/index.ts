@@ -1,5 +1,6 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import Rating from '@/components/movie/hero/Rating';
+import { EventBus } from '@/events';
 
 @Component({
   components: {
@@ -7,21 +8,22 @@ import Rating from '@/components/movie/hero/Rating';
   }
 })
 export default class ReviewModal extends Vue {
-  get movie() {
-    return this.$store.state.modalMovie;
-  }
-
-  public watchWith = this.movie && this.movie.userReview && this.movie.userReview.watchWith || null;
-  public pace = this.movie && this.movie.userReview && this.movie.userReview.pace || null;
-  public story = this.movie && this.movie.userReview && this.movie.userReview.story || null;
-  public rewatch = this.movie && this.movie.userReview && this.movie.userReview.rewatch || null;
+  public movie: any = null;
+  public isLoading: boolean = false;
+  public watchWith: string = null;
+  public pace: string = null;
+  public story: string = null;
+  public rewatch: string = null;
 
 
   public async submitReview() {
+    this.isLoading = true;
+
     if (this.watchWith || this.pace || this.story || this.rewatch) {
       if ('setReview' in this.movie) {
-        this.movie.setReview({
+        await this.movie.setReview({
           movieId: this.movie.id,
+          rating: this.movie.rating,
           watchWith: this.watchWith,
           pace: this.pace,
           story: this.story,
@@ -30,10 +32,21 @@ export default class ReviewModal extends Vue {
       }
     }
 
+    this.isLoading = false;
     this.closeModal();
   }
 
   public closeModal() {
-    this.$store.dispatch('toggleModal');
+    EventBus.$emit('toggleModal', null);
+  }
+
+  private mounted() {
+    EventBus.$on('toggleModal', (movie: any) => {
+      this.movie = movie;
+      this.watchWith = this.movie && this.movie.userReview && this.movie.userReview.watchWith || null;
+      this.pace = this.movie && this.movie.userReview && this.movie.userReview.pace || null;
+      this.story = this.movie && this.movie.userReview && this.movie.userReview.story || null;
+      this.rewatch = this.movie && this.movie.userReview && this.movie.userReview.rewatch || null;
+    });
   }
 }

@@ -3,29 +3,19 @@ import Vuex from 'vuex';
 import { auth } from '@/store/modules/auth';
 import { home } from './modules/home';
 import { genre } from './modules/genre';
+import { notification } from './modules/notification';
 import { RootState } from './interfaces';
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store<RootState>({
-  state: {
-    showModal: false,
-    modalMovie: null
-  },
-  modules: { auth, home, genre },
+  modules: { auth, home, genre, notification },
   actions: {
-    toggleModal(context, payload) {
-      context.commit('toggleModal', payload && payload.movie);
-    },
     initialiseStore(context) {
       context.commit('initialiseStore');
     }
   },
   mutations: {
-    toggleModal(state, movie) {
-      state.modalMovie = movie || null;
-      state.showModal = !state.showModal;
-    },
     initialiseStore(state) {
       const localStore = sessionStorage.getItem('store');
 

@@ -3,14 +3,14 @@
     <!-- <p class="title">Overview</p> -->
     
     <div class="info-block">
-      <div class="cert" v-if=movie.cert>
+      <div class="cert" v-if="movie.cert">
         <span>{{ movie.cert }}</span>
       </div>
-      <div v-if=movie.releaseDate>
-        <font-awesome-icon :icon="['fas', 'calendar-alt']" fixed-width></font-awesome-icon> {{ movie.releaseDate }}
+      <div>
+        <font-awesome-icon :icon="['fas', 'calendar-alt']" fixed-width></font-awesome-icon> {{ movie.releaseDate || "N/A" }}
       </div>
-      <div v-if=movie.runtime>
-        <font-awesome-icon :icon="['fas', 'clock']" fixed-width></font-awesome-icon> {{ movie.runtime }} mins
+      <div>
+        <font-awesome-icon :icon="['fas', 'clock']" fixed-width></font-awesome-icon> {{ movie.runtime || "--" }} mins
       </div>                
     </div>
 

@@ -7,7 +7,7 @@
         <div class="progress-container">
           <Progress :value=attribute.value type="full"></progress>
         </div>
-        <div class="name">{{ attribute.value }}%</div>
+        <div class="name">{{ attribute.value || 0 }}%</div>
       </div>
     </article>
     <article class="attributes-item">

@@ -110,7 +110,62 @@ export async function getMovieMetadata(movieId: number): Promise<any> {
     }
   }
 
-  const { ratingBins, attributes } = result;
+  const attributes = {
+    watchWith: {
+      friends: 0,
+      self: 0,
+      family: 0
+    },
+    pace: {
+      slow: 0,
+      fast: 0
+    },
+    story: {
+      simple: 0,
+      complex: 0
+    },
+    rewatch: {
+      yes: 0,
+      no: 0
+    }
+  };
+
+  if (result.attributes) {
+    const attr = result.attributes;
+
+    if (attr) {
+      const { friends, family, self } = attr.watchWith;
+      if (friends || family || self) {
+        const watchWithTotal = friends + family + self;
+        attributes.watchWith.family = Math.round(family / watchWithTotal * 100);
+        attributes.watchWith.friends = Math.round(friends / watchWithTotal * 100);
+        attributes.watchWith.self = Math.round(self / watchWithTotal * 100);
+      }
+
+      const { slow, fast } = attr.pace;
+      if (slow || fast) {
+        const paceTotal = slow + fast;
+        attributes.pace.slow = Math.round(slow / paceTotal * 100);
+        attributes.pace.fast = Math.round(fast / paceTotal * 100);
+      }
+
+      const { simple, complex } = attr.story;
+      if (simple || complex) {
+        const storyTotal = simple + complex;
+        attributes.story.simple = Math.round(simple / storyTotal * 100);
+        attributes.story.complex = Math.round(complex / storyTotal * 100);
+      }
+
+      const { yes, no } = attr.rewatch;
+      if (yes || no) {
+        const rewatchTotal = yes + no;
+        attributes.rewatch.yes = Math.round(yes / rewatchTotal * 100);
+        attributes.rewatch.no = Math.round(no / rewatchTotal * 100);
+      }
+    }
+  }
+
+  const { ratingBins } = result;
   const item = { attributes, ratingBins, cast, crew };
 
   return item;

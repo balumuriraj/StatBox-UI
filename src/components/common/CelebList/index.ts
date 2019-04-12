@@ -12,4 +12,14 @@ export default class CelebList extends Vue {
   @Prop() public title!: string;
   @Prop() public subtitle!: string;
   @Prop() public celebs!: object[];
+
+  public scrollRight() {
+    const container = this.$refs.celebsBox as Element;
+    container.scrollLeft += 200;
+  }
+
+  public scrollLeft() {
+    const container = this.$refs.celebsBox as Element;
+    container.scrollLeft -= 200;
+  }
 }

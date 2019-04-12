@@ -1,6 +1,7 @@
 <template>
   <div class="poster-container">
-    <img :src="movie && movie.poster" />
+    <img v-if=movie.poster :src="movie.poster" />
+    <div v-else class="img-holder"></div>
     <div class="stars-container">
       <Rating :movie=movie></Rating>
     </div>

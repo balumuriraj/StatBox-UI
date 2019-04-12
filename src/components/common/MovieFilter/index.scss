@@ -278,6 +278,10 @@
   .container {
     .row {
       flex-direction: row;
+
+      .closed {
+        margin-right: 80px;
+      }
     }
 
     .filter-container {

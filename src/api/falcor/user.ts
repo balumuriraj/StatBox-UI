@@ -167,13 +167,11 @@ export async function addBookmark(movieId: number) {
   );
 
   const bookmarks = response.json.userBookmarks;
-  console.log(bookmarks);
 
   return true;
 }
 
 export async function addFavorite(movieId: number) {
-  console.log('addFavorite movieId', movieId);
   const response = await model.call(
     ['addFavorite'],
     [movieId],
@@ -182,7 +180,6 @@ export async function addFavorite(movieId: number) {
   );
 
   const favorites = response.json;
-  console.log(favorites);
 
   return true;
 }
@@ -196,13 +193,11 @@ export async function removeBookmark(movieId: number) {
   );
 
   const bookmarks = response.json;
-  console.log(bookmarks);
 
   return false;
 }
 
 export async function removeFavorite(movieId: number) {
-  console.log('removeFavorite movieId', movieId);
   const response = await model.call(
     ['removeFavorite'],
     [movieId],
@@ -211,7 +206,6 @@ export async function removeFavorite(movieId: number) {
   );
 
   const favorites = response.json.userFavorites;
-  console.log(favorites);
 
   return false;
 }

@@ -69,9 +69,17 @@ export interface AuthState {
   token: string;
 }
 
+export interface NotificationState {
+  message: string;
+  isLoading: boolean;
+  isError: boolean;
+}
+
 export interface RootState {
-  showModal: boolean;
-  modalMovie: any;
+  auth: AuthState;
+  genre: GenreState;
+  home: HomeState;
+  notification: NotificationState;
 }
 
 interface Items {
