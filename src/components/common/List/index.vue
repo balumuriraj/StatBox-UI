@@ -30,8 +30,8 @@
             <th>Release</th>
             <th>Cert</th>
             <th>Rating</th>
-            <!-- <th></th>
-            <th></th> -->
+            <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
