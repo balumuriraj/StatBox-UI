@@ -1,5 +1,9 @@
 .movie-card-container {
   box-shadow: 0 1px 1px 0 rgba(0,0,0,0.10), 0 0 0 0 #D2D2D2;
+
+  // &:hover > .info-card .info .rating {
+  //   display: inline;
+  // }
   
   .movie-card {
     width: 100%;
@@ -25,14 +29,14 @@
       text-align: center;
     }
   }  
+
   .info-card {
     background: #100e17;
     color: #a8aeb6;
-    padding: 5px;
+    padding: 5px 0;
 
     .title {
       height: 20px;
-      padding: 0 0.5em;
 
       p {
         white-space: nowrap;
@@ -49,7 +53,6 @@
       color: #838C98;
       display: flex;
       justify-content: space-between;
-      padding: 0 0.5em;
 
       .icon {
         padding-right: 0.15em;
@@ -62,6 +65,11 @@
       }
 
       .rating {
+        opacity: 0.75;
+        border-radius: 3px;
+        margin-left: 5px;
+        padding: 0 5px;
+        // display: none;
         color: #f1c40f;
 
         .user-rating {

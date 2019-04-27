@@ -1,6 +1,9 @@
 <template>
   <div class="container">
     <div class="row">
+      <div class="count-block">
+        <!-- <p v-if=count>{{count}} / {{ total }}</p> -->
+      </div>
       <div class="buttons" :class="{ 'closed': !showFilter }">
         <div class="button" @click="showFilter = !showFilter">
           <font-awesome-icon :icon="showFilter ? 'caret-up' : 'caret-down'" class="icon"></font-awesome-icon>Filter
@@ -20,28 +23,34 @@
       <div class="filter-block">
         <div class="genres-container">
           <div class="title-block">
-            <p class="title">Genre</p>
+            <p class="title">Genre <span v-if=total>({{ total }})</span></p>
 
             <div class="buttons">
               <a class="link" @click="resetFilter()">Reset</a>
+              <a class="link" @click="scrollLeft()">Prev</a>
+              <a class="link" @click="scrollRight()">Next</a>              
               <div class="button" @click="showFilter = !showFilter">
                 <font-awesome-icon icon="times" class="icon"></font-awesome-icon>
               </div>
             </div>
             
-          </div>            
-          <ul>
-            <template v-for="genre in genreList">
-              <li
-                :key="genre.id"
-                @click="setGenre(genre.id)"
-                :class="{'active': selectedGenres.indexOf(genre.id) > -1}"
-              >
-                {{genre.name}}
-                <span>{{genre.moviesCount}}</span>
-              </li>
-            </template>
-          </ul>
+          </div>
+
+          <div class="list-block" ref="genreBox">
+            <ul >
+              <template v-for="genre in genreList">
+                <li
+                  :key="genre.id"
+                  @click="setGenre(genre.id)"
+                  :class="{'active': selectedGenres.indexOf(genre.id) > -1}"
+                >
+                  {{genre.name}}
+                  <span>{{genre.moviesCount}}</span>
+                </li>
+                <!-- <br v-if="index && (index % 10) === 0" :key="index"/> -->
+              </template>
+            </ul>
+          </div>         
         </div>
         <!-- <div class="sliders-container">
           <div class="slider-block years">

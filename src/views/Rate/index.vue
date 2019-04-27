@@ -1,5 +1,5 @@
 <template>
-  <section class="rate-container">
+  <section class="container">
     <!-- Hero -->
     <div class="hero">
       <div class="hero-body">

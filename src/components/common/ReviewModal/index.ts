@@ -23,7 +23,7 @@ export default class ReviewModal extends Vue {
       if ('setReview' in this.movie) {
         await this.movie.setReview({
           movieId: this.movie.id,
-          rating: this.movie.rating,
+          rating: this.movie.userReview && this.movie.userReview.rating,
           watchWith: this.watchWith,
           pace: this.pace,
           story: this.story,

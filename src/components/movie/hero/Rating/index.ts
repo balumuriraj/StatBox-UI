@@ -41,7 +41,11 @@ export default class Rating extends Vue {
     if ('setReview' in this.movie) {
       this.movie.setReview({
         movieId: this.movie.id,
-        rating
+        rating,
+        watchWith: this.movie && this.movie.userReview && this.movie.userReview.watchWith || null,
+        pace: this.movie && this.movie.userReview && this.movie.userReview.pace || null,
+        story: this.movie && this.movie.userReview && this.movie.userReview.story || null,
+        rewatch: this.movie && this.movie.userReview && this.movie.userReview.rewatch || null
       });
     }
   }

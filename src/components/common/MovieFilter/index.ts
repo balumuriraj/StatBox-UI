@@ -3,6 +3,8 @@ import { Prop, Component, Vue, Watch } from 'vue-property-decorator';
 @Component
 export default class MovieFilter extends Vue {
   @Prop() public show: boolean = true;
+  @Prop() public count!: number;
+  @Prop() public total!: number;
   @Prop() public genreList!: string[];
 
   public showFilter: boolean = this.show;
@@ -107,6 +109,16 @@ export default class MovieFilter extends Vue {
 
   public resetFilter() {
     this.selectedGenres = [];
+  }
+
+  public scrollRight() {
+    const container = this.$refs.genreBox as Element;
+    container.scrollLeft += 200;
+  }
+
+  public scrollLeft() {
+    const container = this.$refs.genreBox as Element;
+    container.scrollLeft -= 200;
   }
 
   @Watch('selectedGenres')

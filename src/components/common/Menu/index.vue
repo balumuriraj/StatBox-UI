@@ -109,7 +109,10 @@
         <!-- <router-link class="navbar-item" to="/search">
           <font-awesome-icon icon="search" class="icon"></font-awesome-icon> search
         </router-link> -->
-        <router-link class="navbar-item log" to="/settings" v-if="isUserLoggedIn">
+        <router-link class="navbar-item log" to="/dashboard" v-if="isUserLoggedIn">
+          <font-awesome-icon icon="tachometer-alt" class="icon"></font-awesome-icon> Dashboard
+        </router-link>
+        <router-link class="navbar-item" to="/settings" v-if="isUserLoggedIn">
           <font-awesome-icon icon="cog" class="icon"></font-awesome-icon> settings
         </router-link>
         <a v-if="isUserLoggedIn" class="navbar-item log" @click="logOut">

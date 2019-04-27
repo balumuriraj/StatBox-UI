@@ -1,5 +1,4 @@
 .list-container {
-
   .title-container {
     margin: 0.5em;
 
@@ -21,6 +20,7 @@
   .rate-list-block {
     display: flex;
     flex-wrap: wrap;
+    margin: 0 -0.5em;
 
     .list-item {
       width: calc(100% - 1em);

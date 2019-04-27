@@ -1,9 +1,9 @@
 <template>
   <div class="list-container" ref="listBox">
-    <div class="title-container">
+    <!-- <div class="title-container">
       <p class="title" v-if=title>{{ title }}</p>
       <p class="count" v-if=count>{{movies && movies.length || 0}} / {{ count }}</p>
-    </div>
+    </div> -->
 
     <template v-if="movies && movies.length">
       <div class="rate-list-block">

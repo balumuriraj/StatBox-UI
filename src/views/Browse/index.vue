@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="body">
-      <MovieFilter :show=true :genreList=genreList></MovieFilter>
+      <MovieFilter :show=true :genreList=genreList :count="movies.items.length" :total="movies.count"></MovieFilter>
       <div class="list">
         <List :title="null" :items="movies.items" :count="movies.count" @fetch="fetchData"></List>
       </div>
