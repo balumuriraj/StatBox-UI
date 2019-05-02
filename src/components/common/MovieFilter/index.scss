@@ -6,7 +6,24 @@
     // margin-bottom: 1em;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: space-between;
+
+    .title-block {
+      .title {
+        flex-grow: 1;
+        flex-basis: 0;
+        margin: 0;
+        font-size: 1em;
+        // font-weight: bold;
+        padding: 0.5em;
+        text-transform: uppercase;
+
+        span {
+          font-size: 0.75em;
+          opacity: 0.5;
+        }
+      }
+    }
   
     .buttons {
       // flex-grow: 1;
@@ -16,12 +33,24 @@
       color: #a4b0be;
       position: relative;
 
+      .link {
+        padding: 0.75em 0.5em;
+        font-size: 0.8em;
+        text-transform: uppercase;
+        cursor: pointer;
+        opacity: 0.5;
+
+        &:hover {                  
+          opacity: 1;
+        }
+      }
+
       .button {
         // width: 80px;
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 1em 0;
+        // padding: 1em 0;
         border-radius: 5px;
         margin-left: 1em;
         text-transform: uppercase;
@@ -32,6 +61,7 @@
         }
 
         span {
+          display: none;
           font-size: 0.75em;
           opacity: 0.5;
           padding-left: 5px;
@@ -43,7 +73,7 @@
         position: absolute;
         font-weight: 500;
         font-size: 0.85em;
-        top: 2.5em;
+        top: 2.75em;
         right: 0;
         color: #41464C;
         background: #fff;
@@ -65,8 +95,7 @@
   }
 
   .filter-container {
-    position: relative;
-    // top: 0.5em;
+    // position: relative;
     margin-bottom: 1em;
 
     .filter-block {
@@ -75,8 +104,8 @@
       border-radius: 5px;
 
       .genres-container {
-        background: rgba(255, 255, 255, 0.15);
-        padding: 1em;
+        // background: rgba(255, 255, 255, 0.15);
+        // padding: 1em;
         border-radius: 5px;
 
         .title-block {
@@ -100,7 +129,7 @@
           .buttons {
             display: flex;
 
-            a {
+            .link {
               padding: 0.75em 0.5em;
               font-size: 0.8em;
               text-transform: uppercase;
@@ -135,7 +164,7 @@
           ul {
             margin: 0;
             padding: 0;
-            white-space:nowrap;
+            white-space: nowrap;            
   
             li {
               display: inline-block;
@@ -283,28 +312,21 @@
   }
 }
 
-@media only screen and (min-width: 800px) {
+@media only screen and (min-width: 600px) {
   .container {
     .row {
       flex-direction: row;
-
-      .closed {
-        // margin-right: 80px;
+  
+      .buttons .button span {
+        display: inline;
       }
     }
 
     .filter-container {
       .filter-block {
         .genres-container {
-          .title {
-            font-size: 1.15em;
-          }
-
           .list-block {
             ul {
-              // display: flex;
-              // flex-wrap: wrap;
-              
               li {
                 font-size: 0.8em;
               }

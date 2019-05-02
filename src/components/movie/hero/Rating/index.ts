@@ -1,4 +1,5 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import Catch from '@/decorators/Catch';
 
 @Component
 export default class Rating extends Vue {
@@ -37,9 +38,10 @@ export default class Rating extends Vue {
     this.hoverVal = 0;
   }
 
+  @Catch
   public async setRating(rating: number) {
     if ('setReview' in this.movie) {
-      this.movie.setReview({
+      await this.movie.setReview({
         movieId: this.movie.id,
         rating,
         watchWith: this.movie && this.movie.userReview && this.movie.userReview.watchWith || null,

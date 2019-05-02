@@ -9,6 +9,8 @@ class FalcorDataSource extends HttpDataSource {
 
     if (token) {
       config.headers.authorization = token;
+    } else {
+      delete config.headers.authorization;
     }
   }
 }

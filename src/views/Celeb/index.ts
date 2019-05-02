@@ -1,6 +1,7 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import List from '@/components/common/List';
 import * as API from '@/api';
+import Catch from '@/decorators/Catch';
 
 @Component({
   components: {
@@ -32,6 +33,7 @@ export default class Celeb extends Vue {
     count: 0
   };
 
+  @Catch
   public async fetchMovies() {
     const result = await API.getMoviesByCelebId(this.celeb.id, this.getRange());
 
@@ -41,23 +43,16 @@ export default class Celeb extends Vue {
     }
   }
 
+  @Catch
   private async mounted() {
-    try {
-      const id = this.$route.params.id;
-      const data = await API.getCelebData(id);
-      this.celeb.id = id;
-      this.celeb.name = data.name;
-      this.celeb.photo = data.photo;
-      this.celeb.dob = data.dob;
+    const id = this.$route.params.id;
+    const data = await API.getCelebData(id);
+    this.celeb.id = id;
+    this.celeb.name = data.name;
+    this.celeb.photo = data.photo;
+    this.celeb.dob = data.dob;
 
-      this.fetchMovies();
-    } catch (err) {
-      if (err.message === 'invalid_token') {
-        this.$store.dispatch('notification/set', { message: 'Login Required!' });
-        this.$store.dispatch('auth/logout');
-        this.$router.push({ name: 'login' });
-      }
-    }
+    this.fetchMovies();
   }
 
   private getRange() {

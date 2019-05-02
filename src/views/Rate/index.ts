@@ -2,6 +2,7 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 import RateList from '@/components/common/RateList';
 import MovieFilter from '@/components/common/MovieFilter';
 import * as API from '@/api';
+import Catch from '@/decorators/Catch';
 
 @Component({
   components: {
@@ -64,10 +65,12 @@ export default class Rate extends Vue {
     this.fetchData();
   }
 
+  @Catch
   private async fetchGenreList() {
     this.genreList = await API.getGenreList();
   }
 
+  @Catch
   private async fetchData() {
     if (this.selectedGenres.length) {
       if (this.sortOrder) {

@@ -12,6 +12,7 @@ import Attributes from '@/components/movie/body/Attributes';
 import * as API from '@/api';
 import { applyUserMetadataToMovies } from '@/api/falcor/utils';
 import MovieMixin from '@/mixins/MovieMixin';
+import Catch from '@/decorators/Catch';
 
 @Component({
   components: {
@@ -30,6 +31,7 @@ import MovieMixin from '@/mixins/MovieMixin';
 export default class Movie extends mixins(MovieMixin) {
   public loading: boolean = false;
 
+  @Catch
   private async mounted() {
     this.$store.dispatch('notification/set', { message: 'Loading', isLoading: true });
     const id = Number(this.$route.params.id);

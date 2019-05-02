@@ -1,10 +1,13 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="count-block">
-        <!-- <p v-if=count>{{count}} / {{ total }}</p> -->
+      <div class="title-block">
+        <p class="title">Genre <span v-if=total>({{ total }})</span></p>
       </div>
       <div class="buttons" :class="{ 'closed': !showFilter }">
+        <a class="link" @click="resetFilter()" v-if="showFilter">Reset</a>
+        <a class="link" @click="scrollLeft()" v-if="showFilter">Prev</a>
+        <a class="link" @click="scrollRight()" v-if="showFilter">Next</a>  
         <div class="button" @click="showFilter = !showFilter">
           <font-awesome-icon :icon="showFilter ? 'caret-up' : 'caret-down'" class="icon"></font-awesome-icon>Filter
         </div>
@@ -12,17 +15,17 @@
           <font-awesome-icon :icon="showSort ? 'caret-up' : 'caret-down'" class="icon"></font-awesome-icon>Sort By <span>{{sortOrder || "Default"}}</span>
         </div>
         <div class="sort-container" v-if="showSort" @click="showSort = !showSort">
-          <div @click="sortOrder = null">Default</div>
+          <div @click="sortOrder = null">Default (Latest)</div>
           <div @click="sortOrder = 'releasedate'">Release Date</div>
           <div @click="sortOrder = 'title'">Title</div>
-          <div @click="sortOrder = 'rating'">Rating</div>
+          <!-- <div @click="sortOrder = 'rating'">Rating</div> -->
         </div>
       </div>
     </div>
     <div class="filter-container" v-if="showFilter">
       <div class="filter-block">
         <div class="genres-container">
-          <div class="title-block">
+          <!-- <div class="title-block">
             <p class="title">Genre <span v-if=total>({{ total }})</span></p>
 
             <div class="buttons">
@@ -34,7 +37,7 @@
               </div>
             </div>
             
-          </div>
+          </div> -->
 
           <div class="list-block" ref="genreBox">
             <ul >
@@ -109,14 +112,6 @@
           </div>
         </div> -->
       </div>
-      <!-- <div class="buttons">
-        <div class="button" @click="resetFilter()">
-          <font-awesome-icon icon="times" class="icon"></font-awesome-icon>Reset All
-        </div>
-        <div class="button" @click="showFilter = !showFilter">
-          <font-awesome-icon :icon="showFilter ? 'caret-up' : 'caret-down'" class="icon"></font-awesome-icon>Hide Filter
-        </div>
-      </div> -->
     </div>
   </div>
 </template>

@@ -2,6 +2,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import * as homeStore from '@/store/modules/home';
 import Carousel from '../../components/common/Carousel';
 import * as authStore from '@/store/modules/auth';
+import Catch from '@/decorators/Catch';
 
 @Component({
   components: {
@@ -58,6 +59,7 @@ export default class Home extends Vue {
     homeStore.fetchMoviesByDates(this.$store, { name, startDate, endDate });
   }
 
+  @Catch
   private created() {
     this.fetchLatest();
     this.fetchUpcoming();

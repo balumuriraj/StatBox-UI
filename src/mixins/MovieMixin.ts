@@ -46,10 +46,11 @@ export default class MovieMixin extends Vue {
       const result = await API.updateReview({ ...review });
       // console.log(result);
     } catch (err) {
-      // console.log(err);
+      console.log(err);
       this.userReview = prevReview;
       const { watchWith, pace, story, rewatch } = this.userReview;
       this.isReviewed = !!(watchWith || pace || story || rewatch);
+      throw err;
     }
   }
 
@@ -65,6 +66,7 @@ export default class MovieMixin extends Vue {
     } catch (err) {
       // console.log(err);
       this.isFavorite = !this.isFavorite;
+      throw err;
     }
   }
 
@@ -80,6 +82,7 @@ export default class MovieMixin extends Vue {
     } catch (err) {
       // console.log(err);
       this.isBookmarked = !this.isBookmarked;
+      throw err;
     }
   }
 }

@@ -12,7 +12,7 @@
     &::before {
       content: '';
       position: absolute;
-      top: 0;
+      top: -5em;
       left: 0;
       right: 0;
       bottom: 0;
@@ -21,7 +21,7 @@
       // background-size: cover;
       background-position: center;
       transform: rotate(-5deg) scale(1);
-      animation: move 60s 1 alternate;
+      // animation: move 60s 1 alternate;
     }
 
     @keyframes move {
