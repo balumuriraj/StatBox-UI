@@ -46,7 +46,6 @@ export default class MovieMixin extends Vue {
       const result = await API.updateReview({ ...review });
       // console.log(result);
     } catch (err) {
-      console.log(err);
       this.userReview = prevReview;
       const { watchWith, pace, story, rewatch } = this.userReview;
       this.isReviewed = !!(watchWith || pace || story || rewatch);
