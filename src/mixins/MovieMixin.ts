@@ -1,5 +1,6 @@
-import { Component, Vue, Watch } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 import * as API from '@/api';
+import Catch from '@/decorators/Catch';
 
 @Component
 export default class MovieMixin extends Vue {
@@ -36,6 +37,7 @@ export default class MovieMixin extends Vue {
     }
   }
 
+  @Catch
   public async setReview(review: any) {
     const prevReview = { ...this.userReview };
 
@@ -44,7 +46,6 @@ export default class MovieMixin extends Vue {
       this.userReview = { rating, watchWith, pace, story, rewatch };
       this.isReviewed = !!(watchWith || pace || story || rewatch);
       const result = await API.updateReview({ ...review });
-      // console.log(result);
     } catch (err) {
       this.userReview = prevReview;
       const { watchWith, pace, story, rewatch } = this.userReview;
@@ -53,6 +54,7 @@ export default class MovieMixin extends Vue {
     }
   }
 
+  @Catch
   public async setFavorite(value: boolean) {
     this.isFavorite = value;
 
@@ -63,12 +65,12 @@ export default class MovieMixin extends Vue {
         this.isFavorite = await API.removeFavorite(this.id);
       }
     } catch (err) {
-      // console.log(err);
       this.isFavorite = !this.isFavorite;
       throw err;
     }
   }
 
+  @Catch
   public async setBookmark(value: boolean) {
     this.isBookmarked = value;
 
@@ -79,7 +81,6 @@ export default class MovieMixin extends Vue {
         this.isBookmarked = await API.removeBookmark(this.id);
       }
     } catch (err) {
-      // console.log(err);
       this.isBookmarked = !this.isBookmarked;
       throw err;
     }

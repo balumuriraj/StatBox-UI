@@ -3,9 +3,9 @@
 
   .row {
     width: 100%;
-    // margin-bottom: 1em;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-between;
 
     .title-block {
@@ -315,8 +315,6 @@
 @media only screen and (min-width: 600px) {
   .container {
     .row {
-      flex-direction: row;
-  
       .buttons .button span {
         display: inline;
       }
