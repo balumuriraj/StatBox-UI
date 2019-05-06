@@ -30,7 +30,7 @@ export default class RateCard extends mixins(MovieMixin) {
   // }
 
   public setUserReview() {
-    EventBus.$emit('toggleModal', this.movie);
+    EventBus.$emit('toggleReviewModal', this.movie);
   }
 
   private mounted() {

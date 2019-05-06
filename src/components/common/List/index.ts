@@ -24,7 +24,7 @@ export default class List extends Vue {
   }
 
   public setReview(movie: any) {
-    EventBus.$emit('toggleModal', movie);
+    EventBus.$emit('toggleReviewModal', movie);
   }
 
   @Watch('currentCount')

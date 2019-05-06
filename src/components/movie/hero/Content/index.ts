@@ -6,6 +6,6 @@ export default class Content extends Vue {
   @Prop() public movie!: any;
 
   public setReview() {
-    EventBus.$emit('toggleModal', this.movie);
+    EventBus.$emit('toggleReviewModal', this.movie);
   }
 }

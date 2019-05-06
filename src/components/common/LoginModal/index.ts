@@ -7,7 +7,7 @@ import { EventBus } from '@/events';
     Rating
   }
 })
-export default class ReviewModal extends Vue {
+export default class LoginModal extends Vue {
   public movie: any = null;
   public isLoading: boolean = false;
   public watchWith: string = null;
@@ -37,11 +37,11 @@ export default class ReviewModal extends Vue {
   }
 
   public closeModal() {
-    EventBus.$emit('toggleReviewModal', null);
+    EventBus.$emit('toggleLoginModal', null);
   }
 
   private mounted() {
-    EventBus.$on('toggleReviewModal', (movie: any) => {
+    EventBus.$on('toggleLoginModal', (movie: any) => {
       this.movie = movie;
       this.watchWith = this.movie && this.movie.userReview && this.movie.userReview.watchWith || null;
       this.pace = this.movie && this.movie.userReview && this.movie.userReview.pace || null;

@@ -63,6 +63,7 @@
             </div>
           </router-link>
           <router-link v-if="!isUserLoggedIn" class="navbar-button" to="/login">Login</router-link>
+          <!-- <router-link v-if="!isUserLoggedIn" class="navbar-button" to="/login">SignUp</router-link> -->
         </div>
       </div>
     </div>

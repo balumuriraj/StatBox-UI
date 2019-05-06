@@ -6,7 +6,7 @@ export default class Modal extends Vue {
   public showModal: boolean = false;
 
   private mounted() {
-    EventBus.$on('toggleModal', () => {
+    EventBus.$on('toggleReviewModal', () => {
       this.showModal = !this.showModal;
     });
   }

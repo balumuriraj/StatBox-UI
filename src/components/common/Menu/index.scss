@@ -9,7 +9,7 @@
     display: flex;
     padding: 0 2.5%;
     flex-direction: row;
-    max-width: 1240px;
+    max-width: 1400px;
     margin: 0 auto;
 
     .navbar-brand {
@@ -109,17 +109,21 @@
         justify-content: flex-end;
 
         .search-container {
-          padding: 0.65em 1em;
+          margin: 0.65em 1em;
+          padding: 0.5em;
           display: flex;
+          background: rgba(255,255,255,0.1);
+          border-radius: 4px;
 
           input {
+            flex-grow: 1;
+            flex-basis: 0;  
             width: 150px;
             font-size: 0.95em;
             font-weight: 100;
-            padding: 0.5em 0.75em;
-            background: rgba(255,255,255,0.1);
+            padding-right: 0.75em;  
+            background: transparent;          
             border: none;
-            border-radius: 4px 0 0 4px;
             color: rgba(255, 255, 255, 0.75);
             outline: none;
 
@@ -130,14 +134,11 @@
           }
 
           .icon-block {
-            background: rgba(255,255,255,0.1);
-            border-radius: 0 4px 4px 0;
             cursor: pointer;
 
             .icon {
               color: rgba(223, 228, 234, 0.15);
               font-size: 1em;
-              margin: 0.5em;
             }
           }
         }
@@ -217,6 +218,10 @@
           color: #dfe4ea;
           font-size: 0.9em;
           border-radius: 3px;
+        }
+
+        .login {
+          background: transparent;
         }
       }
   
