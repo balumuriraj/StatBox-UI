@@ -18,19 +18,14 @@ const config = {
 const uiConfig: any = {
   signInSuccessUrl: '/dashboard',
   signInOptions: [
-    {
-      provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      scopes: [
-        'email',
-        'profile'
-      ],
-      customParameters: {
-        prompt: 'consent'
-      }
-    }
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID
     // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
     // firebase.auth.EmailAuthProvider.PROVIDER_ID
-  ]
+  ],
+  // Terms of service url.
+  tosUrl: '/',
+  // Privacy policy url.
+  privacyPolicyUrl: '/'
 };
 
 const init = (context: any) => {

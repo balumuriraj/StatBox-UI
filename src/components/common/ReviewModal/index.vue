@@ -1,7 +1,7 @@
 <template>
   <transition name="modal" v-if="movie">
     <div class="modal-mask">
-      <div class="modal-wrapper">
+      <div class="modal-wrapper" @click.self="closeModal()">
         <div class="modal-container">
           <div slot="body" class="review-container">
             <div class="title-container">
@@ -114,7 +114,7 @@
               <button v-if="isLoading" class="icon-container">
                 <font-awesome-icon icon="spinner" spin />
               </button>
-              <button v-else @click.prevent="submitReview">close</button>
+              <button v-else @click.prevent="submitReview">submit</button>
             </div>
           </div>
         </div>

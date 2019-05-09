@@ -1,3 +1,5 @@
+import { EventBus } from '@/events';
+
 function Catch(target: any, key: any, descriptor: any) {
   const originalMethod = descriptor.value;
 
@@ -10,7 +12,8 @@ function Catch(target: any, key: any, descriptor: any) {
         this.$store.dispatch('auth/logout');
         this.$forceUpdate();
       } else if (err && Array.isArray(err) && err[0] && err[0].value === 'Not Authorized') {
-        this.$store.dispatch('notification/set', { message: 'Not Authorized! Login required.' });
+        // this.$store.dispatch('notification/set', { message: 'Not Authorized! Login required.' });
+        EventBus.$emit('toggleLoginModal');
       } else {
         this.$store.dispatch('notification/set', { message: err.message });
       }

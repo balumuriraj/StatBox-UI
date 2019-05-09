@@ -3,7 +3,8 @@
     <div class="main-container">
       <Menu></Menu>
       <router-view/>
-      <ReviewModal></ReviewModal>
+      <ReviewModal></ReviewModal>   
+      <LoginModal></LoginModal>         
       <Notification></Notification>
     </div>
     <div class="footer-container">
@@ -16,6 +17,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import Menu from '@/components/common/Menu';
 import Footer from '@/components/common/Footer';
+import LoginModal from '@/components/common/LoginModal';
 import ReviewModal from '@/components/common/ReviewModal';
 import Notification from '@/components/common/Notification';
 
@@ -23,6 +25,7 @@ import Notification from '@/components/common/Notification';
   components: {
     Menu,
     Footer,
+    LoginModal,
     ReviewModal,
     Notification
   }
