@@ -4,6 +4,6 @@ import auth from '@/auth';
 @Component
 export default class Login extends Vue {
   public mounted() {
-    auth.initUI('#firebaseui-auth-container');
+    auth.initUI('#firebaseui-auth-container', this);
   }
 }

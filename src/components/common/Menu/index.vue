@@ -49,7 +49,7 @@
               <font-awesome-icon icon="search" class="icon"></font-awesome-icon>
             </div>
           </div>
-          <router-link class="navbar-bucket" to="/dashboard" v-if="isUserLoggedIn">
+          <a class="navbar-bucket" v-if="isUserLoggedIn">
             <div class="navbar-item">
               <div class="img-holder">
                 <img :src="require(`@/assets/avatars/${user.avatar || '3.png'}`)" />
@@ -59,10 +59,10 @@
             <div class="navbar-bucket-items">
               <router-link class="navbar-bucket-item" to="/dashboard">Dashboard</router-link>
               <router-link class="navbar-bucket-item" to="/settings">Settings</router-link>
-              <a v-if="isUserLoggedIn" class="navbar-bucket-item" @click="logOut">Logout</a>
+              <a class="navbar-bucket-item" @click="logOut">Logout</a>
             </div>
-          </router-link>
-          <router-link v-if="!isUserLoggedIn" class="navbar-button" to="/login">Login</router-link>
+          </a>
+          <a v-if="!isUserLoggedIn" class="navbar-button" @click="logIn">Login</a>
           <!-- <router-link v-if="!isUserLoggedIn" class="navbar-button" to="/login">SignUp</router-link> -->
         </div>
       </div>
@@ -119,9 +119,9 @@
         <a v-if="isUserLoggedIn" class="navbar-item log" @click="logOut">
           <font-awesome-icon icon="sign-out-alt" class="icon"></font-awesome-icon> Logout
         </a>
-        <router-link v-if="!isUserLoggedIn" class="navbar-item log" to="/login">
+        <a v-if="!isUserLoggedIn" class="navbar-item log" @click="logIn">
           <font-awesome-icon icon="sign-in-alt" class="icon"></font-awesome-icon> Login
-        </router-link>
+        </a>
       </div>
     </div>
   </nav>

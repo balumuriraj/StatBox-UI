@@ -10,9 +10,11 @@ import Info from '@/components/movie/hero/Info';
 import Chart from '@/components/common/Chart';
 import Attributes from '@/components/movie/body/Attributes';
 import * as API from '@/api';
+import * as authStore from '@/store/modules/auth';
 import { applyUserMetadataToMovies } from '@/api/falcor/utils';
 import MovieMixin from '@/mixins/MovieMixin';
 import Catch from '@/decorators/Catch';
+import { Watch } from 'vue-property-decorator';
 
 @Component({
   components: {
@@ -31,8 +33,17 @@ import Catch from '@/decorators/Catch';
 export default class Movie extends mixins(MovieMixin) {
   public loading: boolean = false;
 
+  get isUserLoggedIn() {
+    return authStore.isUserLoggedIn(this.$store);
+  }
+
+  @Watch('isUserLoggedIn')
+  public onUserStateChange(val: number, oldVal: number) {
+    this.loadData();
+  }
+
   @Catch
-  private async mounted() {
+  public async loadData() {
     this.$store.dispatch('notification/set', { message: 'Loading', isLoading: true });
     const id = Number(this.$route.params.id);
 
@@ -42,10 +53,21 @@ export default class Movie extends mixins(MovieMixin) {
 
     const itemsObj: any = {};
     itemsObj[id] = obj;
-    await applyUserMetadataToMovies([id], itemsObj);
+
+    if (this.isUserLoggedIn) {
+      await applyUserMetadataToMovies([id], itemsObj);
+    } else {
+      obj.isFavorite = false;
+      obj.isBookmarked = false;
+      obj.isReviewed = false;
+      obj.userReview = null;
+    }
 
     this.setProperties(obj);
-
     this.$store.dispatch('notification/reset');
+  }
+
+  private async mounted() {
+    await this.loadData();
   }
 }

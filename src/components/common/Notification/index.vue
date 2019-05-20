@@ -1,5 +1,5 @@
 <template>
-  <div class="notification-block" v-if="message">
+  <div class="notification-block" :class="{ 'closed': !message }">
     <div class="icon-container" v-if="isLoading">
       <font-awesome-icon icon="spinner" class="icon" spin/>
     </div>

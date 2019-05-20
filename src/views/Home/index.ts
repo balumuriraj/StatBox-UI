@@ -1,15 +1,24 @@
 import { Component, Vue } from 'vue-property-decorator';
 import * as homeStore from '@/store/modules/home';
 import Carousel from '../../components/common/Carousel';
+import Chart from '@/components/common/Chart';
 import * as authStore from '@/store/modules/auth';
 import Catch from '@/decorators/Catch';
+import * as API from '@/api';
 
 @Component({
   components: {
-    Carousel
+    Carousel,
+    Chart
   }
 })
 export default class Home extends Vue {
+  public moviesCountBins: any = null;
+
+  public async fetchMoviesCountBins() {
+    this.moviesCountBins = await API.getMovieCountByYears();
+  }
+
   get latest() {
     return homeStore.getLatest(this.$store);
   }
@@ -32,6 +41,10 @@ export default class Home extends Vue {
 
   get isUserLoggedIn() {
     return authStore.isUserLoggedIn(this.$store);
+  }
+
+  public async logIn() {
+    this.$store.dispatch('auth/openModal');
   }
 
   public fetchLatest() {
@@ -60,11 +73,12 @@ export default class Home extends Vue {
   }
 
   @Catch
-  private created() {
+  private async created() {
     this.fetchLatest();
     this.fetchUpcoming();
     this.fetchPopular();
     this.fetchTopRated();
     this.fetchFrom2010to2015();
+    await this.fetchMoviesCountBins();
   }
 }

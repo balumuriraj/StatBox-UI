@@ -69,25 +69,12 @@ body {
 }
 
 .ct-series-a .ct-area {
-  fill: #ffd02e;
-  fill-opacity: 1;
+  fill: #32ff7e;
+  fill-opacity: 0.15;
 }
 
-.ct-series-a,
-.ct-series-b,
-.ct-series-c,
-.ct-series-d,
-.ct-series-e,
-.ct-series-f,
-.ct-series-g,
-.ct-series-h,
-.ct-series-i,
-.ct-series-j {
-  .ct-bar {
-    stroke-width: 9%;
-    // fill-opacity: 0.5;
-    stroke: #ffd02e;
-  }
+.ct-series .ct-bar {
+  stroke: #ffd02e;
 }
 
 .ct-label {

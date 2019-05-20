@@ -28,6 +28,10 @@ export default class Menu extends Vue {
     }
   }
 
+  public async logIn() {
+    this.$store.dispatch('auth/openModal');
+  }
+
   public async logOut() {
     this.$store.dispatch('auth/logout');
   }

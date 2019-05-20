@@ -48,6 +48,7 @@
             <Chart
               class="item chart-block"
               :id="'ratingsChart'"
+              :type="'bar'"
               :title="'Distribution'"
               :subtitle="'of ratings'"
               :numbers="ratingBins"

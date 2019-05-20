@@ -13,7 +13,7 @@
         </div>
         <div class="info">
           <p class="title">{{celeb.name}}</p>
-          <p class="desc">{{celeb.dob}} ({{age}} years)</p>
+          <p class="desc">{{celeb.dob}} {{ celeb.dob && `(${age} years)` || 'Age Not Available' }}</p>
         </div>
       </div>
     </section>

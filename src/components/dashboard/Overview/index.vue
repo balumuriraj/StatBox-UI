@@ -1,7 +1,14 @@
 <template>
   <div class="container">
     <div class="section">
-      <Chart class="item" :id="'ratingsChart'" :title="'Distribution'" :subtitle="'of ratings'" :numbers=ratingBins></Chart>
+      <Chart
+        class="item"
+        :id="'ratingsChart'"
+        :type="'bar'"
+        :title="'Distribution'"
+        :subtitle="'of ratings'"
+        :numbers="ratingBins"
+      ></Chart>
       <div class="numbers-container item">
         <div class="left-block">
           <div class="block">
@@ -41,7 +48,7 @@
       <Title :name="'Top Genres'" :subtitle="'watched by you'"></Title>
       <div class="word-cloud-container" v-if="genres && genres.length">
         <vue-word-cloud
-          :words=genres
+          :words="genres"
           :color="([, weight]) => weight > 10 ? 'rgb(217, 156, 209)' : weight > 5 ? 'rgb(201, 156, 209)' : 'rgb(185, 156, 209)'"
           font-family="Righteous"
         />

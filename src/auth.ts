@@ -15,19 +15,6 @@ const config = {
   messagingSenderId: '472325102202'
 };
 
-const uiConfig: any = {
-  signInSuccessUrl: '/dashboard',
-  signInOptions: [
-    firebase.auth.GoogleAuthProvider.PROVIDER_ID
-    // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-    // firebase.auth.EmailAuthProvider.PROVIDER_ID
-  ],
-  // Terms of service url.
-  tosUrl: '/',
-  // Privacy policy url.
-  privacyPolicyUrl: '/'
-};
-
 const init = (context: any) => {
   firebase.initializeApp(config);
   context.$store.dispatch('initialiseStore');
@@ -56,12 +43,12 @@ const initObserver = (context: any) => {
     if (requireAuth && !user) {
       context.$router.push('login');
     } else if (guestOnly && user) {
-      context.$router.push('dashboard');
+      // context.$router.push('dashboard');
     }
   });
 };
 
-const initUI = (container: any) => {
+const initUI = (container: any, context: any) => {
   let ui: any = null;
   const AuthUI = firebaseui.auth.AuthUI;
 
@@ -70,6 +57,33 @@ const initUI = (container: any) => {
   } else {
     ui = new AuthUI(firebase.auth());
   }
+
+  const uiConfig: any = {
+    signInSuccessUrl: '/',
+    signInOptions: [
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID
+      // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+      // firebase.auth.EmailAuthProvider.PROVIDER_ID
+    ],
+    callbacks: {
+      signInSuccessWithAuthResult(result: any, redirectUrl: string) {
+        context.$store.dispatch('auth/closeModal');
+
+        const isNewUser = result.additionalUserInfo.isNewUser;
+        const name = result.additionalUserInfo.profile.given_name;
+        const user = result.user;
+        user.getIdToken(true).then((token: any) => {
+          context.$store.dispatch('auth/setAuthUser', { token, user });
+          context.$store.dispatch('notification/set', { message: `Welcome ${!isNewUser && 'back'} ${name}` });
+        });
+
+        // Do not automatically redirect.
+        return false;
+      }
+    },
+    tosUrl: '/', // Terms of service url.
+    privacyPolicyUrl: '/' // Privacy policy url.
+  };
 
   ui.start(container, uiConfig);
 };

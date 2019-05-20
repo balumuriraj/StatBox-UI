@@ -37,7 +37,8 @@ const state: AuthState = {
     }
   },
   isLoggedIn: false,
-  token: null
+  token: null,
+  showModal: false
 };
 
 const defaultRange = { from: 0, to: 9 };
@@ -71,7 +72,8 @@ async function getUserReviewed(id: number, reviewed: Items) {
 // getters
 const getters = {
   user: (state: AuthState) => state.user,
-  isUserLoggedIn: (state: AuthState) => state.isLoggedIn
+  isUserLoggedIn: (state: AuthState) => state.isLoggedIn,
+  showModal: (state: AuthState) => state.showModal
 };
 
 // actions
@@ -152,6 +154,12 @@ const actions = {
   logout: async (context: UserContext) => {
     await firebaseAuth.logout();
     context.commit('resetAuthUser');
+  },
+  openModal: async (context: UserContext) => {
+    context.commit('openModal');
+  },
+  closeModal: async (context: UserContext) => {
+    context.commit('closeModal');
   }
 };
 
@@ -249,6 +257,12 @@ const mutations = {
   },
   saveUserTheme: (state: any, theme: string) => {
     state.user.theme = theme;
+  },
+  openModal: (state: any) => {
+    state.showModal = true;
+  },
+  closeModal: (state: any) => {
+    state.showModal = false;
   }
 };
 
@@ -263,6 +277,7 @@ export const auth = {
 // We pass namespace here, if we make the module namespaced: true.
 const { read, dispatch } = getStoreAccessors<AuthState, RootState>('auth');
 
+export const getShowModal = read(auth.getters.showModal);
 export const getUser = read(auth.getters.user);
 export const isUserLoggedIn = read(auth.getters.isUserLoggedIn);
 export const setAuthUser = dispatch(auth.actions.setAuthUser);

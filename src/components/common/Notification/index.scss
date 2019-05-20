@@ -1,14 +1,18 @@
 .notification-block {
   position: fixed;
-  bottom: 1em;
-  left: 1em;
+  bottom: 0em;
+  left: 0em;
+  right: 0;
   padding: 1em;
   background: #1e90ff;
   color: #fff;
-  border-radius: 5px;
   box-shadow: 4px 22px 54px 0 rgba(0,0,0,1);
   z-index: 9999;
   display: flex;
+
+	transition-property: all;
+	transition-duration: .5s;
+	transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
 
   .icon-container {
     padding-right: 5px;
@@ -17,4 +21,8 @@
   .message {
     margin: 0;
   }
+}
+
+.closed {
+  bottom: -2em;
 }

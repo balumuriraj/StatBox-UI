@@ -67,6 +67,7 @@ export interface AuthState {
   },
   isLoggedIn: boolean;
   token: string;
+  showModal: boolean;
 }
 
 export interface NotificationState {
