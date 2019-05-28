@@ -64,7 +64,23 @@ export default class Carousel extends Vue {
       },
       breakpointsInverse: true,
       breakpoints: {
-        1200: { // max-width
+        2000: {
+          slidesPerView: 11.5,
+          spaceBetween: 10
+        },
+        1800: {
+          slidesPerView: 10.5,
+          spaceBetween: 10
+        },
+        1600: {
+          slidesPerView: 9.5,
+          spaceBetween: 10
+        },
+        1400: {
+          slidesPerView: 7.5,
+          spaceBetween: 10
+        },
+        1200: {
           slidesPerView: 6.5,
           spaceBetween: 10
         },

@@ -42,15 +42,23 @@
       <br>
       <!-- <Carousel title="2010-2015" :movies=from2010to2015.items :count=from2010to2015.count @fetch=fetchFrom2010to2015 :link="'/explore/years/2010-2015'"></Carousel> -->
       <br>
-      <div>
+      <div class="charts-container">
         <Chart
-          class="item chart-block"
+          class="chart-block bar"
           :id="'moviesCountChart'"
-          :type="'line'"
+          :type="'bar'"
           :title="'Distribution'"
-          :subtitle="'of movies count'"
+          :subtitle="'of movies over the years'"
           :numbers="moviesCountBins"
         ></Chart>
+        <!-- <Chart
+          class="chart-block pie"
+          :id="'genresCountChart'"
+          :type="'pie'"
+          :title="'Distribution'"
+          :subtitle="'of genres'"
+          :numbers="moviesCountBins"
+        ></Chart> -->
       </div>
     </div>
   </section>

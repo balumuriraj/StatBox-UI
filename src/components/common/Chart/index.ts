@@ -64,11 +64,24 @@ export default class Chart extends Vue {
           axisX: {
             showGrid: false,
             labelInterpolationFnc: (value: any, index: any) => {
-              return index % 2  !== 0 ? value : null;
+              return index % 2 !== 0 ? value : null;
             }
           }
         };
-        chart = new Chartist.Bar(elm, { labels, series }, options);
+        const responsiveOptions: any = [
+          ['screen and (max-width: 500px)', {
+            axisX: {
+              labelInterpolationFnc: (value: any, index: any) => {
+                if (series.length === 10) {
+                  return index % 2 !== 0 ? value : null;
+                }
+
+                return index % 3 === 0 ? value : null;
+              }
+            }
+          }]
+        ];
+        chart = new Chartist.Bar(elm, { labels, series }, options, responsiveOptions);
       } else if (this.type === 'line') {
         const options = {
           chartPadding: {
@@ -90,23 +103,26 @@ export default class Chart extends Vue {
               y: 0
             },
             labelInterpolationFnc: (value: any, index: any) => {
-              return index % 3  === 0 ? value : null;
+              return index % 3 === 0 ? value : null;
             }
           }
         };
         chart = new Chartist.Line(elm, { labels, series: [series] }, options);
+      } else if (this.type === 'pie') {
+        const options = {
+          donut: true,
+          // donutWidth: 100,
+          // donutSolid: true,
+          startAngle: 270,
+          total: 200,
+          showLabel: true
+        };
+        chart = new Chartist.Pie(elm, { labels, series: [20, 10, 30, 40] }, options);
       }
 
       (window as any).chart = chart;
 
       chart.on('draw', (data: any) => {
-        const opacityAnimationOptions = {
-          dur: 1000,
-          from: 0,
-          to: 1,
-          easing: 'ease'
-        };
-
         if (data.type === 'point') {
           data.element._node.style.stroke = '#32ff7e';
 
@@ -126,15 +142,6 @@ export default class Chart extends Vue {
               data.element._node.parentNode.removeChild(elm._node);
             }
           });
-
-          data.element.animate({
-            y: {
-              dur: '0.5s',
-              from: 0,
-              to: data.y,
-              easing: Chartist.Svg.Easing.easeOutQuint
-            }
-          });
         }
 
         if (data.type === 'bar') {
@@ -147,41 +154,36 @@ export default class Chart extends Vue {
           }
 
           if (data.series !== min) {
-            const elm = data.group.elem('text', {
-              x: data.x2,
-              y: data.y2 - 10,
-              style: 'text-anchor: middle;'
-            }, 'label').text(data.series);
-            elm._node.style.fill = 'white';
+            if (data.series > 10) {
+              let elm: any = null;
 
-            elm.animate({
-              opacity: opacityAnimationOptions
-            });
-          }
+              data.element._node.addEventListener('mouseover', () => {
+                elm = data.group.elem('text', {
+                  x: data.x2,
+                  y: data.y2 - 10,
+                  style: 'text-anchor: middle;'
+                }, 'label').text(data.series);
+                elm._node.style.fill = 'white';
+              });
 
-          data.element.animate({
-            y2: {
-              dur: '0.5s',
-              from: data.y1,
-              to: data.y2
+              data.element._node.addEventListener('mouseout', () => {
+                if (elm) {
+                  data.element._node.parentNode.removeChild(elm._node);
+                }
+              });
+            } else {
+              const elm = data.group.elem('text', {
+                x: data.x2,
+                y: data.y2 - 10,
+                style: 'text-anchor: middle;'
+              }, 'label').text(data.series);
+              elm._node.style.fill = 'white';
             }
-          });
+          }
         }
 
         if (data.type === 'line') {
           data.element._node.style.stroke = '#32ff7e';
-        }
-
-        if (data.type === 'line' || data.type === 'area') {
-          data.element.animate({
-            d: {
-              begin: 2000 * data.index,
-              dur: 2000,
-              from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
-              to: data.path.clone().stringify(),
-              easing: Chartist.Svg.Easing.easeOutQuint
-            }
-          });
         }
       });
     }

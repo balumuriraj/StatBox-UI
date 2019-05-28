@@ -14,6 +14,7 @@ export default class List extends Vue {
   @Prop() public subtitle!: string;
   @Prop() public items!: object[];
   @Prop() public count!: number;
+  @Prop() public isDashboard!: boolean;
 
   public processedItems: object[] = [];
   public loading: boolean = false;

@@ -16,7 +16,7 @@
     </div> -->
 
     <div class="list-block" v-if="view === 'box' && processedItems && processedItems.length">
-      <div v-for="item in processedItems" :key="item.id" class="list-item">
+      <div v-for="item in processedItems" :key="item.id" :class="{ 'list-item': true, 'custom': isDashboard }">
         <Card :item="item"></Card>
       </div>
     </div>

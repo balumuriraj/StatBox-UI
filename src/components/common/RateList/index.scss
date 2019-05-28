@@ -50,3 +50,15 @@
     width: calc(100% / 3 - 1em);
   }
 }
+
+@media only screen and (min-width: 1500px) {
+  .list-container .rate-list-block .list-item {
+    width: calc(100% / 4 - 1em);
+  }
+}
+
+@media only screen and (min-width: 2000px) {
+  .list-container .rate-list-block .list-item {
+    width: calc(100% / 5 - 1em);
+  }
+}

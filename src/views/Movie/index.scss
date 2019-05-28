@@ -170,7 +170,7 @@
     }
 
     .content-section {
-      max-width: 1400px;
+      max-width: 1600px;
       margin: 0 auto;
       margin-top: -10em;
       display: flex;
@@ -178,6 +178,7 @@
       .left-section {
         width: 20%;
         min-width: 200px;
+        max-width: 250px;
         padding-right: 2em;
         flex-direction: column;
         justify-content: flex-start;

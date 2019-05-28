@@ -208,31 +208,102 @@
 }
 
 @media only screen and (min-width: 500px) {
-  .list-container .list-block .list-item {
-    width: calc(100% / 3 - 1em);
+  .list-container .list-block {
+    .list-item {
+      width: calc(100% / 3 - 1em);
+    }
   }
 }
 
 @media only screen and (min-width: 700px) {
-  .list-container .list-block .list-item {
-    width: calc(100% / 4 - 1em);
+  .list-container .list-block {
+    .list-item {
+      width: calc(100% / 4 - 1em);
+    }
   }
 }
 
 @media only screen and (min-width: 850px) {
-  .list-container .list-block .list-item {
-    width: calc(100% / 5 - 1em);
+  .list-container .list-block {
+    .list-item {
+      width: calc(100% / 5 - 1em);
+    }
   }
 }
 
-@media only screen and (min-width: 1100px) {
-  .list-container .list-block .list-item {
-    width: calc(100% / 6 - 1em);
+@media only screen and (min-width: 1000px) {
+  .list-container .list-block {
+    .list-item {
+      width: calc(100% / 6 - 1em);
+    }
+    .custom {
+      width: calc(100% / 5 - 1em);
+    }
   }
 }
 
-@media only screen and (min-width: 1250px) {
-  .list-container .list-block .list-item {
-    width: calc(100% / 7 - 1em);
+@media only screen and (min-width: 1200px) {
+  .list-container .list-block {
+    .list-item {
+      width: calc(100% / 7 - 1em);
+    }
+    .custom {
+      width: calc(100% / 6 - 1em);
+    }
+  }
+}
+
+@media only screen and (min-width: 1400px) {
+  .list-container .list-block {
+    .list-item {
+      width: calc(100% / 8 - 1em);
+    }
+    .custom {
+      width: calc(100% / 7 - 1em);
+    }
+  }
+}
+
+@media only screen and (min-width: 1600px) {
+  .list-container .list-block {
+    .list-item {
+      width: calc(100% / 9 - 1em);
+    }
+    .custom {
+      width: calc(100% / 8 - 1em);
+    }
+  }
+}
+
+@media only screen and (min-width: 1800px) {
+  .list-container .list-block {
+    .list-item {
+      width: calc(100% / 10 - 1em);
+    }
+    .custom {
+      width: calc(100% / 9 - 1em);
+    }
+  }
+}
+
+@media only screen and (min-width: 2000px) {
+  .list-container .list-block {
+    .list-item {
+      width: calc(100% / 11 - 1em);
+    }
+    .custom {
+      width: calc(100% / 9 - 1em);
+    }
+  }
+}
+
+@media only screen and (min-width: 2200px) {
+  .list-container .list-block {
+    .list-item {
+      width: calc(100% / 12 - 1em);
+    }
+    .custom {
+      width: calc(100% / 9 - 1em);
+    }
   }
 }

@@ -123,8 +123,26 @@
 
   .carousels {
     padding: 0 2.5%;
-    max-width: 1400px;
+    // max-width: 1400px;
     margin: 0 auto;
+
+    .charts-container {
+      display: flex;
+      flex-direction: row;
+
+      .chart-block {
+        flex: 1;
+      }
+
+      .bar {
+        flex-grow: 2;
+      }
+
+      .pie {
+        margin-left: 1em;
+        flex-grow: 1;
+      }
+    }
   }
 }
 
