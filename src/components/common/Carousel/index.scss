@@ -1,6 +1,7 @@
 .carousel-container {
   .level {
     display: flex;
+    margin: 0.5em 0;
 
     .level-left {
       display: flex;
@@ -17,12 +18,27 @@
     .level-item {
       align-self: center;
 
-      .title {
-        margin: 0;
-        padding: 1em 0 0.5em 0;
-        font-size: 1.25rem;
+      .title-container {
+        font-size: 1.2em;
         color: #dfe4ea;
         font-weight: bold;
+        text-decoration: none;
+
+        &:hover {
+          color: #fff;
+        }
+
+        .view {
+          opacity: 0.25;
+          padding-left: 0.5em;
+          font-size: 0.8em;
+          text-transform: uppercase;
+        }
+
+        .icon-holder {
+          font-size: 0.8em;
+          padding-left: 0.5em;
+        }
       }
 
       .link {
@@ -40,7 +56,7 @@
   }
 
   .swiper-container {
-    width: calc(100vw - 2em);
+    width: calc(100vw - 2em);    
 
     .swiper-wrapper {
       align-items: flex-start;
@@ -54,6 +70,16 @@
 
 @media only screen and (min-width: 600px) {
   .carousel-container {
+    .title-container {
+      .view {
+        display: none;
+      }
+
+      &:hover > .view {
+        display: inline;
+      }
+    }
+    
     .swiper-container {
       width: 100%;
 

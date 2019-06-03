@@ -7,14 +7,17 @@ export default class MovieFilter extends Vue {
   @Prop() public total!: number;
   @Prop() public genreList!: string[];
 
-  public showFilter: boolean = this.show;
-  public showSort: boolean = false;
+  public filter: string = this.show ? 'genre' : null;
+  public yearsList: number[] = [];
+  public showFilterMenu: boolean = false;
+  public showSortMenu: boolean = false;
   public sortOrder: 'releasedate' | 'title' | 'rating' = null;
   public minYear: number = 2000;
   public maxYear: number = 2019;
   public minRating: number = 0;
   public maxRating: number = 5;
   public selectedGenres: number[] = [];
+  public selectedYears: number[] = [];
 
   private defaultMinRating = 0;
   private defaultMaxRating = 5;
@@ -107,23 +110,39 @@ export default class MovieFilter extends Vue {
     }
   }
 
+  public setYear(year: number) {
+    const index = this.selectedYears.indexOf(year);
+
+    if (index === -1) {
+      this.selectedYears.push(year);
+    } else {
+      this.selectedYears.splice(index, 1);
+    }
+  }
+
   public resetFilter() {
     this.selectedGenres = [];
+    this.selectedYears = [];
   }
 
   public scrollRight() {
-    const container = this.$refs.genreBox as Element;
+    const container = this.filter === 'genre' ? this.$refs.genreBox as Element : this.$refs.yearsBox as Element;
     container.scrollLeft += 200;
   }
 
   public scrollLeft() {
-    const container = this.$refs.genreBox as Element;
+    const container = this.filter === 'genre' ? this.$refs.genreBox as Element : this.$refs.yearsBox as Element;
     container.scrollLeft -= 200;
   }
 
   @Watch('selectedGenres')
-  private onSearchTermChanged(newVal: any, oldVal: any) {
+  private onSelectedGenresChanged(newVal: any, oldVal: any) {
     this.$router.replace({ query: { ...this.$route.query, genre: newVal } });
+  }
+
+  @Watch('selectedYears')
+  private onSelectedYearsChanged(newVal: any, oldVal: any) {
+    this.$router.replace({ query: { ...this.$route.query, year: newVal } });
   }
 
   @Watch('sortOrder')
@@ -138,6 +157,10 @@ export default class MovieFilter extends Vue {
   }
 
   private mounted() {
+    for (let i = this.maxYear; i >= this.minYear; i--) {
+      this.yearsList.push(i);
+    }
+
     const genreParams = this.$route.query.genre;
 
     if (genreParams) {
@@ -145,6 +168,16 @@ export default class MovieFilter extends Vue {
         this.selectedGenres = genreParams.map((genre) => Number(genre));
       } else {
         this.selectedGenres.push(Number(genreParams));
+      }
+    }
+
+    const yearParams = this.$route.query.year;
+
+    if (yearParams) {
+      if (Array.isArray(yearParams)) {
+        this.selectedYears = yearParams.map((year) => Number(year));
+      } else {
+        this.selectedYears.push(Number(yearParams));
       }
     }
 

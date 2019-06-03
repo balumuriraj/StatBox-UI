@@ -3,13 +3,20 @@
     <div class="level">
       <div class="level-left">
         <div class="level-item">
-          <p class="title">{{ title }}</p>
+          <router-link class="title-container" :to="link">
+            <span class="title">{{ title }}</span>
+            <span class="view">view all</span>
+            <span class="icon-holder">
+              <font-awesome-icon :icon="['fas', 'chevron-right']"></font-awesome-icon>
+            </span>
+          </router-link>
+          
         </div>
       </div>
       <div class="level-right">
         <div class="level-item">
           <p v-show=loading>loading...</p>
-          <router-link class="link" :to="link">VIEW ALL</router-link>  
+          <!-- <router-link class="link" :to="link">VIEW ALL</router-link>   -->
         </div>
       </div>
     </div>

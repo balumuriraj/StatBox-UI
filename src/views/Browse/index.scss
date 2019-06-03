@@ -55,8 +55,7 @@
       .sub-title {
         opacity: 0.9;
         font-weight: 300;
-        margin: 0;
-        line-height: 2em;
+        line-height: 1.5em;
 
         span {
           color: #32ff7e;
@@ -81,10 +80,6 @@
   .container {
     .hero .hero-body {
       font-size: 1em;
-
-      .sub-title {
-        line-height: 3em;
-      }
     }
   }
 }

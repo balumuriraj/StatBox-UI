@@ -179,3 +179,109 @@ export async function getMovieCountByYears(): Promise<any> {
   const result: any = response.json.moviesCountByYears;
   return result;
 }
+
+export async function getMoviesByYear(
+  year: number,
+  range: { from: number; to: number; },
+  includeUserMeta: boolean = true
+): Promise<any> {
+  const countResponse = await model.get(['moviesByYear', [year], 'length']);
+  const count = countResponse.json.moviesByYear[year].length;
+
+  if (!count) {
+    return {
+      items: [],
+      count: 0
+    };
+  }
+
+  const moviesResponse = await model.get([
+    'moviesByYear', [year], range,
+    ['id', 'title', 'releaseDate', 'poster', 'runtime', 'cert']
+  ]);
+
+  const moviesObj = moviesResponse.json.moviesByYear[year];
+  const itemsObj: any = {};
+
+  for (const index in moviesObj) {
+    if (moviesObj[index] && moviesObj[index].id && typeof moviesObj[index].id === 'number') {
+      const movie = moviesObj[index];
+      itemsObj[movie.id] = {
+        id: movie.id,
+        title: movie.title,
+        poster: movie.poster,
+        cert: movie.cert,
+        runtime: movie.runtime,
+        releaseDate: movie.releaseDate
+      };
+    }
+  }
+
+  const movieIds = Object.keys(itemsObj);
+
+  if (includeUserMeta) {
+    await applyUserMetadataToMovies(movieIds, itemsObj);
+  }
+
+  const items = movieIds.map((movieId) => itemsObj[movieId]);
+
+  return { items, count };
+}
+
+
+export async function getMoviesByFilter(
+  genres: string[],
+  years: number[],
+  sortBy: string,
+  range: { from: number; to: number; },
+  includeUserMeta: boolean = true
+): Promise<any> {
+  const filter = `genres=${genres.join(',')}&years=${years}&sortBy=${sortBy || ''}`;
+  const countResponse = await model.get(['moviesByFilter', filter, 'length']);
+
+  const count = countResponse.json.moviesByFilter[filter].length;
+
+  if (!count) {
+    return {
+      items: [],
+      count: 0
+    };
+  }
+
+  if (range.to > count - 1) {
+    range.to = count - 1;
+  }
+
+  const moviesResponse = await model.get([
+    'moviesByFilter', filter, range,
+    ['id', 'title', 'poster', 'releaseDate', 'rating']
+  ]);
+
+  const moviesObj = moviesResponse.json.moviesByFilter[filter];
+  const itemsObj: any = {};
+  const movieIds: string[] = []; // to preserve order
+
+  for (const index in moviesObj) {
+    if (moviesObj[index] && moviesObj[index].id && typeof moviesObj[index].id === 'number') {
+      const movie = moviesObj[index];
+      itemsObj[movie.id] = {
+        id: movie.id,
+        title: movie.title,
+        poster: movie.poster,
+        cert: movie.cert,
+        runtime: movie.runtime,
+        releaseDate: movie.releaseDate
+      };
+      movieIds.push(movie.id);
+    }
+  }
+
+  if (includeUserMeta) {
+    await applyUserMetadataToMovies(movieIds, itemsObj);
+  }
+
+  const items = movieIds.map((movieId) => itemsObj[movieId]);
+
+  return { items, count };
+}
+

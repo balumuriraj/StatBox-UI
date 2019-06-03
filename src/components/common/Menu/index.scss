@@ -107,13 +107,15 @@
         align-self: center;
         display: flex;
         justify-content: flex-end;
+        align-items: center;
 
         .search-container {
-          margin: 0.65em 1em;
-          padding: 0.5em;
+          height: 30px;
+          margin-right: 1em;
           display: flex;
           background: rgba(255,255,255,0.1);
           border-radius: 4px;
+          align-items: center;
 
           input {
             flex-grow: 1;
@@ -121,7 +123,7 @@
             width: 150px;
             font-size: 0.95em;
             font-weight: 100;
-            padding-right: 0.75em;  
+            padding-left: 0.5em;  
             background: transparent;          
             border: none;
             color: rgba(255, 255, 255, 0.75);
@@ -135,6 +137,7 @@
 
           .icon-block {
             cursor: pointer;
+            margin: 0 0.5em; 
 
             .icon {
               color: rgba(223, 228, 234, 0.15);
@@ -385,6 +388,7 @@
 
         .search-container {
           width: 200px;
+          margin-right: 0.25em;
         }
       }
       .mobile {

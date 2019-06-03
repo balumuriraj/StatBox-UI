@@ -31,7 +31,7 @@ export default class Chart extends Vue {
       // elm.style.maxWidth = '800px';
 
       const labels = Object.keys(this.numbers).sort();
-      const series = [];
+      const series: any[] = [];
 
       for (const key of labels) {
         series.push(this.numbers[key]);

@@ -24,6 +24,7 @@ export default class Rate extends Vue {
   public genreList: any[] = [];
   public sortOrder: 'releasedate' | 'title' | 'rating' = null;
   public selectedGenres: number[] = [];
+  public selectedYears: number[] = [];
   public movies: any = {
     items: [],
     ratedItems: [],
@@ -32,15 +33,21 @@ export default class Rate extends Vue {
 
   @Watch('$route.query')
   private onQueryChanged(newVal: any, oldVal: any) {
-    const { genre, sort } = newVal;
+    const { genre, year, sort } = newVal;
     const isSortEqual = this.sortOrder === sort;
     const isGenresEqual =
       this.selectedGenres.length === genre.length &&
       this.selectedGenres.every((id) => genre && genre.indexOf(id) > -1);
+    const isYearsEqual = this.selectedYears && year &&
+      this.selectedYears.length === year.length &&
+      this.selectedYears.every((id) => year && year.indexOf(id) > -1);
 
-    if (!isSortEqual || !isGenresEqual) {
+    if (!isSortEqual || !isGenresEqual || !isYearsEqual) {
       this.selectedGenres = (genre && Array.isArray(genre) ? genre : [genre]) || [];
+      this.selectedYears = (year && Array.isArray(year) ? year : [year]) || [];
       this.sortOrder = sort;
+      this.selectedGenres.sort();
+      this.selectedYears.sort();
 
       this.movies.items = [];
       this.movies.ratedItems = [];
@@ -49,6 +56,7 @@ export default class Rate extends Vue {
     }
   }
 
+  @Catch
   private mounted() {
     this.sortOrder = this.$route.query.sort as any;
     const genreParams = this.$route.query.genre;
@@ -61,6 +69,9 @@ export default class Rate extends Vue {
       }
     }
 
+    this.selectedGenres.sort();
+    this.selectedYears.sort();
+
     this.fetchGenreList();
     this.fetchData();
   }
@@ -72,27 +83,11 @@ export default class Rate extends Vue {
 
   @Catch
   private async fetchData() {
-    if (this.selectedGenres.length) {
-      if (this.sortOrder) {
-        const result =
-          await API.getSortedGenreMovies(this.selectedGenres, this.getRange(), this.sortOrder);
-        this.processResult(result);
-      } else {
-        const result = await API.getGenreMovies(this.selectedGenres, this.getRange());
-        this.processResult(result);
-      }
-    } else {
-      const ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+    const result = await API.getMoviesByFilter(
+      this.selectedGenreNames, this.selectedYears, this.sortOrder, this.getRange()
+    );
 
-      if (this.sortOrder) {
-        const result =
-          await API.getSortedGenreMovies(ids, this.getRange(), this.sortOrder);
-        this.processResult(result);
-      } else {
-        const result = await API.getGenreMovies(ids, this.getRange());
-        this.processResult(result);
-      }
-    }
+    this.processResult(result);
   }
 
   private getRange() {

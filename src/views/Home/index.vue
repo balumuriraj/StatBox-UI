@@ -20,20 +20,44 @@
 
     <!-- carousels -->
     <div class="carousels">
-      <!-- <Carousel title="Latest" :movies=latest.items :count=latest.count @fetch=fetchLatest :link="'/explore/latest'"></Carousel> -->
+      <!-- <Carousel title="Latest" :movies=latest.items :count=latest.count @fetch=fetchLatest :link="'/explore/latest'"></Carousel>
       <br>
-      <!-- <Carousel title="Coming Soon" :movies=upcoming.items :count=upcoming.count @fetch=fetchUpcoming :link="'/explore/upcoming'"></Carousel>
-      <br>-->
+      <Carousel title="Coming Soon" :movies=upcoming.items :count=upcoming.count @fetch=fetchUpcoming :link="'/explore/upcoming'"></Carousel>
+      <br> -->
       <Carousel
-        title="Popular"
-        :movies="popular.items"
-        :count="popular.count"
-        @fetch="fetchPopular"
-        :link="'/explore/popular'"
+        title="New Movies"
+        :movies="newMovies.items"
+        :count="newMovies.count"
+        @fetch="fetchNew"
+        :link="'/browse'"
       ></Carousel>
       <br>
       <Carousel
-        title="Top Rated"
+        title="Popular Movies"
+        :movies="popularMovies.items"
+        :count="popularMovies.count"
+        @fetch="fetchPopular"
+        :link="'/browse?sort=popularity'"
+      ></Carousel>
+      <br>
+      <Carousel
+        title="2010's Movies"
+        :movies="from2010to2019Movies.items"
+        :count="from2010to2019Movies.count"
+        @fetch="fetch2010s"
+        :link="'/browse?year=2010&year=2011&year=2012&year=2013&year=2014&year=2015&year=2016&year=2017&year=2018&year=2019&sort=releasedate'"
+      ></Carousel>
+      <br>
+      <!-- <Carousel
+        title="2000's Movies"
+        :movies="from2000to2009Movies.items"
+        :count="from2000to2009Movies.count"
+        @fetch="fetch2000s"
+        :link="'/browse?year=2000&year=2001&year=2002&year=2003&year=2004&year=2005&year=2006&year=2007&year=2008&year=2009&sort=releasedate'"
+      ></Carousel>
+      <br> -->
+      <Carousel
+        title="Top Rated Movies"
         :movies="topRated.items"
         :count="topRated.count"
         @fetch="fetchTopRated"

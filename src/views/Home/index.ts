@@ -13,19 +13,6 @@ import * as API from '@/api';
   }
 })
 export default class Home extends Vue {
-  public moviesCountBins: any = null;
-
-  public async fetchMoviesCountBins() {
-    this.moviesCountBins = await API.getMovieCountByYears();
-  }
-
-  get latest() {
-    return homeStore.getLatest(this.$store);
-  }
-
-  get upcoming() {
-    return homeStore.getUpcoming(this.$store);
-  }
 
   get popular() {
     return homeStore.getPopular(this.$store);
@@ -35,28 +22,37 @@ export default class Home extends Vue {
     return homeStore.getTopRated(this.$store);
   }
 
-  get from2010to2015() {
-    return homeStore.get2010to2015(this.$store);
-  }
-
   get isUserLoggedIn() {
     return authStore.isUserLoggedIn(this.$store);
+  }
+  public moviesCountBins: any = null;
+
+  public newMovies: any = {
+    items: [],
+    count: 0
+  };
+
+  public popularMovies: any = {
+    items: [],
+    count: 0
+  };
+
+  public from2010to2019Movies: any = {
+    items: [],
+    count: 0
+  };
+
+  public from2000to2009Movies: any = {
+    items: [],
+    count: 0
+  };
+
+  public async fetchMoviesCountBins() {
+    this.moviesCountBins = await API.getMovieCountByYears();
   }
 
   public async logIn() {
     this.$store.dispatch('auth/openModal');
-  }
-
-  public fetchLatest() {
-    homeStore.fetchLatest(this.$store);
-  }
-
-  public fetchUpcoming() {
-    homeStore.fetchUpcoming(this.$store);
-  }
-
-  public fetchPopular() {
-    homeStore.fetchPopular(this.$store);
   }
 
   public fetchTopRated() {
@@ -73,12 +69,66 @@ export default class Home extends Vue {
   }
 
   @Catch
-  private async created() {
-    this.fetchLatest();
-    this.fetchUpcoming();
+  public async fetchPopular() {
+    const result = await API.getMoviesByFilter([], [], 'popularity', this.getRange(this.popularMovies));
+
+    if (result) {
+      this.popularMovies.items = this.popularMovies.items.concat(result.items);
+      this.popularMovies.count = result.count;
+    }
+  }
+
+  @Catch
+  private async mounted() {
+    this.fetchNew();
     this.fetchPopular();
+    this.fetch2010s();
+    this.fetch2000s();
     this.fetchTopRated();
-    this.fetchFrom2010to2015();
     await this.fetchMoviesCountBins();
+  }
+
+  @Catch
+  private async fetchNew() {
+    const result = await API.getMoviesByFilter([], [], null, this.getRange(this.newMovies));
+
+    if (result) {
+      this.newMovies.items = this.newMovies.items.concat(result.items);
+      this.newMovies.count = result.count;
+    }
+  }
+
+  @Catch
+  private async fetch2000s() {
+    const years = [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009];
+    const result = await API.getMoviesByFilter([], years, 'releasedate', this.getRange(this.from2000to2009Movies));
+
+    if (result) {
+      this.from2000to2009Movies.items = this.from2000to2009Movies.items.concat(result.items);
+      this.from2000to2009Movies.count = result.count;
+    }
+  }
+
+  @Catch
+  private async fetch2010s() {
+    const years = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019];
+    const result = await API.getMoviesByFilter([], years, 'releasedate', this.getRange(this.from2010to2019Movies));
+
+    if (result) {
+      this.from2010to2019Movies.items = this.from2010to2019Movies.items.concat(result.items);
+      this.from2010to2019Movies.count = result.count;
+    }
+  }
+
+
+  private getRange(movies: any) {
+    const count = movies.count;
+    const length = movies.items.length;
+
+    if (count === 0 || (count > length)) {
+      const from = length;
+      const to = !count || (count - from > 10) ? length + 9 : count - 1;
+      return { from, to };
+    }
   }
 }

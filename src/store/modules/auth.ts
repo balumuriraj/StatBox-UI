@@ -251,6 +251,7 @@ const mutations = {
     };
     state.isLoggedIn = false;
     state.token = null;
+    window.location.reload();
   },
   saveUserAvatar: (state: any, avatar: string) => {
     state.user.avatar = avatar;
