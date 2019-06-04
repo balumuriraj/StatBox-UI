@@ -20,9 +20,7 @@
 
     <!-- carousels -->
     <div class="carousels">
-      <!-- <Carousel title="Latest" :movies=latest.items :count=latest.count @fetch=fetchLatest :link="'/explore/latest'"></Carousel>
-      <br>
-      <Carousel title="Coming Soon" :movies=upcoming.items :count=upcoming.count @fetch=fetchUpcoming :link="'/explore/upcoming'"></Carousel>
+      <!-- <Carousel title="Coming Soon" :movies=upcoming.items :count=upcoming.count @fetch=fetchUpcoming :link="'/explore/upcoming'"></Carousel>
       <br> -->
       <Carousel
         title="New Movies"
@@ -41,30 +39,12 @@
       ></Carousel>
       <br>
       <Carousel
-        title="2010's Movies"
-        :movies="from2010to2019Movies.items"
-        :count="from2010to2019Movies.count"
-        @fetch="fetch2010s"
-        :link="'/browse?year=2010&year=2011&year=2012&year=2013&year=2014&year=2015&year=2016&year=2017&year=2018&year=2019&sort=releasedate'"
-      ></Carousel>
-      <br>
-      <!-- <Carousel
-        title="2000's Movies"
-        :movies="from2000to2009Movies.items"
-        :count="from2000to2009Movies.count"
-        @fetch="fetch2000s"
-        :link="'/browse?year=2000&year=2001&year=2002&year=2003&year=2004&year=2005&year=2006&year=2007&year=2008&year=2009&sort=releasedate'"
-      ></Carousel>
-      <br> -->
-      <Carousel
         title="Top Rated Movies"
-        :movies="topRated.items"
-        :count="topRated.count"
+        :movies="topRatedMovies.items"
+        :count="topRatedMovies.count"
         @fetch="fetchTopRated"
-        :link="'/explore/toprated'"
+        :link="'/browse?sort=rating'"
       ></Carousel>
-      <br>
-      <!-- <Carousel title="2010-2015" :movies=from2010to2015.items :count=from2010to2015.count @fetch=fetchFrom2010to2015 :link="'/explore/years/2010-2015'"></Carousel> -->
       <br>
       <div class="charts-container">
         <Chart

@@ -13,15 +13,6 @@ import * as API from '@/api';
   }
 })
 export default class Home extends Vue {
-
-  get popular() {
-    return homeStore.getPopular(this.$store);
-  }
-
-  get topRated() {
-    return homeStore.getTopRated(this.$store);
-  }
-
   get isUserLoggedIn() {
     return authStore.isUserLoggedIn(this.$store);
   }
@@ -37,12 +28,7 @@ export default class Home extends Vue {
     count: 0
   };
 
-  public from2010to2019Movies: any = {
-    items: [],
-    count: 0
-  };
-
-  public from2000to2009Movies: any = {
+  public topRatedMovies: any = {
     items: [],
     count: 0
   };
@@ -53,19 +39,6 @@ export default class Home extends Vue {
 
   public async logIn() {
     this.$store.dispatch('auth/openModal');
-  }
-
-  public fetchTopRated() {
-    homeStore.fetchTopRated(this.$store);
-  }
-
-  public fetchFrom2010to2015() {
-    const name = 'from2010to2015';
-    const date1 = new Date('2010');
-    const startDate = date1.getTime();
-    const date2 = new Date('2015');
-    const endDate = date2.getTime();
-    homeStore.fetchMoviesByDates(this.$store, { name, startDate, endDate });
   }
 
   @Catch
@@ -82,8 +55,6 @@ export default class Home extends Vue {
   private async mounted() {
     this.fetchNew();
     this.fetchPopular();
-    this.fetch2010s();
-    this.fetch2000s();
     this.fetchTopRated();
     await this.fetchMoviesCountBins();
   }
@@ -99,27 +70,14 @@ export default class Home extends Vue {
   }
 
   @Catch
-  private async fetch2000s() {
-    const years = [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009];
-    const result = await API.getMoviesByFilter([], years, 'releasedate', this.getRange(this.from2000to2009Movies));
+  private async fetchTopRated() {
+    const result = await API.getMoviesByFilter([], [], 'rating', this.getRange(this.topRatedMovies));
 
     if (result) {
-      this.from2000to2009Movies.items = this.from2000to2009Movies.items.concat(result.items);
-      this.from2000to2009Movies.count = result.count;
+      this.topRatedMovies.items = this.topRatedMovies.items.concat(result.items);
+      this.topRatedMovies.count = result.count;
     }
   }
-
-  @Catch
-  private async fetch2010s() {
-    const years = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019];
-    const result = await API.getMoviesByFilter([], years, 'releasedate', this.getRange(this.from2010to2019Movies));
-
-    if (result) {
-      this.from2010to2019Movies.items = this.from2010to2019Movies.items.concat(result.items);
-      this.from2010to2019Movies.count = result.count;
-    }
-  }
-
 
   private getRange(movies: any) {
     const count = movies.count;

@@ -46,6 +46,9 @@
             <div @click="sortOrder = 'popularity'; showSortMenu = false;">
               <font-awesome-icon v-if="sortOrder === 'popularity'" icon="check" class="icon"></font-awesome-icon>Popularity
             </div>
+            <div @click="sortOrder = 'rating'; showSortMenu = false;">
+              <font-awesome-icon v-if="sortOrder === 'rating'" icon="check" class="icon"></font-awesome-icon>Rating
+            </div>
           </div>
         </div>
       </div>
