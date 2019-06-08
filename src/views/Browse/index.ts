@@ -3,6 +3,7 @@ import List from '@/components/common/List';
 import MovieFilter from '@/components/common/MovieFilter';
 import * as API from '@/api';
 import Catch from '@/decorators/Catch';
+import { getRange } from '@/support/utils';
 
 @Component({
   components: {
@@ -99,23 +100,12 @@ export default class Browse extends Vue {
   @Catch
   private async fetchData() {
     const result = await API.getMoviesByFilter(
-      this.selectedGenreNames, this.selectedYears, this.sortOrder, this.getRange()
+      this.selectedGenreNames, this.selectedYears, this.sortOrder, getRange(this.movies)
     );
 
     if (result) {
       this.movies.items = this.movies.items.concat(result.items);
       this.movies.count = result.count;
-    }
-  }
-
-  private getRange() {
-    const count = this.movies.count;
-    const length = this.movies.items.length;
-
-    if (count === 0 || (count > length)) {
-      const from = length;
-      const to = !count || (count - from > 10) ? length + 9 : count - 1;
-      return { from, to };
     }
   }
 }

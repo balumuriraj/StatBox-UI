@@ -112,7 +112,7 @@
 
             <div class="buttons-section">
               <button v-if="isLoading" class="icon-container">
-                <font-awesome-icon icon="spinner" spin />
+                <font-awesome-icon icon="circle-notch" spin />
               </button>
               <button v-else @click.prevent="submitReview">submit</button>
             </div>

@@ -61,6 +61,15 @@
           </div>
         </div>
       </section>
+      <div class="similars-container">
+        <Carousel
+          title="Similar Movies"
+          :movies="similarMovies.items"
+          :count="similarMovies.count"
+          @fetch="fetchSimilar"
+          :link="'/browse'"
+        ></Carousel>
+      </div>
     </div>
   </div>
 </template>

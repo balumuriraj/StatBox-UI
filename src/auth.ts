@@ -41,7 +41,7 @@ const initObserver = (context: any) => {
     const guestOnly = context.$route.matched.some((record: any) => record.meta.guestOnly);
 
     if (requireAuth && !user) {
-      context.$router.push('login');
+      context.$router.push('/');
     } else if (guestOnly && user) {
       // context.$router.push('dashboard');
     }

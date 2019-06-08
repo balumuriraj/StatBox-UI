@@ -3,6 +3,7 @@ import Footer from '@/components/common/Footer';
 import CelebList from '@/components/common/CelebList';
 import List from '@/components/common/List';
 import Menu from '@/components/common/Menu/index';
+import Carousel from '../../components/common/Carousel';
 import Table from '@/components/common/Table';
 import Poster from '@/components/movie/hero/Poster';
 import Content from '@/components/movie/hero/Content';
@@ -15,10 +16,12 @@ import { applyUserMetadataToMovies } from '@/api/falcor/utils';
 import MovieMixin from '@/mixins/MovieMixin';
 import Catch from '@/decorators/Catch';
 import { Watch } from 'vue-property-decorator';
+import { getRange } from '@/support/utils';
 
 @Component({
   components: {
     Attributes,
+    Carousel,
     Poster,
     Content,
     Info,
@@ -32,6 +35,11 @@ import { Watch } from 'vue-property-decorator';
 })
 export default class Movie extends mixins(MovieMixin) {
   public loading: boolean = false;
+
+  public similarMovies: any = {
+    items: [],
+    count: 0
+  };
 
   get isUserLoggedIn() {
     return authStore.isUserLoggedIn(this.$store);
@@ -67,7 +75,28 @@ export default class Movie extends mixins(MovieMixin) {
     this.$store.dispatch('notification/reset');
   }
 
+  @Catch
+  public async fetchSimilar() {
+    const result = await API.getMoviesByFilter(this.genre, [], null, getRange(this.similarMovies));
+
+    if (result) {
+      this.similarMovies.items = this.similarMovies.items.concat(result.items);
+      this.similarMovies.count = result.count;
+    }
+  }
+
+  @Watch('$route.path')
+  private async onQueryChanged(newVal: any, oldVal: any) {
+    this.similarMovies = {
+      items: [],
+      count: 0
+    };
+    await this.loadData();
+    await this.fetchSimilar();
+  }
+
   private async mounted() {
     await this.loadData();
+    await this.fetchSimilar();
   }
 }

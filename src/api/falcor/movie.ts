@@ -268,9 +268,8 @@ export async function getMoviesByFilter(
         id: movie.id,
         title: movie.title,
         poster: movie.poster,
-        cert: movie.cert,
-        runtime: movie.runtime,
-        releaseDate: movie.releaseDate
+        releaseDate: movie.releaseDate,
+        rating: movie.rating
       };
       movieIds.push(movie.id);
     }

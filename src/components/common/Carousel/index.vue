@@ -15,7 +15,9 @@
       </div>
       <div class="level-right">
         <div class="level-item">
-          <p v-show=loading>loading...</p>
+          <span v-show=loading>
+            <font-awesome-icon icon="circle-notch" spin /> Loading
+          </span>
           <!-- <router-link class="link" :to="link">VIEW ALL</router-link>   -->
         </div>
       </div>

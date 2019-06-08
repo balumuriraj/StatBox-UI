@@ -5,6 +5,7 @@ import Chart from '@/components/common/Chart';
 import * as authStore from '@/store/modules/auth';
 import Catch from '@/decorators/Catch';
 import * as API from '@/api';
+import { getRange } from '@/support/utils';
 
 @Component({
   components: {
@@ -43,7 +44,7 @@ export default class Home extends Vue {
 
   @Catch
   public async fetchPopular() {
-    const result = await API.getMoviesByFilter([], [], 'popularity', this.getRange(this.popularMovies));
+    const result = await API.getMoviesByFilter([], [], 'popularity', getRange(this.popularMovies));
 
     if (result) {
       this.popularMovies.items = this.popularMovies.items.concat(result.items);
@@ -61,7 +62,7 @@ export default class Home extends Vue {
 
   @Catch
   private async fetchNew() {
-    const result = await API.getMoviesByFilter([], [], null, this.getRange(this.newMovies));
+    const result = await API.getMoviesByFilter([], [], null, getRange(this.newMovies));
 
     if (result) {
       this.newMovies.items = this.newMovies.items.concat(result.items);
@@ -71,22 +72,11 @@ export default class Home extends Vue {
 
   @Catch
   private async fetchTopRated() {
-    const result = await API.getMoviesByFilter([], [], 'rating', this.getRange(this.topRatedMovies));
+    const result = await API.getMoviesByFilter([], [], 'rating', getRange(this.topRatedMovies));
 
     if (result) {
       this.topRatedMovies.items = this.topRatedMovies.items.concat(result.items);
       this.topRatedMovies.count = result.count;
-    }
-  }
-
-  private getRange(movies: any) {
-    const count = movies.count;
-    const length = movies.items.length;
-
-    if (count === 0 || (count > length)) {
-      const from = length;
-      const to = !count || (count - from > 10) ? length + 9 : count - 1;
-      return { from, to };
     }
   }
 }

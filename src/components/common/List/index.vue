@@ -78,7 +78,7 @@
     </div>
 
     <div class="loading">
-      <font-awesome-icon v-show=loading icon="spinner" spin />
+      <font-awesome-icon v-show=loading icon="circle-notch" spin />
     </div>
   </div>
 </template>

@@ -2,6 +2,7 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 import List from '@/components/common/List';
 import * as API from '@/api';
 import Catch from '@/decorators/Catch';
+import { getRange } from '@/support/utils';
 
 @Component({
   components: {
@@ -35,7 +36,7 @@ export default class Celeb extends Vue {
 
   @Catch
   public async fetchMovies() {
-    const result = await API.getMoviesByCelebId(this.celeb.id, this.getRange());
+    const result = await API.getMoviesByCelebId(this.celeb.id, getRange(this.movies));
 
     if (result) {
       this.movies.items = this.movies.items.concat(result.items);
@@ -44,7 +45,7 @@ export default class Celeb extends Vue {
   }
 
   @Catch
-  private async mounted() {
+  private async loadData() {
     const id = this.$route.params.id;
     const data = await API.getCelebData(id);
     this.celeb.id = id;
@@ -55,14 +56,12 @@ export default class Celeb extends Vue {
     this.fetchMovies();
   }
 
-  private getRange() {
-    const count = this.movies.count;
-    const length = this.movies.items.length;
+  @Watch('$route.path')
+  private async onQueryChanged(newVal: any, oldVal: any) {
+    await this.loadData();
+  }
 
-    if (count === 0 || (count > length)) {
-      const from = length;
-      const to = !count || (count - from > 10) ? length + 9 : count - 1;
-      return { from, to };
-    }
+  private async mounted() {
+    await this.loadData();
   }
 }
