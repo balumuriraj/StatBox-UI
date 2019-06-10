@@ -20,7 +20,7 @@ export default class GenreCarousel extends Vue {
       slidesPerView: 1.5,
       centerInsufficientSlides: false,
       slidesPerGroup: 1,
-      spaceBetween: 5,
+      spaceBetween: 10,
       freeMode: true,
       preloadImages: false,
       loop: false,

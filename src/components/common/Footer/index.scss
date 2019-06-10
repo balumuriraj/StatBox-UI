@@ -7,4 +7,60 @@
   padding: 2em;
   text-align: center;
   margin-top: 2em;
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    opacity: 0.75;
+
+    .left-container {
+      display: flex;
+      align-items: center;      
+      margin-bottom: 1em;
+
+      .logo {
+        width: 50px;
+
+        img {
+          width: 100%;
+        }
+      }
+
+      .title-container {
+        margin-left: 10px;        
+        
+        .title {
+          text-align: left;
+          font-size: 2em;
+          font-weight: bold;
+        }
+
+        .sub-title {
+          font-size: 0.9em;
+        }
+      }
+    }
+
+    .right-container {
+      width: 300px;
+      text-align: left;
+
+      .links {
+        display: flex;
+        margin-bottom: 0.5em;
+
+        a {
+          text-decoration: none;
+          color: #dfe4ea;
+          font-weight: bold;
+          margin-right: 10px;
+        }
+      }
+
+      .about {
+        font-size: 0.9em;
+      }
+    }
+  }
 }
