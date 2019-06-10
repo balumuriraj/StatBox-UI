@@ -10,6 +10,7 @@ function Catch(target: any, key: any, descriptor: any) {
       if (err && err.message === 'invalid_token') {
         this.$store.dispatch('notification/set', { message: 'Login Required!' });
         this.$store.dispatch('auth/logout');
+        this.$store.dispatch('notification/reset');
       } else if (err && Array.isArray(err) && err[0] && err[0].value === 'Not Authorized') {
         this.$store.dispatch('auth/openModal');
       }

@@ -1,0 +1,135 @@
+.carousel-container {
+  .level {
+    display: flex;
+    margin: 0.5em 0;
+
+    .level-left {
+      display: flex;
+      justify-content: flex-start;
+      flex-grow: 1;
+    }
+
+    .level-right {
+      display: flex;
+      justify-content: flex-end;
+      flex-grow: 1;
+    }
+
+    .level-item {
+      align-self: center;
+      color: #dfe4ea;
+
+      .title-container {
+        font-size: 1.2em;
+        color: #dfe4ea;
+        font-weight: bold;
+        text-decoration: none;
+
+        &:hover {
+          color: #fff;
+        }
+
+        .view {
+          opacity: 0.25;
+          padding-left: 0.5em;
+          font-size: 0.8em;
+          text-transform: uppercase;
+        }
+
+        .icon-holder {
+          font-size: 0.8em;
+          padding-left: 0.5em;
+        }
+      }
+
+      .link {
+        color: #dfe4ea;
+        font-size: 0.75rem;
+        font-weight: bold;
+        margin-left: 1rem;
+        text-decoration: none;
+      }
+      
+      .link:hover {
+        color: #FC5C65;
+      }
+    }
+  }
+
+  .swiper-container {
+    width: calc(100vw - 2em);    
+
+    .swiper-wrapper {
+      align-items: flex-start;
+    }
+
+    .swiper-custom-button {
+      display: none;
+    }
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .carousel-container {
+    .title-container {
+      .view {
+        display: none;
+      }
+
+      &:hover > .view {
+        display: inline;
+      }
+    }
+    
+    .swiper-container {
+      width: 100%;
+
+      &:hover > .swiper-custom-button {
+        display: block;
+      }
+
+      .swiper-custom-button {
+        background: rgba(0,0,0,0.5);
+        width: 50px;
+        height: 100%;
+        z-index: 1;
+        opacity: 0.5;
+        cursor: pointer;
+
+        .icon-holder {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        
+          svg {
+            width: 2rem;
+            height: 2rem;
+            color: white;
+          }
+        }
+      }
+
+      .swiper-custom-prev {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      .swiper-custom-next {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+
+      .swiper-button-disabled {
+        pointer-events: none;
+        opacity: 0;
+      }
+
+      .swiper-button-hidden {
+        opacity: 0;
+      }
+    }
+  }
+}

@@ -24,4 +24,9 @@ export default class Card extends Vue {
     // console.log(this.item);
     return this.item && this.item.userReview && this.item.userReview.rating;
   }
+
+  private mounted() {
+    const container = this.$refs.movieCard as HTMLElement;
+    container.style.animationDelay = `${Number(this.$vnode.key || 0) / 10}s`;
+  }
 }

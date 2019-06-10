@@ -9,7 +9,11 @@
     width: 100%;
     padding-bottom: 130%;
     position: relative;
-    background: #17141d;
+    // background: #17141d;
+    animation-duration: 3.6s;
+    animation-name: pulse;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
 
     .data-container {
       position: absolute;
@@ -77,5 +81,20 @@
         }
       }
     } 
+  }
+}
+
+@keyframes pulse {
+  0% {
+    background-color: #17141d;
+  }
+  25% {
+    background-color: #201e2c;
+  }
+  50% {
+    background-color: #17141d;
+  }
+  100% {
+    background-color: #17141d;
   }
 }

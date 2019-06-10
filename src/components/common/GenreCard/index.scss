@@ -1,0 +1,45 @@
+.genre-card-container {
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,0.10), 0 0 0 0 #D2D2D2;
+  
+  .genre-card {
+    overflow: hidden;
+    width: 100%;
+    border-radius: 5px;    
+    background: #17141d;
+
+    a {
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      width: 100%;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(23, 20, 29, 0.75);
+      }
+
+      img {
+        width: 50%;
+      }
+
+      .title-contianer {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1em;
+        border-radius: 5px;
+        background: rgba(23, 20, 29, 0.9);
+        padding: 0.5em 1em;
+        color: #D2D2D2;
+        z-index: 1;
+      }
+    }
+  }  
+}

@@ -5,7 +5,7 @@
         <p class="title">Browsing Movies..</p>
         <p class="sub-title">Displaying <span v-if=!selectedGenreNames.length>all</span>
           <span v-else>{{selectedGenreNames.length > 3 ? "multiple genre" : selectedGenreNames.join(", ")}}</span> movies 
-          {{ (selectedYears.filter(Boolean).length === 0) ? null : 'for the years - ' }} <span>{{selectedYears.length > 3 ? `${selectedYears[0]}...` : selectedYears.join(", ")}}</span> 
+          {{ (selectedYears.filter(Boolean).length === 0) ? null : 'for the years ' }} <span>{{selectedYears.length > 3 ? `${selectedYears[0]}...` : selectedYears.join(", ")}}</span> 
           <!-- and rating of <span>{{minRating}} - {{maxRating}}</span> -->
         </p>
       </div>

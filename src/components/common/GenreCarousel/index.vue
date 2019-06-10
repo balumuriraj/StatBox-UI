@@ -10,37 +10,18 @@
               <font-awesome-icon :icon="['fas', 'chevron-right']"></font-awesome-icon>
             </span>
           </router-link>
-          
         </div>
       </div>
       <div class="level-right">
-        <div class="level-item">
-          <span v-show=loading>
-            <font-awesome-icon icon="circle-notch" spin /> Loading
-          </span>
-          <!-- <router-link class="link" :to="link">VIEW ALL</router-link>   -->
-        </div>
+        <div class="level-item"></div>
       </div>
     </div>
-    <swiper :options=options ref="carousel">
+    <swiper :options="options" ref="carousel">
       <!-- slides -->
-      <template v-if="movies.length">
-        <template v-for="(movie, index) in movies">
-          <swiper-slide :key="movie.id">
-            <Card :item="movie" :key="index"></Card>
-          </swiper-slide>
-        </template>
-        <swiper-slide v-if="currentCount < count">
-          <Card></Card>
+      <template v-for="(item, index) in items">
+        <swiper-slide :key="index">
+          <GenreCard :item="item"></GenreCard>
         </swiper-slide>
-      </template>
-
-      <template v-else>
-        <template v-for="i in 12">
-          <swiper-slide :key="i">
-            <Card></Card>
-          </swiper-slide>
-        </template>
       </template>
 
       <!-- arrows -->

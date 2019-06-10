@@ -1,6 +1,6 @@
 <template>
   <div class="movie-card-container">
-    <div class="movie-card">
+    <div class="movie-card" ref="movieCard">
       <div v-if=item class="data-container">
         <router-link :to="'/movie/'+item.id" v-if="isMovie">
           <img v-lazy="item.poster" :alt="item.title">

@@ -46,6 +46,13 @@
         :link="'/browse?sort=rating'"
       ></Carousel>
       <br>
+      <GenreCarousel
+        title="Recommended Lists"
+        :items="genres.items"
+        :count="genres.count"
+        :link="'/browse'"
+      ></GenreCarousel>
+      <br><br>
       <div class="charts-container">
         <Chart
           class="chart-block bar"
