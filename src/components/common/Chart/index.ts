@@ -59,12 +59,12 @@ export default class Chart extends Vue {
           },
           axisY: {
             showLabel: false,
-            showGrid: false
+            showGrid: true
           },
           axisX: {
             showGrid: false,
             labelInterpolationFnc: (value: any, index: any) => {
-              return index % 2 !== 0 ? value : null;
+              return index % 2 !== 0 ? value : '';
             }
           }
         };
@@ -103,7 +103,7 @@ export default class Chart extends Vue {
               y: 0
             },
             labelInterpolationFnc: (value: any, index: any) => {
-              return index % 3 === 0 ? value : null;
+              return index % 3 === 0 ? value : '';
             }
           }
         };
@@ -120,24 +120,34 @@ export default class Chart extends Vue {
         chart = new Chartist.Pie(elm, { labels, series: [20, 10, 30, 40] }, options);
       }
 
-      (window as any).chart = chart;
+      // (window as any).chart = chart;
 
       chart.on('draw', (data: any) => {
         if (data.type === 'point') {
           data.element._node.style.stroke = '#32ff7e';
+          data.element._node.style.strokeWidth = 15;
+          data.element._node.style.strokeOpacity = '0';
+
+          if (data.value.y === max) {
+            data.element._node.style.stroke = '#ff4d4d';
+            data.group.elem('text', {
+              x: data.x,
+              y: data.y - 10
+            }, 'bar-label').text(data.value.y.toLocaleString());
+          }
 
           let elm: any = null;
 
           data.element._node.addEventListener('mouseover', () => {
+            data.element._node.style.strokeOpacity = '1';
             elm = data.group.elem('text', {
               x: data.x,
-              y: data.y - 10,
-              style: 'text-anchor: middle;'
-            }, 'label').text(data.value.y);
-            elm._node.style.fill = 'white';
+              y: data.y - 10
+            }, 'bar-label').text(data.value.y.toLocaleString());
           });
 
           data.element._node.addEventListener('mouseout', () => {
+            data.element._node.style.strokeOpacity = '0';
             if (elm) {
               data.element._node.parentNode.removeChild(elm._node);
             }
@@ -149,36 +159,33 @@ export default class Chart extends Vue {
           const count = data.axisX.ticks.length + (data.series > 10 ? 5 : 2);
           data.element._node.style['stroke-width'] = `${width / count}`;
 
-          if (data.series === max) {
+          if (data.series === max && max > 0) {
             data.element._node.style.stroke = '#ff4d4d';
+            const elm = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            elm.innerHTML = data.series.toLocaleString();
+            elm.setAttribute('x', data.x2);
+            elm.setAttribute('y', String(data.y2 - 10));
+            elm.setAttribute('class', 'bar-label');
+            data.group._node.parentNode.appendChild(elm);
           }
 
           if (data.series !== min) {
-            if (data.series > 10) {
-              let elm: any = null;
+            let elm: any = null;
 
-              data.element._node.addEventListener('mouseover', () => {
-                elm = data.group.elem('text', {
-                  x: data.x2,
-                  y: data.y2 - 10,
-                  style: 'text-anchor: middle;'
-                }, 'label').text(data.series);
-                elm._node.style.fill = 'white';
-              });
+            data.element._node.addEventListener('mouseover', () => {
+              elm = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+              elm.innerHTML = data.series.toLocaleString();
+              elm.setAttribute('x', data.x2);
+              elm.setAttribute('y', data.y2 - 10);
+              elm.setAttribute('class', 'bar-label');
+              data.group._node.parentNode.appendChild(elm);
+            });
 
-              data.element._node.addEventListener('mouseout', () => {
-                if (elm) {
-                  data.element._node.parentNode.removeChild(elm._node);
-                }
-              });
-            } else {
-              const elm = data.group.elem('text', {
-                x: data.x2,
-                y: data.y2 - 10,
-                style: 'text-anchor: middle;'
-              }, 'label').text(data.series);
-              elm._node.style.fill = 'white';
-            }
+            data.element._node.addEventListener('mouseout', () => {
+              if (elm) {
+                data.group._node.parentNode.removeChild(elm);
+              }
+            });
           }
         }
 

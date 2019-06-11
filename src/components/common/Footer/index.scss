@@ -17,7 +17,7 @@
     .left-container {
       display: flex;
       align-items: center;      
-      margin-bottom: 1em;
+      margin: 1em 0;
 
       .logo {
         width: 50px;
@@ -31,12 +31,14 @@
         margin-left: 10px;        
         
         .title {
+          margin-top: -0.25em;
           text-align: left;
           font-size: 2em;
           font-weight: bold;
         }
 
         .sub-title {
+          margin-top: -0.15em;
           font-size: 0.9em;
         }
       }
@@ -48,13 +50,17 @@
 
       .links {
         display: flex;
-        margin-bottom: 0.5em;
+        margin-bottom: 0.5em;        
 
         a {
           text-decoration: none;
-          color: #dfe4ea;
-          font-weight: bold;
+          color: #32ff7e;
           margin-right: 10px;
+
+          &:hover {
+            // text-decoration: underline;
+            color: #ffd02e;
+          }
         }
       }
 

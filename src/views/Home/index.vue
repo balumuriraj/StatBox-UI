@@ -55,21 +55,13 @@
       <br><br>
       <div class="charts-container">
         <Chart
-          class="chart-block bar"
+          class="chart-block"
           :id="'moviesCountChart'"
-          :type="'bar'"
-          :title="'Distribution'"
-          :subtitle="'of movies over the years'"
+          :type="'line'"
+          :title="'Movies count'"
+          :subtitle="'over the years'"
           :numbers="moviesCountBins"
         ></Chart>
-        <!-- <Chart
-          class="chart-block pie"
-          :id="'genresCountChart'"
-          :type="'pie'"
-          :title="'Distribution'"
-          :subtitle="'of genres'"
-          :numbers="moviesCountBins"
-        ></Chart> -->
       </div>
     </div>
   </section>

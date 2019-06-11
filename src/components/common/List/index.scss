@@ -1,6 +1,6 @@
 .list-container {
   margin: 0 -0.5em;
-  color: #DFE4EA;
+  color: #dfe4ea;
 
   .title-container {
     display: flex;
@@ -8,28 +8,28 @@
 
     .title-block {
       margin: 0.5em;
-  
+
       p {
         margin: 0;
       }
-  
+
       .title {
         font-size: 1.25em;
         font-weight: bold;
-  
+
         span {
           font-size: 0.75em;
-          color: #A4B0BE;
+          color: #a4b0be;
           font-weight: normal;
         }
       }
-  
+
       .count {
         font-size: 0.85em;
-        color: #A4B0BE;
+        color: #a4b0be;
       }
     }
-  
+
     .views-block {
       display: none;
     }
@@ -52,12 +52,40 @@
 
   .loading {
     text-align: center;
-    color: #DFE4EA;
-  
-    svg {
-      width: 1.5rem;
-      height: 1.5rem;
+    color: #dfe4ea;
+
+    .icon-container {
+      font-size: 1.5em;
     }
+
+    .load {
+      margin: 1em;
+      opacity: 0.25;
+
+      .icon-container {
+        position: relative;
+        font-size: 1.25em;
+        animation: pulse 2s infinite ease-in-out;
+      }
+    }
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(0, 1em);
+  }
+  75% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(0, 0);
   }
 }
 
@@ -68,35 +96,35 @@
         display: flex;
         margin-right: 0.5em;
         align-self: center;
-  
+
         .icon-container {
           cursor: pointer;
           // margin: 0.75em 0;
           padding: 0.25em 0.5em;
-          border: 1px solid #DFE4EA;
+          border: 1px solid #dfe4ea;
           border-radius: 3px;
           display: flex;
-  
+
           &:first-child {
             border-top-right-radius: 0;
             border-bottom-right-radius: 0;
           }
-  
+
           &:last-child {
             border-top-left-radius: 0;
             border-bottom-left-radius: 0;
           }
-  
+
           .icon {
             align-self: center;
             margin: 0;
             font-size: 1.1em;
           }
         }
-  
+
         .active {
-          background: #DFE4EA;
-          color: #27262E;
+          background: #dfe4ea;
+          color: #27262e;
         }
       }
     }
@@ -104,36 +132,36 @@
     .table-block {
       display: block;
       padding: 1em 0;
-  
+
       table {
         width: 100%;
-        border-collapse:collapse;
-  
+        border-collapse: collapse;
+
         thead {
           .title {
             text-align: left;
           }
-  
+
           th {
             padding: 1em;
           }
         }
-  
+
         tbody {
           tr {
             border: none;
-            border-top: 1px solid #27262E;
+            border-top: 1px solid #27262e;
             text-align: center;
-  
-            &:hover{
-              background: rgba(255,255,255,0.05);              
+
+            &:hover {
+              background: rgba(255, 255, 255, 0.05);
             }
-  
+
             .poster {
               cursor: pointer;
               width: 50px;
               padding: 10px;
-  
+
               img {
                 width: 100%;
               }
@@ -150,11 +178,11 @@
               &:hover {
                 background: rgba(255, 255, 255, 0.05);
               }
-        
+
               &:not(:last-child) {
                 margin-right: 1em;
               }
-        
+
               .icon {
                 padding-right: 0.25em;
               }
@@ -162,22 +190,22 @@
 
             .favorites-button {
               .active {
-                color: #FC5C65;
+                color: #fc5c65;
               }
             }
-        
+
             .bookmark-button {
               .active {
                 color: #54a0ff;
               }
             }
-        
+
             .review-button {
               .active {
                 color: #32ff7e;
               }
             }
-  
+
             .title {
               cursor: pointer;
               text-align: left;

@@ -69,7 +69,7 @@
     </div>
     <div class="navbar-side-menu" :class="{ 'active': isSideMenuActive }" @click="toggleSideMenu()">
       <div class="navbar-item-container" @click.stop="toggleSideMenu()">
-        <router-link class="navbar-item brand" to="/" v-if="!isUserLoggedIn">StatBox</router-link>
+        <router-link class="navbar-item brand" to="/" v-if="!isUserLoggedIn">statbox</router-link>
         <router-link class="navbar-item title-container" to="/dashboard" v-if="isUserLoggedIn">
           <div class="img-holder">
             <img :src="require(`@/assets/avatars/${user.avatar || '3.png'}`)" />

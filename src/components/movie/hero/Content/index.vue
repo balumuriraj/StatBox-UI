@@ -9,7 +9,7 @@
         <div class="score">
           <font-awesome-icon :icon="['fas', 'star']" class="icon"></font-awesome-icon> 
           <span class="rating"> {{movie.rating && Math.round(movie.rating * 100) / 100 || '-'}}</span>
-          <span class="divisor"> [ {{ movie.ratingsCount }} Ratings ]</span>
+          <span class="divisor"> [ {{ movie.ratingsCount && movie.ratingsCount.toLocaleString() }} Ratings ]</span>
         </div>
       </div>
       <div class="rating-block">

@@ -5,8 +5,8 @@
         class="item"
         :id="'ratingsChart'"
         :type="'bar'"
-        :title="'Distribution'"
-        :subtitle="'of ratings'"
+        :title="'Ratings'"
+        :subtitle="'count'"
         :numbers="ratingBins"
       ></Chart>
       <div class="numbers-container item">

@@ -81,6 +81,17 @@ body {
   color: #DFE4EA;
 }
 
+.ct-grid {
+  stroke: #DFE4EA;
+  stroke-opacity: 0.15;
+}
+
+.bar-label {
+  fill: #DFE4EA;
+  stroke: #DFE4EA;
+  text-anchor: middle;
+}
+
 .swiper-wrapper {
   margin: 2px !important;
 }

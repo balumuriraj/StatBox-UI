@@ -49,8 +49,8 @@
               class="item chart-block"
               :id="'ratingsChart'"
               :type="'bar'"
-              :title="'Distribution'"
-              :subtitle="'of ratings'"
+              :title="'Ratings'"
+              :subtitle="'count'"
               :numbers="ratingBins"
             ></Chart>
             <Attributes class="item" :props="attributes"></Attributes>
