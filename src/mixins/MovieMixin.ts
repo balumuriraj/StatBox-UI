@@ -7,6 +7,7 @@ export default class MovieMixin extends Vue {
   public id: number = null;
   public title: string = null;
   public releaseDate: Date = null;
+  public year: number = null;
   public rating: number = null;
   public ratingsCount: number = null;
   public runtime: number = null;
@@ -33,6 +34,10 @@ export default class MovieMixin extends Vue {
     for (const prop in obj) {
       if (this.hasOwnProperty(prop)) {
         this[prop] = obj[prop];
+
+        if (prop === 'releaseDate' && this.releaseDate) {
+          this.year = new Date(this.releaseDate).getFullYear();
+        }
       }
     }
   }

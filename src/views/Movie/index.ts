@@ -16,7 +16,7 @@ import { applyUserMetadataToMovies } from '@/api/falcor/utils';
 import MovieMixin from '@/mixins/MovieMixin';
 import Catch from '@/decorators/Catch';
 import { Watch } from 'vue-property-decorator';
-import { getRange } from '@/support/utils';
+import { getRange, getMetaInfo } from '@/support/utils';
 
 @Component({
   components: {
@@ -40,6 +40,51 @@ export default class Movie extends mixins(MovieMixin) {
     items: [],
     count: 0
   };
+
+  public metaInfo(): any {
+    const keywords: string[] = [this.title];
+
+    if (this.genre) {
+      keywords.push(...this.genre);
+    }
+
+    if (this.cast) {
+      keywords.push(...this.cast.map((celeb: any) => celeb.name));
+    }
+
+    if (this.crew) {
+      keywords.push(...this.crew.map((celeb: any) => celeb.name));
+    }
+
+    return {
+      title: `${this.title} (${this.year})`,
+      ...getMetaInfo({
+        url: `https://statbox.in/movie/${this.id}`,
+        title: `${this.title} (${this.year}) | StatBox`,
+        description: `${this.title} is released on ${this.releaseDate}.`,
+        keywords,
+        image: this.poster,
+        ldJSON: {
+          '@context': 'http://schema.org',
+          '@type': 'Movie',
+          'url': `/movie/${this.id}`,
+          'name': this.title,
+          'genre': `[${this.genre && this.genre.join(', ')}]`,
+          'description': `${this.title} is released on ${this.releaseDate}.`,
+          'image': this.poster,
+          'actors': `[${this.cast && this.cast.map((celeb: any) => celeb.name).join(', ')}]`,
+          'director': `${this.crew && this.crew[0] && this.crew[0].name}`,
+          'aggregateRating': {
+            '@type': 'AggregateRating',
+            'ratingCount': this.ratingsCount,
+            'bestRating': 5,
+            'worstRating': 0,
+            'ratingValue': this.rating
+          }
+        }
+      })
+    };
+  }
 
   get isUserLoggedIn() {
     return authStore.isUserLoggedIn(this.$store);

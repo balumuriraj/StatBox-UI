@@ -9,6 +9,8 @@ declare module 'vue-awesome-swiper';
 
 declare module 'vuewordcloud';
 
+declare module 'vue-analytics';
+
 declare module "firebaseui" {
 
   import firebase from 'firebase';

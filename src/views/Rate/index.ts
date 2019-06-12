@@ -3,7 +3,7 @@ import RateList from '@/components/common/RateList';
 import MovieFilter from '@/components/common/MovieFilter';
 import * as API from '@/api';
 import Catch from '@/decorators/Catch';
-import { getRange } from '@/support/utils';
+import { getRange, getMetaInfo } from '@/support/utils';
 
 @Component({
   components: {
@@ -31,6 +31,31 @@ export default class Rate extends Vue {
     ratedItems: [],
     count: 0
   };
+
+  public metaInfo(): any {
+    return {
+      title: `Rate ${this.selectedGenreNames.join(', ') || 'All'} Telugu Movies`,
+      ...getMetaInfo({
+        url: 'https://statbox.in/browse',
+        title: 'StatBox | Telugu Movies Database',
+        description: 'A Telugu Movies Database where you can browse, search & rate movies.',
+        keywords: [
+          'telugu movie database', 'telugu movie', 'database', 'Ratings', 'Movies',
+          'Reviews', 'movie ratings', 'movie reviews', 'movies suggestions',
+          'good movies', 'movie to watch', 'top movies', 'movie recommendations', 'recommendation engine'
+        ],
+        image: 'https://storage.googleapis.com/statbox89.appspot.com/images/logos/logo.jpg',
+        ldJSON: {
+          '@context': 'http://schema.org/',
+          '@type': 'Organization',
+          'name': 'StatBox',
+          'url': 'https://statbox.in',
+          'logo': 'https://storage.googleapis.com/statbox89.appspot.com/images/logos/logo.jpg',
+          'description': 'A Telugu Movies Database where you can browse, search & rate movies.'
+        }
+      })
+    };
+  }
 
   @Watch('$route.query')
   private onQueryChanged(newVal: any, oldVal: any) {

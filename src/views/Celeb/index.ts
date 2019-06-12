@@ -2,7 +2,7 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 import List from '@/components/common/List';
 import * as API from '@/api';
 import Catch from '@/decorators/Catch';
-import { getRange } from '@/support/utils';
+import { getRange, getMetaInfo } from '@/support/utils';
 
 @Component({
   components: {
@@ -33,6 +33,28 @@ export default class Celeb extends Vue {
     items: [],
     count: 0
   };
+
+  public metaInfo(): any {
+    return {
+      title: `${this.celeb.name}`,
+      ...getMetaInfo({
+        url: `https://statbox.in/celeb/${this.celeb.id}`,
+        title: `${this.celeb.name} | StatBox`,
+        description: `${this.celeb.name} is born on ${this.celeb.dob}.`,
+        keywords: [this.celeb.name],
+        image: this.celeb.photo,
+        ldJSON: {
+          '@context': 'http://schema.org',
+          '@type': 'Person',
+          'url': `/celeb/${this.celeb.id}`,
+          'name': this.celeb.name,
+          'birthDate': this.celeb.dob && new Date(this.celeb.dob).toISOString(),
+          'image': this.celeb.photo
+        }
+      })
+    };
+  }
+
 
   @Catch
   public async fetchMovies() {

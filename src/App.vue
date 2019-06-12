@@ -3,8 +3,8 @@
     <div class="main-container">
       <Menu></Menu>
       <router-view/>
-      <ReviewModal></ReviewModal>   
-      <LoginModal></LoginModal>         
+      <ReviewModal></ReviewModal>
+      <LoginModal></LoginModal>
       <Notification></Notification>
     </div>
     <div class="footer-container">
@@ -21,6 +21,8 @@ import LoginModal from '@/components/common/LoginModal';
 import ReviewModal from '@/components/common/ReviewModal';
 import Notification from '@/components/common/Notification';
 
+Component.registerHooks([ 'metaInfo' ]);
+
 @Component({
   components: {
     Menu,
@@ -30,7 +32,14 @@ import Notification from '@/components/common/Notification';
     Notification
   }
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  public metaInfo(): any {
+    return {
+      title: 'StatBox | A Telugu Movies Database where you can browse, search & rate movies',
+      titleTemplate: '%s | StatBox'
+    };
+  }
+}
 </script>
 
 <style lang="scss">
@@ -38,8 +47,8 @@ export default class App extends Vue {}
 // @import url(https://fonts.googleapis.com/css?family=Ubuntu:400,500,700);
 // @import url(https://fonts.googleapis.com/css?family=Nunito:400,500,700);
 @import url(https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700);
-@import url(https://fonts.googleapis.com/css?family=Dosis:400,500,700);
-@import url(https://fonts.googleapis.com/css?family=Righteous);
+// @import url(https://fonts.googleapis.com/css?family=Dosis:400,500,700);
+// @import url(https://fonts.googleapis.com/css?family=Righteous);
 @import "../node_modules/chartist/dist/scss/chartist.scss";
 
 html,
@@ -78,17 +87,17 @@ body {
 }
 
 .ct-label {
-  color: #DFE4EA;
+  color: #dfe4ea;
 }
 
 .ct-grid {
-  stroke: #DFE4EA;
+  stroke: #dfe4ea;
   stroke-opacity: 0.15;
 }
 
 .bar-label {
-  fill: #DFE4EA;
-  stroke: #DFE4EA;
+  fill: #dfe4ea;
+  stroke: #dfe4ea;
   text-anchor: middle;
 }
 
