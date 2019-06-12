@@ -3,6 +3,15 @@ import * as authStore from '@/store/modules/auth';
 
 @Component
 export default class Settings extends Vue {
+
+  get user() {
+    return authStore.getUser(this.$store);
+  }
+
+  get isDirty() {
+    return !!(this.selectedAvatar || this.selectedTheme);
+  }
+
   public avatars: any = [
     { name: 1, url: '1.png' },
     { name: 2, url: '2.png' },
@@ -41,13 +50,10 @@ export default class Settings extends Vue {
 
   public selectedAvatar: string = null;
   public selectedTheme: string = null;
-
-  get user() {
-    return authStore.getUser(this.$store);
-  }
-
-  get isDirty() {
-    return !!(this.selectedAvatar || this.selectedTheme);
+  public metaInfo(): any {
+    return {
+      title: `${this.user.name} | Settings`
+    };
   }
 
   public save() {

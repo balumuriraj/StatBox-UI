@@ -16,6 +16,12 @@ export default class Search extends Vue {
   public movieHits: any[] = [];
   public celebHits: any[] = [];
 
+  public metaInfo(): any {
+    return {
+      title: `Search`
+    };
+  }
+
   @Watch('$route.query.term')
   private onSearchTermChanged(newVal: string, oldVal: string) {
     this.term = newVal;

@@ -24,6 +24,12 @@ export default class Dashboard extends Vue {
   public isRatings = false;
   public isTrophies = false;
 
+  public metaInfo(): any {
+    return {
+      title: `${this.user.name} | Dashboard`
+    };
+  }
+
   public setMenu(item: string) {
     switch (item) {
       case 'favorites':

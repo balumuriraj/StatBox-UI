@@ -9,6 +9,7 @@ import Rate from './views/Rate';
 import Search from './views/Search';
 import Settings from './views/Settings';
 import Browse from './views/Browse';
+import Polls from './views/Polls';
 
 Vue.use(Router);
 
@@ -22,6 +23,11 @@ const routes = [
     path: '/browse',
     name: 'browse',
     component: Browse
+  },
+  {
+    path: '/polls',
+    name: 'polls',
+    component: Polls
   },
   {
     path: '/rate',

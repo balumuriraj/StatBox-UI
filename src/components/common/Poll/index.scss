@@ -1,0 +1,128 @@
+.poll-card-container {
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,0.10), 0 0 0 0 #D2D2D2;
+  // background: #100e17;
+  color: #dfe4ea;
+  
+  .poll-card {
+    position: relative;
+    background: #17141d;
+    padding: 2em;
+
+    .title-container {
+      margin-bottom: 1em;
+
+      p {
+        margin: 0;
+      }
+
+      .title {
+        font-size: 1.5em;
+      }
+
+      .sub-title {
+        font-size: 0.9em;
+      }
+    }
+
+    .options-container {      
+      .option {
+        display: flex;
+        padding: 0.5em 0;
+        cursor: pointer;
+
+        // &:hover {
+        //   background: rgba(255,255,255,0.1);
+        // }
+
+        img {
+          width: 48px;
+          height: 60px;
+        }
+
+        .icon-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: rgba(255,255,255,0.25);
+          width: 48px;
+          height: 60px;
+
+          .icon {
+            font-size: 1.5em;
+            color: rgba(0,0,0,0.5);
+          }
+        }
+
+        .data-container {
+          width: 100%;
+          // margin-left: 1em;
+          position: relative;          
+          display: flex;
+          align-items: center;
+          background: #27262E;
+
+          &:hover {
+            background: rgba(255,255,255,0.15);
+          }
+    
+          .data-block {
+            padding-left: 1em;
+            z-index: 1;            
+
+            p {
+              margin: 0;
+            }
+      
+            .title {
+              font-size: 1.25em;
+            }
+      
+            .sub-title {
+              font-size: 0.9em;
+            }            
+          }
+
+          progress[value] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+progress[value] {
+  width: 100%;
+  z-index: 0;
+
+  /* Reset the default appearance */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  /* Get rid of default border in Firefox. */
+  border: none;
+
+  &::-webkit-progress-bar {
+    background: rgba(0,0,0,0);
+  }
+
+  &::-moz-progress-bar {
+    background: rgba(0,0,0,0);
+  }
+
+  &::-webkit-progress-value {
+    background: rgba(50, 255, 126, 0.5);
+    // opacity: 0.5;
+  }
+
+  &::-moz-progress-value {
+    background: rgba(50, 255, 126, 0.5);
+    // opacity: 0.5;
+  }
+}
