@@ -22,12 +22,7 @@ Vue.use(VueMeta, {
 });
 Vue.use(VueAnalytics, {
   id: 'UA-141694963-1',
-  router,
-  checkDuplicatedScript: true,
-  autoTracking: {
-    screenview: true,
-    pageviewOnLoad: false
-  }
+  router
 });
 
 new Vue({
