@@ -13,7 +13,8 @@
       <div class="right-container">
         <div class="links">
           <a href="#">Terms of Service</a>
-          <a href="#">Privacy Policy</a>
+          <span>|</span>
+          <a href="#"> Privacy Policy</a>
         </div>
         <div class="about">statbox is a Telugu Movie Database where you can browse, search, rate and find legal streaming links to telugu movies.</div>
       </div>

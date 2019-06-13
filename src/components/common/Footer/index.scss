@@ -50,7 +50,11 @@
 
       .links {
         display: flex;
-        margin-bottom: 0.5em;        
+        margin-bottom: 0.5em;      
+        
+        span {
+          margin-right: 10px;
+        }
 
         a {
           text-decoration: none;
@@ -58,8 +62,7 @@
           margin-right: 10px;
 
           &:hover {
-            // text-decoration: underline;
-            color: #ffd02e;
+            text-decoration: underline;
           }
         }
       }

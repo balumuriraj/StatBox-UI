@@ -40,6 +40,7 @@
         display: flex;
         padding: 0.5em 0;
         cursor: pointer;
+        position: relative;
 
         // &:hover {
         //   background: rgba(255,255,255,0.1);
@@ -48,6 +49,23 @@
         img {
           width: 48px;
           height: 60px;
+        }
+
+        .selected-icon-container {
+          position: absolute;
+          right: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          // background: rgba(255,255,255,0.25);
+          width: 48px;
+          height: 60px;
+          border-right: 5px solid #056EBA;
+
+          .icon {
+            font-size: 1.5em;
+            color: rgba(0,0,0,0.5);
+          }
         }
 
         .icon-container {

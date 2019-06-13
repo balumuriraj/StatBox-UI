@@ -22,6 +22,9 @@
             </div>
             <progress v-show="showResults" class="progress" value=75 max="100">75%</progress>
           </div>
+          <div class="selected-icon-container">
+            <font-awesome-icon icon="check" class="icon" />
+          </div>
         </div>
 
         <div class="option">
@@ -36,6 +39,9 @@
             </div>
             <progress v-show="showResults" class="progress" value=10 max="100">10%</progress>
           </div>
+          <div class="selected-icon-container">
+            <font-awesome-icon icon="check" class="icon" />
+          </div>
         </div>
 
         <div class="option">
@@ -49,6 +55,9 @@
               </p>   
             </div>
             <progress v-show="showResults" class="progress" value=5 max="100">5%</progress>
+          </div>
+          <div class="selected-icon-container">
+            <font-awesome-icon icon="check" class="icon" />
           </div>
         </div>
 
