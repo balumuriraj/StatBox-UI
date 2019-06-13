@@ -3,7 +3,11 @@
     <div class="poll-card" ref="pollCard">
       <div class="title-container">
         <p class="title">Best movie of 2018</p>
-        <p class="sub-title">Please vote for a movie</p>
+        <p class="sub-title">
+          <span>{{ isVoted ? 'Thanks for voting!' : 'Click on a movie to vote' }}</span>
+          <span v-show="!isVoted"> | </span>
+          <span v-show="!isVoted" class="results-button" @click="showResults = !showResults">{{ showResults ? 'Hide' : 'Show' }} Results</span>          
+        </p>        
       </div>
       <div class="options-container">
         <div class="option">
@@ -11,9 +15,12 @@
           <div class="data-container">
             <div class="data-block">
               <p class="title">Baahubhali</p>
-              <p class="sub-title">133 votes</p>              
+              <p class="sub-title">
+                <span v-show="!isVoted && !showResults">4 Rating</span>
+                <span v-show="showResults">133 votes</span>                 
+              </p>           
             </div>
-            <progress class="progress" value=75 max="100">75%</progress>
+            <progress v-show="showResults" class="progress" value=75 max="100">75%</progress>
           </div>
         </div>
 
@@ -22,9 +29,12 @@
           <div class="data-container">   
             <div class="data-block">         
               <p class="title">Rangasstalam</p>
-              <p class="sub-title">25 votes</p>
+              <p class="sub-title">
+                <span v-show="!isVoted && !showResults">4 Rating</span>
+                <span v-show="showResults">133 votes</span>                 
+              </p>   
             </div>
-            <progress class="progress" value=10 max="100">10%</progress>
+            <progress v-show="showResults" class="progress" value=10 max="100">10%</progress>
           </div>
         </div>
 
@@ -33,9 +43,12 @@
           <div class="data-container">    
             <div class="data-block">        
               <p class="title">Temper</p>
-              <p class="sub-title">10 votes</p>
+              <p class="sub-title">
+                <span v-show="!isVoted && !showResults">4 Rating</span>
+                <span v-show="showResults">133 votes</span>                 
+              </p>   
             </div>
-            <progress class="progress" value=5 max="100">5%</progress>
+            <progress v-show="showResults" class="progress" value=5 max="100">5%</progress>
           </div>
         </div>
 
