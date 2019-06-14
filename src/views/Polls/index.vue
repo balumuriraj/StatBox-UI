@@ -7,8 +7,9 @@
       </div>
     </div>
     <div class="list">
-      <Poll class="item" :item="null"></Poll>
-      <Poll class="item" :item="null"></Poll>
+      <template v-for="(poll, index) of polls">
+        <Poll class="item" :item="poll" :key="index"></Poll>  
+      </template>
     </div>
   </div>
 </template>

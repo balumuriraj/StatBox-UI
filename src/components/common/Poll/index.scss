@@ -21,17 +21,33 @@
 
       .sub-title {
         margin-top: 3px;
-        font-size: 0.9em;          
-        opacity: 0.5;
+        font-size: 0.9em;
+
+        span {
+          opacity: 0.5;
+        }
 
         .results-button {
           cursor: pointer;
           color: #32ff7d;
+          opacity: 0.5;
 
           &:hover {
+            opacity: 0.75;
             text-decoration: underline;
           }
         }        
+
+        .clear-button {
+          cursor: pointer;
+          color: #e74c3c;
+          opacity: 0.75;
+
+          &:hover {
+            opacity: 0.9;
+            text-decoration: underline;
+          }
+        }
       }
     }
 
@@ -73,7 +89,7 @@
           justify-content: center;
           align-items: center;
           background: rgba(255,255,255,0.25);
-          width: 48px;
+          width: 55px;
           height: 60px;
 
           .icon {
@@ -95,7 +111,8 @@
           }
     
           .data-block {
-            padding-left: 1em;
+            width: 100%;
+            margin: 0 1em;
             z-index: 1;            
 
             p {
@@ -113,7 +130,17 @@
               span {
                 padding-right: 0.5em;
               }
-            }            
+            }   
+            
+            input {
+              border: 0;
+              border-bottom: 2px solid rgba(255,255,255,0.25);
+              width: calc(100% - 1em);
+              background: rgba(255,255,255,0);
+              color: #dfe4ea;
+              font-size: 1.1em;
+              padding: 0.5em;
+            }
           }
 
           progress[value] {
@@ -125,6 +152,48 @@
             height: 100%;
           }
         }
+
+        .hits-container {
+          position: absolute;
+          top: 70px;
+          left: 0;
+          width: 100%;
+          background: #27262E;
+          z-index: 1;
+          max-height: 200px;
+          overflow-y: auto;
+          box-shadow: 4px 22px 54px 0 rgba(0,0,0,1);
+
+          .hit {
+            display: flex;
+            align-items: center;
+            padding: 0.5em 1em;
+
+            &:hover {
+              background: rgba(255,255,255,0.15);
+            }
+
+            img {
+              width: 30px;
+              height: auto;
+              padding-right: 0.75em;
+            }
+          }
+
+          .attribution {
+            padding: 1em;
+
+            img {
+              width: auto;
+              height: 20px;
+            }
+          }
+        }
+      }
+
+      .disabled {
+        cursor: auto;
+        // opacity: 0.75;
       }
     }
   }
