@@ -1,5 +1,8 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import * as API from '@/api';
 import * as algoliasearch from 'algoliasearch';
+import Catch from '@/decorators/Catch';
+import * as authStore from '@/store/modules/auth';
 
 const client = algoliasearch('8P9LT48GR4', 'e1c5b9da0bfcd987c6a43509d7c496cc');
 const moviesIndex = client.initIndex('movies');
@@ -10,65 +13,51 @@ export default class Poll extends Vue {
   get isVoted(): boolean {
     return this.selectedId != null;
   }
+
+  get isUserLoggedIn() {
+    return authStore.isUserLoggedIn(this.$store);
+  }
   @Prop() public item: any;
 
-  get movies() {
-    const items = this.item && this.item.movies || [];
-    const totalVotes = this.item && this.item.totalVotes;
-
-    items.sort((itemA: any, itemB: any) => itemB.votes - itemA.votes);
-
-    return items.filter(Boolean).map((item: any) => {
-      item.percent = (item.votes / totalVotes) * 100;
-      return item;
-    });
-  }
-
+  public votes: any[] = [];
+  public count: number = 0;
   public showResults: boolean = false;
   public selectedId: number = null;
   public loading: boolean = false;
   public showSearch: boolean = false;
   public searchTerm: string = null;
   public movieHits: any[] = [];
-  public newMovie: any = null;
+  public isNewMovie: boolean = false;
 
-  public addMovie(movie: any) {
+  public async addMovie(id: number) {
     this.searchTerm = null;
     this.showSearch = false;
-    this.selectedId = movie.id;
-    this.newMovie = movie;
 
-    // TODO: Service call
-    this.item.totalVotes++;
-    this.item.movies.push({
-      ...movie,
-      votes: 1
-    });
+    await this.selectMovie(id);
   }
 
-  public selectMovie(id: number) {
+  @Catch
+  public async selectMovie(id: number) {
     if (!this.isVoted) {
       this.loading = true;
 
-      // TODO: service call
-      this.selectedId = id;
-      this.item.totalVotes++;
-      this.item.movies.some((movie: any) => {
-        if (movie.id === id) {
-          movie.votes++;
-          return true;
-        }
-      });
+      await API.addVote({ pollId: this.item.id, movieId: id });
+      await this.fetch();
 
+      this.selectedId = id;
       this.loading = false;
     }
   }
 
-  public clear() {
-    // TODO: service call
-    this.item.movies = this.item.movies.filter((movie: any) => movie.id !== (this.newMovie && this.newMovie.id));
+  public async clear() {
+    this.loading = true;
+
+    await API.deleteVote({ pollId: this.item.id });
+    await this.fetch();
     this.selectedId = null;
-    this.newMovie = null;
+    this.isNewMovie = false;
+
+    this.loading = false;
   }
 
   public close(e: any) {
@@ -89,6 +78,11 @@ export default class Poll extends Vue {
     }
   }
 
+  @Watch('isUserLoggedIn')
+  public onUserStateChange(val: number, oldVal: number) {
+    this.fetch();
+  }
+
   @Watch('searchTerm')
   private onSearchTermChanged(newVal: string, oldVal: string) {
     const term = newVal;
@@ -105,12 +99,53 @@ export default class Poll extends Vue {
 
   private algolioMovieCallback(err: any, res: any) {
     if (!err && res) {
-      this.movieHits = res.hits;
+      const hits = res.hits.filter((hit: any) => {
+        if (this.item.type === 'year') {
+          const year = new Date(hit.releasedate).getFullYear();
+          return this.item.filter === year;
+        }
+
+        return true;
+      });
+      this.movieHits = hits;
     }
   }
 
-  private mounted() {
+  @Catch
+  private async fetch() {
+    const data = await API.getPollById(this.item.id);
+    const votes = data ? [...data.votes] : [];
+    const count = data ? data.count : 0;
+    let i = 0;
+
+    while (votes.length < 3) {
+      const suggestion = this.item.suggestions[i];
+      const hasId = votes.some((vote) => vote.movie.id === suggestion.movie.id);
+
+      if (!hasId) {
+        votes.push(suggestion);
+      }
+
+      i++;
+    }
+
+    this.count = count;
+    this.votes = votes.filter(Boolean).map((vote: any) => {
+      const obj = { ...vote };
+      const percent = obj.count != null && count != null ? (obj.count / count) * 100 : 0;
+      obj.percent = Math.round(percent);
+      return obj;
+    });
+    this.selectedId = data && data.userVote && data.userVote.movieId || null;
+
+    if (votes.length === 4) {
+      this.isNewMovie = true;
+    }
+  }
+
+  private async mounted() {
     document.addEventListener('click', this.close);
+    await this.fetch();
   }
 
   private beforeDestroy() {

@@ -10,7 +10,7 @@ export default class Card extends Vue {
 
   get year() {
     if (this.isMovie) {
-      return this.item && this.item.year;
+      return this.item && this.item.releaseDate && (new Date(this.item.releaseDate)).getFullYear();
     } else {
       return this.item && this.item.dob && (new Date(this.item.dob)).getFullYear();
     }

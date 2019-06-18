@@ -57,14 +57,21 @@
         padding: 0.5em 0;
         cursor: pointer;
         position: relative;
+        width: 100%;
 
         // &:hover {
         //   background: rgba(255,255,255,0.1);
         // }
 
-        img {
+        a {
+          display: block;
           width: 48px;
           height: 60px;
+
+          img {
+            width: 48px;
+            height: 60px;
+          }
         }
 
         .selected-icon-container {
@@ -105,6 +112,7 @@
           display: flex;
           align-items: center;
           background: #27262E;
+          overflow: hidden; 
 
           &:hover {
             background: rgba(255,255,255,0.15);
@@ -113,7 +121,7 @@
           .data-block {
             width: 100%;
             margin: 0 1em;
-            z-index: 1;            
+            z-index: 1;                   
 
             p {
               margin: 0;
@@ -121,6 +129,10 @@
       
             .title {
               font-size: 1.15em;
+              max-width: calc(100% - 60px);
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
             }
       
             .sub-title {
@@ -129,6 +141,12 @@
 
               span {
                 padding-right: 0.5em;
+              }
+
+              .suggestion {
+                font-size: 0.8em;
+                opacity: 0.5;
+                font-style: italic;
               }
             }   
             
@@ -159,7 +177,7 @@
           left: 0;
           width: 100%;
           background: #27262E;
-          z-index: 1;
+          z-index: 5;
           max-height: 200px;
           overflow-y: auto;
           box-shadow: 4px 22px 54px 0 rgba(0,0,0,1);
@@ -196,6 +214,16 @@
         // opacity: 0.75;
       }
     }
+
+    .note-container {
+      margin-top: 1em;
+      opacity: 0.5;
+      font-size: 0.9em; 
+
+      .note {
+        padding-left: 5px;
+      }
+    }    
   }
 }
 

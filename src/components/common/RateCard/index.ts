@@ -12,11 +12,6 @@ import { EventBus } from '@/events';
 export default class RateCard extends mixins(MovieMixin) {
   @Prop() public movie: any;
 
-  get year() {
-    const date = this.movie && new Date(this.movie.releaseDate);
-    return date.getFullYear();
-  }
-
   // get rating() {
   //   return this.movie && this.movie.rating && Math.round(this.movie.rating * 100) / 100;
   // }

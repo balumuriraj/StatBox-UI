@@ -77,16 +77,36 @@
     flex-wrap: wrap;
 
     .item {
-      width: calc(100% / 2 - 1em);
+      width: calc(100% / 1 - 1em);
       padding: 0.5em;
+    }
+  }
+
+  .empty-box {
+    opacity: 0.25;
+  }
+}
+
+@media only screen and (min-width: 800px) {
+  .container {
+    .list .item {
+      width: calc(100% / 2 - 1em);
     }
   }
 }
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 1300px) {
   .container {
-    .hero .hero-body {
-      font-size: 1em;
+    .list .item {
+      width: calc(100% / 3 - 1em);
+    }
+  }
+}
+
+@media only screen and (min-width: 1800px) {
+  .container {
+    .list .item {
+      width: calc(100% / 4 - 1em);
     }
   }
 }

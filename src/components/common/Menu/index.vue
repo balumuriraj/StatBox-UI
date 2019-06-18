@@ -32,11 +32,9 @@
         <div class="navbar-start">
           <router-link class="navbar-bucket" to="/browse">
             <span class="navbar-item">Browse</span>
-            <!-- <div class="navbar-bucket-items">
-              <router-link class="navbar-bucket-item" to="/explore/latest">Genres</router-link>
-              <router-link class="navbar-bucket-item" to="/explore/popular">Years</router-link>
-              <router-link class="navbar-bucket-item" to="/browse">More...</router-link>
-            </div> -->
+          </router-link>
+          <router-link class="navbar-bucket" to="/polls">
+            <span class="navbar-item">Polls</span>
           </router-link>
           <router-link class="navbar-bucket" v-if="isUserLoggedIn" to="/rate">
             <span class="navbar-item">rate</span>
@@ -97,6 +95,9 @@
         </router-link>
         <router-link class="navbar-item" to="/browse">
           <font-awesome-icon icon="film" class="icon"></font-awesome-icon> Browse
+        </router-link>
+        <router-link class="navbar-item" to="/browse">
+          <font-awesome-icon icon="poll-h" class="icon"></font-awesome-icon> Polls
         </router-link>
         <!-- <router-link class="navbar-item sub" to="/explore">
           <font-awesome-icon icon="caret-right" class="icon"></font-awesome-icon> Genres
