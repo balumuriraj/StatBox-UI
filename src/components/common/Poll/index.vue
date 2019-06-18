@@ -4,7 +4,7 @@
       <div class="title-container">
         <p class="title">{{item.title}}</p>
         <p class="sub-title">
-          <span>created on {{new Date(item.timestamp).toLocaleDateString()}}</span>          
+          <span>{{ isVoted ? 'Thanks for voting!' : 'Click on a movie to vote' }}</span>
           <span> | </span>
           <span v-show="!isVoted" class="results-button" @click="showResults = !showResults">{{ showResults ? 'Hide' : 'Show' }} Results</span>          
           <span v-show="isVoted" class="clear-button" @click="clear()">Change Vote</span> 
@@ -20,7 +20,7 @@
               <div class="data-block">
                 <p class="title">{{vote.movie.title}}</p>
                 <p class="sub-title">
-                  <span v-show="!isVoted && !showResults">{{(vote.movie.rating && Math.round(vote.movie.rating * 100) / 100) || "-"}} Rating</span>
+                  <span v-show="!isVoted && !showResults">Rating of {{(vote.movie.rating && Math.round(vote.movie.rating * 100) / 100) || "-"}}</span>
                   <span v-show="showResults || isVoted">{{vote.count}} votes</span>        
                   <span v-show="vote.isSuggested" class="suggestion">Suggestion</span>           
                 </p>           
@@ -69,10 +69,9 @@
         </div>
       </div>
 
-      <div class="note-container">
-        <font-awesome-icon icon="poll-h" class="icon" />
-        <span class="note">{{count}} votes polled | </span>
-        <span>{{ isVoted ? 'Thanks for voting!' : 'Click on a movie to vote' }}</span>
+      <div class="note-container">        
+        <span>Poll created on {{new Date(item.timestamp).toLocaleDateString()}}</span>                   
+        <span class="note"><font-awesome-icon icon="poll-h" class="icon" /> {{count}} votes polled</span>
       </div>
 
     </div>

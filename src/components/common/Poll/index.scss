@@ -136,6 +136,7 @@
             }
       
             .sub-title {
+              margin-top: 3px;
               font-size: 0.9em;
               opacity: 0.6;
 
@@ -217,11 +218,17 @@
 
     .note-container {
       margin-top: 1em;
-      opacity: 0.5;
       font-size: 0.9em; 
+      display: flex;
+      justify-content: space-between;
+
+      span {
+        opacity: 0.35;
+      }
 
       .note {
-        padding-left: 5px;
+        text-align: right;
+        opacity: 0.5;
       }
     }    
   }
@@ -248,12 +255,12 @@ progress[value] {
   }
 
   &::-webkit-progress-value {
-    background: rgba(50, 255, 126, 0.5);
+    background: rgba(5, 110, 186, 0.95);
     // opacity: 0.5;
   }
 
   &::-moz-progress-value {
-    background: rgba(50, 255, 126, 0.5);
+    background: rgba(5, 110, 186, 0.95);
     // opacity: 0.5;
   }
 }
