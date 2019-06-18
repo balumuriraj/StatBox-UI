@@ -96,7 +96,7 @@
         <router-link class="navbar-item" to="/browse">
           <font-awesome-icon icon="film" class="icon"></font-awesome-icon> Browse
         </router-link>
-        <router-link class="navbar-item" to="/browse">
+        <router-link class="navbar-item" to="/polls">
           <font-awesome-icon icon="poll-h" class="icon"></font-awesome-icon> Polls
         </router-link>
         <!-- <router-link class="navbar-item sub" to="/explore">
