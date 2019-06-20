@@ -1,6 +1,7 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import Poll from '@/components/common/Poll';
 import EmptyBox from '@/components/common/EmptyBox';
+import BrowseModal from '@/components/common/BrowseModal';
 import * as API from '@/api';
 import Catch from '@/decorators/Catch';
 import { getRange } from '@/support/utils';
@@ -8,7 +9,8 @@ import { getRange } from '@/support/utils';
 @Component({
   components: {
     Poll,
-    EmptyBox
+    EmptyBox,
+    BrowseModal
   }
 })
 export default class Polls extends Vue {

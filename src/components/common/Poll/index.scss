@@ -2,11 +2,33 @@
   box-shadow: 0 1px 1px 0 rgba(0,0,0,0.10), 0 0 0 0 #D2D2D2;
   // background: #100e17;
   color: #dfe4ea;
+  position: relative;
+  overflow: hidden;
+
+  .loader {
+    z-index: 1;
+    display: block;
+    position: absolute;
+    left: -200px;
+    width: 200px;
+    height: 4px;
+    background-color: #056EBA;
+    animation: loading 2s linear infinite;
+  }
+  
+  @keyframes loading {
+      from {left: -200px; width: 30%;}
+      50% {width: 30%;}
+      70% {width: 70%;}
+      80% { left: 50%;}
+      95% {left: 120%;}
+      to {left: 100%;}
+  }
   
   .poll-card {
     position: relative;
     background: #17141d;
-    padding: 2em;
+    padding: 2em;    
 
     .title-container {
       margin-bottom: 1em;
@@ -80,7 +102,6 @@
           display: flex;
           justify-content: center;
           align-items: center;
-          // background: rgba(255,255,255,0.25);
           width: 48px;
           height: 60px;
           border-right: 5px solid #056EBA;
@@ -149,16 +170,6 @@
                 opacity: 0.5;
                 font-style: italic;
               }
-            }   
-            
-            input {
-              border: 0;
-              border-bottom: 2px solid rgba(255,255,255,0.25);
-              width: calc(100% - 1em);
-              background: rgba(255,255,255,0);
-              color: #dfe4ea;
-              font-size: 1.1em;
-              padding: 0.5em;
             }
           }
 
@@ -169,43 +180,6 @@
             right: 0;
             bottom: 0;
             height: 100%;
-          }
-        }
-
-        .hits-container {
-          position: absolute;
-          top: 70px;
-          left: 0;
-          width: 100%;
-          background: #27262E;
-          z-index: 5;
-          max-height: 200px;
-          overflow-y: auto;
-          box-shadow: 4px 22px 54px 0 rgba(0,0,0,1);
-
-          .hit {
-            display: flex;
-            align-items: center;
-            padding: 0.5em 1em;
-
-            &:hover {
-              background: rgba(255,255,255,0.15);
-            }
-
-            img {
-              width: 30px;
-              height: auto;
-              padding-right: 0.75em;
-            }
-          }
-
-          .attribution {
-            padding: 1em;
-
-            img {
-              width: auto;
-              height: 20px;
-            }
           }
         }
       }

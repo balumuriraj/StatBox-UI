@@ -1,0 +1,418 @@
+.browse-container {
+  background: #100e17;
+  color: #dfe4ea; 
+  width: 100vw;
+  height: 90vh;  
+
+  .title-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: 1.5em;
+    background: #100e17;
+
+    .title-section {
+      flex: 1;      
+
+      p {
+        margin: 0;
+      }
+
+      .title {
+        font-size: 1.5em;
+        font-weight: bold;
+        margin: 0;
+        text-overflow: ellipsis;
+      }
+
+      .sub-title {
+        padding-top: 0.25em;
+        color: #aaa;
+      }
+    }
+
+    .search-section {
+      flex: 1;
+      margin-top: 1em;
+
+      input {
+        border: 0;   
+        border-radius: 5px;   
+        width: 100%;
+        box-sizing : border-box;
+        background: #191621;
+        color: #dfe4ea;
+        font-size: 1.1em;
+        padding: 1em;
+      }
+    }
+
+    .close-button {
+      cursor: pointer;
+      position: absolute;
+      top: -3em;
+      left: -1em;
+      font-size: 1.1em;
+      font-weight: bold;
+      opacity: 0.25;
+      text-transform: uppercase;
+      transition: all .3s ease;
+
+      &:hover {        
+        opacity: 0.35;
+      }
+    }
+  }
+
+  .main-container {
+    padding: 0 1em;
+    max-height: calc(100vh - 10em - 100px);  
+    overflow: auto;
+
+    .loading {
+      text-align: center;
+      padding: 2em 0;
+    }
+
+    .list-container {    
+      
+      .attribution {
+        padding: 0 0.5em;
+        text-align: right;
+
+        img {
+          height: 20px;
+        }
+      }
+
+      .sort-button {
+        height: 20px;
+        position: relative;
+        text-align: right;
+        margin-right: 0.5em;
+        text-transform: uppercase;
+        cursor: pointer;
+
+        .icon {
+          padding-right: 0.5em;
+        }
+
+        span {
+          font-size: 0.75em;
+          opacity: 0.5;
+          padding-left: 5px;
+        }
+  
+        .menu-container {
+          z-index: 2;
+          position: absolute;
+          font-weight: 500;
+          font-size: 0.85em;
+          top: 2.75em;
+          right: 0;
+          color: #41464C;
+          background: #fff;
+          border-radius: 5px;
+          box-shadow: 4px 22px 54px 0 rgba(0,0,0,1);
+          text-transform: uppercase;
+          padding: 5px 0;
+          min-width: 175px;
+  
+          div {
+            padding: 1em 1.5em;
+            cursor: pointer;
+  
+            &:hover {
+              background: #DFE4EA;
+            }
+          }
+        }
+      }
+
+      .show-more {
+        width: 100%;
+        margin-bottom: 3em;
+        text-align: center;
+        color: #dfe4ea;
+    
+        .icon-container {
+          font-size: 1.5em;
+        }
+    
+        .load {
+          margin: 1em;
+          opacity: 0.25;
+    
+          .icon-container {
+            position: relative;
+            font-size: 1.25em;
+            animation: pull 2s infinite ease-in-out;
+          }
+        }
+      }
+      
+      .list-block {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+    
+        .list-item {
+          width: calc(100% / 2 - 1em);
+          padding: 0.5em;
+
+          .movie-card-container {  
+            cursor: pointer;          
+
+            .img-card {          
+              background: #191621;
+
+              img {
+                width: 100%;
+                height: 100%;
+                border-radius: 2.5px;
+              }
+            }  
+          
+            .info-card {
+              background: #100e17;
+              color: #a8aeb6;
+              padding: 5px 0;
+          
+              .title {
+                height: 20px;
+          
+                p {
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  line-height: 20px;
+                  margin: 0;
+                  font-size: 0.9em;
+                }
+              }
+          
+              .info {
+                height: 20px;
+                color: #838C98;
+                display: flex;
+                justify-content: space-between;
+          
+                .icon {
+                  padding-right: 0.15em;
+                }
+          
+                span {
+                  margin: 0;
+                  line-height: 20px;
+                  font-size: 0.9em;
+                }
+          
+                .rating {
+                  opacity: 0.75;
+                  border-radius: 3px;
+                  margin-left: 5px;
+                  padding: 0 5px;
+                  // display: none;
+                  color: #f1c40f;
+          
+                  .user-rating {
+                    color: #32ff7e;
+                  }
+                }
+              } 
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.modal-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(25, 22, 33, 0.99);
+  transition: opacity .3s ease;
+  display: flex;
+}
+
+.modal-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.modal-container {
+  display: flex;
+  transition: all .3s ease;
+}
+
+/*
+ * The following styles are auto-applied to elements with
+ * transition="modal" when their visibility is toggled
+ * by Vue.js.
+ *
+ * You can easily play with the modal transition by editing
+ * these styles.
+ */
+
+.modal-enter {
+  opacity: 0;
+}
+
+.modal-leave-active {
+  opacity: 0;
+}
+
+.modal-enter .modal-container,
+.modal-leave-active .modal-container {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+@keyframes pulse {
+  0% {
+    background-color: #17141d;
+  }
+  25% {
+    background-color: #201e2c;
+  }
+  50% {
+    background-color: #17141d;
+  }
+  100% {
+    background-color: #17141d;
+  }
+}
+
+@keyframes pull {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(0, 1em);
+  }
+  75% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@media only screen and (min-width: 700px) {
+  .modal-wrapper {
+    align-items: flex-start;
+  }
+
+  .modal-container {
+    margin: 5em;
+  }
+
+  .browse-container {
+    width: calc(100vw - 10em);
+    height: calc(100vh - 10em);
+
+    .title-container {
+      flex-direction: row;
+      justify-content: space-between;
+
+      .search-section {
+        text-align: right;
+        margin-top: 0;
+  
+        input {
+          max-width: 300px;
+        }
+      }
+    }
+  }
+}
+
+
+@media only screen and (min-width: 500px) {
+  .browse-container .main-container .list-container .list-block {
+    .list-item {
+      width: calc(100% / 3 - 1em);
+    }
+  }
+}
+
+@media only screen and (min-width: 700px) {
+  .browse-container .main-container .list-container .list-block {
+    .list-item {
+      width: calc(100% / 4 - 1em);
+    }
+  }
+}
+
+@media only screen and (min-width: 850px) {
+  .browse-container .main-container .list-container .list-block {
+    .list-item {
+      width: calc(100% / 5 - 1em);
+    }
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .browse-container .main-container .list-container .list-block {
+    .list-item {
+      width: calc(100% / 6 - 1em);
+    }
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .browse-container .main-container .list-container .list-block {
+    .list-item {
+      width: calc(100% / 7 - 1em);
+    }
+  }
+}
+
+@media only screen and (min-width: 1400px) {
+  .browse-container .main-container .list-container .list-block {
+    .list-item {
+      width: calc(100% / 8 - 1em);
+    }
+  }
+}
+
+@media only screen and (min-width: 1600px) {
+  .browse-container .main-container .list-container .list-block {
+    .list-item {
+      width: calc(100% / 9 - 1em);
+    }
+  }
+}
+
+@media only screen and (min-width: 1800px) {
+  .browse-container .main-container .list-container .list-block {
+    .list-item {
+      width: calc(100% / 10 - 1em);
+    }
+  }
+}
+
+@media only screen and (min-width: 2000px) {
+  .browse-container .main-container .list-container .list-block {
+    .list-item {
+      width: calc(100% / 11 - 1em);
+    }
+  }
+}
+
+@media only screen and (min-width: 2200px) {
+  .browse-container .main-container .list-container .list-block {
+    .list-item {
+      width: calc(100% / 12 - 1em);
+    }
+  }
+}

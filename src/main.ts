@@ -8,11 +8,13 @@ import VueLazyload from 'vue-lazyload';
 import VueMeta from 'vue-meta';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import 'firebaseui/dist/firebaseui.css';
 import 'swiper/dist/css/swiper.css';
 
 library.add(fas);
+library.add(far);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.use(VueLazyload, { observer: true });
 Vue.config.productionTip = false;

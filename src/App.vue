@@ -63,6 +63,10 @@ body {
   height: 100%;
 }
 
+.noscroll {
+  overflow: hidden;
+}
+
 #app {
   display: flex;
   flex-direction: column;

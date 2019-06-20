@@ -1,11 +1,8 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import * as API from '@/api';
-import * as algoliasearch from 'algoliasearch';
 import Catch from '@/decorators/Catch';
 import * as authStore from '@/store/modules/auth';
-
-const client = algoliasearch('8P9LT48GR4', 'e1c5b9da0bfcd987c6a43509d7c496cc');
-const moviesIndex = client.initIndex('movies');
+import { EventBus } from '@/events';
 
 @Component
 export default class Poll extends Vue {
@@ -23,57 +20,50 @@ export default class Poll extends Vue {
   public count: number = 0;
   public showResults: boolean = false;
   public selectedId: number = null;
+  public selectingId: number = null;
   public loading: boolean = false;
-  public showSearch: boolean = false;
-  public searchTerm: string = null;
   public movieHits: any[] = [];
   public isNewMovie: boolean = false;
 
-  public async addMovie(id: number) {
-    this.searchTerm = null;
-    this.showSearch = false;
-
-    await this.selectMovie(id);
-  }
-
   @Catch
   public async selectMovie(id: number) {
-    if (!this.isVoted) {
+    if (!this.loading && !this.isVoted && id) {
+      this.selectingId = id;
       this.loading = true;
 
       await API.addVote({ pollId: this.item.id, movieId: id });
       await this.fetch();
 
       this.selectedId = id;
+      this.selectingId = null;
       this.loading = false;
     }
   }
 
+  @Catch
   public async clear() {
-    this.loading = true;
+    if (!this.loading) {
+      this.loading = true;
 
-    await API.deleteVote({ pollId: this.item.id });
-    await this.fetch();
-    this.selectedId = null;
-    this.isNewMovie = false;
+      await API.deleteVote({ pollId: this.item.id });
+      await this.fetch();
 
-    this.loading = false;
-  }
+      this.selectedId = null;
+      this.selectingId = null;
+      this.isNewMovie = false;
 
-  public close(e: any) {
-    const searchElm = this.$refs.searchContainer as Element;
-    const addOptionElm = this.$refs.addOption as Element;
-
-    if (!(searchElm && searchElm.contains(e.target)) && !(addOptionElm && addOptionElm.contains(e.target))) {
-      this.showSearch = false;
+      this.loading = false;
     }
-
-    e.stopPropagation();
   }
 
   public displaySearch(e: any) {
-    if (!this.isVoted) {
-      this.showSearch = true;
+    if (!this.loading && !this.isVoted) {
+      EventBus.$emit('toggleBrowseModal', {
+        type: this.item.type,
+        value: this.item.filter,
+        existingIds: this.votes.map((vote) => vote.movie.id),
+        selectMovie: this.selectMovie.bind(this)
+      });
       e.stopPropagation();
     }
   }
@@ -81,34 +71,6 @@ export default class Poll extends Vue {
   @Watch('isUserLoggedIn')
   public onUserStateChange(val: number, oldVal: number) {
     this.fetch();
-  }
-
-  @Watch('searchTerm')
-  private onSearchTermChanged(newVal: string, oldVal: string) {
-    const term = newVal;
-    this.executeSearch(term);
-  }
-
-  private executeSearch(term: string) {
-    if (term && term.length > 2) {
-      moviesIndex.search(term, this.algolioMovieCallback);
-    } else {
-      this.movieHits = [];
-    }
-  }
-
-  private algolioMovieCallback(err: any, res: any) {
-    if (!err && res) {
-      const hits = res.hits.filter((hit: any) => {
-        if (this.item.type === 'year') {
-          const year = new Date(hit.releasedate).getFullYear();
-          return this.item.filter === year;
-        }
-
-        return true;
-      });
-      this.movieHits = hits;
-    }
   }
 
   @Catch
@@ -144,11 +106,6 @@ export default class Poll extends Vue {
   }
 
   private async mounted() {
-    document.addEventListener('click', this.close);
     await this.fetch();
-  }
-
-  private beforeDestroy() {
-    document.removeEventListener('click', this.close);
   }
 }

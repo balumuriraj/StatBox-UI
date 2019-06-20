@@ -14,6 +14,7 @@
     <div v-show="!items.length" class="empty-box">
       <EmptyBox></EmptyBox>
     </div>
+    <BrowseModal></BrowseModal>
   </div>
 </template>
 

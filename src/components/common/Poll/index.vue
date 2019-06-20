@@ -1,6 +1,7 @@
 <template>
   <div class="poll-card-container">
-    <div class="poll-card" ref="pollCard">
+    <div class="loader" v-if="loading"></div>
+    <div class="poll-card" ref="pollCard">      
       <div class="title-container">
         <p class="title">{{item.title}}</p>
         <p class="sub-title">
@@ -27,14 +28,14 @@
               </div>
               <progress v-show="showResults || isVoted" class="progress" :value="vote.percent || 0" max="100">75%</progress>
             </div>
-            <div class="selected-icon-container" v-show="selectedId === vote.movie.id">
+            <div class="selected-icon-container" v-show="selectedId === vote.movie.id || selectingId === vote.movie.id">
               <font-awesome-icon v-if="loading" icon="circle-notch" class="icon" spin />
               <font-awesome-icon v-else icon="check" class="icon" />
             </div>
           </div>
         </template>
 
-        <div class="option" v-if="!showSearch && !isNewMovie" @click="displaySearch($event)" ref="addOption" :class="{ 'disabled': isVoted }">
+        <div class="option" v-if="!isNewMovie" @click="displaySearch($event)" :class="{ 'disabled': isVoted }">
           <div class="icon-container">
             <font-awesome-icon icon="plus" class="icon" />
           </div>
@@ -42,28 +43,6 @@
             <div class="data-block">     
               <p class="title">Add Movie</p>
               <p class="sub-title">Vote for a different movie</p>
-            </div>
-          </div>
-        </div>
-        <div class="option" v-else-if="!isNewMovie" ref="searchContainer">
-          <div class="icon-container">
-            <font-awesome-icon icon="plus" class="icon" />
-          </div>
-          <div class="data-container">
-            <div class="data-block">     
-              <input type="text" ref="searchInput" v-model="searchTerm" placeholder="Movie Search" autofocus />
-              <p class="sub-title" v-show="searchTerm && searchTerm.length > 3 && !movieHits.length">No results found!</p>
-            </div>
-          </div>
-          <div class="hits-container" v-show="movieHits.length">
-            <template v-for="(hit, index) of movieHits">
-              <div class="hit" :key=index @click="addMovie(hit.id)">
-                <img :src="hit.poster" />
-                <p>{{hit.title}}</p>
-              </div>
-            </template>
-            <div class="attribution">
-              <img :src="require(`@/assets/logos/Algolia_Logo.svg`)">
             </div>
           </div>
         </div>

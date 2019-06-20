@@ -269,7 +269,8 @@ export async function getMoviesByFilter(
         title: movie.title,
         poster: movie.poster,
         releaseDate: movie.releaseDate,
-        rating: movie.rating
+        year: movie.releaseDate && new Date(movie.releaseDate).getFullYear(),
+        rating: movie.rating && Math.round(movie.rating * 100) / 100
       };
       movieIds.push(movie.id);
     }
