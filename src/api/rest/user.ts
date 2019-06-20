@@ -10,3 +10,11 @@ export async function getUserId(idToken: string) {
 
   return response.data.userId;
 }
+
+export async function deleteAccount(idToken: string) {
+  await axios({
+    method: 'GET',
+    url: `${baseUrl}/api/rest/deleteAccount`,
+    headers: { Authorization: `${idToken}` }
+  });
+}

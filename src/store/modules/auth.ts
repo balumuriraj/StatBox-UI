@@ -72,6 +72,7 @@ async function getUserReviewed(id: number, reviewed: Items) {
 // getters
 const getters = {
   user: (state: AuthState) => state.user,
+  token: (state: AuthState) => state.token,
   isUserLoggedIn: (state: AuthState) => state.isLoggedIn,
   showModal: (state: AuthState) => state.showModal
 };
@@ -279,6 +280,7 @@ export const auth = {
 const { read, dispatch } = getStoreAccessors<AuthState, RootState>('auth');
 
 export const getShowModal = read(auth.getters.showModal);
+export const token = read(auth.getters.token);
 export const getUser = read(auth.getters.user);
 export const isUserLoggedIn = read(auth.getters.isUserLoggedIn);
 export const setAuthUser = dispatch(auth.actions.setAuthUser);

@@ -63,19 +63,19 @@
           </div>
           <div class="menu-item" :class="{ 'active': isFavorite }" v-on:click="setMenu('favorites')">
             <div class="icon-container">
-              <font-awesome-icon icon="heart" class="icon"></font-awesome-icon>
+              <font-awesome-icon :icon="['far', 'heart']" class="icon"></font-awesome-icon>
             </div>
             <span>Favorites</span>
           </div>
           <div class="menu-item" :class="{ 'active': isWatchlist }" v-on:click="setMenu('watchlist')">
             <div class="icon-container">
-              <font-awesome-icon icon="bookmark" class="icon"></font-awesome-icon>
+              <font-awesome-icon :icon="['far', 'bookmark']" class="icon"></font-awesome-icon>
             </div>
             <span>WatchList</span>
           </div>
           <div class="menu-item" :class="{ 'active': isRatings }" v-on:click="setMenu('ratings')">
             <div class="icon-container">
-              <font-awesome-icon icon="star" class="icon"></font-awesome-icon>
+              <font-awesome-icon :icon="['far', 'star']" class="icon"></font-awesome-icon>
             </div>
             <span>Ratings</span>
           </div>

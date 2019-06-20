@@ -11,7 +11,13 @@ function Catch(target: any, key: any, descriptor: any) {
         this.$store.dispatch('notification/set', { message: 'Login Required!' });
         this.$store.dispatch('auth/logout');
         this.$store.dispatch('notification/reset');
-      } else if (err && Array.isArray(err) && err[0] && err[0].value === 'Not Authorized') {
+      } else if (
+        err &&
+        (
+          (Array.isArray(err) && err[0] && err[0].value === 'Not Authorized') ||
+          err.message === 'Not Authorized'
+        )
+      ) {
         this.$store.dispatch('auth/openModal');
       } else {
         throw err;

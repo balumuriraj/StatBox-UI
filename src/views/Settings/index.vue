@@ -7,21 +7,21 @@
       <div class="hero-body">
         <img :src="require(`@/assets/avatars/${user.avatar || '3.png'}`)" width="150">
         <p class="title">{{user.name}}</p>
-        <div class="sub">
-          <font-awesome-icon icon="cog" class="icon"></font-awesome-icon> Settings
-        </div>
+        <p class="sub">User since <span>{{userSinceDays}}</span> days</p>
+        
       </div>
     </div>
     <div class="content">
-      <!-- <div class="bread-crumbs">
-        <router-link class="item" to="/dashboard"> Dashboard </router-link>
-        <font-awesome-icon icon="caret-right" class="icon item"></font-awesome-icon>
-        <router-link class="item sub" to="/settings"> Settings </router-link>
-      </div> -->
+      <div class="header">
+        <div class="left">
+          <font-awesome-icon icon="sliders-h" class="icon"></font-awesome-icon> Settings
+        </div>
+        <div class="right">Last login on <span>{{new Date(user.lastLogin).toLocaleString()}}</span></div>
+      </div>
       <div class="container">
         
         <div class="block">
-          <p class="title">Select Avatar</p>
+          <div class="title">Select Avatar</div>
           <div class="item-container">
             <template v-for="avatar in avatars">
               <div class="item avatar" :key="avatar.name" @click="selectedAvatar = avatar.name" :class="{'active': selectedAvatar === avatar.name}">
@@ -32,23 +32,16 @@
         </div>
 
         <div class="block">
-          <div class="section">
-            <p>User since <span>{{user.userSince}}</span></p>
-            <p>Last login on <span>{{user.lastLogin}}</span></p>
-            <button>Delete Account</button>
+          <div class="section">     
+            <!-- TODO: Add background image                    -->
+            <button class="delete" v-if="!showConfirm" @click="showConfirm = true">Delete Account</button>
+            <div class="confirm" v-else>
+              <p>Are you sure you want to delete this account?</p>
+              <button class="btn" @click="confirmDelete()">yes</button> 
+              <button class="btn" @click="showConfirm = false">no</button>
+            </div>
           </div>
         </div>
-
-        <!-- <div class="block">
-          <p class="title">Select Theme</p>
-          <div class="item-container">
-            <template v-for="theme in themes">
-              <div class="item theme" :key="theme.name" @click="selectedTheme = theme.name" :class="{'active': selectedTheme === theme.name}">
-                <img :src="require(`@/assets/themes/${theme.url}`)" >
-              </div>
-            </template>
-          </div>
-        </div> -->
       </div>
     </div>
     <div class="buttons-contianer" v-if="isDirty">

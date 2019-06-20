@@ -50,7 +50,7 @@
 
       <div class="note-container">        
         <span>Poll created on {{new Date(item.timestamp).toLocaleDateString()}}</span>                   
-        <span class="note"><font-awesome-icon icon="poll-h" class="icon" /> {{count}} votes polled</span>
+        <span class="note"><font-awesome-icon :icon="['far', 'chart-bar']" class="icon" /> {{count}} votes polled</span>
       </div>
 
     </div>

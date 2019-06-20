@@ -1,8 +1,15 @@
 import { Component, Vue } from 'vue-property-decorator';
 import * as authStore from '@/store/modules/auth';
+import { deleteAccount } from '@/api';
+import firebaseAuth from '@/auth';
 
 @Component
 export default class Settings extends Vue {
+  public showConfirm: boolean = false;
+
+  get token() {
+    return authStore.token(this.$store);
+  }
 
   get user() {
     return authStore.getUser(this.$store);
@@ -10,6 +17,14 @@ export default class Settings extends Vue {
 
   get isDirty() {
     return !!(this.selectedAvatar || this.selectedTheme);
+  }
+
+  get userSinceDays() {
+    const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+    const firstDate = Date.now();
+    const secondDate = new Date(this.user.userSince).getTime();
+
+    return Math.round(Math.abs((firstDate - secondDate) / (oneDay)));
   }
 
   public avatars: any = [
@@ -67,5 +82,11 @@ export default class Settings extends Vue {
 
     this.selectedAvatar = null;
     this.selectedTheme = null;
+  }
+
+  public async confirmDelete() {
+    await deleteAccount(this.token);
+    await firebaseAuth.deleteUser();
+    this.$store.dispatch('auth/logout');
   }
 }

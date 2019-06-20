@@ -18,12 +18,12 @@
           <div class="search-container">
             <input type="text" placeholder="search" v-model="searchTerm" >
             <div class="icon-block">
-              <font-awesome-icon icon="search" class="icon"></font-awesome-icon>
+              <font-awesome-icon icon="search" class="icon" />
             </div>
           </div>
           <div class="navbar-item" @click="toggleSideMenu()">
             <div class="icon-container">
-              <font-awesome-icon icon="bars" class="icon"></font-awesome-icon>
+              <font-awesome-icon icon="bars" class="icon" />
             </div>
           </div>
         </div>
@@ -31,20 +31,20 @@
       <div class="navbar-menu desktop">
         <div class="navbar-start">
           <router-link class="navbar-bucket" to="/browse">
-            <span class="navbar-item">Browse</span>
+            <span class="navbar-item"><font-awesome-icon icon="film" class="icon" /> Browse</span>
           </router-link>
           <router-link class="navbar-bucket" to="/polls">
-            <span class="navbar-item">Polls</span>
+            <span class="navbar-item"><font-awesome-icon :icon="['far', 'chart-bar']" class="icon" /> Polls</span>
           </router-link>
           <router-link class="navbar-bucket" v-if="isUserLoggedIn" to="/rate">
-            <span class="navbar-item">rate</span>
+            <span class="navbar-item"><font-awesome-icon :icon="['far', 'star']" class="icon" /> rate</span>
           </router-link>
         </div>
         <div class="navbar-end">
           <div class="search-container">
             <input type="text" placeholder="search movies or celebs" v-model="searchTerm" >
             <div class="icon-block">
-              <font-awesome-icon icon="search" class="icon"></font-awesome-icon>
+              <font-awesome-icon icon="search" class="icon" />
             </div>
           </div>
           <a class="navbar-bucket" v-if="isUserLoggedIn">
@@ -52,7 +52,7 @@
               <div class="img-holder">
                 <img :src="require(`@/assets/avatars/${user.avatar || '3.png'}`)" />
               </div>
-              <font-awesome-icon icon="caret-down" class="icon"></font-awesome-icon>
+              <font-awesome-icon icon="caret-down" class="icon" />
             </div>
             <div class="navbar-bucket-items">
               <router-link class="navbar-bucket-item" to="/dashboard">Dashboard</router-link>
@@ -79,52 +79,52 @@
             <p>{{user.name}}</p>
             <div class="numbers-block">
               <div class="item">
-                <font-awesome-icon icon="heart" class="icon favorites-icon"></font-awesome-icon> {{user.favorites.count || 0}}
+                <font-awesome-icon :icon="['fas', 'heart']" class="icon favorites-icon" /> {{user.favorites.count || 0}}
               </div>
               <div class="item">
-                <font-awesome-icon icon="bookmark" class="icon bookmark-icon"></font-awesome-icon> {{user.bookmarks.count || 0}}
+                <font-awesome-icon :icon="['fas', 'bookmark']" class="icon bookmark-icon" /> {{user.bookmarks.count || 0}}
               </div>
               <div class="item">
-                <font-awesome-icon icon="star" class="icon rating-icon"></font-awesome-icon> {{user.reviewed.count || 0}}
+                <font-awesome-icon :icon="['fas', 'star']" class="icon rating-icon" /> {{user.reviewed.count || 0}}
               </div>
             </div>
           </div>
         </router-link>
         <router-link class="navbar-item" to="/" v-if="isUserLoggedIn">
-          <font-awesome-icon icon="home" class="icon"></font-awesome-icon> Home
+          <font-awesome-icon icon="home" class="icon" /> Home
         </router-link>
         <router-link class="navbar-item" to="/browse">
-          <font-awesome-icon icon="film" class="icon"></font-awesome-icon> Browse
+          <font-awesome-icon icon="film" class="icon" /> Browse
         </router-link>
         <router-link class="navbar-item" to="/polls">
-          <font-awesome-icon icon="poll-h" class="icon"></font-awesome-icon> Polls
+          <font-awesome-icon :icon="['far', 'chart-bar']" class="icon" /> Polls
         </router-link>
         <!-- <router-link class="navbar-item sub" to="/explore">
-          <font-awesome-icon icon="caret-right" class="icon"></font-awesome-icon> Genres
+          <font-awesome-icon icon="caret-right" class="icon" /> Genres
         </router-link>
         <router-link class="navbar-item sub" to="/explore">
-          <font-awesome-icon icon="caret-right" class="icon"></font-awesome-icon> By Years
+          <font-awesome-icon icon="caret-right" class="icon" /> By Years
         </router-link>
         <router-link class="navbar-item sub" to="/explore">
-          <font-awesome-icon icon="caret-right" class="icon"></font-awesome-icon> More...
+          <font-awesome-icon icon="caret-right" class="icon" /> More...
         </router-link> -->
         <router-link v-if="isUserLoggedIn" class="navbar-item" to="/rate">
-          <font-awesome-icon icon="star" class="icon"></font-awesome-icon> rate
+          <font-awesome-icon :icon="['far', 'star']" class="icon" /> rate
         </router-link>
         <!-- <router-link class="navbar-item" to="/search">
-          <font-awesome-icon icon="search" class="icon"></font-awesome-icon> search
+          <font-awesome-icon icon="search" class="icon" /> search
         </router-link> -->
         <router-link class="navbar-item log" to="/dashboard" v-if="isUserLoggedIn">
-          <font-awesome-icon icon="tachometer-alt" class="icon"></font-awesome-icon> Dashboard
+          <font-awesome-icon icon="chalkboard" class="icon" /> Dashboard
         </router-link>
         <router-link class="navbar-item" to="/settings" v-if="isUserLoggedIn">
-          <font-awesome-icon icon="cog" class="icon"></font-awesome-icon> settings
+          <font-awesome-icon icon="sliders-h" class="icon" /> settings
         </router-link>
         <a v-if="isUserLoggedIn" class="navbar-item log" @click="logOut">
-          <font-awesome-icon icon="sign-out-alt" class="icon"></font-awesome-icon> Logout
+          <font-awesome-icon icon="sign-out-alt" class="icon" /> Logout
         </a>
         <a v-if="!isUserLoggedIn" class="navbar-item log" @click="logIn">
-          <font-awesome-icon icon="sign-in-alt" class="icon"></font-awesome-icon> Login
+          <font-awesome-icon icon="sign-in-alt" class="icon" /> Login
         </a>
       </div>
     </div>

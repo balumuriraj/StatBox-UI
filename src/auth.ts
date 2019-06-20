@@ -74,7 +74,7 @@ const initUI = (container: any, context: any) => {
         const user = result.user;
         user.getIdToken(true).then((token: any) => {
           context.$store.dispatch('auth/setAuthUser', { token, user });
-          context.$store.dispatch('notification/set', { message: `Welcome ${!isNewUser && 'back'} ${name}` });
+          context.$store.dispatch('notification/set', { message: `Welcome ${isNewUser ? '' : 'back'} ${name}` });
         });
 
         // Do not automatically redirect.
@@ -92,4 +92,9 @@ const logout = async () => {
   await firebase.auth().signOut();
 };
 
-export default { init, initObserver, initUI, logout };
+const deleteUser = async () => {
+  const user = firebase.auth().currentUser;
+  await user.delete();
+};
+
+export default { init, initObserver, initUI, logout, deleteUser };

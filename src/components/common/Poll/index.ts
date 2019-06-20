@@ -27,6 +27,10 @@ export default class Poll extends Vue {
 
   @Catch
   public async selectMovie(id: number) {
+    if (!this.isUserLoggedIn) {
+      throw new Error('Not Authorized');
+    }
+
     if (!this.loading && !this.isVoted && id) {
       this.selectingId = id;
       this.loading = true;
@@ -42,6 +46,10 @@ export default class Poll extends Vue {
 
   @Catch
   public async clear() {
+    if (!this.isUserLoggedIn) {
+      throw new Error('Not Authorized');
+    }
+
     if (!this.loading) {
       this.loading = true;
 
