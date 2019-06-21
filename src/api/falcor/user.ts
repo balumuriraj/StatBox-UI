@@ -53,6 +53,10 @@ export async function getBookmarks(id: number, range: { from: number; to: number
   const bookmarks = countResponse.json.usersById[id].bookmarks;
   const count = bookmarks && bookmarks.length;
 
+  if (range.to > count - 1) {
+    range.to = count - 1;
+  }
+
   const bookmarksResponse = await model.get([
     'usersById', [id],
     'bookmarks',
@@ -79,6 +83,10 @@ export async function getFavorites(id: number, range: { from: number; to: number
   const countResponse = await model.get(['usersById', [id], 'favorites', 'length']);
   const favorites = countResponse.json.usersById[id].favorites;
   const count = favorites && favorites.length;
+
+  if (range.to > count - 1) {
+    range.to = count - 1;
+  }
 
   const favResponse = await model.get([
     'usersById', [id],
@@ -124,6 +132,10 @@ export async function getUserReviews(id: number, range: { from: number; to: numb
   const countResponse = await model.get(['usersById', [id], 'reviews', 'length']);
   const reviews = countResponse.json.usersById[id].reviews;
   const count = reviews && reviews.length;
+
+  if (range.to > count - 1) {
+    range.to = count - 1;
+  }
 
   const reviewsResponse = await model.get([
     'usersById', [id],

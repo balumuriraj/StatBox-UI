@@ -56,6 +56,10 @@ export async function getPopularMovies(
     };
   }
 
+  if (range.to > count - 1) {
+    range.to = count - 1;
+  }
+
   const response = await model.get([
     'popularMovies', range,
     ['id', 'title', 'releaseDate', 'poster', 'rating']
@@ -100,6 +104,10 @@ export async function getTopRatedMovies(
       items: [],
       count: 0
     };
+  }
+
+  if (range.to > count - 1) {
+    range.to = count - 1;
   }
 
   const response = await model.get([

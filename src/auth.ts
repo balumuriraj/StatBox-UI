@@ -92,9 +92,19 @@ const logout = async () => {
   await firebase.auth().signOut();
 };
 
-const deleteUser = async () => {
+const deleteUser = async (token: string) => {
   const user = firebase.auth().currentUser;
-  await user.delete();
+
+  try {
+    await user.delete();
+  } catch (error) {
+    if (error.code === 'auth/requires-recent-login') {
+      const credential = firebase.auth.GoogleAuthProvider.credential(token);
+      await user.reauthenticateAndRetrieveDataWithCredential(credential);
+      await user.delete();
+    }
+  }
+
 };
 
 export default { init, initObserver, initUI, logout, deleteUser };

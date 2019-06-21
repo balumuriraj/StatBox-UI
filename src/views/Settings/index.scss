@@ -162,6 +162,14 @@
           }
 
           .confirm {
+            .error {
+              margin: 1em 0;
+              color: #ff3838;
+
+              a {
+                color: #f1c40f;
+              }
+            }
             .btn {
               cursor: pointer;
               font-size: 1em;

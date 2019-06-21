@@ -14,7 +14,7 @@
     <div class="content">
       <div class="header">
         <div class="left">
-          <font-awesome-icon icon="sliders-h" class="icon"></font-awesome-icon> Settings
+          <font-awesome-icon icon="sliders-h" class="icon" /> Settings
         </div>
         <div class="right">Last login on <span>{{new Date(user.lastLogin).toLocaleString()}}</span></div>
       </div>
@@ -37,15 +37,16 @@
             <button class="delete" v-if="!showConfirm" @click="showConfirm = true">Delete Account</button>
             <div class="confirm" v-else>
               <p>Are you sure you want to delete this account?</p>
-              <button class="btn" @click="confirmDelete()">yes</button> 
-              <button class="btn" @click="showConfirm = false">no</button>
+              <button class="btn" @click="confirmDelete()"><font-awesome-icon v-show="isLoading" icon="circle-notch" class="icon" spin /> yes</button> 
+              <button class="btn" @click="isLoading ? null : showConfirm = false">no</button>   
+              <p v-show="!!errMsg" class="error">{{errMsg}} <a href="#" @click="login()">login</a></p>           
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="buttons-contianer" v-if="isDirty">
-      <font-awesome-icon icon="times" class="icon" @click="selectedTheme = null; selectedAvatar=null;"></font-awesome-icon>
+      <font-awesome-icon icon="times" class="icon" @click="selectedTheme = null; selectedAvatar=null;" />
       <div>
         <p>Your settings have changed</p>
         <button @click="save">save</button>

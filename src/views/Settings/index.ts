@@ -2,10 +2,13 @@ import { Component, Vue } from 'vue-property-decorator';
 import * as authStore from '@/store/modules/auth';
 import { deleteAccount } from '@/api';
 import firebaseAuth from '@/auth';
+import Catch from '@/decorators/Catch';
 
 @Component
 export default class Settings extends Vue {
   public showConfirm: boolean = false;
+  public isLoading: boolean = false;
+  public errMsg: string = null;
 
   get token() {
     return authStore.token(this.$store);
@@ -16,7 +19,7 @@ export default class Settings extends Vue {
   }
 
   get isDirty() {
-    return !!(this.selectedAvatar || this.selectedTheme);
+    return !!this.selectedAvatar;
   }
 
   get userSinceDays() {
@@ -45,26 +48,7 @@ export default class Settings extends Vue {
     { name: 15, url: '15.png' }
   ];
 
-  public themes: any = [
-    { name: 1, url: '1.svg' },
-    { name: 2, url: '2.svg' },
-    { name: 3, url: '3.svg' },
-    { name: 4, url: '4.svg' },
-    { name: 5, url: '5.svg' },
-    { name: 6, url: '6.svg' },
-    { name: 7, url: '7.svg' },
-    { name: 8, url: '8.svg' },
-    { name: 9, url: '9.svg' },
-    { name: 10, url: '10.svg' },
-    { name: 11, url: '11.svg' },
-    { name: 12, url: '12.svg' },
-    { name: 13, url: '13.svg' },
-    { name: 14, url: '14.svg' },
-    { name: 15, url: '15.svg' }
-  ];
-
   public selectedAvatar: string = null;
-  public selectedTheme: string = null;
   public metaInfo(): any {
     return {
       title: `${this.user.name} | Settings`
@@ -76,17 +60,26 @@ export default class Settings extends Vue {
       authStore.saveUserAvatar(this.$store, { avatar: `${this.selectedAvatar}.png` });
     }
 
-    if (this.selectedTheme && this.selectedTheme !== this.user.theme) {
-      authStore.saveUserTheme(this.$store, { theme: `${this.selectedTheme}.svg` });
-    }
-
     this.selectedAvatar = null;
-    this.selectedTheme = null;
   }
 
+  public login() {
+    this.$store.dispatch('auth/openModal');
+  }
+
+  @Catch
   public async confirmDelete() {
-    await deleteAccount(this.token);
-    await firebaseAuth.deleteUser();
-    this.$store.dispatch('auth/logout');
+    if (!this.isLoading) {
+      try {
+        this.isLoading = true;
+        await deleteAccount(this.token);
+        await firebaseAuth.deleteUser(this.token);
+        this.isLoading = false;
+        this.$store.dispatch('auth/logout');
+      } catch (err) {
+        this.isLoading = false;
+        this.errMsg = 'Error! Please login and try again.';
+      }
+    }
   }
 }

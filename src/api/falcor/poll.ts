@@ -4,15 +4,12 @@ export async function getPolls(range: { from: number; to: number; }): Promise<an
   const countResponse = await model.get(['polls', 'length']);
   const count = countResponse.json.polls.length;
 
-  const from = range.from;
-  let to = range.to;
-
-  if (count - 1 < to) {
-    to = count - 1;
+  if (range.to > count - 1) {
+    range.to = count - 1;
   }
 
   const response = await model.get([
-    'polls', { from, to },
+    'polls', range,
     ['id', 'title', 'image', 'type', 'filter', 'suggestions', 'timestamp'],
     { from: 0, to: 2 }, ['id', 'title', 'poster', 'releaseDate', 'rating']
   ]);

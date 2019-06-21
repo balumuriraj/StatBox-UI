@@ -19,6 +19,10 @@ export async function getMoviesBetweenDates(
     };
   }
 
+  if (range.to > count - 1) {
+    range.to = count - 1;
+  }
+
   const moviesResponse = await model.get([
     'moviesSearches', [queryString], range,
     ['id', 'title', 'releaseDate', 'poster', 'runtime', 'cert']
@@ -193,6 +197,10 @@ export async function getMoviesByYear(
       items: [],
       count: 0
     };
+  }
+
+  if (range.to > count - 1) {
+    range.to = count - 1;
   }
 
   const moviesResponse = await model.get([

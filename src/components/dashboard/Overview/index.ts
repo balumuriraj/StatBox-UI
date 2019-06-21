@@ -37,7 +37,8 @@ export default class Overview extends Vue {
   }
 
   get maxRating() {
-    const ratings = this.ratingBins && Object.keys(this.ratingBins).map((rating) => Number(rating));
+    const ratings = this.ratingBins &&
+      Object.keys(this.ratingBins).map((rating) => Number(rating)).filter((rating) => this.ratingBins[rating]);
     return ratings && ratings.length && Math.max(...ratings) || 0;
   }
 
