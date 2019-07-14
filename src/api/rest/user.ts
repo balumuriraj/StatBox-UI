@@ -4,7 +4,7 @@ import { baseUrl } from '../config';
 export async function getUserId(idToken: string) {
   const response: any = await axios({
     method: 'GET',
-    url: `${baseUrl}/api/rest/getUserId`,
+    url: `${baseUrl}/api/rest/user/id`,
     headers: { Authorization: `${idToken}` }
   });
 

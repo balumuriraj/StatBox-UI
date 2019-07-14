@@ -41,11 +41,6 @@ export default class Search extends Vue {
   private algolioMovieCallback(err: any, res: any) {
     if (!err && res) {
       this.movieHits = res.hits;
-
-      this.movieHits.forEach((hit) => {
-        hit.releaseDate = hit.releasedate;
-        delete hit.releasedate;
-      });
     }
   }
 

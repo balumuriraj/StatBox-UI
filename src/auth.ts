@@ -38,12 +38,9 @@ const initObserver = (context: any) => {
     }
 
     const requireAuth = context.$route.matched.some((record: any) => record.meta.requireAuth);
-    const guestOnly = context.$route.matched.some((record: any) => record.meta.guestOnly);
 
     if (requireAuth && !user) {
       context.$router.push('/');
-    } else if (guestOnly && user) {
-      // context.$router.push('dashboard');
     }
   });
 };
@@ -92,6 +89,16 @@ const logout = async () => {
   await firebase.auth().signOut();
 };
 
+const getToken = async () => {
+  const user = firebase.auth().currentUser;
+
+  if (!user) {
+    return null;
+  }
+
+  return await user.getIdToken();
+};
+
 const deleteUser = async (token: string) => {
   const user = firebase.auth().currentUser;
 
@@ -107,4 +114,4 @@ const deleteUser = async (token: string) => {
 
 };
 
-export default { init, initObserver, initUI, logout, deleteUser };
+export default { init, initObserver, initUI, logout, deleteUser, getToken };

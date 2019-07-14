@@ -23,7 +23,7 @@ export default class Rate extends Vue {
   }
 
   public genreList: any[] = [];
-  public sortOrder: 'releasedate' | 'title' | 'rating' = null;
+  public sortOrder: 'releaseDate' | 'title' | 'rating' = null;
   public selectedGenres: number[] = [];
   public selectedYears: number[] = [];
   public movies: any = {

@@ -37,8 +37,8 @@
             <div @click="sortOrder = null; showSortMenu = false;">
               <font-awesome-icon v-if="sortOrder === null" icon="check" class="icon"></font-awesome-icon>Latest (Default)
             </div>
-            <div @click="sortOrder = 'releasedate'; showSortMenu = false;">
-              <font-awesome-icon v-if="sortOrder === 'releasedate'" icon="check" class="icon"></font-awesome-icon>Release Date
+            <div @click="sortOrder = 'releaseDate'; showSortMenu = false;">
+              <font-awesome-icon v-if="sortOrder === 'releaseDate'" icon="check" class="icon"></font-awesome-icon>Release Date
             </div>
             <div @click="sortOrder = 'title'; showSortMenu = false;">
               <font-awesome-icon v-if="sortOrder === 'title'" icon="check" class="icon"></font-awesome-icon>Title

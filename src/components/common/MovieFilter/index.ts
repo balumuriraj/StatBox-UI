@@ -11,7 +11,7 @@ export default class MovieFilter extends Vue {
   public yearsList: number[] = [];
   public showFilterMenu: boolean = false;
   public showSortMenu: boolean = false;
-  public sortOrder: 'releasedate' | 'title' | 'rating' = null;
+  public sortOrder: 'releaseDate' | 'title' | 'rating' = null;
   public minYear: number = 2000;
   public maxYear: number = 2019;
   public minRating: number = 0;

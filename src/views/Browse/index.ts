@@ -28,7 +28,7 @@ export default class Browse extends Vue {
     count: 0
   };
 
-  public sortOrder: 'releasedate' | 'title' | 'rating' = null;
+  public sortOrder: 'releaseDate' | 'title' | 'rating' = null;
   public selectedGenres: number[] = [];
   public selectedYears: number[] = [];
 

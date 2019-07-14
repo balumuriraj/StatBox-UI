@@ -1,11 +1,13 @@
 import falcor from 'falcor';
 import HttpDataSource from 'falcor-http-datasource';
 import { baseUrl } from '../config';
+import auth from '@/auth';
 
 class FalcorDataSource extends HttpDataSource {
-  public onBeforeRequest(config: any) {
-    const localStore = JSON.parse(sessionStorage.getItem('store') as any);
-    const token = localStore && localStore.auth && localStore.auth.token;
+  public async onBeforeRequest(config: any) {
+    // const localStore = JSON.parse(sessionStorage.getItem('store') as any);
+    // const token = localStore && localStore.auth && localStore.auth.token;
+    const token = await auth.getToken();
 
     if (token) {
       config.headers.authorization = token;

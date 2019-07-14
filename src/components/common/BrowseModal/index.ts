@@ -98,7 +98,7 @@ export default class BrowseModal extends Vue {
     if (!err && res) {
       const hits = res.hits.filter((hit: any) => {
         if (this.filter.type === 'year') {
-          const year = new Date(hit.releasedate).getFullYear();
+          const year = new Date(hit.releaseDate).getFullYear();
           hit.year = year;
           return this.filter.value === year;
         }

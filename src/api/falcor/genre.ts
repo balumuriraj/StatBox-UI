@@ -93,7 +93,7 @@ export async function getGenreMovies(
 export async function getSortedGenreMovies(
   ids: number[],
   range: { from: number; to: number; },
-  sortBy: 'releasedate' | 'title' | 'rating',
+  sortBy: 'releaseDate' | 'title' | 'rating',
   includeUserMeta: boolean = true
 ): Promise<any> {
   const genresKey = Array.isArray(ids) ? ids.join(',') : ids;
